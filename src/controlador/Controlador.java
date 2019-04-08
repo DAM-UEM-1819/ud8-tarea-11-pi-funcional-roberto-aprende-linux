@@ -4,7 +4,7 @@ import vista.*;
 
 public class Controlador implements IControlador {
 
-	// Atributos
+	// Atributos para relacionar
 	private Login login;
 	private Home home;
 	private Gestion gestion;
@@ -24,6 +24,10 @@ public class Controlador implements IControlador {
 	private VerGrupos verGrupos;
 	private Perfil perfil;
 
+	//Atributos del controlador
+	private String usuario;
+	private String passwd;
+	
 	// Linkeo ventanas
 
 	public void loginToHome() {
@@ -351,5 +355,9 @@ public class Controlador implements IControlador {
 		
 	}
 	
-	
+	public void loginSolicitud() {
+		usuario = login.getTxtUser();
+		passwd = login.getTextPasswd();
+		
+	}
 }
