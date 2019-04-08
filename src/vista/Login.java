@@ -17,6 +17,7 @@ import java.awt.TextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
@@ -26,12 +27,12 @@ public class Login extends JFrame {
 	private JLabel lblUemLogo;
 	private JLabel lblTitulo;
 	private TextField txtUser;
-	private TextField textField;
 	private JLabel lblUsuarioTemp;
 	private JLabel lblPasswordTemp;
 	private JPanel FooterPanel;
 	private JLabel lblNewLabel;
 	private JButton btnLogin;
+	private JPasswordField passwdPasswordUsuario;
 	
 
 
@@ -51,10 +52,6 @@ public class Login extends JFrame {
 		txtUser = new TextField();
 		txtUser.setBounds(451, 263, 200, 30);
 		contentPane.add(txtUser);
-		
-		textField = new TextField();
-		textField.setBounds(451, 463, 200, 30);
-		contentPane.add(textField);
 		
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
@@ -107,9 +104,21 @@ public class Login extends JFrame {
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(400, 11, 201, 31);
 		FooterPanel.add(lblNewLabel);
+		
+		passwdPasswordUsuario = new JPasswordField();
+		passwdPasswordUsuario.setBounds(451, 463, 200, 30);
+		contentPane.add(passwdPasswordUsuario);
 	}
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+
+	public String getTxtUser() {
+		return txtUser.getText();
+	}
+
+	public String getTextPasswd() {
+		return String.valueOf(passwdPasswordUsuario.getPassword());
 	}
 }
