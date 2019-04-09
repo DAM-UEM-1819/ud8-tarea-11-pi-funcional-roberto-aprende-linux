@@ -121,4 +121,12 @@ public class Login extends JFrame {
 	public String getTextPasswd() {
 		return String.valueOf(passwdPasswordUsuario.getPassword());
 	}
+	
+	public void loginExitoso() {
+		controlador.loginToHome();
+	}
+	
+	public void salir() {
+		System.exit(0);
+	}
 }
