@@ -184,7 +184,7 @@ public class GestionAlumnos extends JFrame {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el usuario seleccionado?");
 	}
 	
-	public void seModelo(Modelo modelo) {
+	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
 	}
 }

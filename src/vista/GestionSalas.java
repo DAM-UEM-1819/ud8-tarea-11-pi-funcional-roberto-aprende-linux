@@ -167,7 +167,7 @@ public class GestionSalas extends JFrame {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea modificar la sala seleccionada?");
 	}
 	
-	public void seModelo(Modelo modelo) {
+	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
 	}
 }

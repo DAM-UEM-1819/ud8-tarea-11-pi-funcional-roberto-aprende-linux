@@ -231,7 +231,7 @@ public class Home extends JFrame {
 	public void getTxtCalendario() {
 
 	}
-	public void seModelo(Modelo modelo) {
+	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
 	}
 }

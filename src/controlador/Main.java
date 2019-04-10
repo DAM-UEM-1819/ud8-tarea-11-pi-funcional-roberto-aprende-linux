@@ -96,6 +96,25 @@ public class Main {
 		modelo.setControlador(controlador);
 
 		// Asignariamos las vistas al modelo
+		login.setModelo(modelo);
+		home.setModelo(modelo);
+		infoExtra.setModelo(modelo);
+		informes.setModelo(modelo);
+		crearUser.setModelo(modelo);
+		gestion.setModelo(modelo);
+		gestionAcad.setModelo(modelo);
+		gestionActividad.setModelo(modelo);
+		gestionActores.setModelo(modelo);
+		gestionAlumnos.setModelo(modelo);
+		gestionRegistros.setModelo(modelo);
+		gestionAsignaturas.setModelo(modelo);
+		gestionProfesores.setModelo(modelo);
+		gestionSalas.setModelo(modelo);
+		gestionUsuarios.setModelo(modelo);
+		perfil.setModelo(modelo);
+		verGrupos.setModelo(modelo);
+		
+		
 		
 
 	}

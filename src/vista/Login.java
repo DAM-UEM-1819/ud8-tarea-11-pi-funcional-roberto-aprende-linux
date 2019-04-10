@@ -123,7 +123,7 @@ public class Login extends JFrame {
 		System.exit(0);
 	}
 	
-	public void seModelo(Modelo modelo) {
+	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
 	}
 }

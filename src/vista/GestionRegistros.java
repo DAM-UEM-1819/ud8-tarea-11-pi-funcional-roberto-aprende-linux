@@ -167,7 +167,7 @@ public class GestionRegistros extends JFrame {
 		this.controlador = controlador;
 	}
 	
-	public void seModelo(Modelo modelo) {
+	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
 	}
 }
