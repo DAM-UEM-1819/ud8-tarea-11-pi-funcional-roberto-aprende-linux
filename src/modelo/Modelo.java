@@ -5,8 +5,8 @@ import java.sql.*;
 import controlador.*;
 import vista.*;
 
-public class Modelo implements IModelo{
-	
+public class Modelo implements IModelo {
+
 	// Atributos para relacionar
 	private Login login;
 	private Home home;
@@ -27,34 +27,57 @@ public class Modelo implements IModelo{
 	private VerGrupos verGrupos;
 	private Perfil perfil;
 	private Controlador controlador;
-	
-	//Atributos de control
+
+	// Atributos Base de datos
+	private String baseDatos;
+	private String usuarioDB;
+	private String passwdDB;
+	private String urlDB;
+	private Connection conexion;
+
+	// Atributos de control
 	private int contador;
-	
-	//Select SQL
+
+	// Select SQL
 	private String selectPasswdUsuario = "SELECT PWD FROM USERS WHERE USR = ?";
+	
+	public Modelo() {
+		baseDatos = "Hospital";
+		usuarioDB = "SYSTEM";
+		passwdDB = "admin";
+		urlDB = "jdbc:oracle:thin:@localhost:1521:XE";
+		try {
+			Class.forName("oracle..jdbc.driver.OracleDriver");
+			conexion = DriverManager.getConnection(urlDB, usuarioDB, passwdDB);
+			System.out.println("La conexion ha sido exitosa");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("La conexion ha fallado");
+			e.printStackTrace();
+		}
+
+	}
 
 	public void loginConfirmacion(String usuario, String passwd) {
 		String sql = selectPasswdUsuario;
 		try {
-			PreparedStatement pstmt = controlador.getConexion().prepareStatement(sql);
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt.setString(1, usuario);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.getString(1).equals(passwd)) {
-				//LLamar al metodo de la vista para llamar al controlador y cambiar de pantalla
+				// LLamar al metodo de la vista para llamar al controlador y cambiar de pantalla
 				login.loginExitoso();
 			} else {
 				contador++;
-				if (contador <= 3) {
+				if (contador >= 3) {
 					login.salir();
 				}
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} 
-	
-	
+	}
+
 }

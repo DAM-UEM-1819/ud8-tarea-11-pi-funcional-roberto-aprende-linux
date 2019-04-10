@@ -33,12 +33,7 @@ public class Login extends JFrame {
 	private JLabel lblNewLabel;
 	private JButton btnLogin;
 	private JPasswordField passwdPasswordUsuario;
-	
 
-
-	
-	
-	
 	public Login() {
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,22 +43,22 @@ public class Login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		txtUser = new TextField();
 		txtUser.setBounds(451, 263, 200, 30);
 		contentPane.add(txtUser);
-		
+
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
 		HeaderPanel.setBounds(0, 0, 984, 101);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
-		
+
 		lblUemLogo = new JLabel("Aqui Iria el logo");
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		HeaderPanel.add(lblUemLogo);
-		
+
 		lblTitulo = new JLabel("Login");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBounds(358, 11, 266, 61);
@@ -71,45 +66,41 @@ public class Login extends JFrame {
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
 		lblTitulo.setVerticalAlignment(JLabel.CENTER);
-		
+
 		lblUsuarioTemp = new JLabel("Usuario");
 		lblUsuarioTemp.setBounds(380, 263, 46, 14);
 		contentPane.add(lblUsuarioTemp);
-		
+
 		lblPasswordTemp = new JLabel("Contrase\u00F1a");
 		lblPasswordTemp.setBounds(380, 462, 65, 14);
 		contentPane.add(lblPasswordTemp);
-		
+
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * Más adelante habra que cambiarlo de sitio porque aqui se llamará al 
-				 * controlador que llamara al modelo pasandole los datos para verificar credenciales
-				 */
-				controlador.loginToHome();
+				controlador.loginSolicitud();
 			}
 		});
 		btnLogin.setBounds(380, 572, 271, 58);
 		contentPane.add(btnLogin);
-		
+
 		FooterPanel = new JPanel();
 		FooterPanel.setBackground(new Color(165, 42, 42));
 		FooterPanel.setBounds(0, 709, 984, 53);
 		contentPane.add(FooterPanel);
 		FooterPanel.setLayout(null);
-		
+
 		lblNewLabel = new JLabel("Universidad Europea de Madrid");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(400, 11, 201, 31);
 		FooterPanel.add(lblNewLabel);
-		
+
 		passwdPasswordUsuario = new JPasswordField();
 		passwdPasswordUsuario.setBounds(451, 463, 200, 30);
 		contentPane.add(passwdPasswordUsuario);
 	}
-	
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -121,11 +112,11 @@ public class Login extends JFrame {
 	public String getTextPasswd() {
 		return String.valueOf(passwdPasswordUsuario.getPassword());
 	}
-	
+
 	public void loginExitoso() {
 		controlador.loginToHome();
 	}
-	
+
 	public void salir() {
 		System.exit(0);
 	}

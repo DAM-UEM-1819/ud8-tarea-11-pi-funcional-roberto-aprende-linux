@@ -30,34 +30,10 @@ public class Controlador implements IControlador {
 	private Perfil perfil;
 	private Modelo modelo;
 
-	//Atributos del controlador
+	// Atributos del controlador
 	private String usuario;
 	private String passwd;
-	
-	//Atributos de la base de datos
-	private String baseDatos;
-	private String usuarioDB;
-	private String passwdDB;
-	private String urlDB;
-	private Connection conexion;
-	
-	public Controlador() {
-		baseDatos = "VITERIDATABASE";
-		usuarioDB = "SYSTEM";
-		passwdDB = "";
-		urlDB = "jdbc:oracle:thin:@localhost:1521:XE";
-		try {
-			Class.forName("oracle..jdbc.driver.OracleDriver");
-			conexion = DriverManager.getConnection(urlDB, usuarioDB, passwdDB);
-			System.out.println("La conexion ha sido exitosa");
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("La conexion ha fallado");
-			e.printStackTrace();
-		}
-		
-	}
-	
+
 	// Linkeo ventanas
 
 	public void loginToHome() {
@@ -300,11 +276,9 @@ public class Controlador implements IControlador {
 		perfil.setVisible(false);
 		home.setVisible(true);
 	}
-	
+
 	/*
-	 * **********************************
-	 * Setters
-	 * **********************************
+	 * ********************************** Setters **********************************
 	 */
 
 	public void setLogin(Login login) {
@@ -382,21 +356,13 @@ public class Controlador implements IControlador {
 	@Override
 	public void confirmacionSalir() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public void loginSolicitud() {
 		usuario = login.getTxtUser();
 		passwd = login.getTextPasswd();
-		
+		modelo.loginConfirmacion(usuario, passwd);
 	}
 
-	//Base de datos
-	
-	public Connection getConexion() {
-		return conexion;
-	}
-	
-	
-	
 }
