@@ -1,5 +1,6 @@
 package controlador;
 
+import modelo.Modelo;
 import vista.*;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
 		// Creamos el controlador
 		Controlador controlador = new Controlador();
 		//Creariamos el modelo
-		
+		Modelo modelo = new Modelo();
 		// Creamos las vistas
 		Login login = new Login();
 		Home home = new Home();
@@ -72,12 +73,30 @@ public class Main {
 		login.setVisible(true);
 
 		// Creariamos el modelo que le pasa la vista de login como parámetro
-
-		// Asignariamos el modelo a las vistas
+		modelo.setLogin(login);
+		// Asignariamos el modelo a las vistas		modelo.setLogin(login);
+		modelo.setHome(home);
+		modelo.setInfoExtra(infoExtra);
+		modelo.setInformes(informes);
+		modelo.setCrearUsuario(crearUser);
+		modelo.setGestion(gestion);
+		modelo.setGestionAcad(gestionAcad);
+		modelo.setGestionActividad(gestionActividad);
+		modelo.setGestionActores(gestionActores);
+		modelo.setGestionAlumnos(gestionAlumnos);
+		modelo.setGestionRegistros(gestionRegistros);
+		modelo.setGestionAsignatura(gestionAsignaturas);
+		modelo.setGestionProfesores(gestionProfesores);
+		modelo.setGestionSalas(gestionSalas);
+		modelo.setGestionUsuarios(gestionUsuarios);
+		modelo.setPerfil(perfil);
+		modelo.setVerGrupos(verGrupos);
 
 		// Asignariamos el modelo al controlador
+		modelo.setControlador(controlador);
 
 		// Asignariamos las vistas al modelo
+		
 
 	}
 
