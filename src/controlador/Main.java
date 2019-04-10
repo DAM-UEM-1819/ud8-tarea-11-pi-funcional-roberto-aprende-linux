@@ -49,6 +49,8 @@ public class Main {
 		controlador.setGestionUsuarios(gestionUsuarios);
 		controlador.setPerfil(perfil);
 		controlador.setVerGrupos(verGrupos);
+		
+		controlador.setModelo(modelo);
 
 		// Asignamos las vistas al controlador
 		login.setControlador(controlador);
@@ -70,7 +72,7 @@ public class Main {
 		verGrupos.setControlador(controlador);
 
 		// Vista de nuestro login
-		login.setVisible(true);
+		
 
 		// Creariamos el modelo que le pasa la vista de login como parámetro
 		modelo.setLogin(login);
@@ -113,6 +115,8 @@ public class Main {
 		gestionUsuarios.setModelo(modelo);
 		perfil.setModelo(modelo);
 		verGrupos.setModelo(modelo);
+		
+		login.setVisible(true);
 		
 		
 		

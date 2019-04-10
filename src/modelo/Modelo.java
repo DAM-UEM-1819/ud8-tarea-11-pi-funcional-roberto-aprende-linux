@@ -39,7 +39,7 @@ public class Modelo implements IModelo {
 	private int contador;
 
 	// Select SQL
-	private String selectPasswdUsuario = "SELECT PWD FROM USERS WHERE USR = ?";
+	private String selectPasswdUsuario = "SELECT PWD FROM HOSPITAL.USERS WHERE USR = ?";
 
 	public Modelo() {
 		baseDatos = "Hospital";
@@ -136,8 +136,7 @@ public class Modelo implements IModelo {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt.setString(1, usuario);
 			ResultSet rs = pstmt.executeQuery();
-			if (rs.getString(1).equals(passwd)) {
-				// LLamar al metodo de la vista para llamar al controlador y cambiar de pantalla
+			if (rs.next() && rs.getString(1).equals(passwd)) {
 				login.loginExitoso();
 			} else {
 				contador++;
@@ -146,7 +145,7 @@ public class Modelo implements IModelo {
 				}
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
