@@ -47,7 +47,7 @@ public class Modelo implements IModelo {
 		passwdDB = "admin";
 		urlDB = "jdbc:oracle:thin:@localhost:1521:XE";
 		try {
-			Class.forName("oracle..jdbc.driver.OracleDriver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conexion = DriverManager.getConnection(urlDB, usuarioDB, passwdDB);
 			System.out.println("La conexion ha sido exitosa");
 		} catch (Exception e) {
