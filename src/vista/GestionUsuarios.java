@@ -166,7 +166,7 @@ public class GestionUsuarios extends JFrame {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea borrar el usuario seleccionado?");
 	}
 	
-	public void seModelo(Modelo modelo) {
+	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
 	}
 }
