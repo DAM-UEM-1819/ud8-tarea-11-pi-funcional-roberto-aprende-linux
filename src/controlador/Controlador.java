@@ -353,6 +353,10 @@ public class Controlador implements IControlador {
 		this.perfil = perfil;
 	}
 
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
 	@Override
 	public void confirmacionSalir() {
 		// TODO Auto-generated method stub
