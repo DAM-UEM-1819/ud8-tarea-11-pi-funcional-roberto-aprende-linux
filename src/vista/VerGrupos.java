@@ -25,10 +25,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 public class VerGrupos extends JFrame {
 
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JPanel HeaderPanel;
 	private JLabel lblTitulo;
@@ -99,5 +101,9 @@ public class VerGrupos extends JFrame {
 
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

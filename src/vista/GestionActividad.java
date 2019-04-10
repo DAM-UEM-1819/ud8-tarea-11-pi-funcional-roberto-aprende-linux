@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +30,7 @@ import javax.swing.ImageIcon;
 public class GestionActividad extends JFrame {
 	
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JTable tablaActividad;
 	private JTextField txtNombre;
@@ -201,5 +203,9 @@ public class GestionActividad extends JFrame {
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ import java.awt.event.ActionEvent;
 public class Perfil extends JFrame {
 
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JPanel HeaderPanel;
 	private JLabel lblTitulo;
@@ -150,5 +152,9 @@ public class Perfil extends JFrame {
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -28,6 +29,7 @@ import java.awt.event.ActionEvent;
 public class GestionActores extends JFrame {
 	
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JTable tablaActores;
 	private JTextField txtNombre;
@@ -169,5 +171,8 @@ public class GestionActores extends JFrame {
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

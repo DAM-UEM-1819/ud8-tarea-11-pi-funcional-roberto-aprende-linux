@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -29,6 +30,7 @@ import javax.swing.JComboBox;
 public class GestionProfesores extends JFrame {
 	
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JTable tablaProfesores;
 	private JTextField txtNumero;
@@ -203,5 +205,9 @@ public class GestionProfesores extends JFrame {
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

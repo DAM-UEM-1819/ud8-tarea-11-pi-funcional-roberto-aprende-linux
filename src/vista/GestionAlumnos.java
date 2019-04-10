@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -41,6 +42,7 @@ import javax.swing.ImageIcon;
 public class GestionAlumnos extends JFrame {
 	
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JTable tablaAlumnos;
 	private JTextField txtExpediente;
@@ -180,5 +182,9 @@ public class GestionAlumnos extends JFrame {
 	
 	public void modificarAlumnoAlerta() {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el usuario seleccionado?");
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

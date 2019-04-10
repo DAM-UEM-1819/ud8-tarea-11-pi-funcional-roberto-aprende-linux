@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -41,6 +42,7 @@ import java.awt.event.MouseEvent;
 public class Home extends JFrame {
 
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JTable tablaRegistros;
 	private JButton btnSalir;
@@ -228,5 +230,8 @@ public class Home extends JFrame {
 
 	public void getTxtCalendario() {
 
+	}
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

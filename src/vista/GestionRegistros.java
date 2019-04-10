@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -31,6 +32,7 @@ import javax.swing.JComboBox;
 public class GestionRegistros extends JFrame {
 	
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JTable tablaRegistros;
 	private JTextField txtCod_registro;
@@ -163,5 +165,9 @@ public class GestionRegistros extends JFrame {
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

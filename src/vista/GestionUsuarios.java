@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -43,6 +44,7 @@ import javax.swing.SwingConstants;
 public class GestionUsuarios extends JFrame {
 
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JTable tablaUsuarios;
 	private JTextField txtUsuario;
@@ -162,5 +164,9 @@ public class GestionUsuarios extends JFrame {
 
 	public void borrarUsuarioAlerta() {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea borrar el usuario seleccionado?");
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }
