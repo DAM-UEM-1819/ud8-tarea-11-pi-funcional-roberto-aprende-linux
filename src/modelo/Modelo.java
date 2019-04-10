@@ -40,7 +40,7 @@ public class Modelo implements IModelo {
 
 	// Select SQL
 	private String selectPasswdUsuario = "SELECT PWD FROM USERS WHERE USR = ?";
-	
+
 	public Modelo() {
 		baseDatos = "Hospital";
 		usuarioDB = "SYSTEM";
@@ -57,114 +57,79 @@ public class Modelo implements IModelo {
 		}
 
 	}
-	
-	
+
 	public void setLogin(Login login) {
 		this.login = login;
 	}
-
-
 
 	public void setHome(Home home) {
 		this.home = home;
 	}
 
-
-
 	public void setGestion(Gestion gestion) {
 		this.gestion = gestion;
 	}
-
-
 
 	public void setInformes(Informes informes) {
 		this.informes = informes;
 	}
 
-
-
 	public void setInfoExtra(InformacionExtra infoExtra) {
 		this.infoExtra = infoExtra;
 	}
-
-
 
 	public void setCrearUsuario(CrearUsuario crearUsuario) {
 		this.crearUsuario = crearUsuario;
 	}
 
-
-
 	public void setGestionUsuarios(GestionUsuarios gestionUsuarios) {
 		this.gestionUsuarios = gestionUsuarios;
 	}
-
-
 
 	public void setGestionAcad(GestionAcad gestionAcad) {
 		this.gestionAcad = gestionAcad;
 	}
 
-
-
 	public void setGestionActividad(GestionActividad gestionActividad) {
 		this.gestionActividad = gestionActividad;
 	}
-
-
 
 	public void setGestionActores(GestionActores gestionActores) {
 		this.gestionActores = gestionActores;
 	}
 
-
-
 	public void setGestionAlumnos(GestionAlumnos gestionAlumnos) {
 		this.gestionAlumnos = gestionAlumnos;
 	}
-
-
 
 	public void setGestionRegistros(GestionRegistros gestionRegistros) {
 		this.gestionRegistros = gestionRegistros;
 	}
 
-
-
 	public void setGestionAsignatura(GestionAsignatura gestionAsignatura) {
 		this.gestionAsignatura = gestionAsignatura;
 	}
-
-
 
 	public void setGestionProfesores(GestionProfesores gestionProfesores) {
 		this.gestionProfesores = gestionProfesores;
 	}
 
-
-
 	public void setGestionSalas(GestionSalas gestionSalas) {
 		this.gestionSalas = gestionSalas;
 	}
-
-
 
 	public void setVerGrupos(VerGrupos verGrupos) {
 		this.verGrupos = verGrupos;
 	}
 
-
-
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
 
-
-
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	public void loginConfirmacion(String usuario, String passwd) {
 		String sql = selectPasswdUsuario;
 		try {
