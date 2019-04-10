@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -35,6 +36,7 @@ import javax.swing.SwingConstants;
 public class Gestion extends JFrame {
 	
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JButton btnVolver;
 	private JButton btnGestionUsuarios;
@@ -188,5 +190,9 @@ public class Gestion extends JFrame {
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }

@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -38,6 +39,7 @@ import javax.swing.JCheckBox;
 public class GestionSalas extends JFrame {
 
 	private Controlador controlador;
+	private Modelo modelo;
 	private JPanel contentPane;
 	private JTable tablaSalas;
 	private JTextField txtCodigo;
@@ -163,5 +165,9 @@ public class GestionSalas extends JFrame {
 	
 	public void modificarSalaAlerta() {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea modificar la sala seleccionada?");
+	}
+	
+	public void seModelo(Modelo modelo) {
+		this.modelo= modelo;
 	}
 }
