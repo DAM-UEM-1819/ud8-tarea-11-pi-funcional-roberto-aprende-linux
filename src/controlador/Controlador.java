@@ -40,6 +40,8 @@ public class Controlador implements IControlador {
 		login.setVisible(false);
 		home.setVisible(true);
 	}
+	
+	//Ventana Home
 
 	public void homeToLogin() {
 		home.setVisible(false);
@@ -71,11 +73,15 @@ public class Controlador implements IControlador {
 		home.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana ocupaciones
 
 	public void ocupacionesToHome() {
 //		ocupaciones.setVisible(false);
 		home.setVisible(true);
 	}
+	
+	//Ventana Gestion
 
 	public void gestionToPerfil() {
 		gestion.setVisible(false);
@@ -136,6 +142,8 @@ public class Controlador implements IControlador {
 		gestion.setVisible(false);
 		home.setVisible(true);
 	}
+	
+	//Ventana Informes
 
 	public void informesToHome() {
 		informes.setVisible(false);
@@ -146,6 +154,8 @@ public class Controlador implements IControlador {
 		informes.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Venata Informacion extra
 
 	public void infoExtraToHome() {
 		infoExtra.setVisible(false);
@@ -156,7 +166,9 @@ public class Controlador implements IControlador {
 		infoExtra.setVisible(false);
 		perfil.setVisible(true);
 	}
-
+	
+	//Ventana crear usuario
+	
 	public void crearUsuarioToPerfil() {
 		crearUsuario.setVisible(false);
 		perfil.setVisible(true);
@@ -166,15 +178,12 @@ public class Controlador implements IControlador {
 		crearUsuario.setVisible(false);
 		gestionUsuarios.setVisible(true);
 	}
+	
+	//Ventana gestion usuarios
 
 	public void gestionUsuariosToGestion() {
 		gestionUsuarios.setVisible(false);
 		gestion.setVisible(true);
-	}
-	
-	public void gestionUsuarioToCrearUsuario() {
-		gestionUsuarios.setVisible(false);
-		crearUsuario.setVisible(true);
 	}
 
 	public void gestionUsuariosToPerfil() {
@@ -186,6 +195,8 @@ public class Controlador implements IControlador {
 		gestionUsuarios.setVisible(false);
 		crearUsuario.setVisible(true);
 	}
+	
+	//Ventana gestion acad
 
 	public void gestionAcadToGestion() {
 		gestionAcad.setVisible(false);
@@ -197,6 +208,8 @@ public class Controlador implements IControlador {
 		perfil.setVisible(true);
 	}
 
+	//Ventana gestion actividad
+	
 	public void gestionActividadToGestion() {
 		gestionActividad.setVisible(false);
 		gestion.setVisible(true);
@@ -206,16 +219,20 @@ public class Controlador implements IControlador {
 		gestionActividad.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana gestion actores
 
 	public void gestionActoresToGestion() {
 		gestionActores.setVisible(false);
 		gestion.setVisible(true);
 	}
-
+	
 	public void gestionActoresToPerfil() {
 		gestionActores.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana gestion alumnos
 
 	public void gestionAlumnosToGestion() {
 		gestionAlumnos.setVisible(false);
@@ -226,6 +243,8 @@ public class Controlador implements IControlador {
 		gestionAlumnos.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana gestion registros
 
 	public void gestionRegistrosToGestion() {
 		gestionRegistros.setVisible(false);
@@ -236,6 +255,8 @@ public class Controlador implements IControlador {
 		gestionRegistros.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana gestion asignatura
 
 	public void gestionAsignaturaToGestion() {
 		gestionAsignatura.setVisible(false);
@@ -246,6 +267,8 @@ public class Controlador implements IControlador {
 		gestionAsignatura.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana gestion profesores
 
 	public void gestionProfesoresToGestion() {
 		gestionProfesores.setVisible(false);
@@ -256,6 +279,8 @@ public class Controlador implements IControlador {
 		gestionProfesores.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana gestion salas
 
 	public void gestionSalasToGestion() {
 		gestionSalas.setVisible(false);
@@ -266,6 +291,8 @@ public class Controlador implements IControlador {
 		gestionSalas.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana gestion grupos
 
 	public void verGruposToGestion() {
 		verGrupos.setVisible(false);
@@ -276,6 +303,8 @@ public class Controlador implements IControlador {
 		verGrupos.setVisible(false);
 		perfil.setVisible(true);
 	}
+	
+	//Ventana perfil
 
 	public void perfilToHome() {
 		perfil.setVisible(false);
