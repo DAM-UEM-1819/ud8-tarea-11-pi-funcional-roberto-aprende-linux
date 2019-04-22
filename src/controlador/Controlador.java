@@ -171,6 +171,11 @@ public class Controlador implements IControlador {
 		gestionUsuarios.setVisible(false);
 		gestion.setVisible(true);
 	}
+	
+	public void gestionUsuarioToCrearUsuario() {
+		gestionUsuarios.setVisible(false);
+		crearUsuario.setVisible(true);
+	}
 
 	public void gestionUsuariosToPerfil() {
 		gestionUsuarios.setVisible(false);
