@@ -151,4 +151,10 @@ public class Modelo implements IModelo {
 		}
 	}
 
+	@Override
+	public void crearUsuario(String user, String passwd, String rol) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
