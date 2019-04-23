@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -23,7 +24,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CrearUsuario extends JFrame {
-	
 	private Controlador controlador;
 	private Modelo modelo;
 	private JPanel contentPane;
@@ -35,10 +35,14 @@ public class CrearUsuario extends JFrame {
 	private JButton btnCrearUsuario;
 	private JTextField txtUsuario;
 	private JLabel lblUsuario;
-	private JTextField txtPasswordCrearUsuario;
 	private JLabel lblPasswordCreaUsuario;
 	private JComboBox comboBoxRol;
 	private JLabel lblRol;
+	private JPasswordField passwordField;
+	private JButton btnMostrarPwd;
+
+	private boolean estado;
+	private JLabel lblInfo;
 
 	public CrearUsuario() {
 		setTitle("Hospital simulado");
@@ -75,8 +79,7 @@ public class CrearUsuario extends JFrame {
 
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controlador.crearUsuarioToGestionUsuarios();
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnVolver.setBounds(100, 685, 120, 40);
@@ -97,11 +100,6 @@ public class CrearUsuario extends JFrame {
 		lblUsuario.setBounds(481, 174, 62, 54);
 		contentPane.add(lblUsuario);
 
-		txtPasswordCrearUsuario = new JTextField();
-		txtPasswordCrearUsuario.setColumns(10);
-		txtPasswordCrearUsuario.setBounds(402, 540, 210, 30);
-		contentPane.add(txtPasswordCrearUsuario);
-
 		lblPasswordCreaUsuario = new JLabel("Contrase\u00F1a");
 		lblPasswordCreaUsuario.setForeground(Color.BLACK);
 		lblPasswordCreaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -119,12 +117,57 @@ public class CrearUsuario extends JFrame {
 		lblRol.setBounds(493, 317, 35, 54);
 		contentPane.add(lblRol);
 
+		passwordField = new JPasswordField();
+		passwordField.setBounds(402, 540, 210, 30);
+		contentPane.add(passwordField);
+
+		btnMostrarPwd = new JButton("Mostrar");
+		btnMostrarPwd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (!estado) {
+					passwordField.setEchoChar((char) 0);
+					estado = true;
+				} else {
+					passwordField.setEchoChar('●');
+					estado = false;
+				}
+			}
+		});
+		btnMostrarPwd.setBounds(622, 544, 69, 23);
+		contentPane.add(btnMostrarPwd);
+		
+		lblInfo = new JLabel("");
+		lblInfo.setBounds(407, 124, 205, 39);
+		contentPane.add(lblInfo);
+
 	}
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+		this.modelo = modelo;
+	}
+
+	public String getNombreUsuario() {
+		return txtUsuario.getText();
+	}
+	
+	public String getPasswd() {
+		return String.valueOf(passwordField.getPassword());
+	}
+	
+	public String getRol() {
+		return String.valueOf(comboBoxRol.getSelectedItem());
+	}
+	
+	public void usuarioCreado() {
+		lblInfo.setText("Usuario creado");
+	}
+	
+	public void usuarioExiste() {
+		lblInfo.setText("El usuario ya existe");
 	}
 }

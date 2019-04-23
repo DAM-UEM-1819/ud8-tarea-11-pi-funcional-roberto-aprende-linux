@@ -80,7 +80,7 @@ public class Login extends JFrame {
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.loginSolicitud();
+					controlador.loginSolicitud();
 			}
 		});
 		btnLogin.setBounds(380, 572, 271, 58);
