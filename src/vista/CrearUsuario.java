@@ -86,6 +86,10 @@ public class CrearUsuario extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnCrearUsuario = new JButton(" Crear usuario");
+		btnCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCrearUsuario.setBounds(762, 685, 140, 40);
 		contentPane.add(btnCrearUsuario);
 
