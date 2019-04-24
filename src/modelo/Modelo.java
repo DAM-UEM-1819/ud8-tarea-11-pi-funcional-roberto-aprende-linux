@@ -1,6 +1,12 @@
 package modelo;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.*;
+import java.util.Properties;
 
 import controlador.*;
 import vista.*;
@@ -34,6 +40,12 @@ public class Modelo implements IModelo {
 	private String passwdDB;
 	private String urlDB;
 	private Connection conexion;
+	
+	//Atributos Fichero
+	private Properties propiedades;
+	private InputStream entrada;
+	private OutputStream salida;
+	private File fichero;
 
 	// Atributos de control
 	private int contador;
@@ -42,10 +54,22 @@ public class Modelo implements IModelo {
 	private String selectPasswdUsuario = "SELECT PWD FROM HOSPITAL.USERS WHERE USR = ?";
 
 	public Modelo() {
-		baseDatos = "Hospital";
-		usuarioDB = "SYSTEM";
-		passwdDB = "admin";
-		urlDB = "jdbc:oracle:thin:@localhost:1521:XE";
+		propiedades = new Properties();
+		fichero = new File("./configuracion.ini");
+		
+		try {
+			entrada = new FileInputStream(fichero);
+			salida = new FileOutputStream(fichero,true);
+			propiedades.load(entrada);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		baseDatos = propiedades.getProperty("baseDatos");
+		usuarioDB = propiedades.getProperty("usuario");
+		passwdDB = propiedades.getProperty("passwd");
+		urlDB = propiedades.getProperty("url");
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conexion = DriverManager.getConnection(urlDB, usuarioDB, passwdDB);
