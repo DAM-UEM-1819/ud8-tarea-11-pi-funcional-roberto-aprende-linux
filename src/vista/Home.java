@@ -101,7 +101,7 @@ public class Home extends JFrame {
 				 * homeToLogin
 				 */
 
-				controlador.homeToLogin();
+				controlador.confirmacionSalir();
 			}
 		});
 		btnSalir.setBounds(35, 685, 120, 40);
@@ -225,13 +225,18 @@ public class Home extends JFrame {
 	}
 
 	public void confirmacionSalir() {
-		JOptionPane.showConfirmDialog(rootPane, "ï¿½Esta seguro/a de que desea salir?");
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro/a de que desea salir?");
+		if (JOptionPane.YES_OPTION == valorRetorno) {
+			controlador.homeToLogin();
+		}
 	}
 
 	public void getTxtCalendario() {
 
 	}
+
 	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+		this.modelo = modelo;
 	}
+
 }

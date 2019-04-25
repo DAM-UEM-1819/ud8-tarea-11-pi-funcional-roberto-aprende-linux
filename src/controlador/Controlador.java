@@ -393,8 +393,7 @@ public class Controlador implements IControlador {
 
 	@Override
 	public void confirmacionSalir() {
-		// TODO Auto-generated method stub
-
+		home.confirmacionSalir();
 	}
 
 	public void loginSolicitud() {
