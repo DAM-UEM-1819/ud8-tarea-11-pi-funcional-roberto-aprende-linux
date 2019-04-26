@@ -88,6 +88,7 @@ public class CrearUsuario extends JFrame {
 		btnCrearUsuario = new JButton(" Crear usuario");
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controlador.solicitudCrearUsuario();
 			}
 		});
 		btnCrearUsuario.setBounds(762, 685, 140, 40);
@@ -142,6 +143,7 @@ public class CrearUsuario extends JFrame {
 		contentPane.add(btnMostrarPwd);
 		
 		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(407, 124, 205, 39);
 		contentPane.add(lblInfo);
 
@@ -167,11 +169,7 @@ public class CrearUsuario extends JFrame {
 		return String.valueOf(comboBoxRol.getSelectedItem());
 	}
 	
-	public void usuarioCreado() {
-		lblInfo.setText("Usuario creado");
-	}
-	
-	public void usuarioExiste() {
-		lblInfo.setText("El usuario ya existe");
+	public void actualizarInfo() {
+		lblInfo.setText(modelo.getRespuesta());
 	}
 }

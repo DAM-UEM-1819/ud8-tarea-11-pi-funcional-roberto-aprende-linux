@@ -6,12 +6,8 @@ import vista.*;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// Creamos el controlador
 		Controlador controlador = new Controlador();
-		//Creariamos el modelo
 		Modelo modelo = new Modelo();
-		// Creamos las vistas
 		Login login = new Login();
 		Home home = new Home();
 		InformacionExtra infoExtra = new InformacionExtra();
@@ -29,7 +25,6 @@ public class Main {
 		GestionUsuarios gestionUsuarios = new GestionUsuarios();
 		Perfil perfil = new Perfil();
 		VerGrupos verGrupos = new VerGrupos();
-		//
 
 		// Asignamos el controlador a las vistas
 		controlador.setLogin(login);

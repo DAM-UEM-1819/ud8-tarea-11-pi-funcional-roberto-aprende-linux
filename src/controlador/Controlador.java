@@ -390,6 +390,10 @@ public class Controlador implements IControlador {
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
+	
+	public void solicitudCrearUsuario() {
+		modelo.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
+	}
 
 	@Override
 	public void confirmacionSalir() {

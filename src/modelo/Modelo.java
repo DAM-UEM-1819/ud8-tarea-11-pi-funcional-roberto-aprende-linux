@@ -3,6 +3,7 @@ package modelo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.*;
@@ -40,8 +41,8 @@ public class Modelo implements IModelo {
 	private String passwdDB;
 	private String urlDB;
 	private Connection conexion;
-	
-	//Atributos Fichero
+
+	// Atributos Fichero
 	private Properties propiedades;
 	private InputStream entrada;
 	private OutputStream salida;
@@ -49,23 +50,31 @@ public class Modelo implements IModelo {
 
 	// Atributos de control
 	private int contador;
+	private String respuesta;
 
 	// Select SQL
 	private String selectPasswdUsuario = "SELECT PWD FROM HOSPITAL.USERS WHERE USR = ?";
 
+	// Insertado SQL
+	private String insertUsuario = "INSERT INTO HOSPITAL.users (usr, pwd, rol) VALUES (?,?,?)";
+
 	public Modelo() {
 		propiedades = new Properties();
 		fichero = new File("./configuracion.ini");
-		
+
 		try {
 			entrada = new FileInputStream(fichero);
-			salida = new FileOutputStream(fichero,true);
-			propiedades.load(entrada);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
+		try {
+			propiedades.load(entrada);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		baseDatos = propiedades.getProperty("baseDatos");
 		usuarioDB = propiedades.getProperty("usuario");
 		passwdDB = propiedades.getProperty("passwd");
@@ -154,6 +163,10 @@ public class Modelo implements IModelo {
 		this.controlador = controlador;
 	}
 
+	public String getRespuesta() {
+		return respuesta;
+	}
+
 	public void loginConfirmacion(String usuario, String passwd) {
 		String sql = selectPasswdUsuario;
 		try {
@@ -177,8 +190,34 @@ public class Modelo implements IModelo {
 
 	@Override
 	public void crearUsuario(String user, String passwd, String rol) {
-		// TODO Auto-generated method stub
-		
+		String sql = selectPasswdUsuario;
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			pstmt.setString(1, user);
+			ResultSet rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				sql = insertUsuario;
+				try {
+					pstmt = conexion.prepareStatement(sql);
+					pstmt.setString(1, user);
+					pstmt.setString(2, passwd);
+					pstmt.setString(3, rol);
+					rs = pstmt.executeQuery();
+					respuesta = "Usuario creado";
+				} catch (Exception e) {
+					respuesta = "Error, algun campo vacio";
+					crearUsuario.actualizarInfo();
+					e.printStackTrace();
+				}
+			} else {
+				respuesta = "El usuario ya existe";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		crearUsuario.actualizarInfo();
 	}
 
 }
