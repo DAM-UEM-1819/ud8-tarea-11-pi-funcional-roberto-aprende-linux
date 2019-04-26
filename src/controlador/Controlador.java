@@ -30,11 +30,11 @@ public class Controlador implements IControlador {
 	private Perfil perfil;
 	private Modelo modelo;
 
-	// Atributos del controlador
-	private String usuario;
-	private String passwd;
-
-	// Linkeo ventanas
+	/*
+	 * *********************************************
+	 * LINKEADO DE VENTANAS
+	 * *********************************************
+	 */
 
 	public void loginToHome() {
 		login.setVisible(false);
@@ -310,9 +310,11 @@ public class Controlador implements IControlador {
 		perfil.setVisible(false);
 		home.setVisible(true);
 	}
-
+	
 	/*
-	 * ********************************** Setters **********************************
+	 * *********************************************
+	 * INICIO SETTERS
+	 * *********************************************
 	 */
 
 	public void setLogin(Login login) {
@@ -391,19 +393,37 @@ public class Controlador implements IControlador {
 		this.modelo = modelo;
 	}
 	
-	public void solicitudCrearUsuario() {
-		modelo.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
+	/*
+	 * *********************************************
+	 * VENTANA LOGIN
+	 * *********************************************
+	 */
+	
+	public void loginSolicitud() {
+		modelo.loginConfirmacion(login.getTxtUser(), login.getTextPasswd());
 	}
+	
+	/*
+	 * *********************************************
+	 * VENTANA HOME
+	 * *********************************************
+	 */
 
 	@Override
 	public void confirmacionSalir() {
 		home.confirmacionSalir();
 	}
-
-	public void loginSolicitud() {
-		usuario = login.getTxtUser();
-		passwd = login.getTextPasswd();
-		modelo.loginConfirmacion(usuario, passwd);
+	
+	/*
+	 * *********************************************
+	 * VENTANA CREAR USUARIOS
+	 * *********************************************
+	 */
+	
+	public void solicitudCrearUsuario() {
+		modelo.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
 	}
+
+
 
 }

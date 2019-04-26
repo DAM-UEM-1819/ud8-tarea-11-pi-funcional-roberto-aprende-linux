@@ -48,15 +48,17 @@ public class Modelo implements IModelo {
 	private OutputStream salida;
 	private File fichero;
 
-	// Atributos de control
+	// Atributos internos
 	private int contador;
 	private String respuesta;
 
-	// Select SQL
+	// Sentencias Select SQL
 	private String selectPasswdUsuario = "SELECT PWD FROM HOSPITAL.USERS WHERE USR = ?";
 
-	// Insertado SQL
+	// Sentencias Insertado SQL
 	private String insertUsuario = "INSERT INTO HOSPITAL.users (usr, pwd, rol) VALUES (?,?,?)";
+	
+	//Sentencias Borrado SQL
 
 	public Modelo() {
 		propiedades = new Properties();
@@ -90,6 +92,12 @@ public class Modelo implements IModelo {
 		}
 
 	}
+	
+	/*
+	 * *********************************************
+	 * INICIO SETTERS
+	 * *********************************************
+	 */
 
 	public void setLogin(Login login) {
 		this.login = login;
@@ -162,10 +170,22 @@ public class Modelo implements IModelo {
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
+	
+	/*
+	 * *********************************************
+	 * INICIO GETTERS
+	 * *********************************************
+	 */
 
 	public String getRespuesta() {
 		return respuesta;
 	}
+	
+	/*
+	 * *********************************************
+	 * INICIO METODOS BASE DATOS
+	 * *********************************************
+	 */
 
 	public void loginConfirmacion(String usuario, String passwd) {
 		String sql = selectPasswdUsuario;
