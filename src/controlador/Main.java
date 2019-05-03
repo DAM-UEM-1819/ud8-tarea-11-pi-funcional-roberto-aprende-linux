@@ -113,7 +113,8 @@ public class Main {
 		
 		login.setVisible(true);
 		
-		
+		System.out.println("np");
+	
 		
 
 	}
