@@ -62,6 +62,7 @@ public class Modelo implements IModelo {
 	private String selectTodosUsuarios = "SELECT USR, ROL FROM HOSPITAL.USERS"; // Tabla usuarios
 	private String selectTodosRegistros = "SELECT cod_registro , fecha , horas_profesor , actividad_nombre FROM HOSPITAL.Registro"; //Select registro
 	private String selectTodosAlumnos = "SELECT * FROM HOSPITAL.alumno"; //Select registro
+	
 	// Sentencias Insertado SQL
 	private String insertUsuario = "INSERT INTO HOSPITAL.users (usr, pwd, rol) VALUES (?,?,?)";
 

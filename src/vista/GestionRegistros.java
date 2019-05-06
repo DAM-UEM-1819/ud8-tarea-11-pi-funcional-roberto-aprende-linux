@@ -80,6 +80,7 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaRegistros = new JTable();
+		tablaRegistros.setRowHeight(30);
 		scrollPane.setViewportView(tablaRegistros);
 
 		txtCod_registro = new JTextField();
