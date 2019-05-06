@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
@@ -50,9 +52,13 @@ public class GestionAsignatura extends JFrame {
 	private JComboBox comboBoxColumna;
 	private JLabel lblImportarActividades;
 
-
-
 	public GestionAsignatura() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosAsignatura();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -61,21 +67,12 @@ public class GestionAsignatura extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(98, 168, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaAsignaturas = new JTable();
-		tablaAsignaturas.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"1", "HCC", "Medicina", "4"},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Numero", "Nombre", "Titulaci\u00F3n", "Curso"
-			}
-		));
 		tablaAsignaturas.setRowHeight(40);
 		scrollPane.setViewportView(tablaAsignaturas);
 
@@ -98,7 +95,6 @@ public class GestionAsignatura extends JFrame {
 		txtCurso.setBounds(708, 630, 182, 30);
 		contentPane.add(txtCurso);
 		txtCurso.setColumns(10);
-
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
@@ -136,7 +132,7 @@ public class GestionAsignatura extends JFrame {
 		btnModificarAsignatura = new JButton("Modificar asignatura");
 		btnModificarAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?" );
+				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?");
 			}
 		});
 		btnModificarAsignatura.setBounds(325, 685, 135, 40);
@@ -149,7 +145,6 @@ public class GestionAsignatura extends JFrame {
 		btnAddAsignatura = new JButton(" A\u00F1adir asignatura");
 		btnAddAsignatura.setBounds(774, 685, 128, 40);
 		contentPane.add(btnAddAsignatura);
-		
 
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
@@ -157,26 +152,30 @@ public class GestionAsignatura extends JFrame {
 		txtBuscador.setBounds(665, 127, 86, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
-		
+
 		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(new String[] {"Columna","Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
+		comboBoxColumna.setModel(new DefaultComboBoxModel(
+				new String[] { "Columna", "Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
 		comboBoxColumna.setBounds(761, 127, 104, 20);
 		contentPane.add(comboBoxColumna);
-		
+
 		lblImportarActividades = new JLabel("Importar Asignaturas");
-		lblImportarActividades.setIcon(new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		lblImportarActividades.setIcon(
+				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 127, 124, 20);
 		contentPane.add(lblImportarActividades);
-		
-	
+
 	}
-	
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+		this.modelo = modelo;
 	}
 
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaAsignaturas.getModel();
+	}
 }

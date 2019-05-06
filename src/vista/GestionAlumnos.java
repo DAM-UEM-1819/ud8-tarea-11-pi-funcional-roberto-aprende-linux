@@ -22,6 +22,8 @@ import modelo.*;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -63,6 +65,12 @@ public class GestionAlumnos extends JFrame {
 
 
 	public GestionAlumnos() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosAlumnos();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -77,13 +85,6 @@ public class GestionAlumnos extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaAlumnos = new JTable();
-		tablaAlumnos.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Expediente", "Nombre y apellidos", "Activo"
-			}
-		));
 		tablaAlumnos.setRowHeight(30);
 		scrollPaneRegistros.setViewportView(tablaAlumnos);
 
@@ -186,5 +187,9 @@ public class GestionAlumnos extends JFrame {
 	
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaAlumnos.getModel();
 	}
 }

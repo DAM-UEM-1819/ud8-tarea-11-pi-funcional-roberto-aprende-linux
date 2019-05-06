@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import java.sql.*;
 import java.util.Properties;
 
+import javax.swing.table.DefaultTableModel;
+
 import controlador.*;
 import vista.*;
 
@@ -51,14 +53,19 @@ public class Modelo implements IModelo {
 	// Atributos internos
 	private int contador;
 	private String respuesta;
+	private DefaultTableModel tableModel;
+	private String[] nombreColumnasTabla;
+	private Object[] datosFilasTabla;
 
 	// Sentencias Select SQL
-	private String selectPasswdUsuario = "SELECT PWD FROM HOSPITAL.USERS WHERE USR = ?";
-
+	private String selectPasswdUsuario = "SELECT PWD FROM HOSPITAL.USERS WHERE USR = ?"; // Inicio sesion
+	private String selectTodosUsuarios = "SELECT USR, ROL FROM HOSPITAL.USERS"; // Tabla usuarios
+	private String selectTodosRegistros = "SELECT cod_registro , fecha , horas_profesor , actividad_nombre FROM HOSPITAL.Registro"; //Select registro
+	private String selectTodosAlumnos = "SELECT * FROM HOSPITAL.alumno"; //Select registro
 	// Sentencias Insertado SQL
 	private String insertUsuario = "INSERT INTO HOSPITAL.users (usr, pwd, rol) VALUES (?,?,?)";
-	
-	//Sentencias Borrado SQL
+
+	// Sentencias Borrado SQL
 
 	public Modelo() {
 		propiedades = new Properties();
@@ -92,10 +99,9 @@ public class Modelo implements IModelo {
 		}
 
 	}
-	
+
 	/*
-	 * *********************************************
-	 * INICIO SETTERS
+	 * ********************************************* INICIO SETTERS
 	 * *********************************************
 	 */
 
@@ -170,20 +176,18 @@ public class Modelo implements IModelo {
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	/*
-	 * *********************************************
-	 * INICIO GETTERS
+	 * ********************************************* INICIO GETTERS
 	 * *********************************************
 	 */
 
 	public String getRespuesta() {
 		return respuesta;
 	}
-	
+
 	/*
-	 * *********************************************
-	 * INICIO METODOS BASE DATOS
+	 * ********************************************* INICIO METODOS BASE DATOS
 	 * *********************************************
 	 */
 
@@ -238,6 +242,88 @@ public class Modelo implements IModelo {
 		}
 
 		crearUsuario.actualizarInfo();
+	}
+
+	public void getTablaUsuarios(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosUsuarios;
+		getDatos(sql);
+	}
+	
+	public void getTablaAcad(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosUsuarios;
+		getDatos(sql);
+	}
+	
+	public void getTablaActividad(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosUsuarios;
+		getDatos(sql);
+	}
+	
+	public void getTablaActores(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosUsuarios;
+		getDatos(sql);
+	}
+	
+	public void getTablaAlumnos(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosAlumnos;
+		getDatos(sql);
+	}
+	
+	public void getTablaAsignatura(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosUsuarios;
+		getDatos(sql);
+	}
+	
+	public void getTablaProfesores(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosUsuarios;
+		getDatos(sql);
+	}
+	
+	public void getTablaRegistros(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosRegistros;
+		getDatos(sql);
+	}
+	public void getTablaSalas(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectTodosUsuarios;
+		getDatos(sql);
+	}
+
+	private void getDatos(String sql) {
+		tableModel.setColumnCount(0);
+		tableModel.setRowCount(0);
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			ResultSetMetaData metadatos = rs.getMetaData();
+
+			int numColumnas = metadatos.getColumnCount();
+			datosFilasTabla = new Object[numColumnas];
+
+			for (int i = 0; i < numColumnas; i++) {
+				tableModel.addColumn(metadatos.getColumnName(i + 1));
+			}
+			
+			// metadatos.getColumnName(1); 
+
+			while (rs.next()) {
+				for (int i = 0; i < numColumnas; i++) {
+					datosFilasTabla[i] = rs.getObject(i+ 1);
+				}
+				tableModel.addRow(datosFilasTabla);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

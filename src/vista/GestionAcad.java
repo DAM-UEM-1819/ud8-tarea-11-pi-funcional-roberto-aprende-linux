@@ -23,6 +23,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class GestionAcad extends JFrame {
@@ -52,6 +54,12 @@ public class GestionAcad extends JFrame {
 	 * Create the frame.
 	 */
 	public GestionAcad() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosAcad();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -66,10 +74,6 @@ public class GestionAcad extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaActores = new JTable();
-		tablaActores.setModel(new DefaultTableModel(
-				new Object[][] { { "19/19","00/00/0000" , "00/00/0000" },
-						{ null, null, null, null, null, null, null }, },
-				new String[] { "Año academico" , "semestre1" , "semestre2" }));
 		tablaActores.setRowHeight(40);
 		scrollPane.setViewportView(tablaActores);
 
@@ -151,5 +155,9 @@ public class GestionAcad extends JFrame {
 	
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
+	}
+
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaActores.getModel();
 	}
 }

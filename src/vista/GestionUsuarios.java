@@ -40,6 +40,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GestionUsuarios extends JFrame {
 
@@ -62,6 +64,12 @@ public class GestionUsuarios extends JFrame {
 	private JComboBox comboBoxColumna;
 
 	public GestionUsuarios() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosUsuarios();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -76,8 +84,6 @@ public class GestionUsuarios extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaUsuarios = new JTable();
-		tablaUsuarios.setModel(new DefaultTableModel(new Object[][] { { "Pedro", "Admin" }, { null, null }, },
-				new String[] { "Usuarios", "Rol" }));
 		tablaUsuarios.setRowHeight(30);
 		scrollPaneRegistros.setViewportView(tablaUsuarios);
 
@@ -169,5 +175,10 @@ public class GestionUsuarios extends JFrame {
 	
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaUsuarios.getModel();
+		
 	}
 }

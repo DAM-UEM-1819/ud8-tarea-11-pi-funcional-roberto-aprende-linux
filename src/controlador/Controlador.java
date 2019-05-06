@@ -423,6 +423,42 @@ public class Controlador implements IControlador {
 	public void solicitudCrearUsuario() {
 		modelo.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
 	}
+	
+	public void solicitudDatosAcad() {
+		modelo.getTablaAcad(gestionAcad.getModel());
+	}
+	
+	public void solicitudDatosActividad() {
+		modelo.getTablaActividad(gestionActividad.getModel());
+	}
+	
+	public void solicitudDatosActores() {
+		modelo.getTablaActores(gestionActores.getModel());
+	}
+	
+	public void solicitudDatosAlumnos() {
+		modelo.getTablaAlumnos(gestionAlumnos.getModel());
+	}
+	
+	public void solicitudDatosAsignatura() {
+		modelo.getTablaAsignatura(gestionAsignatura.getModel());
+	}
+	
+	public void solicitudDatosProfesores() {
+		modelo.getTablaProfesores(gestionProfesores.getModel());
+	}
+	
+	public void solicitudDatosRegistros() {
+		modelo.getTablaRegistros(gestionRegistros.getModel());
+	}
+	
+	public void solicitudDatosSalas() {
+		modelo.getTablaSalas(gestionSalas.getModel());
+	}
+
+	public void solicitudDatosUsuarios() {
+		modelo.getTablaUsuarios(gestionUsuarios.getModel());		
+	}
 
 
 

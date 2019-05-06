@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -57,6 +59,12 @@ public class GestionActividad extends JFrame {
 
 	 
 	public GestionActividad() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosActividad();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -71,15 +79,6 @@ public class GestionActividad extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaActividad = new JTable();
-		tablaActividad.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Seg paciente 1", "Taller de habilidades", "2", "2", "01411", "ISTAN", null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Nombre", "Tipo de actividad", "Tipo de sala", "Simulador", "Documentación", "Horas de actividad", "Año académico"
-			}
-		));
 		tablaActividad.setRowHeight(30);
 		scrollPane.setViewportView(tablaActividad);
 
@@ -207,5 +206,9 @@ public class GestionActividad extends JFrame {
 	
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaActividad.getModel();
 	}
 }
