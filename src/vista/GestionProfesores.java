@@ -23,6 +23,8 @@ import controlador.Controlador;
 import modelo.*;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -56,14 +58,13 @@ public class GestionProfesores extends JFrame {
 	private JComboBox comboBoxColumna;
 	private JTextField txtBuscador;
 
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 */
 	public GestionProfesores() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosProfesores();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -78,10 +79,6 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaProfesores = new JTable();
-		tablaProfesores.setModel(new DefaultTableModel(
-				new Object[][] { { "1", "Raul", "20", "Hombre", "Bilingue", "Normal", "1" },
-						{ null, null, null, null, null, null, null }, },
-				new String[] { "Numero", "Nombre", "Titulación", "DNI","Activo","Relacion","Telefono 1","Telefono 2","Mail 1","Mail 2" }));
 		tablaProfesores.setRowHeight(40);
 		scrollPane.setViewportView(tablaProfesores);
 
@@ -209,5 +206,9 @@ public class GestionProfesores extends JFrame {
 	
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaProfesores.getModel();
 	}
 }

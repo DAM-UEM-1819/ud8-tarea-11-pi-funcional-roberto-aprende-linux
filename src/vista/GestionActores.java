@@ -24,6 +24,8 @@ import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class GestionActores extends JFrame {
@@ -56,6 +58,12 @@ public class GestionActores extends JFrame {
 	 */
 
 	public GestionActores() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosActores();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -70,10 +78,6 @@ public class GestionActores extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaActores = new JTable();
-		tablaActores.setModel(new DefaultTableModel(
-				new Object[][] { { "1", "Raul", "20", "Hombre", "Bilingue", "Normal", "1" },
-						{ null, null, null, null, null, null, null }, },
-				new String[] { "Codigo Actor", "Nombre", "Edad", "Genero", "Idioma", "Complexion", "Activo" }));
 		tablaActores.setRowHeight(40);
 		scrollPane.setViewportView(tablaActores);
 
@@ -174,5 +178,9 @@ public class GestionActores extends JFrame {
 	}
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaActores.getModel();
 	}
 }

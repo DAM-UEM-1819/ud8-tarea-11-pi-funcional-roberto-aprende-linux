@@ -22,6 +22,8 @@ import modelo.*;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -57,6 +59,12 @@ public class GestionSalas extends JFrame {
 	private JTextField txtCapacidad;
 
 	public GestionSalas() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosSalas();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -71,13 +79,7 @@ public class GestionSalas extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaSalas = new JTable();
-		tablaSalas.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"C�digo", "Tipo de sala", "N�mero", "Capacidad"
-			}
-		));
+	
 		tablaSalas.setRowHeight(30);
 		scrollPaneRegistros.setViewportView(tablaSalas);
 		
@@ -170,4 +172,6 @@ public class GestionSalas extends JFrame {
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
 	}
-}
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaSalas.getModel();
+	}}

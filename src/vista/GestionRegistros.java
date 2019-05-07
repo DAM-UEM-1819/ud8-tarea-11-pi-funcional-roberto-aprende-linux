@@ -28,6 +28,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GestionRegistros extends JFrame {
 	
@@ -56,6 +58,12 @@ public class GestionRegistros extends JFrame {
 	 * Create the frame.
 	 */
 	public GestionRegistros() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosRegistros();
+			}
+		});
 		setTitle("Hospital simulado");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				"C:\\Users\\usuario\\git\\ud5-tarea-3-aplicacion-swing-pi-roberto-aprende-linux\\img\\UEMLogo.png"));
@@ -72,9 +80,7 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaRegistros = new JTable();
-		tablaRegistros.setModel(new DefaultTableModel(
-				new Object[][] { { "1", null, null, null, null }, { null, null, null, null, null }, },
-				new String[] { "Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
+		tablaRegistros.setRowHeight(30);
 		scrollPane.setViewportView(tablaRegistros);
 
 		txtCod_registro = new JTextField();
@@ -169,5 +175,9 @@ public class GestionRegistros extends JFrame {
 	
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaRegistros.getModel();
 	}
 }
