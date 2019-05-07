@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
@@ -41,7 +43,16 @@ public class VerGrupos extends JFrame {
 	private JTable tablaGrupos;
 	private JScrollPane scrollPane;
 
+	
 	public VerGrupos() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				borrarGrupos();
+				comboBoxColumna.addItem("Selecciona un grupo");
+				controlador.solicitudListadoGrupos();
+			}
+		});
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -85,7 +96,12 @@ public class VerGrupos extends JFrame {
 		contentPane.add(btnVolver);
 
 		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(new String[] { "Seleccionar un grupo" }));
+		comboBoxColumna.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.solicitudListadoAlumnosPorGrupo();
+			}
+		});
+		comboBoxColumna.setMaximumRowCount(100);
 		comboBoxColumna.setBounds(100, 127, 765, 40);
 		contentPane.add(comboBoxColumna);
 
@@ -105,5 +121,22 @@ public class VerGrupos extends JFrame {
 	
 	public void setModelo(Modelo modelo) {
 		this.modelo= modelo;
+	}
+	
+	public void borrarGrupos() {
+		comboBoxColumna.removeAllItems();
+	}
+	
+	public String getGrupoComboBox(){
+		return String.valueOf(comboBoxColumna.getSelectedItem());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void addGrupo() {
+		comboBoxColumna.addItem(modelo.getGrupo());
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaGrupos.getModel();
 	}
 }

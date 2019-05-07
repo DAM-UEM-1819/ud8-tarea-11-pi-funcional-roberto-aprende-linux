@@ -114,7 +114,7 @@ public class Informes extends JFrame {
 		contentPane.add(lblProfesores);
 		
 		comboBoxInformes = new JComboBox();
-		comboBoxInformes.setModel(new DefaultComboBoxModel(new String[] {"Informe"}));
+		comboBoxInformes.setModel(new DefaultComboBoxModel(ListadoInformes.values()));
 		comboBoxInformes.setBounds(352, 689, 301, 33);
 		contentPane.add(comboBoxInformes);
 	}

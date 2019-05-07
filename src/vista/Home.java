@@ -237,6 +237,12 @@ public class Home extends JFrame {
 			controlador.homeToLogin();
 		}
 	}
+	
+	public void vistaDefault() {
+		btnGestionar.setVisible(true);
+		btnInformes.setVisible(true);
+		btnInfoExtra.setBounds(251, 685, 144, 40);
+	}
 
 	public void getTxtCalendario() {
 
@@ -244,6 +250,12 @@ public class Home extends JFrame {
 
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
+	}
+	
+	public void vistaUsuarioLectura() {
+		btnGestionar.setVisible(false);
+		btnInformes.setVisible(false);
+		btnInfoExtra.setBounds(782, 685, 170, 40);
 	}
 
 }

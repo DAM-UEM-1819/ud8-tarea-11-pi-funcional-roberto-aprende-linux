@@ -41,11 +41,18 @@ public class Controlador implements IControlador {
 		home.setVisible(true);
 	}
 	
+	public void loginToHomeLectura() {
+		home.vistaUsuarioLectura();
+		login.setVisible(false);
+		home.setVisible(true);
+	}
+	
 	//Ventana Home
 
 	public void homeToLogin() {
 		home.setVisible(false);
 		login.setVisible(true);
+		home.vistaDefault();
 
 	}
 
@@ -460,6 +467,14 @@ public class Controlador implements IControlador {
 		modelo.getTablaUsuarios(gestionUsuarios.getModel());		
 	}
 
+	
+	public void solicitudListadoGrupos() {
+		modelo.listadoGrupos();
+	}
+	
+	public void solicitudListadoAlumnosPorGrupo() {
+		modelo.getListadoAlumnosPorGrupo(verGrupos.getModel(), verGrupos.getGrupoComboBox());
+	}
 
 
 }

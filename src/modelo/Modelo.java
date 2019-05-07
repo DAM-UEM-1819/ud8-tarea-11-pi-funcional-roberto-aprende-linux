@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.*;
 import java.util.Properties;
+import java.util.TreeSet;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -56,12 +57,24 @@ public class Modelo implements IModelo {
 	private DefaultTableModel tableModel;
 	private String[] nombreColumnasTabla;
 	private Object[] datosFilasTabla;
+	private String rolUsuario;
+	private TreeSet<String> listadoGrupos;
+	private String grupo;
 
 	// Sentencias Select SQL
-	private String selectPasswdUsuario = "SELECT PWD FROM HOSPITAL.USERS WHERE USR = ?"; // Inicio sesion
-	private String selectTodosUsuarios = "SELECT USR, ROL FROM HOSPITAL.USERS"; // Tabla usuarios
+	private String selectPasswdUsuario = "SELECT PWD, ROL FROM HOSPITAL.USERS WHERE USR = ?"; // Inicio sesion
+	private String selectTodosUsuarios = "SELECT USR as Usuario, ROL as Rol FROM HOSPITAL.USERS"; // Tabla usuarios
 	private String selectTodosRegistros = "SELECT cod_registro , fecha , horas_profesor , actividad_nombre FROM HOSPITAL.Registro"; //Select registro
 	private String selectTodosAlumnos = "SELECT * FROM HOSPITAL.alumno"; //Select registro
+	private String selectTodasActividades = "SELECT nombre , tipo_actividad , tipo_sala, simulador , documentacion_tecnica , horas_actividad , acad  FROM hospital.actividad";
+	private String selectTodasAsignaturas = "SELECT codigo , nombre , titulacion , curso FROM HOSPITAL.asignatura";
+	private String selectTodosProfesores = "SELECT numero , nombre || apellido1 || apellido2 as Nombre , titulacion , dni, activo, relacion_laboral,tlf1,tlf2 , mail1, mail2 from HOSPITAL.profesor";
+	private String selectTodosActores = "SELECT  cod_actor , nombre , edad , genero , idioma , complexion , activo FROM HOSPITAL.actor";
+	private String selectTodasSalas = "SELECT cod_sala , tipo_sala , numero , capacidad FROM HOSPITAL.sala";
+	private String selectTodosAcad = "SELECT * FROM HOSPITAL.acad";
+	private String selectTodosCodigoGrupo = "SELECT cod_grupo FROM HOSPITAL.matricula";
+	private String selectListadoAlumnosPorGrupo = "SELECT  cod_grupo , nombre FROM HOSPITAL.matricula , HOSPITAL.alumno where alumno.exp = matricula.alumno_exp  and cod_grupo = ?";
+
 	
 	// Sentencias Insertado SQL
 	private String insertUsuario = "INSERT INTO HOSPITAL.users (usr, pwd, rol) VALUES (?,?,?)";
@@ -199,7 +212,13 @@ public class Modelo implements IModelo {
 			pstmt.setString(1, usuario);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next() && rs.getString(1).equals(passwd)) {
-				login.loginExitoso();
+				//CAmbiar solo a ADMIN
+				if (rs.getString(2).equalsIgnoreCase("Admin") || rs.getString(2).equalsIgnoreCase("Administrador") ) {
+					login.loginExitoso();
+				}else {
+					login.loginExitosoLectura();
+				}
+				
 			} else {
 				contador++;
 				if (contador >= 3) {
@@ -253,19 +272,19 @@ public class Modelo implements IModelo {
 	
 	public void getTablaAcad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		String sql = selectTodosUsuarios;
+		String sql = selectTodosAcad;
 		getDatos(sql);
 	}
 	
 	public void getTablaActividad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		String sql = selectTodosUsuarios;
+		String sql = selectTodasActividades;
 		getDatos(sql);
 	}
 	
 	public void getTablaActores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		String sql = selectTodosUsuarios;
+		String sql = selectTodosActores;
 		getDatos(sql);
 	}
 	
@@ -277,13 +296,13 @@ public class Modelo implements IModelo {
 	
 	public void getTablaAsignatura(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		String sql = selectTodosUsuarios;
+		String sql = selectTodasAsignaturas;
 		getDatos(sql);
 	}
 	
 	public void getTablaProfesores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		String sql = selectTodosUsuarios;
+		String sql = selectTodosProfesores;
 		getDatos(sql);
 	}
 	
@@ -294,8 +313,64 @@ public class Modelo implements IModelo {
 	}
 	public void getTablaSalas(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		String sql = selectTodosUsuarios;
+		String sql = selectTodasSalas;
 		getDatos(sql);
+	}
+	
+	public void listadoGrupos() {
+		String sql = selectTodosCodigoGrupo;
+		listadoGrupos = new TreeSet<String>();
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				listadoGrupos.add(rs.getString(1));
+			}
+			
+			for (String elemento : listadoGrupos) {
+				grupo = elemento;
+				verGrupos.addGrupo();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void getListadoAlumnosPorGrupo(DefaultTableModel tableModel, String grupo) {
+		this.tableModel = tableModel;
+		String sql = selectListadoAlumnosPorGrupo;
+		
+		if (!grupo.equalsIgnoreCase("Selecciona un grupo")) {
+			tableModel.setColumnCount(0);
+			tableModel.setRowCount(0);
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(sql);
+				pstmt.setString(1, grupo);
+				ResultSet rs = pstmt.executeQuery();
+				ResultSetMetaData metadatos = rs.getMetaData();
+
+				int numColumnas = metadatos.getColumnCount();
+				datosFilasTabla = new Object[numColumnas];
+
+				for (int i = 0; i < numColumnas; i++) {
+					tableModel.addColumn(metadatos.getColumnName(i + 1));
+				}
+				
+				// metadatos.getColumnName(1); 
+
+				while (rs.next()) {
+					for (int i = 0; i < numColumnas; i++) {
+						datosFilasTabla[i] = rs.getObject(i+ 1);
+					}
+					tableModel.addRow(datosFilasTabla);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void getDatos(String sql) {
@@ -326,5 +401,10 @@ public class Modelo implements IModelo {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
+	public String getGrupo() {
+		return grupo;
+	}
 }

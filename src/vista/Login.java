@@ -118,6 +118,10 @@ public class Login extends JFrame {
 	public void loginExitoso() {
 		controlador.loginToHome();
 	}
+	
+	public void loginExitosoLectura() {
+		controlador.loginToHomeLectura();
+	}
 
 	public void salir() {
 		System.exit(0);
