@@ -15,6 +15,6 @@ public enum ListadoInformes {
 	HorasActorTitulacionYAcad,
 	ListadoAlumnosSegunAsignaturaYGrupoActivos,
 	ListadoAlumnosSegunNombreActividad,
-	ListadoProfesoresSegunTitulación
+	ListadoProfesoresSegunTitulacion
 	
 }
