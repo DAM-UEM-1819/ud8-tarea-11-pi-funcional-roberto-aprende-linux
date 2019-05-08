@@ -100,7 +100,7 @@ public class Modelo implements IModelo {
 
 	public Modelo() {
 		propiedades = new Properties();
-		fichero = new File("./configuracion.ini");
+		fichero = new File("./conf/configuracion.ini");
 
 		try {
 			entrada = new FileInputStream(fichero);
