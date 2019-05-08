@@ -431,6 +431,10 @@ public class Controlador implements IControlador {
 		modelo.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
 	}
 	
+	public void solicitudDatosHome() {
+		modelo.getTablaHome(home.getModel());
+	}
+	
 	public void solicitudDatosAcad() {
 		modelo.getTablaAcad(gestionAcad.getModel());
 	}

@@ -65,6 +65,7 @@ public class Modelo implements IModelo {
 	private String selectPasswdUsuario = "SELECT PWD, ROL FROM HOSPITAL.USERS WHERE USR = ?";
 
 	// Sentencias Select SQL TABLAS
+	private String selectHome = "SELECT USR as Usuario, ROL as Rol FROM HOSPITAL.USERS";
 	private String selectTodosUsuarios = "SELECT USR as Usuario, ROL as Rol FROM HOSPITAL.USERS";
 	private String selectTodosRegistros = "SELECT cod_registro , fecha , horas_profesor , actividad_nombre FROM HOSPITAL.Registro";
 	private String selectTodosAlumnos = "SELECT * FROM HOSPITAL.alumno";
@@ -273,6 +274,12 @@ public class Modelo implements IModelo {
 		}
 
 		crearUsuario.actualizarInfo();
+	}
+	
+	public void getTablaHome(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+		String sql = selectHome;
+		getDatos(sql);
 	}
 
 	public void getTablaUsuarios(DefaultTableModel tableModel) {

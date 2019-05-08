@@ -72,6 +72,7 @@ public class Home extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
+				
 			}
 		});
 		setTitle("Hospital simulado");
@@ -232,7 +233,7 @@ public class Home extends JFrame {
 	}
 
 	public void confirmacionSalir() {
-		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro/a de que desea salir?");
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "ï¿½Esta seguro/a de que desea salir?");
 		if (JOptionPane.YES_OPTION == valorRetorno) {
 			controlador.homeToLogin();
 		}
@@ -256,6 +257,11 @@ public class Home extends JFrame {
 		btnGestionar.setVisible(false);
 		btnInformes.setVisible(false);
 		btnInfoExtra.setBounds(782, 685, 170, 40);
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaRegistros.getModel();
+		
 	}
 
 }
