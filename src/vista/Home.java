@@ -72,7 +72,7 @@ public class Home extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				
+				controlador.solicitudDatosHome();
 			}
 		});
 		setTitle("Hospital simulado");
@@ -89,13 +89,6 @@ public class Home extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaRegistros = new JTable();
-		tablaRegistros.setModel(
-				new DefaultTableModel(
-						new Object[][] {
-								{ "Consulta 2", "16:30", "18:30", "Consulta", "Enfermeria", "ENM11",
-										"Matilda P\u00E9rez" },
-								{ "Consulta1", "17:30", "19:30", "Consulta", "Medicina", "MEM11", null }, },
-						new String[] { "Sala", "Inicio", "Fin", "Actividad", "Titulaci\u00F3n", "Grupo", "Profesor" }));
 		tablaRegistros.setRowHeight(30);
 
 		scrollPaneRegistros.setViewportView(tablaRegistros);
@@ -238,7 +231,7 @@ public class Home extends JFrame {
 			controlador.homeToLogin();
 		}
 	}
-	
+
 	public void vistaDefault() {
 		btnGestionar.setVisible(true);
 		btnInformes.setVisible(true);
@@ -252,16 +245,16 @@ public class Home extends JFrame {
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
-	
+
 	public void vistaUsuarioLectura() {
 		btnGestionar.setVisible(false);
 		btnInformes.setVisible(false);
 		btnInfoExtra.setBounds(782, 685, 170, 40);
 	}
-	
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaRegistros.getModel();
-		
+
 	}
 
 }
