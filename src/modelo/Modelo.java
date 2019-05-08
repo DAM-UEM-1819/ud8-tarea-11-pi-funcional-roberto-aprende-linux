@@ -67,7 +67,7 @@ public class Modelo implements IModelo {
 	// Sentencias Select SQL TABLAS
 	private String selectHome = "SELECT distinct sala.tipo_sala as Sala,  SUBSTR(registro.hora, 10, 5) as Inicio, SUBSTR(registro.hora, 10, 5) as Fin, actividad.tipo_actividad as actividad, asignatura.titulacion as titulacion, matricula.cod_grupo as grupo, profesor.nombre || profesor.apellido1 as Profesor FROM HOSPITAL.sala, HOSPITAL.registro, HOSPITAL.ocupa, HOSPITAL.actividad, HOSPITAL.asignatura, HOSPITAL.matricula, HOSPITAL.realiza, HOSPITAL.profesor where registro.cod_registro = ocupa.registro_cod_registro  and ocupa.cod_sala = sala.cod_sala  and registro.actividad_nombre = actividad.nombre and actividad.asignatura_codigo = asignatura.codigo and asignatura.codigo = matricula.asignatura_codigo and realiza.registro_cod_registro = registro.cod_registro and realiza.profesor_numero  = profesor.numero";
 	private String selectTodosUsuarios = "SELECT USR as Usuario, ROL as Rol FROM HOSPITAL.USERS";
-	private String selectTodosRegistros = "SELECT cod_registro , fecha , horas_profesor , actividad_nombre FROM HOSPITAL.Registro";
+	private String selectTodosRegistros = "SELECT cod_registro , SUBSTR(fecha,1,9) as Fecha , horas_profesor , actividad_nombre FROM HOSPITAL.Registro";
 	private String selectTodosAlumnos = "SELECT * FROM HOSPITAL.alumno";
 	private String selectTodasActividades = "SELECT nombre , tipo_actividad , tipo_sala, simulador , documentacion_tecnica , horas_actividad , acad  FROM hospital.actividad";
 	private String selectTodasAsignaturas = "SELECT codigo , nombre , titulacion , curso FROM HOSPITAL.asignatura";
