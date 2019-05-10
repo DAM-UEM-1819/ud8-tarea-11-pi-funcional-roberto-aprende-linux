@@ -44,7 +44,7 @@ import java.awt.event.WindowEvent;
 public class Home extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
 	private JTable tablaRegistros;
 	private JButton btnSalir;
@@ -242,8 +242,8 @@ public class Home extends JFrame {
 
 	}
 
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
 	}
 
 	public void vistaUsuarioLectura() {

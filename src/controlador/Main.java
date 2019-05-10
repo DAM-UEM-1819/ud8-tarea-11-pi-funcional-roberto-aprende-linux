@@ -97,23 +97,23 @@ public class Main {
 		modeloConsultas.setControlador(controlador);
 
 		// Asignariamos las vistas al modelo
-		login.setModelo(modeloConsultas);
-		home.setModelo(modeloConsultas);
-		infoExtra.setModelo(modeloConsultas);
-		informes.setModelo(modeloConsultas);
-		crearUser.setModelo(modeloConsultas);
-		gestion.setModelo(modeloConsultas);
-		gestionAcad.setModelo(modeloConsultas);
-		gestionActividad.setModelo(modeloConsultas);
-		gestionActores.setModelo(modeloConsultas);
-		gestionAlumnos.setModelo(modeloConsultas);
-		gestionRegistros.setModelo(modeloConsultas);
-		gestionAsignaturas.setModelo(modeloConsultas);
-		gestionProfesores.setModelo(modeloConsultas);
-		gestionSalas.setModelo(modeloConsultas);
-		gestionUsuarios.setModelo(modeloConsultas);
-		perfil.setModelo(modeloConsultas);
-		verGrupos.setModelo(modeloConsultas);
+		login.setModeloConsultas(modeloConsultas);
+		home.setModeloConsultas(modeloConsultas);
+		infoExtra.setModeloConsultas(modeloConsultas);
+		informes.setModeloConsultas(modeloConsultas);
+		crearUser.setModeloConsultas(modeloConsultas);
+		gestion.setModeloConsultas(modeloConsultas);
+		gestionAcad.setModeloConsultas(modeloConsultas);
+		gestionActividad.setModeloConsultas(modeloConsultas);
+		gestionActores.setModeloConsultas(modeloConsultas);
+		gestionAlumnos.setModeloConsultas(modeloConsultas);
+		gestionRegistros.setModeloConsultas(modeloConsultas);
+		gestionAsignaturas.setModeloConsultas(modeloConsultas);
+		gestionProfesores.setModeloConsultas(modeloConsultas);
+		gestionSalas.setModeloConsultas(modeloConsultas);
+		gestionUsuarios.setModeloConsultas(modeloConsultas);
+		perfil.setModeloConsultas(modeloConsultas);
+		verGrupos.setModeloConsultas(modeloConsultas);
 		
 		login.setVisible(true);
 		
