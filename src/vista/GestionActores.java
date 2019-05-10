@@ -29,9 +29,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class GestionActores extends JFrame {
-	
+
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
+	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaActores;
 	private JTextField txtNombre;
@@ -51,7 +52,6 @@ public class GestionActores extends JFrame {
 	private JComboBox comboBoxGenero;
 	private JComboBox comboBoxIdioma;
 	private JComboBox comboBoxComplexion;
-
 
 	/**
 	 * Launch the application.
@@ -130,56 +130,62 @@ public class GestionActores extends JFrame {
 		btnAddActor = new JButton(" A\u00F1adir actor");
 		btnAddActor.setBounds(782, 685, 120, 40);
 		contentPane.add(btnAddActor);
-		
+
 		comboBoxColumna = new JComboBox();
 		comboBoxColumna.setBounds(761, 127, 104, 20);
 		contentPane.add(comboBoxColumna);
-		
+
 		textField = new JTextField();
 		textField.setText("Buscador");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setColumns(10);
 		textField.setBounds(665, 127, 86, 20);
 		contentPane.add(textField);
-		
+
 		labelImportar = new JLabel("Importar Actividades");
-		labelImportar.setIcon(new ImageIcon(GestionActores.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		labelImportar.setIcon(
+				new ImageIcon(GestionActores.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		labelImportar.setBounds(98, 127, 124, 20);
 		contentPane.add(labelImportar);
-		
+
 		comboBoxEdad = new JComboBox();
-		comboBoxEdad.setModel(new DefaultComboBoxModel(new String[] {"Edad"}));
+		comboBoxEdad.setModel(new DefaultComboBoxModel(new String[] { "Edad" }));
 		comboBoxEdad.setBounds(334, 629, 121, 30);
 		contentPane.add(comboBoxEdad);
-		
+
 		comboBoxGenero = new JComboBox();
-		comboBoxGenero.setModel(new DefaultComboBoxModel(new String[] {"G\u00E9nero"}));
+		comboBoxGenero.setModel(new DefaultComboBoxModel(new String[] { "G\u00E9nero" }));
 		comboBoxGenero.setBounds(465, 629, 103, 30);
 		contentPane.add(comboBoxGenero);
-		
+
 		comboBoxIdioma = new JComboBox();
-		comboBoxIdioma.setModel(new DefaultComboBoxModel(new String[] {"Idioma"}));
+		comboBoxIdioma.setModel(new DefaultComboBoxModel(new String[] { "Idioma" }));
 		comboBoxIdioma.setBounds(575, 629, 103, 30);
 		contentPane.add(comboBoxIdioma);
-		
+
 		comboBoxComplexion = new JComboBox();
-		comboBoxComplexion.setModel(new DefaultComboBoxModel(new String[] {"Complexi\u00F3n"}));
+		comboBoxComplexion.setModel(new DefaultComboBoxModel(new String[] { "Complexi\u00F3n" }));
 		comboBoxComplexion.setBounds(688, 629, 103, 30);
 		contentPane.add(comboBoxComplexion);
-		
+
 		JCheckBox chckbxActivo = new JCheckBox("Activo");
 		chckbxActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxActivo.setBounds(801, 633, 97, 23);
 		contentPane.add(chckbxActivo);
 	}
-	
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
 	}
-	
+
+	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
+		this.modeloGestionDatos = modeloGestionDatos;
+	}
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaActores.getModel();
 	}

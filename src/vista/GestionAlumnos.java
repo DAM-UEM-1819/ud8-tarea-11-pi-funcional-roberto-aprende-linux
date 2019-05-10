@@ -44,7 +44,8 @@ import javax.swing.ImageIcon;
 public class GestionAlumnos extends JFrame {
 	
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
+	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaAlumnos;
 	private JTextField txtExpediente;
@@ -185,8 +186,12 @@ public class GestionAlumnos extends JFrame {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el usuario seleccionado?");
 	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
+	}
+
+	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
 	
 	public DefaultTableModel getModel() {

@@ -32,7 +32,8 @@ import modelo.*;
 public class GestionAsignatura extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
+	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaAsignaturas;
 	private JTextField txtCodigoAsignatura;
@@ -171,8 +172,12 @@ public class GestionAsignatura extends JFrame {
 		this.controlador = controlador;
 	}
 
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
+	}
+
+	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
 
 	public DefaultTableModel getModel() {

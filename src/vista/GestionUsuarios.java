@@ -46,7 +46,8 @@ import java.awt.event.WindowEvent;
 public class GestionUsuarios extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
+	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaUsuarios;
 	private JTextField txtUsuario;
@@ -173,8 +174,12 @@ public class GestionUsuarios extends JFrame {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea borrar el usuario seleccionado?");
 	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
+	}
+
+	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
 	
 	public DefaultTableModel getModel() {

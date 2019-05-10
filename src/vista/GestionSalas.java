@@ -41,7 +41,8 @@ import javax.swing.JCheckBox;
 public class GestionSalas extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
+	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaSalas;
 	private JTextField txtCodigo;
@@ -169,8 +170,12 @@ public class GestionSalas extends JFrame {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea modificar la sala seleccionada?");
 	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
+	}
+
+	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaSalas.getModel();
