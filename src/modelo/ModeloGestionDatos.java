@@ -1,6 +1,8 @@
 package modelo;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -54,6 +56,23 @@ public class ModeloGestionDatos {
 	private File fichero;
 	
 	public ModeloGestionDatos() {
+		
+		propiedades = new Properties();
+		fichero = new File("./conf/configuracion.ini");
+
+		try {
+			entrada = new FileInputStream(fichero);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			propiedades.load(entrada);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 

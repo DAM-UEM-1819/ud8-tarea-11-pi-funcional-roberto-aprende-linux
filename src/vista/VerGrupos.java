@@ -32,7 +32,7 @@ import modelo.*;
 public class VerGrupos extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
 	private JPanel HeaderPanel;
 	private JLabel lblTitulo;
@@ -119,8 +119,8 @@ public class VerGrupos extends JFrame {
 		this.controlador = controlador;
 	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
 	}
 	
 	public void borrarGrupos() {
@@ -133,7 +133,7 @@ public class VerGrupos extends JFrame {
 	
 	@SuppressWarnings("unchecked")
 	public void addGrupo() {
-		comboBoxColumna.addItem(modelo.getGrupo());
+		comboBoxColumna.addItem(modeloConsultas.getGrupo());
 	}
 	
 	public DefaultTableModel getModel() {

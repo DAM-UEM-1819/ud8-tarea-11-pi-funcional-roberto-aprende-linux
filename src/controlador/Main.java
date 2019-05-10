@@ -1,13 +1,17 @@
 package controlador;
 
 import modelo.Modelo;
+import modelo.ModeloConsultas;
+import modelo.ModeloGestionDatos;
 import vista.*;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Controlador controlador = new Controlador();
-		Modelo modelo = new Modelo();
+		Modelo modeloConsultas = new Modelo();
+		ModeloConsultas modeloConsultas = new ModeloConsultas();
+		ModeloGestionDatos modeloGestionDatos = new ModeloGestionDatos();
 		Login login = new Login();
 		Home home = new Home();
 		InformacionExtra infoExtra = new InformacionExtra();
@@ -45,7 +49,7 @@ public class Main {
 		controlador.setPerfil(perfil);
 		controlador.setVerGrupos(verGrupos);
 		
-		controlador.setModelo(modelo);
+		controlador.setModelo(modeloConsultas);
 
 		// Asignamos las vistas al controlador
 		login.setControlador(controlador);
@@ -69,47 +73,47 @@ public class Main {
 		// Vista de nuestro login
 		
 
-		// Creariamos el modelo que le pasa la vista de login como parámetro
-		modelo.setLogin(login);
+		// Creariamos el modelo que le pasa la vista de login como parï¿½metro
+		modeloConsultas.setLogin(login);
 		// Asignariamos el modelo a las vistas		modelo.setLogin(login);
-		modelo.setHome(home);
-		modelo.setInfoExtra(infoExtra);
-		modelo.setInformes(informes);
-		modelo.setCrearUsuario(crearUser);
-		modelo.setGestion(gestion);
-		modelo.setGestionAcad(gestionAcad);
-		modelo.setGestionActividad(gestionActividad);
-		modelo.setGestionActores(gestionActores);
-		modelo.setGestionAlumnos(gestionAlumnos);
-		modelo.setGestionRegistros(gestionRegistros);
-		modelo.setGestionAsignatura(gestionAsignaturas);
-		modelo.setGestionProfesores(gestionProfesores);
-		modelo.setGestionSalas(gestionSalas);
-		modelo.setGestionUsuarios(gestionUsuarios);
-		modelo.setPerfil(perfil);
-		modelo.setVerGrupos(verGrupos);
+		modeloConsultas.setHome(home);
+		modeloConsultas.setInfoExtra(infoExtra);
+		modeloConsultas.setInformes(informes);
+		modeloConsultas.setCrearUsuario(crearUser);
+		modeloConsultas.setGestion(gestion);
+		modeloConsultas.setGestionAcad(gestionAcad);
+		modeloConsultas.setGestionActividad(gestionActividad);
+		modeloConsultas.setGestionActores(gestionActores);
+		modeloConsultas.setGestionAlumnos(gestionAlumnos);
+		modeloConsultas.setGestionRegistros(gestionRegistros);
+		modeloConsultas.setGestionAsignatura(gestionAsignaturas);
+		modeloConsultas.setGestionProfesores(gestionProfesores);
+		modeloConsultas.setGestionSalas(gestionSalas);
+		modeloConsultas.setGestionUsuarios(gestionUsuarios);
+		modeloConsultas.setPerfil(perfil);
+		modeloConsultas.setVerGrupos(verGrupos);
 
 		// Asignariamos el modelo al controlador
-		modelo.setControlador(controlador);
+		modeloConsultas.setControlador(controlador);
 
 		// Asignariamos las vistas al modelo
-		login.setModelo(modelo);
-		home.setModelo(modelo);
-		infoExtra.setModelo(modelo);
-		informes.setModelo(modelo);
-		crearUser.setModelo(modelo);
-		gestion.setModelo(modelo);
-		gestionAcad.setModelo(modelo);
-		gestionActividad.setModelo(modelo);
-		gestionActores.setModelo(modelo);
-		gestionAlumnos.setModelo(modelo);
-		gestionRegistros.setModelo(modelo);
-		gestionAsignaturas.setModelo(modelo);
-		gestionProfesores.setModelo(modelo);
-		gestionSalas.setModelo(modelo);
-		gestionUsuarios.setModelo(modelo);
-		perfil.setModelo(modelo);
-		verGrupos.setModelo(modelo);
+		login.setModelo(modeloConsultas);
+		home.setModelo(modeloConsultas);
+		infoExtra.setModelo(modeloConsultas);
+		informes.setModelo(modeloConsultas);
+		crearUser.setModelo(modeloConsultas);
+		gestion.setModelo(modeloConsultas);
+		gestionAcad.setModelo(modeloConsultas);
+		gestionActividad.setModelo(modeloConsultas);
+		gestionActores.setModelo(modeloConsultas);
+		gestionAlumnos.setModelo(modeloConsultas);
+		gestionRegistros.setModelo(modeloConsultas);
+		gestionAsignaturas.setModelo(modeloConsultas);
+		gestionProfesores.setModelo(modeloConsultas);
+		gestionSalas.setModelo(modeloConsultas);
+		gestionUsuarios.setModelo(modeloConsultas);
+		perfil.setModelo(modeloConsultas);
+		verGrupos.setModelo(modeloConsultas);
 		
 		login.setVisible(true);
 		
