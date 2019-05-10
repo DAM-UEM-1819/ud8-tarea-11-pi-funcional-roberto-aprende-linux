@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Connection;
+import java.sql.*;
 import java.util.Properties;
 
 import controlador.Controlador;
@@ -61,6 +61,10 @@ public class ModeloGestionDatos {
 
 	// Atributos internos
 	private Connection conexion;
+	private String respuesta;
+
+	// Sentencias Insertado SQL
+	private String insertUsuario;
 
 	public ModeloGestionDatos() {
 
@@ -84,6 +88,10 @@ public class ModeloGestionDatos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		asignacionInsertado();
+		asignacionBorrado();
+		asignacionModificacion();
 
 	}
 
@@ -94,8 +102,21 @@ public class ModeloGestionDatos {
 	public void setConexion(Connection conexion) {
 		this.conexion = conexion;
 	}
+	
+	public void asignacionInsertado() {
+		
+		insertUsuario = propiedadesInsertado.getProperty(insertUsuario);
+	}
+	
+	public void asignacionBorrado() {
+		
+	}
+	
+	public void asignacionModificacion() {
+		
+	}
 
-	public void crearUsuario(String user, String passwd, String rol) {
+	public void crearUsuarioProvisional(String user, String passwd, String rol) {
 		String sql = selectPasswdUsuario;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -124,6 +145,27 @@ public class ModeloGestionDatos {
 		}
 
 		crearUsuario.actualizarInfo();
+	}
+	
+	public String crearUsuario(String user, String passwd, String rol) {
+		String sql = insertUsuario;
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			pstmt = conexion.prepareStatement(sql);
+			pstmt.setString(1, user);
+			pstmt.setString(2, passwd);
+			pstmt.setString(3, rol);
+			ResultSet rs = pstmt.executeQuery();
+			respuesta = "Usuario creado";
+		} catch (Exception e) {
+			respuesta = "Error, algun campo vacio";
+			crearUsuario.actualizarInfo();
+			e.printStackTrace();
+		}
+		
+		return respuesta;
+		
+		
 	}
 
 }
