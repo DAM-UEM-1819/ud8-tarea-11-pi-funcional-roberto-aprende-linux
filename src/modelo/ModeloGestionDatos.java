@@ -52,41 +52,78 @@ public class ModeloGestionDatos {
 	private Modelo modelo;
 
 	// Atributos Fichero
-	private Properties propiedades;
+	private Properties propiedadesInsertado;
+	private Properties propiedadesBorrado;
+	private Properties propiedadesModificacion;
 	private InputStream entrada;
 	private OutputStream salida;
 	private File fichero;
-	
-	//Atributos internos
+
+	// Atributos internos
 	private Connection conexion;
-	
+
 	public ModeloGestionDatos() {
-		
-		propiedades = new Properties();
-		fichero = new File("./conf/configuracion.ini");
+
+		propiedadesInsertado = new Properties();
+		propiedadesBorrado = new Properties();
+		propiedadesModificacion = new Properties();
 
 		try {
+			fichero = new File("./sql/insertado.ini");
 			entrada = new FileInputStream(fichero);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			propiedadesInsertado.load(entrada);
+
+			fichero = new File("./sql/borrado.ini");
+			entrada = new FileInputStream(fichero);
+			propiedadesBorrado.load(entrada);
+
+			fichero = new File("./sql/modificacion.ini");
+			entrada = new FileInputStream(fichero);
+			propiedadesModificacion.load(entrada);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		try {
-			propiedades.load(entrada);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
 	}
-	
+
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
 
 	public void setConexion(Connection conexion) {
 		this.conexion = conexion;
+	}
+
+	public void crearUsuario(String user, String passwd, String rol) {
+		String sql = selectPasswdUsuario;
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			pstmt.setString(1, user);
+			ResultSet rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				sql = insertUsuario;
+				try {
+					pstmt = conexion.prepareStatement(sql);
+					pstmt.setString(1, user);
+					pstmt.setString(2, passwd);
+					pstmt.setString(3, rol);
+					rs = pstmt.executeQuery();
+					respuesta = "Usuario creado";
+				} catch (Exception e) {
+					respuesta = "Error, algun campo vacio";
+					crearUsuario.actualizarInfo();
+					e.printStackTrace();
+				}
+			} else {
+				respuesta = "El usuario ya existe";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		crearUsuario.actualizarInfo();
 	}
 
 }
