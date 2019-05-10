@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
 import java.util.Properties;
 
 import controlador.Controlador;
@@ -56,6 +57,9 @@ public class ModeloGestionDatos {
 	private OutputStream salida;
 	private File fichero;
 	
+	//Atributos internos
+	private Connection conexion;
+	
 	public ModeloGestionDatos() {
 		
 		propiedades = new Properties();
@@ -81,5 +85,8 @@ public class ModeloGestionDatos {
 		this.modelo = modelo;
 	}
 
+	public void setConexion(Connection conexion) {
+		this.conexion = conexion;
+	}
 
 }
