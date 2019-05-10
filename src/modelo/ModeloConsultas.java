@@ -107,7 +107,6 @@ public class ModeloConsultas {
 	private String selectBuscadorAcad = "SELECT * FROM HOSPITAL.acad WHERE acad=? or sem1=? or sem2=?";
 
 	public ModeloConsultas() {
-		conexion = modelo.getConexion();
 		propiedades = new Properties();
 		fichero = new File("./sql/consultas.ini");
 
@@ -218,6 +217,7 @@ public class ModeloConsultas {
 	// INICIO METODOS BASE DATOS
 
 	public void loginConfirmacion(String usuario, String passwd) {
+		conexion = modelo.getConexion();
 		String sql = selectPasswdUsuario;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
