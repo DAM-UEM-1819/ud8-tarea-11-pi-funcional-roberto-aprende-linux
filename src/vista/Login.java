@@ -15,6 +15,8 @@ import controlador.Controlador;
 import modelo.*;
 
 import java.awt.TextField;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -69,11 +71,15 @@ public class Login extends JFrame {
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
 		lblTitulo.setVerticalAlignment(JLabel.CENTER);
 
-		lblUsuarioTemp = new JLabel("Usuario");
+		ImageIcon usuarioIcon = new ImageIcon("./img/usuario.png");
+		lblUsuarioTemp = new JLabel(usuarioIcon);
+		lblUsuarioTemp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuarioTemp.setBounds(380, 263, 46, 14);
 		contentPane.add(lblUsuarioTemp);
-
-		lblPasswordTemp = new JLabel("Contrase\u00F1a");
+		
+		ImageIcon passwdIcon = new ImageIcon("./img/candado.png");
+		lblPasswordTemp = new JLabel(passwdIcon);
+		lblPasswordTemp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPasswordTemp.setBounds(380, 462, 65, 14);
 		contentPane.add(lblPasswordTemp);
 
