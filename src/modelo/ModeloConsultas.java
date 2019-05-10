@@ -52,5 +52,9 @@ public class ModeloConsultas {
 	private InputStream entrada;
 	private OutputStream salida;
 	private File fichero;
+	
+	public ModeloConsultas(){
+		
+	}
 
 }

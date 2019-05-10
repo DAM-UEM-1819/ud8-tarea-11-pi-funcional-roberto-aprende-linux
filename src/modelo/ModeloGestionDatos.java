@@ -52,5 +52,9 @@ public class ModeloGestionDatos {
 	private InputStream entrada;
 	private OutputStream salida;
 	private File fichero;
+	
+	public ModeloGestionDatos() {
+		
+	}
 
 }
