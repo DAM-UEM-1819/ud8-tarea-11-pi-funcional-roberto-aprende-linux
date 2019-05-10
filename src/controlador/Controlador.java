@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import modelo.Modelo;
+import modelo.ModeloConsultas;
+import modelo.ModeloGestionDatos;
 import vista.*;
 
 public class Controlador implements IControlador {
@@ -29,6 +31,8 @@ public class Controlador implements IControlador {
 	private VerGrupos verGrupos;
 	private Perfil perfil;
 	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
+	private ModeloGestionDatos modeloGestionDatos;
 
 	/*
 	 * *********************************************
@@ -399,6 +403,12 @@ public class Controlador implements IControlador {
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
+	}
+	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
+		this.modeloGestionDatos = modeloGestionDatos;
+	}
 	
 	/*
 	 * *********************************************
@@ -407,7 +417,7 @@ public class Controlador implements IControlador {
 	 */
 	
 	public void loginSolicitud() {
-		modelo.loginConfirmacion(login.getTxtUser(), login.getTextPasswd());
+		modeloConsultas.loginConfirmacion(login.getTxtUser(), login.getTextPasswd());
 	}
 	
 	/*
@@ -428,56 +438,56 @@ public class Controlador implements IControlador {
 	 */
 	
 	public void solicitudCrearUsuario() {
-		modelo.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
+		//modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
 	}
 	
 	public void solicitudDatosHome() {
-		modelo.getTablaHome(home.getModel());
+		modeloConsultas.getTablaHome(home.getModel());
 	}
 	
 	public void solicitudDatosAcad() {
-		modelo.getTablaAcad(gestionAcad.getModel());
+		modeloConsultas.getTablaAcad(gestionAcad.getModel());
 	}
 	
 	public void solicitudDatosActividad() {
-		modelo.getTablaActividad(gestionActividad.getModel());
+		modeloConsultas.getTablaActividad(gestionActividad.getModel());
 	}
 	
 	public void solicitudDatosActores() {
-		modelo.getTablaActores(gestionActores.getModel());
+		modeloConsultas.getTablaActores(gestionActores.getModel());
 	}
 	
 	public void solicitudDatosAlumnos() {
-		modelo.getTablaAlumnos(gestionAlumnos.getModel());
+		modeloConsultas.getTablaAlumnos(gestionAlumnos.getModel());
 	}
 	
 	public void solicitudDatosAsignatura() {
-		modelo.getTablaAsignatura(gestionAsignatura.getModel());
+		modeloConsultas.getTablaAsignatura(gestionAsignatura.getModel());
 	}
 	
 	public void solicitudDatosProfesores() {
-		modelo.getTablaProfesores(gestionProfesores.getModel());
+		modeloConsultas.getTablaProfesores(gestionProfesores.getModel());
 	}
 	
 	public void solicitudDatosRegistros() {
-		modelo.getTablaRegistros(gestionRegistros.getModel());
+		modeloConsultas.getTablaRegistros(gestionRegistros.getModel());
 	}
 	
 	public void solicitudDatosSalas() {
-		modelo.getTablaSalas(gestionSalas.getModel());
+		modeloConsultas.getTablaSalas(gestionSalas.getModel());
 	}
 
 	public void solicitudDatosUsuarios() {
-		modelo.getTablaUsuarios(gestionUsuarios.getModel());		
+		modeloConsultas.getTablaUsuarios(gestionUsuarios.getModel());		
 	}
 
 	
 	public void solicitudListadoGrupos() {
-		modelo.listadoGrupos();
+		modeloConsultas.listadoGrupos();
 	}
 	
 	public void solicitudListadoAlumnosPorGrupo() {
-		modelo.getListadoAlumnosPorGrupo(verGrupos.getModel(), verGrupos.getGrupoComboBox());
+		modeloConsultas.getListadoAlumnosPorGrupo(verGrupos.getModel(), verGrupos.getGrupoComboBox());
 	}
 
 
