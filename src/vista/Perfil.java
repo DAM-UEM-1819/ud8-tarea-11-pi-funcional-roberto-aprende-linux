@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 public class Perfil extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
 	private JPanel HeaderPanel;
 	private JLabel lblTitulo;
@@ -153,8 +153,8 @@ public class Perfil extends JFrame {
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas= modeloConsultas;
 	}
+	
 }
