@@ -94,6 +94,10 @@ public class Main {
 		modeloConsultas.setGestionUsuarios(gestionUsuarios);
 		modeloConsultas.setPerfil(perfil);
 		modeloConsultas.setVerGrupos(verGrupos);
+		modeloConsultas.setModelo(modelo);
+		
+		// MODELO GESTION DATOS
+		modeloGestionDatos.setModelo(modelo);
 
 		// Asignariamos el modelo al controlador
 		modeloConsultas.setControlador(controlador);

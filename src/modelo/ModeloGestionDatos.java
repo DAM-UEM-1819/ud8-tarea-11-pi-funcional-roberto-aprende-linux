@@ -48,6 +48,7 @@ public class ModeloGestionDatos {
 	private VerGrupos verGrupos;
 	private Perfil perfil;
 	private Controlador controlador;
+	private Modelo modelo;
 
 	// Atributos Fichero
 	private Properties propiedades;
@@ -75,5 +76,10 @@ public class ModeloGestionDatos {
 		}
 		
 	}
+	
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
 
 }
