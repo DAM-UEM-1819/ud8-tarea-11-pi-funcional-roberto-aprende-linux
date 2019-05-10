@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Controlador controlador = new Controlador();
-		Modelo modeloConsultas = new Modelo();
+		Modelo modelo = new Modelo();
 		ModeloConsultas modeloConsultas = new ModeloConsultas();
 		ModeloGestionDatos modeloGestionDatos = new ModeloGestionDatos();
 		Login login = new Login();
@@ -50,6 +50,8 @@ public class Main {
 		controlador.setVerGrupos(verGrupos);
 		
 		controlador.setModelo(modeloConsultas);
+		controlador.setModeloConsultas(modeloConsultas);
+		controlador.setModeloGestionDatos(modeloConsultas);
 
 		// Asignamos las vistas al controlador
 		login.setControlador(controlador);
@@ -73,9 +75,9 @@ public class Main {
 		// Vista de nuestro login
 		
 
-		// Creariamos el modelo que le pasa la vista de login como par�metro
+		// Creariamos el modelo que le pasa la vista de login como parametro
 		modeloConsultas.setLogin(login);
-		// Asignariamos el modelo a las vistas		modelo.setLogin(login);
+		// Asignariamos el modelo a las vistas	
 		modeloConsultas.setHome(home);
 		modeloConsultas.setInfoExtra(infoExtra);
 		modeloConsultas.setInformes(informes);

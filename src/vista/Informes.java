@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 public class Informes extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
 	private JTable tablaInfoProfesores;
 	private JPanel HeaderPanel;
@@ -63,7 +63,7 @@ public class Informes extends JFrame {
 				{null, null},
 			},
 			new String[] {
-				"Titulación", "Horas totales"
+				"Titulaciï¿½n", "Horas totales"
 			}
 		));
 		tablaInfoProfesores.setRowHeight(40);
@@ -122,7 +122,7 @@ public class Informes extends JFrame {
 		this.controlador = controlador;
 	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas= modeloConsultas;
 	}
 }

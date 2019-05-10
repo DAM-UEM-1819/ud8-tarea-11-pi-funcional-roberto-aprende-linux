@@ -23,7 +23,7 @@ import javax.swing.JPasswordField;
 public class Login extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
 	private JPanel HeaderPanel;
 	private JLabel lblUemLogo;
@@ -127,7 +127,7 @@ public class Login extends JFrame {
 		System.exit(0);
 	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas= modeloConsultas;
 	}
 }

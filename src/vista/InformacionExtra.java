@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 public class InformacionExtra extends JFrame {
 
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
 	private JTable tablaInfoProfesores;
 	private JPanel HeaderPanel;
@@ -60,7 +60,7 @@ public class InformacionExtra extends JFrame {
 		tablaInfoProfesores.setModel(new DefaultTableModel(
 				new Object[][] { { "1", "431567Z", "Marta Laborda", "Medicina", "Mlaborda@gmail.com", "666111222"},
 						{ null, null, null, null, null, null, null }, },
-				new String[] { "Numero", "DNI", "Nombre y apellidos", "Titulación", "Mail", "Telefono"}));
+				new String[] { "Numero", "DNI", "Nombre y apellidos", "Titulaciï¿½n", "Mail", "Telefono"}));
 		tablaInfoProfesores.setRowHeight(40);
 		scrollPane.setViewportView(tablaInfoProfesores);
 		//
@@ -73,7 +73,7 @@ public class InformacionExtra extends JFrame {
 		
 		TablaInfoAlumnos.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"David Moisés Buenaño Viteri", "10"},
+				{"David Moisï¿½s Buenaï¿½o Viteri", "10"},
 				{null, null},
 			},
 			new String[] {
@@ -88,7 +88,7 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Información extra");
+		lblTitulo = new JLabel("Informaciï¿½n extra");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBounds(268, 11, 404, 61);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
@@ -134,7 +134,7 @@ public class InformacionExtra extends JFrame {
 		this.controlador = controlador;
 	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas= modeloConsultas;
 	}
 }
