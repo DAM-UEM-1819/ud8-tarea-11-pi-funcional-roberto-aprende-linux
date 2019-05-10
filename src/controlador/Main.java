@@ -49,9 +49,9 @@ public class Main {
 		controlador.setPerfil(perfil);
 		controlador.setVerGrupos(verGrupos);
 		
-		controlador.setModelo(modeloConsultas);
+		controlador.setModelo(modelo);
 		controlador.setModeloConsultas(modeloConsultas);
-		controlador.setModeloGestionDatos(modeloConsultas);
+		controlador.setModeloGestionDatos(modeloGestionDatos);
 
 		// Asignamos las vistas al controlador
 		login.setControlador(controlador);
