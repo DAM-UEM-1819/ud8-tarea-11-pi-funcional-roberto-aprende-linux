@@ -36,7 +36,7 @@ import javax.swing.SwingConstants;
 public class Gestion extends JFrame {
 	
 	private Controlador controlador;
-	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
 	private JButton btnVolver;
 	private JButton btnGestionUsuarios;
@@ -192,7 +192,9 @@ public class Gestion extends JFrame {
 		this.controlador = controlador;
 	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo= modelo;
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas= modeloConsultas;
 	}
+	
+
 }
