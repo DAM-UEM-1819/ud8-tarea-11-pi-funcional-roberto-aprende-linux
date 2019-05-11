@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,8 +21,11 @@ import java.awt.TextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.awt.Toolkit;
 
 public class Login extends JFrame {
 
@@ -39,6 +44,7 @@ public class Login extends JFrame {
 	private JPasswordField passwdPasswordUsuario;
 
 	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -57,8 +63,9 @@ public class Login extends JFrame {
 		HeaderPanel.setBounds(0, 0, 984, 101);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
-
-		lblUemLogo = new JLabel("Aqui Iria el logo");
+		
+		ImageIcon ue = new ImageIcon("./img/ue.png");
+		lblUemLogo = new JLabel(ue);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		HeaderPanel.add(lblUemLogo);
@@ -74,13 +81,13 @@ public class Login extends JFrame {
 		ImageIcon usuarioIcon = new ImageIcon("./img/usuario.png");
 		lblUsuarioTemp = new JLabel(usuarioIcon);
 		lblUsuarioTemp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsuarioTemp.setBounds(380, 263, 46, 14);
+		lblUsuarioTemp.setBounds(345, 225, 100, 100);
 		contentPane.add(lblUsuarioTemp);
 		
 		ImageIcon passwdIcon = new ImageIcon("./img/candado.png");
 		lblPasswordTemp = new JLabel(passwdIcon);
 		lblPasswordTemp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPasswordTemp.setBounds(380, 462, 65, 14);
+		lblPasswordTemp.setBounds(345, 422, 100, 100);
 		contentPane.add(lblPasswordTemp);
 
 		btnLogin = new JButton("Login");
