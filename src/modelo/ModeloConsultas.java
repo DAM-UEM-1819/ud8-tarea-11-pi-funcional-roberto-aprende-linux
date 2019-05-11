@@ -75,30 +75,31 @@ public class ModeloConsultas {
 	private String grupo;
 
 	// Sentencia Select SQL LOGIN
-	private String selectPasswdUsuario = "SELECT PWD, ROL FROM HOSPITAL.USERS WHERE USR = ?";
+	private String selectPasswdUsuario;
 
 	// Sentencias Select SQL TABLAS
-	private String selectHome = "SELECT distinct sala.tipo_sala as Sala,  SUBSTR(registro.hora, 10, 5) as Inicio, SUBSTR(registro.hora, 10, 5) as Fin, actividad.tipo_actividad as actividad, asignatura.titulacion as titulacion, matricula.cod_grupo as grupo, profesor.nombre || profesor.apellido1 as Profesor FROM HOSPITAL.sala, HOSPITAL.registro, HOSPITAL.ocupa, HOSPITAL.actividad, HOSPITAL.asignatura, HOSPITAL.matricula, HOSPITAL.realiza, HOSPITAL.profesor where registro.cod_registro = ocupa.registro_cod_registro  and ocupa.cod_sala = sala.cod_sala  and registro.actividad_nombre = actividad.nombre and actividad.asignatura_codigo = asignatura.codigo and asignatura.codigo = matricula.asignatura_codigo and realiza.registro_cod_registro = registro.cod_registro and realiza.profesor_numero  = profesor.numero";
-	private String selectTodosUsuarios = "SELECT USR as Usuario, ROL as Rol FROM HOSPITAL.USERS";
-	private String selectTodosRegistros = "SELECT cod_registro , SUBSTR(fecha,1,9) as Fecha , horas_profesor , actividad_nombre FROM HOSPITAL.Registro";
-	private String selectTodosAlumnos = "SELECT * FROM HOSPITAL.alumno";
-	private String selectTodasActividades = "SELECT nombre , tipo_actividad , tipo_sala, simulador , documentacion_tecnica , horas_actividad , acad  FROM hospital.actividad";
-	private String selectTodasAsignaturas = "SELECT codigo , nombre , titulacion , curso FROM HOSPITAL.asignatura";
-	private String selectTodosProfesores = "SELECT numero , nombre || apellido1 || apellido2 as Nombre , titulacion , dni, activo, relacion_laboral,tlf1,tlf2 , mail1, mail2 from HOSPITAL.profesor";
-	private String selectTodosActores = "SELECT  cod_actor , nombre , edad , genero , idioma , complexion , activo FROM HOSPITAL.actor";
-	private String selectTodasSalas = "SELECT cod_sala , tipo_sala , numero , capacidad FROM HOSPITAL.sala";
-	private String selectTodosAcad = "SELECT * FROM HOSPITAL.acad";
+	private String selectHome ;
+	private String selectTodosUsuarios ;
+	private String selectTodosRegistros  ;
+	private String selectTodosAlumnos ;
+	private String selectTodasActividades ;
+	private String selectTodasAsignaturas ;
+	private String selectTodosProfesores ;
+	private String selectTodosActores;
+	private String selectTodasSalas;
+	private String selectTodosAcad;
+	
 
-	private String selectTodosCodigoGrupo = "SELECT cod_grupo FROM HOSPITAL.matricula";
+	private String selectTodosCodigoGrupo;
 
 	// Sentencias Select SQL LISTADOS
-	private String selectListadoAlumnosPorGrupo = "SELECT  cod_grupo, nombre FROM HOSPITAL.matricula, HOSPITAL.alumno where alumno.exp = matricula.alumno_exp AND cod_grupo = ?";
+	private String selectListadoAlumnosPorGrupo;
 
 	// Sentencias Select SQL BUSCADOR
-	private String selectBuscadorHome = "SELECT USR, ROL FROM HOSPITAL.USERS WHERE USR = ? or ROL= ?";
-	private String selectBuscadorUsuarios = "SELECT USR, ROL FROM HOSPITAL.USERS WHERE USR = ? or ROL= ?";
-	private String selectBuscadorRegistros = "SELECT cod_registro, fecha, horas_profesor, actividad_nombre FROM HOSPITAL.REGISTRO WHERE cod_registro = ? or fecha= ? or horas_profesor=? or actividad_nombre=?";
-	private String selectBuscadorActividades = "SELECT nombre , tipo_actividad , tipo_sala, simulador , documentacion_tecnica , horas_actividad , acad  FROM hospital.actividad WHERE nombre=? or tipo_actividad=? or tipo_sala=? or simulador=? or documentacion_tecnica=? or horas_actividad=? or acad=?";
+	private String selectBuscadorHome;
+	private String selectBuscadorUsuarios;
+	private String selectBuscadorRegistros ;
+	private String selectBuscadorActividades;
 	private String selectBuscadorAsignatura = "SELECT codigo , nombre , titulacion , curso FROM HOSPITAL.asignatura WHERE codigo=? or nombre=? or titulacion=? or curso=?";
 	private String selectBuscadorAlumnos = "SELECT * FROM HOSPITAL.alumno WHERE exp=? or nombre=? or activo=?";
 	private String selectBuscadorProfesores = "SELECT * from HOSPITAL.profesor WHERE numero=? or nombre=? or apellido1=? or apellido2=? or titulacion=? or dni=? or activo=? or relacion_laboral=? or tlf1=? or tlf2=? or mail1=? or mail2=?";
@@ -123,7 +124,32 @@ public class ModeloConsultas {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
+		
+		//Asignamos select de login usuario
+		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
+		
+		//Asignamos select de tablas
+		selectHome = propiedades.getProperty("selectHome");
+		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
+		selectTodosRegistros = propiedades.getProperty("selectTodosRegistros");
+		selectTodosAlumnos = propiedades.getProperty("selectTodosAlumnos");
+		selectTodasActividades = propiedades.getProperty("selectTodasActividades");
+		selectTodasAsignaturas = propiedades.getProperty("selectTodasAsignaturas");
+		selectTodosProfesores = propiedades.getProperty("selectTodosProfesores");
+		selectTodosActores = propiedades.getProperty("selectTodosProfesores");
+		selectTodasSalas = propiedades.getProperty("SelecTodasSalas");
+		selectTodosAcad =  propiedades.getProperty("selecTodosAcad");
+		//Asignamos select de listado
+		selectTodosCodigoGrupo = propiedades.getProperty("selectTodosCodigoGrupo");
+		selectListadoAlumnosPorGrupo = propiedades.getProperty("selectListadoAlumnosPorGrupo");
+		//Asignamos las Select SQL BUSCADOR
+		selectBuscadorHome = propiedades.getProperty("selectBuscadorHome");
+		selectBuscadorUsuarios = propiedades.getProperty("selectBuscadorUsuarios");
+		selectBuscadorRegistros = propiedades.getProperty("selectBuscadorRegistros");
+		selectBuscadorActividades = propiedades.getProperty("selectBuscadorActividades");
+		
+		
+		
 	}
 
 	// INICIO SETTERS
