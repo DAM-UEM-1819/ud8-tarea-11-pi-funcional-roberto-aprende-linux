@@ -30,7 +30,7 @@ public class Main {
 		Perfil perfil = new Perfil();
 		VerGrupos verGrupos = new VerGrupos();
 
-		// Asignamos el controlador a las vistas
+		// CONTROLADOR - VISTAS
 		controlador.setLogin(login);
 		controlador.setHome(home);
 		controlador.setInfoExtra(infoExtra);
@@ -53,7 +53,7 @@ public class Main {
 		controlador.setModeloConsultas(modeloConsultas);
 		controlador.setModeloGestionDatos(modeloGestionDatos);
 
-		// Asignamos las vistas al controlador
+		// VISTAS - CONTROLADOR
 		login.setControlador(controlador);
 		home.setControlador(controlador);
 		infoExtra.setControlador(controlador);
@@ -72,12 +72,8 @@ public class Main {
 		perfil.setControlador(controlador);
 		verGrupos.setControlador(controlador);
 
-		// Vista de nuestro login
-		
-
-		// Creariamos el modelo que le pasa la vista de login como parametro
+		//MODELO CONSULTAS
 		modeloConsultas.setLogin(login);
-		// Asignariamos el modelo a las vistas	
 		modeloConsultas.setHome(home);
 		modeloConsultas.setInfoExtra(infoExtra);
 		modeloConsultas.setInformes(informes);
@@ -102,7 +98,7 @@ public class Main {
 		// Asignariamos el modelo al controlador
 		modeloConsultas.setControlador(controlador);
 
-		// Asignariamos las vistas al modelo
+		// VISTAS - MODELO CONSULTAS
 		login.setModeloConsultas(modeloConsultas);
 		home.setModeloConsultas(modeloConsultas);
 		infoExtra.setModeloConsultas(modeloConsultas);
@@ -121,6 +117,19 @@ public class Main {
 		perfil.setModeloConsultas(modeloConsultas);
 		verGrupos.setModeloConsultas(modeloConsultas);
 		
+		//VISTAS - MODELO GESTION DATOS
+		gestionAcad.setModeloGestionDatos(modeloGestionDatos);
+		gestionActividad.setModeloGestionDatos(modeloGestionDatos);
+		gestionActores.setModeloGestionDatos(modeloGestionDatos);
+		gestionAlumnos.setModeloGestionDatos(modeloGestionDatos);
+		gestionRegistros.setModeloGestionDatos(modeloGestionDatos);
+		gestionAsignaturas.setModeloGestionDatos(modeloGestionDatos);
+		gestionProfesores.setModeloGestionDatos(modeloGestionDatos);
+		gestionSalas.setModeloGestionDatos(modeloGestionDatos);
+		gestionUsuarios.setModeloGestionDatos(modeloGestionDatos);
+		
+		//ASIGNAMOS LA CONEXION AL MODELO GESTION DATOS
+		modeloGestionDatos.setConexion(modelo.getConexion());
 		login.setVisible(true);
 		
 		
