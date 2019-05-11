@@ -103,16 +103,15 @@ public class ModeloGestionDatos {
 		this.conexion = conexion;
 	}
 	
-	public void asignacionInsertado() {
-		
-		insertUsuario = propiedadesInsertado.getProperty(insertUsuario);
+	private void asignacionInsertado() {
+		insertUsuario = propiedadesInsertado.getProperty("insertUsuario");
 	}
 	
-	public void asignacionBorrado() {
+	private void asignacionBorrado() {
 		
 	}
 	
-	public void asignacionModificacion() {
+	private void asignacionModificacion() {
 		
 	}
 
