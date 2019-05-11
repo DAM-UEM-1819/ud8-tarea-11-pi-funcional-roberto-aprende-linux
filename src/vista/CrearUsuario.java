@@ -177,7 +177,7 @@ public class CrearUsuario extends JFrame {
 	}
 	
 	public void actualizarInfo() {
-		lblInfo.setText(modelo.getRespuesta());
+		lblInfo.setText(modeloConsultas.getRespuesta());
 	}
 	
 

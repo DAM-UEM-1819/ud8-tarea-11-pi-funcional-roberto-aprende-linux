@@ -50,6 +50,7 @@ public class ModeloGestionDatos {
 	private Perfil perfil;
 	private Controlador controlador;
 	private Modelo modelo;
+	private ModeloConsultas modeloConsultas;
 
 	// Atributos Fichero
 	private Properties propiedadesInsertado;
@@ -99,8 +100,64 @@ public class ModeloGestionDatos {
 		this.modelo = modelo;
 	}
 
+	public void setControlador(Controlador controlador) {
+		this.controlador = controlador;
+	}
+	
+	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
+		this.modeloConsultas = modeloConsultas;
+	}
+
 	public void setConexion(Connection conexion) {
 		this.conexion = conexion;
+	}
+	
+	public void setCrearUsuario(CrearUsuario crearUsuario) {
+		this.crearUsuario = crearUsuario;
+	}
+
+	public void setGestionUsuarios(GestionUsuarios gestionUsuarios) {
+		this.gestionUsuarios = gestionUsuarios;
+	}
+
+	public void setGestionAcad(GestionAcad gestionAcad) {
+		this.gestionAcad = gestionAcad;
+	}
+
+	public void setGestionActividad(GestionActividad gestionActividad) {
+		this.gestionActividad = gestionActividad;
+	}
+
+	public void setGestionActores(GestionActores gestionActores) {
+		this.gestionActores = gestionActores;
+	}
+
+	public void setGestionAlumnos(GestionAlumnos gestionAlumnos) {
+		this.gestionAlumnos = gestionAlumnos;
+	}
+
+	public void setGestionRegistros(GestionRegistros gestionRegistros) {
+		this.gestionRegistros = gestionRegistros;
+	}
+
+	public void setGestionAsignatura(GestionAsignatura gestionAsignatura) {
+		this.gestionAsignatura = gestionAsignatura;
+	}
+
+	public void setGestionProfesores(GestionProfesores gestionProfesores) {
+		this.gestionProfesores = gestionProfesores;
+	}
+
+	public void setGestionSalas(GestionSalas gestionSalas) {
+		this.gestionSalas = gestionSalas;
+	}
+
+	public void setVerGrupos(VerGrupos verGrupos) {
+		this.verGrupos = verGrupos;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 	
 	private void asignacionInsertado() {
@@ -115,36 +172,6 @@ public class ModeloGestionDatos {
 		
 	}
 
-	public void crearUsuarioProvisional(String user, String passwd, String rol) {
-		String sql = selectPasswdUsuario;
-		try {
-			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, user);
-			ResultSet rs = pstmt.executeQuery();
-			if (!rs.next()) {
-				sql = insertUsuario;
-				try {
-					pstmt = conexion.prepareStatement(sql);
-					pstmt.setString(1, user);
-					pstmt.setString(2, passwd);
-					pstmt.setString(3, rol);
-					rs = pstmt.executeQuery();
-					respuesta = "Usuario creado";
-				} catch (Exception e) {
-					respuesta = "Error, algun campo vacio";
-					crearUsuario.actualizarInfo();
-					e.printStackTrace();
-				}
-			} else {
-				respuesta = "El usuario ya existe";
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		crearUsuario.actualizarInfo();
-	}
 	
 	public String crearUsuario(String user, String passwd, String rol) {
 		String sql = insertUsuario;

@@ -91,9 +91,23 @@ public class Main {
 		modeloConsultas.setPerfil(perfil);
 		modeloConsultas.setVerGrupos(verGrupos);
 		modeloConsultas.setModelo(modelo);
+		modeloConsultas.setModeloGestionDatos(modeloGestionDatos);
 		
 		// MODELO GESTION DATOS
 		modeloGestionDatos.setModelo(modelo);
+		modeloGestionDatos.setControlador(controlador);
+		modeloGestionDatos.setModeloConsultas(modeloConsultas);
+		modeloGestionDatos.setCrearUsuario(crearUser);
+		modeloGestionDatos.setGestionAcad(gestionAcad);
+		modeloGestionDatos.setGestionActividad(gestionActividad);
+		modeloGestionDatos.setGestionActores(gestionActores);
+		modeloGestionDatos.setGestionAlumnos(gestionAlumnos);
+		modeloGestionDatos.setGestionRegistros(gestionRegistros);
+		modeloGestionDatos.setGestionAsignatura(gestionAsignaturas);
+		modeloGestionDatos.setGestionProfesores(gestionProfesores);
+		modeloGestionDatos.setGestionSalas(gestionSalas);
+		modeloGestionDatos.setGestionUsuarios(gestionUsuarios);
+		modeloGestionDatos.setPerfil(perfil);
 
 		// Asignariamos el modelo al controlador
 		modeloConsultas.setControlador(controlador);

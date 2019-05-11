@@ -56,6 +56,7 @@ public class ModeloConsultas {
 	private Perfil perfil;
 	private Controlador controlador;
 	private Modelo modelo;
+	private ModeloGestionDatos modeloGestionDatos;
 
 	// Atributos Fichero
 	private Properties propiedades;
@@ -243,6 +244,10 @@ public class ModeloConsultas {
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
+	
+	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
+		this.modeloGestionDatos= modeloGestionDatos;
+	}
 
 	// INICIO GETTERS
 
@@ -284,22 +289,24 @@ public class ModeloConsultas {
 		}
 	}
 	
-	/*
-	 * 
-	 * public void crearUsuario(String user, String passwd, String rol) { String sql
-	 * = selectPasswdUsuario; try { PreparedStatement pstmt =
-	 * conexion.prepareStatement(sql); pstmt.setString(1, user); ResultSet rs =
-	 * pstmt.executeQuery(); if (!rs.next()) { sql = insertUsuario; try { pstmt =
-	 * conexion.prepareStatement(sql); pstmt.setString(1, user); pstmt.setString(2,
-	 * passwd); pstmt.setString(3, rol); rs = pstmt.executeQuery(); respuesta =
-	 * "Usuario creado"; } catch (Exception e) { respuesta =
-	 * "Error, algun campo vacio"; crearUsuario.actualizarInfo();
-	 * e.printStackTrace(); } } else { respuesta = "El usuario ya existe"; }
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * crearUsuario.actualizarInfo(); }
-	 */
+	public void crearUsuario(String user, String passwd, String rol) {
+		String sql = selectPasswdUsuario;
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			pstmt.setString(1, user);
+			ResultSet rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				respuesta = modeloGestionDatos.crearUsuario(user, passwd, rol);
+			} else {
+				respuesta = "El usuario ya existe";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		crearUsuario.actualizarInfo();
+	}
 
 	public void getTablaHome(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;

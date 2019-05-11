@@ -438,7 +438,7 @@ public class Controlador implements IControlador {
 	 */
 	
 	public void solicitudCrearUsuario() {
-		//modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
+		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
 	}
 	
 	public void solicitudDatosHome() {
