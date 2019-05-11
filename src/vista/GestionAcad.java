@@ -1,11 +1,19 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,18 +25,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
-import modelo.*;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
+import modelo.ModeloConsultas;
+import modelo.ModeloGestionDatos;
 
 public class GestionAcad extends JFrame {
-	
+
 	private Controlador controlador;
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
@@ -49,11 +50,6 @@ public class GestionAcad extends JFrame {
 	private JLabel label;
 	private JComboBox comboBoxColumna;
 
-
-
-	/**
-	 * Create the frame.
-	 */
 	public GestionAcad() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -92,14 +88,34 @@ public class GestionAcad extends JFrame {
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
 		lblTitulo.setVerticalAlignment(JLabel.CENTER);
 
-		lblUemLogo = new JLabel("Aqui Iria el logo");
+		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
+		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		HeaderPanel.add(lblUemLogo);
 
-		lblPerfil = new JLabel("Aqui Iria el logo");
+		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
+		lblPerfil = new JLabel(perfilIcon);
+		lblPerfil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlador.homeToPerfil();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(760, 0, 224, 100);
+		lblPerfil.setBounds(818, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -122,46 +138,44 @@ public class GestionAcad extends JFrame {
 		btnAddActor = new JButton(" A\u00F1adir actor");
 		btnAddActor.setBounds(782, 685, 120, 40);
 		contentPane.add(btnAddActor);
-		
+
 		comboBoxSem1 = new JComboBox();
-		comboBoxSem1.setModel(new DefaultComboBoxModel(new String[] {"09/01/2018"}));
+		comboBoxSem1.setModel(new DefaultComboBoxModel(new String[] { "09/01/2018" }));
 		comboBoxSem1.setBounds(380, 610, 255, 40);
 		contentPane.add(comboBoxSem1);
-		
+
 		comboBoxSem2 = new JComboBox();
-		comboBoxSem2.setModel(new DefaultComboBoxModel(new String[] {"02/01/2019"}));
+		comboBoxSem2.setModel(new DefaultComboBoxModel(new String[] { "02/01/2019" }));
 		comboBoxSem2.setBounds(657, 610, 241, 40);
 		contentPane.add(comboBoxSem2);
-		
+
 		label = new JLabel("Importar Actividades");
 		label.setIcon(new ImageIcon(GestionAcad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		label.setBounds(98, 132, 124, 20);
 		contentPane.add(label);
-		
+
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setColumns(10);
 		txtBuscador.setBounds(665, 132, 86, 20);
 		contentPane.add(txtBuscador);
-		
+
 		comboBoxColumna = new JComboBox();
 		comboBoxColumna.setBounds(761, 132, 104, 20);
 		contentPane.add(comboBoxColumna);
 	}
-	
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
 
-	
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
-		this.modeloConsultas= modeloConsultas;
+		this.modeloConsultas = modeloConsultas;
 	}
-	
+
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
-		this.modeloGestionDatos= modeloGestionDatos;
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
 
 	public DefaultTableModel getModel() {
