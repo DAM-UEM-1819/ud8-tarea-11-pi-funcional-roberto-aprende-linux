@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
@@ -25,6 +27,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.UIManager;
@@ -40,6 +44,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Home extends JFrame {
 
@@ -75,6 +81,7 @@ public class Home extends JFrame {
 				controlador.solicitudDatosHome();
 			}
 		});
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -132,27 +139,42 @@ public class Home extends JFrame {
 		contentPane.add(Header);
 		Header.setLayout(null);
 
-		lblTitulo = new JLabel("27/03/2019");
+		Calendar fecha = Calendar.getInstance();
+		int dia = fecha.get(Calendar.DATE);
+		int mes = fecha.get(Calendar.MONTH) + 1;
+		int year = fecha.get(Calendar.YEAR);
+		lblTitulo = new JLabel(dia + "-" + mes + "-" + year);
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setBounds(250, 0, 500, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblTitulo);
 
-		lblUemLogo = new JLabel("Aqui Iria el logo");
+		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
+		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		Header.add(lblUemLogo);
-
-		lblPerfil = new JLabel("Aqui Iria el logo");
+		
+		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
+		lblPerfil = new JLabel(perfilIcon);
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				controlador.homeToPerfil();
 			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(760, 0, 224, 100);
+		lblPerfil.setBounds(818, 0, 100, 100);
 		Header.add(lblPerfil);
 
 		infoExtra = new JPanel();
@@ -199,26 +221,29 @@ public class Home extends JFrame {
 		});
 		btnInformes.setBounds(518, 685, 144, 40);
 		contentPane.add(btnInformes);
-
+		
 		lblOcupaciones = new JLabel("Ocupaciones");
+		lblOcupaciones.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOcupaciones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				controlador.homeToOcupaciones();
 			}
 		});
-		lblOcupaciones.setIcon(new ImageIcon(Home.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblOcupaciones.setBounds(35, 110, 93, 23);
+		lblOcupaciones.setIcon(new ImageIcon("./img/calendario.png"));
+		lblOcupaciones.setBounds(35, 110, 105, 23);
 		contentPane.add(lblOcupaciones);
 
 		lblNewLabel = new JLabel("Selecionar d\u00EDa");
-		lblNewLabel.setBounds(782, 110, 84, 23);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(765, 111, 84, 23);
 		contentPane.add(lblNewLabel);
 
 		txtCalendario = new JTextField();
 		txtCalendario.setBounds(859, 111, 70, 20);
 		contentPane.add(txtCalendario);
 		txtCalendario.setColumns(10);
+		
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -226,7 +251,7 @@ public class Home extends JFrame {
 	}
 
 	public void confirmacionSalir() {
-		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "Â¿Esta seguro/a de que desea salir?");
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea salir?");
 		if (JOptionPane.YES_OPTION == valorRetorno) {
 			controlador.homeToLogin();
 		}

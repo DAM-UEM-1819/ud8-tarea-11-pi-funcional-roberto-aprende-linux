@@ -64,8 +64,8 @@ public class Login extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 		
-		ImageIcon ue = new ImageIcon("./img/ue.png");
-		lblUemLogo = new JLabel(ue);
+		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
+		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		HeaderPanel.add(lblUemLogo);
