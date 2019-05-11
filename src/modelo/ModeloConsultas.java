@@ -125,18 +125,17 @@ public class ModeloConsultas {
 		}
 
 		// Asignamos select de login usuario
-		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
-
 		// Asignamos select de tablas
 		selectTablas();
 		// Asignamos select de listado
-		selectTodosCodigoGrupo = propiedades.getProperty("selectTodosCodigoGrupo");
-		selectListadoAlumnosPorGrupo = propiedades.getProperty("selectListadoAlumnosPorGrupo");
 		// Asignamos las Select SQL BUSCADOR
 		selectBuscador();
 	}
-    
+     
 	public void selectTablas() {
+		//select login
+		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
+		//
 		selectHome = propiedades.getProperty("selectHome");
 		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
 		selectTodosRegistros = propiedades.getProperty("selectTodosRegistros");
@@ -145,11 +144,16 @@ public class ModeloConsultas {
 		selectTodasAsignaturas = propiedades.getProperty("selectTodasAsignaturas");
 		selectTodosProfesores = propiedades.getProperty("selectTodosProfesores");
 		selectTodosActores = propiedades.getProperty("selectTodosProfesores");
-		selectTodasSalas = propiedades.getProperty("SelecTodasSalas");
-		selectTodosAcad = propiedades.getProperty("selecTodosAcad");
+		selectTodasSalas = propiedades.getProperty("selectTodasSalas");
+		selectTodosAcad = propiedades.getProperty("selectTodosAcad");
 	}   	
 	
 	public void selectBuscador() {
+		//select de listado de grupo
+		selectTodosCodigoGrupo = propiedades.getProperty("selectTodosCodigoGrupo");
+		selectListadoAlumnosPorGrupo = propiedades.getProperty("selectListadoAlumnosPorGrupo");
+		
+		//
 		selectBuscadorHome = propiedades.getProperty("selectBuscadorHome");
 		selectBuscadorUsuarios = propiedades.getProperty("selectBuscadorUsuarios");
 		selectBuscadorRegistros = propiedades.getProperty("selectBuscadorRegistros");
