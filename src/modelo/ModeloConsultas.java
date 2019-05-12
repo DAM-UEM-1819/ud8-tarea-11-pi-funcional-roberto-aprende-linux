@@ -1,5 +1,6 @@
 package modelo;
 
+import java.awt.Cursor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -75,12 +76,16 @@ public class ModeloConsultas {
 	private String rolUsuario;
 	private TreeSet<String> listadoGrupos;
 	private String grupo;
+	private String numeroAlumos;
+	private String simulador;
+	private boolean actor;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
 
 	// Sentencias Select SQL TABLAS
 	private String selectHome;
+	private String selectDatosExtraHome;
 	private String selectTodosUsuarios;
 	private String selectTodosRegistros;
 	private String selectTodosAlumnos;
@@ -139,6 +144,7 @@ public class ModeloConsultas {
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
 		//
 		selectHome = propiedades.getProperty("selectHome");
+		selectDatosExtraHome = propiedades.getProperty("selectDatosExtraHome");
 		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
 		selectTodosRegistros = propiedades.getProperty("selectTodosRegistros");
 		selectTodosAlumnos = propiedades.getProperty("selectTodosAlumnos");
@@ -278,6 +284,8 @@ public class ModeloConsultas {
 				}
 
 			} else {
+				respuesta = "Ususario o contraseña incorrectos";
+				login.actualizarInfo();
 				contador++;
 				if (contador >= 3) {
 					login.salir();
@@ -320,6 +328,18 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 
+	}
+	
+	//TERMINAR
+	
+	public void getDatosExtraHome(Object[] datos) {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectDatosExtraHome);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaUsuarios(DefaultTableModel tableModel) {

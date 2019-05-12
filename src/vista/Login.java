@@ -42,6 +42,7 @@ public class Login extends JFrame {
 	private JLabel lblNewLabel;
 	private JButton btnLogin;
 	private JPasswordField passwdPasswordUsuario;
+	private JLabel lblInfo;
 
 	public Login() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -114,6 +115,11 @@ public class Login extends JFrame {
 		passwdPasswordUsuario = new JPasswordField();
 		passwdPasswordUsuario.setBounds(451, 463, 200, 30);
 		contentPane.add(passwdPasswordUsuario);
+		
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(380, 132, 271, 30);
+		contentPane.add(lblInfo);
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -129,6 +135,7 @@ public class Login extends JFrame {
 	}
 
 	public void loginExitoso() {
+		setVisible(false);
 		controlador.loginToHome();
 	}
 	
@@ -143,5 +150,9 @@ public class Login extends JFrame {
 	
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas= modeloConsultas;
+	}
+	
+	public void actualizarInfo() {
+		lblInfo.setText(modeloConsultas.getRespuesta());
 	}
 }

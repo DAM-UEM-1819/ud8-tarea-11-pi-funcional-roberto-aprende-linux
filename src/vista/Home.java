@@ -96,6 +96,12 @@ public class Home extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaRegistros = new JTable();
+		tablaRegistros.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlador.solicitudDatosExtraHome();
+			}
+		});
 		tablaRegistros.setRowHeight(30);
 
 		scrollPaneRegistros.setViewportView(tablaRegistros);
@@ -103,12 +109,6 @@ public class Home extends JFrame {
 		btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * Se tendr� que mandar un aviso al controlador El controlador llamara a la
-				 * ventana de confirmacion La ventana de confirmacion llamar� al controlador
-				 * homeToLogin
-				 */
-
 				controlador.confirmacionSalir();
 			}
 		});
@@ -157,7 +157,7 @@ public class Home extends JFrame {
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		Header.add(lblUemLogo);
-		
+
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
 		lblPerfil = new JLabel(perfilIcon);
 		lblPerfil.addMouseListener(new MouseAdapter() {
@@ -166,11 +166,13 @@ public class Home extends JFrame {
 				setVisible(false);
 				controlador.homeToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -225,13 +227,25 @@ public class Home extends JFrame {
 		});
 		btnInformes.setBounds(518, 685, 144, 40);
 		contentPane.add(btnInformes);
-		
+
 		lblOcupaciones = new JLabel("Ocupaciones");
 		lblOcupaciones.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOcupaciones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				controlador.homeToOcupaciones();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
 		lblOcupaciones.setIcon(new ImageIcon("./img/calendario.png"));
@@ -247,7 +261,7 @@ public class Home extends JFrame {
 		txtCalendario.setBounds(859, 111, 70, 20);
 		contentPane.add(txtCalendario);
 		txtCalendario.setColumns(10);
-		
+
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -285,6 +299,17 @@ public class Home extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaRegistros.getModel();
 
+	}
+
+	public Object[] getDatosFilaTabla() {
+		int numCol = tablaRegistros.getColumnCount();
+		Object[] datosColumnas = new Object[numCol];
+		
+		for (int i = 0; i < numCol; i++) {
+			datosColumnas[i] = String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), i));
+		}
+
+		return datosColumnas;
 	}
 
 }

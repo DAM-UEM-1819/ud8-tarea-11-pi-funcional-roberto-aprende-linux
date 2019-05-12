@@ -48,6 +48,7 @@ public class Controlador implements IControlador {
 
 	public void homeToLogin() {
 		home.vistaDefault();
+		login.setVisible(true);
 
 	}
 
@@ -389,6 +390,10 @@ public class Controlador implements IControlador {
 
 	public void solicitudDatosHome() {
 		modeloConsultas.getTablaHome(home.getModel());
+	}
+	
+	public void solicitudDatosExtraHome() {
+		modeloConsultas.getDatosExtraHome(home.getDatosFilaTabla());
 	}
 
 	public void solicitudDatosAcad() {
