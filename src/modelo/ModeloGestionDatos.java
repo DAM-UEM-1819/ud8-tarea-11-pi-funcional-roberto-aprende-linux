@@ -204,6 +204,7 @@ public class ModeloGestionDatos {
 
 	public void crearAlumno(String exp, String nombre) {
 		String sql = insertAlumno;
+		datosFilastabla.removeAll(datosFilastabla);
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt.setString(1, exp);
@@ -234,6 +235,8 @@ public class ModeloGestionDatos {
 
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
+		
 	}
+	
 
 }
