@@ -5,8 +5,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 
 import controlador.Controlador;
@@ -70,9 +72,8 @@ public class ModeloGestionDatos {
 	// Sentencias Insertado SQL
 	private String insertUsuario;
 	private String insertAlumno;
-	
-	
-	//Sentencias Delete SQL
+
+	// Sentencias Delete SQL
 	private String deleteAlumno;
 
 	public ModeloGestionDatos() {
@@ -201,21 +202,23 @@ public class ModeloGestionDatos {
 
 	}
 
-	public String crearAlumno(String exp, String nombre) {
+	public void crearAlumno(String exp, String nombre) {
 		String sql = insertAlumno;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt.setString(1, exp);
 			pstmt.setString(2, nombre);
 			ResultSet rs = pstmt.executeQuery();
+			datosFilastabla.add(exp);
+			datosFilastabla.add(nombre);
+			datosFilastabla.add(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return respuesta;
+
 	}
-	
-	
-	public String borrarAlumno(String exp,String nombre) {
+
+	public void borrarAlumno(String exp, String nombre) {
 		String sql = deleteAlumno;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -226,11 +229,11 @@ public class ModeloGestionDatos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return respuesta;
+
 	}
-	
-	
-	
-	
+
+	public Object[] getDatosfilasTabla() {
+		return datosFilastabla.toArray();
+	}
 
 }
