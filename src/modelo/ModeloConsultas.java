@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.TreeSet;
 
@@ -132,9 +133,9 @@ public class ModeloConsultas {
 		// Asignamos las Select SQL BUSCADOR
 		selectBuscador();
 	}
-     
+
 	public void selectTablas() {
-		//select login
+		// select login
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
 		//
 		selectHome = propiedades.getProperty("selectHome");
@@ -147,13 +148,13 @@ public class ModeloConsultas {
 		selectTodosActores = propiedades.getProperty("selectTodosProfesores");
 		selectTodasSalas = propiedades.getProperty("selectTodasSalas");
 		selectTodosAcad = propiedades.getProperty("selectTodosAcad");
-	}   	
-	
+	}
+
 	public void selectBuscador() {
-		//select de listado de grupo
+		// select de listado de grupo
 		selectTodosCodigoGrupo = propiedades.getProperty("selectTodosCodigoGrupo");
 		selectListadoAlumnosPorGrupo = propiedades.getProperty("selectListadoAlumnosPorGrupo");
-		
+
 		//
 		selectBuscadorHome = propiedades.getProperty("selectBuscadorHome");
 		selectBuscadorUsuarios = propiedades.getProperty("selectBuscadorUsuarios");
@@ -165,7 +166,7 @@ public class ModeloConsultas {
 		selectBuscadorActores = propiedades.getProperty("selectBuscadorActores");
 		selectBuscadorSalas = propiedades.getProperty("selectBuscadorSalas");
 		selectBuscadorAcad = propiedades.getProperty("selectBuscadorAcad");
-	}   
+	}
 
 	// INICIO SETTERS
 
@@ -244,9 +245,9 @@ public class ModeloConsultas {
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
-	
+
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
-		this.modeloGestionDatos= modeloGestionDatos;
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
 
 	// INICIO GETTERS
@@ -260,7 +261,7 @@ public class ModeloConsultas {
 	}
 
 	// INICIO METODOS BASE DATOS
-	
+
 	public void loginConfirmacion(String usuario, String passwd) {
 		conexion = modelo.getConexion();
 		String sql = selectPasswdUsuario;
@@ -288,7 +289,7 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void crearUsuario(String user, String passwd, String rol) {
 		String sql = selectPasswdUsuario;
 		try {
@@ -310,52 +311,123 @@ public class ModeloConsultas {
 
 	public void getTablaHome(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectHome);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectHome);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void getTablaUsuarios(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodosUsuarios);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodosUsuarios);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaAcad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodosAcad);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodosAcad);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaActividad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodasActividades);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodasActividades);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaActores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodosActores);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodosActores);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaAlumnos(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodosAlumnos);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodosAlumnos);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaAsignatura(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodasAsignaturas);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodasAsignaturas);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaProfesores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodosProfesores);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodosProfesores);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaRegistros(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodosRegistros);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodosRegistros);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaSalas(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		getDatos(selectTodasSalas);
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodasSalas);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void listadoGrupos() {
@@ -381,44 +453,27 @@ public class ModeloConsultas {
 
 	public void getListadoAlumnosPorGrupo(DefaultTableModel tableModel, String grupo) {
 		this.tableModel = tableModel;
-		String sql = selectListadoAlumnosPorGrupo;
-
+		PreparedStatement pstmt;
 		if (!grupo.equalsIgnoreCase("Selecciona un grupo")) {
-			tableModel.setColumnCount(0);
-			tableModel.setRowCount(0);
 			try {
-				PreparedStatement pstmt = conexion.prepareStatement(sql);
+				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo);
 				pstmt.setString(1, grupo);
-				ResultSet rs = pstmt.executeQuery();
-				ResultSetMetaData metadatos = rs.getMetaData();
-
-				int numColumnas = metadatos.getColumnCount();
-				datosFilasTabla = new Object[numColumnas];
-
-				for (int i = 0; i < numColumnas; i++) {
-					tableModel.addColumn(metadatos.getColumnName(i + 1));
-				}
-				while (rs.next()) {
-					for (int i = 0; i < numColumnas; i++) {
-						datosFilasTabla[i] = rs.getObject(i + 1);
-					}
-					tableModel.addRow(datosFilasTabla);
-				}
-
-			} catch (Exception e) {
+				getDatos(pstmt);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+
 	}
-	
-	private void getDatos(String sql) {
+
+	private void getDatos(PreparedStatement pstmt) {
 		tableModel.setColumnCount(0);
 		tableModel.setRowCount(0);
 		try {
-			PreparedStatement pstmt = conexion.prepareStatement(sql);
+
 			ResultSet rs = pstmt.executeQuery();
 			ResultSetMetaData metadatos = rs.getMetaData();
-
 			int numColumnas = metadatos.getColumnCount();
 			datosFilasTabla = new Object[numColumnas];
 
