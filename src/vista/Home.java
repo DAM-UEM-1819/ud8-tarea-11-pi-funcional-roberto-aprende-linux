@@ -66,7 +66,7 @@ public class Home extends JFrame {
 	private JLabel lblActor;
 	private JCheckBox chckbxActor;
 	private JLabel lblNombreSimulador;
-	private JLabel lblNuberAlumnos;
+	private JLabel lblNumeroAlumnos;
 	private JButton btnGestionar;
 	private JButton btnInformes;
 	private JLabel lblOcupaciones;
@@ -208,10 +208,10 @@ public class Home extends JFrame {
 		chckbxActor.setBounds(91, 344, 73, 149);
 		infoExtra.add(chckbxActor);
 
-		lblNuberAlumnos = new JLabel("");
-		lblNuberAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNuberAlumnos.setBounds(85, 0, 85, 166);
-		infoExtra.add(lblNuberAlumnos);
+		lblNumeroAlumnos = new JLabel("");
+		lblNumeroAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumeroAlumnos.setBounds(85, 0, 85, 166);
+		infoExtra.add(lblNumeroAlumnos);
 
 		lblNombreSimulador = new JLabel("");
 		lblNombreSimulador.setHorizontalAlignment(SwingConstants.CENTER);
@@ -311,5 +311,18 @@ public class Home extends JFrame {
 
 		return datosColumnas;
 	}
+	
+	public void actualizarInfoExtra() {
+		lblNumeroAlumnos.setText(modeloConsultas.getNumeroAlumos());
+		lblNombreSimulador.setText(modeloConsultas.getSimulador());
+		if (modeloConsultas.tieneActor()) {
+			chckbxActor.setSelected(true);
+		} else {
+			chckbxActor.setSelected(false);
+		}
+		
+	}
+	
+	
 
 }

@@ -266,6 +266,18 @@ public class ModeloConsultas {
 		return grupo;
 	}
 
+	public String getNumeroAlumos() {
+		return numeroAlumos;
+	}
+
+	public String getSimulador() {
+		return simulador;
+	}
+
+	public boolean tieneActor() {
+		return actor;
+	}
+
 	// INICIO METODOS BASE DATOS
 
 	public void loginConfirmacion(String usuario, String passwd) {
@@ -329,9 +341,9 @@ public class ModeloConsultas {
 		}
 
 	}
-	
-	//TERMINAR
-	
+
+	// TERMINAR
+
 	public void getDatosExtraHome(Object[] datos) {
 		PreparedStatement pstmt;
 		try {
@@ -340,6 +352,8 @@ public class ModeloConsultas {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		home.actualizarInfoExtra();
 	}
 
 	public void getTablaUsuarios(DefaultTableModel tableModel) {
