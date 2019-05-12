@@ -97,6 +97,7 @@ public class Informes extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
 				controlador.homeToPerfil();
 			}
 			@SuppressWarnings("deprecation")
@@ -116,6 +117,7 @@ public class Informes extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.informesToHome();
 			}
 		});

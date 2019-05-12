@@ -112,6 +112,7 @@ public class GestionActores extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
 				controlador.gestionActoresToPerfil();
 			}
 			@SuppressWarnings("deprecation")
@@ -131,6 +132,7 @@ public class GestionActores extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionActoresToGestion();
 			}
 		});

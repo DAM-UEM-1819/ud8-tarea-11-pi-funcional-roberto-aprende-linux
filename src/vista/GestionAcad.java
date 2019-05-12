@@ -99,6 +99,7 @@ public class GestionAcad extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
 				controlador.gestionAcadToPerfil();
 			}
 
@@ -121,6 +122,7 @@ public class GestionAcad extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
 				controlador.gestionAcadToGestion();
 			}
 		});

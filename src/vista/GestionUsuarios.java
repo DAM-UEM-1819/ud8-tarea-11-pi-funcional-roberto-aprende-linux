@@ -87,6 +87,7 @@ public class GestionUsuarios extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionUsuariosToGestion();
 			}
 		});
@@ -134,7 +135,8 @@ public class GestionUsuarios extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlador.gestionUsuariosToPerfil();;
+				setVisible(false);
+				controlador.gestionUsuariosToPerfil();
 			}
 			@SuppressWarnings("deprecation")
 			@Override

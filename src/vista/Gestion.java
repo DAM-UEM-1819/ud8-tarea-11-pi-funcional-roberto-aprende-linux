@@ -53,6 +53,7 @@ public class Gestion extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToHome();
 			}
 		});
@@ -83,6 +84,7 @@ public class Gestion extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
 				controlador.gestionToPerfil();
 			}
 
@@ -105,6 +107,7 @@ public class Gestion extends JFrame {
 		btnGestionUsuarios = new JButton("Gestionar Usuarios");
 		btnGestionUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
 				controlador.gestionToGestionarUsuarios();
 			}
 		});
@@ -114,6 +117,7 @@ public class Gestion extends JFrame {
 		btnGestionRegistros = new JButton("Gestionar Registros");
 		btnGestionRegistros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToGestionarRegistros();
 			}
 		});
@@ -123,6 +127,7 @@ public class Gestion extends JFrame {
 		btnGestionarActividades = new JButton("Gestionar Actividades");
 		btnGestionarActividades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToGestionarActividades();
 			}
 		});
@@ -132,6 +137,7 @@ public class Gestion extends JFrame {
 		btnGestionarAsignatura = new JButton("Gestionar Asignatura");
 		btnGestionarAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToGestionarAsignatura();
 			}
 		});
@@ -141,6 +147,7 @@ public class Gestion extends JFrame {
 		btnGestionarAlumnos = new JButton("Gestionar Alumnos");
 		btnGestionarAlumnos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToGestionarAlumnos();
 			}
 		});
@@ -150,6 +157,7 @@ public class Gestion extends JFrame {
 		btnGestionarProfesores = new JButton("Gestionar Profesores");
 		btnGestionarProfesores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToGestionarProfesores();
 			}
 		});
@@ -159,6 +167,7 @@ public class Gestion extends JFrame {
 		btnGestionarActores = new JButton("Gestionar Actores");
 		btnGestionarActores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToGestionarActores();
 			}
 		});
@@ -168,6 +177,7 @@ public class Gestion extends JFrame {
 		btnGestionarSalas = new JButton("Gestionar Salas");
 		btnGestionarSalas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToGestionarSalas();
 			}
 		});
@@ -177,6 +187,7 @@ public class Gestion extends JFrame {
 		btnGestionarAcad = new JButton("Gestionar A\u00F1o Acad\u00E9mico");
 		btnGestionarAcad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToGestionarAcad();
 			}
 		});
@@ -186,6 +197,7 @@ public class Gestion extends JFrame {
 		btnVerGrupos = new JButton("Ver grupos");
 		btnVerGrupos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionToVerGrupos();
 			}
 		});

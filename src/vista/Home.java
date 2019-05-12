@@ -118,6 +118,7 @@ public class Home extends JFrame {
 		btnInfoExtra = new JButton("Informaci\u00F3n Extra");
 		btnInfoExtra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.homeToInfoExtra();
 			}
 		});
@@ -127,6 +128,7 @@ public class Home extends JFrame {
 		btnGestionar = new JButton("Gestionar");
 		btnGestionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.homeToGestion();
 			}
 		});
@@ -161,6 +163,7 @@ public class Home extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
 				controlador.homeToPerfil();
 			}
 			@SuppressWarnings("deprecation")
@@ -216,6 +219,7 @@ public class Home extends JFrame {
 		btnInformes = new JButton("Informes");
 		btnInformes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.homeToInformes();
 			}
 		});
@@ -253,6 +257,7 @@ public class Home extends JFrame {
 	public void confirmacionSalir() {
 		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea salir?");
 		if (JOptionPane.YES_OPTION == valorRetorno) {
+			setVisible(false);
 			controlador.homeToLogin();
 		}
 	}

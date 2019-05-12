@@ -70,7 +70,7 @@ public class CrearUsuario extends JFrame {
 		HeaderPanel.add(lblTitulo);
 
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
-		lblUemLogo = new JLabel(ueIcon);		
+		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		HeaderPanel.add(lblUemLogo);
@@ -80,13 +80,16 @@ public class CrearUsuario extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
 				controlador.crearUsuarioToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -100,6 +103,7 @@ public class CrearUsuario extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.crearUsuarioToGestionUsuarios();
 			}
 		});
@@ -150,19 +154,13 @@ public class CrearUsuario extends JFrame {
 		btnMostrarPwd = new JButton("Mostrar");
 		btnMostrarPwd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				if (!estado) {
-					passwordField.setEchoChar((char) 0);
-					estado = true;
-				} else {
-					passwordField.setEchoChar('●');
-					estado = false;
-				}
+				mostrarPasswd();
 			}
+
 		});
 		btnMostrarPwd.setBounds(622, 544, 69, 23);
 		contentPane.add(btnMostrarPwd);
-		
+
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(407, 124, 205, 39);
@@ -174,30 +172,38 @@ public class CrearUsuario extends JFrame {
 		this.controlador = controlador;
 	}
 
-
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
-		this.modeloConsultas= modeloConsultas;
+		this.modeloConsultas = modeloConsultas;
 	}
-	
+
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
-		this.modeloGestionDatos= modeloGestionDatos;
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
 
 	public String getNombreUsuario() {
 		return txtUsuario.getText();
 	}
-	
+
 	public String getPasswd() {
 		return String.valueOf(passwordField.getPassword());
 	}
-	
+
 	public String getRol() {
 		return String.valueOf(comboBoxRol.getSelectedItem());
 	}
-	
+
 	public void actualizarInfo() {
 		lblInfo.setText(modeloConsultas.getRespuesta());
 	}
-	
+
+	private void mostrarPasswd() {
+		if (!estado) {
+			passwordField.setEchoChar((char) 0);
+			estado = true;
+		} else {
+			passwordField.setEchoChar('●');
+			estado = false;
+		}
+	}
 
 }

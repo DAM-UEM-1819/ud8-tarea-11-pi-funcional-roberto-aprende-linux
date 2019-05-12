@@ -122,6 +122,7 @@ public class GestionAsignatura extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
 				controlador.gestionAsignaturaToPerfil();
 			}
 			@SuppressWarnings("deprecation")
@@ -141,6 +142,7 @@ public class GestionAsignatura extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionAsignaturaToGestion();
 			}
 		});

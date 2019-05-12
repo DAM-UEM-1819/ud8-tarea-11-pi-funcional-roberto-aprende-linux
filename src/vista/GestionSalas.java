@@ -91,6 +91,7 @@ public class GestionSalas extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionSalasToGestion();
 			}
 		});
@@ -150,6 +151,7 @@ public class GestionSalas extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
 				controlador.gestionSalasToPerfil();
 			}
 			@SuppressWarnings("deprecation")
