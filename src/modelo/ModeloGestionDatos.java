@@ -75,6 +75,7 @@ public class ModeloGestionDatos {
 
 	// Sentencias Delete SQL
 	private String deleteAlumno;
+	private String deleteUsuario;
 
 	// Sentincias Update SQL
 	private String updateAlumno;
@@ -179,6 +180,7 @@ public class ModeloGestionDatos {
 
 	private void asignacionBorrado() {
 		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
+		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
 	}
 
 	private void asignacionModificacion() {
@@ -228,11 +230,23 @@ public class ModeloGestionDatos {
 		gestionAlumnos.actualizarInfo();
 	}
 
-	public void borrarAlumno(String exp) {
-		String sql = deleteAlumno;
+	public void borrarDato(String clave, String opcion) {
+		String sql = "";
+		switch (opcion) {
+		case "A":
+			sql = deleteAlumno;
+			break;
+		case "B":
+			sql = deleteUsuario;
+			break;
+
+		default:
+			break;
+		}
+
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, exp);
+			pstmt.setString(1, clave);
 			ResultSet rs = pstmt.executeQuery();
 			datosFilastabla.removeAll(datosFilastabla);
 		} catch (Exception e) {

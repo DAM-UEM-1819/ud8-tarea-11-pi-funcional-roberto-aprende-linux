@@ -99,6 +99,7 @@ public class GestionUsuarios extends JFrame {
 		btnBorrarUsr = new JButton("Borrar Usuario");
 		btnBorrarUsr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controlador.solicitudBorrar(this);
 			}
 		});
 		btnBorrarUsr.setBounds(440, 685, 120, 40);
@@ -192,5 +193,9 @@ public class GestionUsuarios extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaUsuarios.getModel();
 		
+	}
+	
+	public String getPrimaryKey() {
+		return String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0));
 	}
 }

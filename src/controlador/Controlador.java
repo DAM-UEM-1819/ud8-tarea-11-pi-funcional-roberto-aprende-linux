@@ -313,8 +313,18 @@ public class Controlador implements IControlador {
 		modeloGestionDatos.crearAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre());
 	}
 
-	public void solicitudBorrarAlumno() {
-		modeloGestionDatos.borrarAlumno(gestionAlumnos.getExp());
+	public void solicitudBorrar(Object obj) {
+		String clase = obj.getClass().toString(); 
+		String opcion = clase.substring(12, clase.length()-2).toUpperCase();
+		switch (opcion) {
+		case "GESTIONALUMNOS":
+			modeloGestionDatos.borrarDato(gestionAlumnos.getPrimaryKey(), "A");
+			break;
+		case "GESTIONUSUARIOS":
+			modeloGestionDatos.borrarDato(gestionUsuarios.getPrimaryKey(), "B");
+			break;
+		}
+		
 	}
 
 	public void solicitudModificarAlumno() {

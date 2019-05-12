@@ -132,7 +132,7 @@ public class GestionAlumnos extends JFrame {
 		btnBorrarAlumno = new JButton("Borrar Alumno");
 		btnBorrarAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.solicitudBorrarAlumno();
+				controlador.solicitudBorrar(this);
 				delAlumno();
 
 			}
@@ -240,7 +240,7 @@ public class GestionAlumnos extends JFrame {
 	// getters
 	
 	public String getPrimaryKey() {
-		return txtExpediente.getText();
+		return String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0));
 	}
 
 	public String getExp() {
