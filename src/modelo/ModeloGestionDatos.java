@@ -205,28 +205,31 @@ public class ModeloGestionDatos {
 	public void crearAlumno(String exp, String nombre) {
 		String sql = insertAlumno;
 		datosFilastabla.removeAll(datosFilastabla);
-		try {
-			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, exp);
-			pstmt.setString(2, nombre);
-			ResultSet rs = pstmt.executeQuery();
-			datosFilastabla.add(exp);
-			datosFilastabla.add(nombre);
-			datosFilastabla.add(1);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (!exp.isEmpty() || !nombre.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(sql);
+				pstmt.setString(1, exp);
+				pstmt.setString(2, nombre);
+				ResultSet rs = pstmt.executeQuery();
+				datosFilastabla.add(exp);
+				datosFilastabla.add(nombre);
+				datosFilastabla.add(1);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			respuesta = "Error, expediente o nombre vacio";
 		}
-
+//		gestionAlumnos.actualizarInfo();
 	}
 
-	public void borrarAlumno(String exp, String nombre) {
+	public void borrarAlumno(String exp) {
 		String sql = deleteAlumno;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, exp);
-			pstmt.setString(2, nombre);
+			pstmt.setInt(1, Integer.parseInt(exp));
 			ResultSet rs = pstmt.executeQuery();
-			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -235,8 +238,13 @@ public class ModeloGestionDatos {
 
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
-		
+
 	}
 	
+	
+	
+	public String getRespuesta() {
+		return respuesta;
+	}
 
 }
