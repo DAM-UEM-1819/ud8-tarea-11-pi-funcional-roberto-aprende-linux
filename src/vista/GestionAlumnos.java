@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import controlador.Controlador;
 import modelo.ModeloConsultas;
@@ -76,6 +77,12 @@ public class GestionAlumnos extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaAlumnos = new JTable();
+		tablaAlumnos.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+			}
+		));
 		tablaAlumnos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -227,5 +234,10 @@ public class GestionAlumnos extends JFrame {
 
 	public String getNombre() {
 		return txtNombre.getText();
+	}
+	
+	public void addAlumno() {
+		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
+		model.addRow(modeloGestionDatos.getDatosFilasTablas());
 	}
 }
