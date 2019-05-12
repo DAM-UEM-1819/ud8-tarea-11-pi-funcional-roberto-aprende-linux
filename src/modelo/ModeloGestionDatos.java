@@ -251,10 +251,6 @@ public class ModeloGestionDatos {
 				pstmt.setInt(2, activo);
 				pstmt.setString(3, exp);
 				pstmt.executeUpdate();
-//				datosFilastabla.add(1, exp);
-//				datosFilastabla.add(2, nombre);
-//				datosFilastabla.add(3, activo);
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
