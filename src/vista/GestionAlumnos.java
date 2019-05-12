@@ -3,6 +3,7 @@ package vista;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -64,6 +65,7 @@ public class GestionAlumnos extends JFrame {
 				controlador.solicitudDatosAlumnos();
 			}
 		});
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -253,6 +255,9 @@ public class GestionAlumnos extends JFrame {
 	public void delAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
 		model.removeRow(tablaAlumnos.getSelectedRow());
+		txtExpediente.setText("");
+		txtNombre.setText("");
+		chckbxActivoInactivo.setSelected(false);
 
 	}
 

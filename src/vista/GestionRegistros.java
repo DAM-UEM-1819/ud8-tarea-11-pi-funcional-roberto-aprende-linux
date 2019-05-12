@@ -63,9 +63,8 @@ public class GestionRegistros extends JFrame {
 				controlador.solicitudDatosRegistros();
 			}
 		});
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\usuario\\git\\ud5-tarea-3-aplicacion-swing-pi-roberto-aprende-linux\\img\\UEMLogo.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
 		setLocationRelativeTo(null);
