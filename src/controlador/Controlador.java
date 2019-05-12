@@ -41,7 +41,6 @@ public class Controlador implements IControlador {
 
 	public void loginToHomeLectura() {
 		home.vistaUsuarioLectura();
-		login.setVisible(false);
 		home.setVisible(true);
 	}
 
