@@ -221,27 +221,29 @@ public class ModeloGestionDatos {
 		}else {
 			respuesta = "Error, expediente o nombre vacio";
 		}
-//		gestionAlumnos.actualizarInfo();
+			gestionAlumnos.actualizarInfo();
 	}
 
 	public void borrarAlumno(String exp) {
 		String sql = deleteAlumno;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setInt(1, Integer.parseInt(exp));
+			pstmt.setString(1, exp);
 			ResultSet rs = pstmt.executeQuery();
+			datosFilastabla.removeAll(datosFilastabla);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
+	
+	
+	
 
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
 
 	}
-	
-	
 	
 	public String getRespuesta() {
 		return respuesta;
