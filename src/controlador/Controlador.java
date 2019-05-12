@@ -493,9 +493,14 @@ public class Controlador implements IControlador {
 	public void solicitudcrearAlumno() {
 		modeloGestionDatos.crearAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre());
 	}
-	
+	//Borrar
 	public void solicitudborrarAlumno() {
 		modeloGestionDatos.borrarAlumno(gestionAlumnos.getExp());
+	}
+	//Modificar
+	
+	public void solicitudModificarAlumno() {
+		modeloGestionDatos.ModificarAlumno(gestionAlumnos.getExp(),gestionAlumnos.getNombre(),gestionAlumnos.estadoCheckBox());
 	}
 
 

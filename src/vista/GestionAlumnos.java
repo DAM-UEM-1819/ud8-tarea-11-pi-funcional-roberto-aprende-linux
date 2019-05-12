@@ -24,6 +24,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -110,6 +112,8 @@ public class GestionAlumnos extends JFrame {
 		btnModificarAlumno = new JButton("Modificar Alumno");
 		btnModificarAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controlador.solicitudModificarAlumno();
+				modAlumno();
 			}
 		});
 		btnModificarAlumno.setBounds(325, 685, 120, 40);
@@ -126,7 +130,8 @@ public class GestionAlumnos extends JFrame {
 		btnBorrarAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.solicitudborrarAlumno();
-				// tablaAlumnos.getSelectedRow();
+				delAlumno();
+
 			}
 		});
 
@@ -243,23 +248,47 @@ public class GestionAlumnos extends JFrame {
 		model.addRow(modeloGestionDatos.getDatosfilasTabla());
 	}
 
+	public void delAlumno() {
+		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
+		model.removeRow(tablaAlumnos.getSelectedRow());
+
+	}
+
+	public void modAlumno() {
+		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
+		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
+		String EXP = getExp();
+		String exp2 = String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0));
+
+		if (getExp().equals(String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0)))) {
+				lblInfo.setText("MOD");
+				model.setValueAt(getNombre(), tablaAlumnos.getSelectedRow(), 1);
+				model.setValueAt(estadoCheckBox(), tablaAlumnos.getSelectedRow(), 2);
+			
+		} else {
+			lblInfo.setText("Mal");
+		}
+
+	}
+
 	public void actualizarInfo() {
 		lblInfo.setText(modeloGestionDatos.getRespuesta());
 	}
-	
+
 	private void actualizarDatos() {
-		txtExpediente.setText(String.valueOf( tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0)));
+		txtExpediente.setText(String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0)));
 		txtNombre.setText(String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 1)));
 		if (Integer.parseInt(String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 2))) == 1) {
 			chckbxActivoInactivo.setSelected(true);
 		} else {
 			chckbxActivoInactivo.setSelected(false);
 		}
-		
+
 	}
-	
+
 	public int estadoCheckBox() {
-		int resultado = chckbxActivoInactivo.isSelected() == true ? 1 : 0 ;
+		int resultado = chckbxActivoInactivo.isSelected() == true ? 1 : 0;
 		return resultado;
 	}
+
 }
