@@ -202,4 +202,8 @@ public class GestionRegistros extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaRegistros.getModel();
 	}
+
+	public String getPrimaryKey() {
+		return String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0));
+	}
 }

@@ -323,6 +323,18 @@ public class Controlador implements IControlador {
 		case "GESTIONUSUARIOS":
 			modeloGestionDatos.borrarDato(gestionUsuarios.getPrimaryKey(), "B");
 			break;
+		case "GESTIONACTIVIDAD":
+			modeloGestionDatos.borrarDato(gestionActividad.getPrimaryKey(), "C");
+			break;
+		case "GESTIONASIGNATURA":
+			modeloGestionDatos.borrarDato(gestionAsignatura.getPrimaryKey(), "D");
+			break;
+		case "GESTIONSALAS":
+			modeloGestionDatos.borrarDato(gestionSalas.getPrimaryKey(), "E");
+			break;
+		case "GESTIONREGISTROS":
+			modeloGestionDatos.borrarDato(gestionRegistros.getPrimaryKey(), "F");
+			break;
 		}
 		
 	}

@@ -204,4 +204,8 @@ public class GestionAsignatura extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaAsignaturas.getModel();
 	}
+
+	public String getPrimaryKey() {
+		return String.valueOf(tablaAsignaturas.getValueAt(tablaAsignaturas.getSelectedRow(), 0));
+	}
 }

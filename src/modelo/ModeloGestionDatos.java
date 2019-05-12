@@ -239,8 +239,17 @@ public class ModeloGestionDatos {
 		case "B":
 			sql = deleteUsuario;
 			break;
-
-		default:
+		case "C":
+			sql = deleteActividad;
+			break;
+		case "D":
+			sql = deleteAsignatura;
+			break;
+		case "E":
+			sql = deleteSalas;
+			break;
+		case "F":
+			sql = deleteRegistros;
 			break;
 		}
 

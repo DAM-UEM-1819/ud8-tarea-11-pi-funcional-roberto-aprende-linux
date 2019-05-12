@@ -239,4 +239,9 @@ public class GestionActividad extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaActividad.getModel();
 	}
+
+
+	public String getPrimaryKey() {
+		return String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0));
+	}
 }

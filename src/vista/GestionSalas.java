@@ -191,4 +191,8 @@ public class GestionSalas extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaSalas.getModel();
 	}
+
+	public String getPrimaryKey() {
+		return String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0));
+	}
 }
