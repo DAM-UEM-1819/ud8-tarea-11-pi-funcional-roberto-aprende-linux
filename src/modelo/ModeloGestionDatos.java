@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import controlador.Controlador;
@@ -34,7 +35,7 @@ public class ModeloGestionDatos {
 	private Home home;
 	private Gestion gestion;
 	private Informes informes;
-//	private Ocupaciones ocupaciones;
+	// private Ocupaciones ocupaciones;
 	private InformacionExtra infoExtra;
 	private CrearUsuario crearUsuario;
 	private GestionUsuarios gestionUsuarios;
@@ -52,6 +53,8 @@ public class ModeloGestionDatos {
 	private Modelo modelo;
 	private ModeloConsultas modeloConsultas;
 
+	private ArrayList<Object> datosFilastabla;
+
 	// Atributos Fichero
 	private Properties propiedadesInsertado;
 	private Properties propiedadesBorrado;
@@ -66,6 +69,11 @@ public class ModeloGestionDatos {
 
 	// Sentencias Insertado SQL
 	private String insertUsuario;
+	private String insertAlumno;
+	
+	
+	//Sentencias Delete SQL
+	private String deleteAlumno;
 
 	public ModeloGestionDatos() {
 
@@ -89,7 +97,7 @@ public class ModeloGestionDatos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		datosFilastabla = new ArrayList<Object>();
 		asignacionInsertado();
 		asignacionBorrado();
 		asignacionModificacion();
@@ -103,7 +111,7 @@ public class ModeloGestionDatos {
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
@@ -111,7 +119,7 @@ public class ModeloGestionDatos {
 	public void setConexion(Connection conexion) {
 		this.conexion = conexion;
 	}
-	
+
 	public void setCrearUsuario(CrearUsuario crearUsuario) {
 		this.crearUsuario = crearUsuario;
 	}
@@ -159,20 +167,20 @@ public class ModeloGestionDatos {
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
-	
+
 	private void asignacionInsertado() {
 		insertUsuario = propiedadesInsertado.getProperty("insertUsuario");
-	}
-	
-	private void asignacionBorrado() {
-		
-	}
-	
-	private void asignacionModificacion() {
-		
+		insertAlumno = propiedadesInsertado.getProperty("insertAlumno");
 	}
 
-	
+	private void asignacionBorrado() {
+		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
+	}
+
+	private void asignacionModificacion() {
+
+	}
+
 	public String crearUsuario(String user, String passwd, String rol) {
 		String sql = insertUsuario;
 		try {
@@ -188,10 +196,45 @@ public class ModeloGestionDatos {
 			crearUsuario.actualizarInfo();
 			e.printStackTrace();
 		}
-		
+
 		return respuesta;
-		
-		
+
 	}
+
+	public String crearAlumno(String exp, String nombre) {
+		String sql = insertAlumno;
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			pstmt.setString(1, exp);
+			pstmt.setString(2, nombre);
+			ResultSet rs = pstmt.executeQuery();
+			respuesta = "Alumno creado";
+			
+		} catch (Exception e) {
+			respuesta = "Error, algun campo vacio";
+		}
+		return respuesta;
+	}
+	
+	
+	public String borrarAlumno(String exp,String nombre) {
+		String sql = deleteAlumno;
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			pstmt.setString(1, exp);
+			pstmt.setString(2, nombre);
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.executeUpdate();
+			respuesta = "Alumno borrado";
+
+		} catch (Exception e) {
+			respuesta = "Error, algun campo vacio";
+		}
+		return respuesta;
+	}
+	
+	
+	
+	
 
 }

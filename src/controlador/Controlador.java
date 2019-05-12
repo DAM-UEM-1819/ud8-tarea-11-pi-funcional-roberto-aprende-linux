@@ -489,6 +489,14 @@ public class Controlador implements IControlador {
 	public void solicitudListadoAlumnosPorGrupo() {
 		modeloConsultas.getListadoAlumnosPorGrupo(verGrupos.getModel(), verGrupos.getGrupoComboBox());
 	}
+	//Añadir
+	public void solicitudcrearAlumno() {
+		modeloGestionDatos.crearAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre());
+	}
+	
+	public void solicitudborrarAlumno() {
+		modeloGestionDatos.borrarAlumno(gestionAlumnos.getExp(),gestionAlumnos.getNombre());
+	}
 
 
 }
