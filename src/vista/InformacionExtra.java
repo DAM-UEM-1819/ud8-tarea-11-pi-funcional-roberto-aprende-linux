@@ -107,7 +107,7 @@ public class InformacionExtra extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlador.homeToPerfil();
+				controlador.infoExtraToPerfil();
 			}
 			@SuppressWarnings("deprecation")
 			@Override

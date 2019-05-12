@@ -1,42 +1,31 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
-import modelo.*;
-
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
-import java.awt.Canvas;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.UIManager;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JCheckBox;
+import modelo.ModeloConsultas;
+import modelo.ModeloGestionDatos;
 
 public class GestionSalas extends JFrame {
 
@@ -80,20 +69,20 @@ public class GestionSalas extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaSalas = new JTable();
-	
+
 		tablaSalas.setRowHeight(30);
 		scrollPaneRegistros.setViewportView(tablaSalas);
-		
-				txtCodigo = new JTextField();
-				txtCodigo.setBounds(110, 600, 150, 30);
-				contentPane.add(txtCodigo);
-				txtCodigo.setColumns(10);
-		
-				txtTipoSala = new JTextField();
-				txtTipoSala.setBounds(322, 600, 150, 30);
-				contentPane.add(txtTipoSala);
-				txtTipoSala.setColumns(10);
-		
+
+		txtCodigo = new JTextField();
+		txtCodigo.setBounds(110, 600, 150, 30);
+		contentPane.add(txtCodigo);
+		txtCodigo.setColumns(10);
+
+		txtTipoSala = new JTextField();
+		txtTipoSala.setBounds(322, 600, 150, 30);
+		contentPane.add(txtTipoSala);
+		txtTipoSala.setColumns(10);
+
 		txtNumero = new JTextField();
 		txtNumero.setColumns(10);
 		txtNumero.setBounds(735, 600, 150, 30);
@@ -105,7 +94,7 @@ public class GestionSalas extends JFrame {
 				controlador.gestionSalasToGestion();
 			}
 		});
-		
+
 		txtCapacidad = new JTextField();
 		txtCapacidad.setColumns(10);
 		txtCapacidad.setBounds(533, 600, 150, 30);
@@ -126,7 +115,7 @@ public class GestionSalas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		
+
 		btnBorrar = new JButton("Borrar Sala");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,40 +125,57 @@ public class GestionSalas extends JFrame {
 		contentPane.add(btnBorrar);
 		btnAddAlumno.setBounds(782, 685, 120, 40);
 		contentPane.add(btnAddAlumno);
-		
+
 		Header = new JPanel();
 		Header.setBackground(new Color(165, 42, 42));
 		Header.setBounds(0, 0, 984, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
-		
+
 		lblSalas = new JLabel("Salas");
 		lblSalas.setForeground(new Color(255, 255, 255));
 		lblSalas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSalas.setBounds(250, 0, 500, 100);
 		lblSalas.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblSalas);
-		
-		lblUemLogo = new JLabel("Aqui Iria el logo");
+
+		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
+		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		Header.add(lblUemLogo);
-		
-		lblPerfil = new JLabel("Aqui Iria el logo");
+
+		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
+		lblPerfil = new JLabel(perfilIcon);
+		lblPerfil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlador.gestionSalasToPerfil();
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(760, 0, 224, 100);
+		lblPerfil.setBounds(818, 0, 100, 100);
 		Header.add(lblPerfil);
-		
-		
+
 	}
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	public void modificarSalaAlerta() {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea modificar la sala seleccionada?");
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
@@ -177,6 +183,8 @@ public class GestionSalas extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaSalas.getModel();
-	}}
+	}
+}

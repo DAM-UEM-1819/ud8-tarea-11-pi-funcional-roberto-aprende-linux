@@ -1,47 +1,33 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
-import modelo.*;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.Canvas;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.UIManager;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import modelo.ModeloConsultas;
+import modelo.ModeloGestionDatos;
 
 public class GestionUsuarios extends JFrame {
 
@@ -137,14 +123,31 @@ public class GestionUsuarios extends JFrame {
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblTitulo);
 
-		lblUemLogo = new JLabel("Aqui Iria el logo");
+		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
+		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		Header.add(lblUemLogo);
 
-		lblPerfil = new JLabel("Aqui Iria el logo");
+		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
+		lblPerfil = new JLabel(perfilIcon);
+		lblPerfil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlador.gestionUsuariosToPerfil();;
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(760, 0, 224, 100);
+		lblPerfil.setBounds(818, 0, 100, 100);
 		Header.add(lblPerfil);
 
 		txtBuscador = new JTextField();

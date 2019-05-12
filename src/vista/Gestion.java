@@ -83,7 +83,7 @@ public class Gestion extends JFrame {
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlador.homeToPerfil();
+				controlador.gestionToPerfil();
 			}
 
 			@SuppressWarnings("deprecation")
