@@ -448,5 +448,10 @@ public class Controlador implements IControlador {
 	public void solicitudborrarAlumno() {
 		modeloGestionDatos.borrarAlumno(gestionAlumnos.getExp());
 	}
+	//Modificar
+	
+	public void solicitudModificarAlumno() {
+		modeloGestionDatos.ModificarAlumno(gestionAlumnos.getExp(),gestionAlumnos.getNombre(),gestionAlumnos.estadoCheckBox());
+	}
 
 }

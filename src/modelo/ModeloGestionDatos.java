@@ -76,6 +76,9 @@ public class ModeloGestionDatos {
 	// Sentencias Delete SQL
 	private String deleteAlumno;
 
+	// Sentincias Update SQL
+	private String updateAlumno;
+
 	public ModeloGestionDatos() {
 
 		propiedadesInsertado = new Properties();
@@ -179,6 +182,7 @@ public class ModeloGestionDatos {
 	}
 
 	private void asignacionModificacion() {
+		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
 
 	}
 
@@ -214,14 +218,14 @@ public class ModeloGestionDatos {
 				datosFilastabla.add(exp);
 				datosFilastabla.add(nombre);
 				datosFilastabla.add(1);
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			respuesta = "Error, expediente o nombre vacio";
 		}
-			gestionAlumnos.actualizarInfo();
+		gestionAlumnos.actualizarInfo();
 	}
 
 	public void borrarAlumno(String exp) {
@@ -236,15 +240,35 @@ public class ModeloGestionDatos {
 		}
 
 	}
-	
-	
-	
+
+	public void ModificarAlumno(String exp, String nombre, int activo) {
+		String sql = updateAlumno;
+		datosFilastabla.removeAll(datosFilastabla);
+		if (!exp.isEmpty() || !nombre.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(sql);
+				pstmt.setString(1, nombre);
+				pstmt.setInt(2, activo);
+				pstmt.setString(3, exp);
+				pstmt.executeUpdate();
+//				datosFilastabla.add(1, exp);
+//				datosFilastabla.add(2, nombre);
+//				datosFilastabla.add(3, activo);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			respuesta = "Error, expediente o nombre vacio";
+		}
+		gestionAlumnos.actualizarInfo();
+	}
 
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
 
 	}
-	
+
 	public String getRespuesta() {
 		return respuesta;
 	}
