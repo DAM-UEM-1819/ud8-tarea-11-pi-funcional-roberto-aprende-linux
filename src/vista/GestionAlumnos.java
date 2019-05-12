@@ -53,6 +53,7 @@ public class GestionAlumnos extends JFrame {
 	private JLabel labelImportar;
 	private JTextField txtBuscador;
 	private JComboBox comboBoxColumna;
+	private JLabel lblInfo;
 
 	public GestionAlumnos() {
 		addWindowListener(new WindowAdapter() {
@@ -205,6 +206,11 @@ public class GestionAlumnos extends JFrame {
 				.setModel(new DefaultComboBoxModel(new String[] { "Columna", "Expediente", "Nombre y apellido" }));
 		comboBoxColumna.setBounds(763, 111, 104, 20);
 		contentPane.add(comboBoxColumna);
+		
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(234, 111, 429, 23);
+		contentPane.add(lblInfo);
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -240,5 +246,9 @@ public class GestionAlumnos extends JFrame {
 	public void addAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
 		model.addRow(modeloGestionDatos.getDatosfilasTabla());
+	}
+	
+	public void actualizarInfo() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
 	}
 }
