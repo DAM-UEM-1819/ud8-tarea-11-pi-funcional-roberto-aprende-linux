@@ -34,248 +34,7 @@ public class Controlador implements IControlador {
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
 
-	// LINKEO DE VENTANAS
-	public void loginToHome() {
-		home.setVisible(true);
-	}
-
-	public void loginToHomeLectura() {
-		home.vistaUsuarioLectura();
-		home.setVisible(true);
-	}
-
-	// Ventana Home
-
-	public void homeToLogin() {
-		home.vistaDefault();
-		login.setVisible(true);
-
-	}
-
-	public void homeToInfoExtra() {
-		infoExtra.setVisible(true);
-	}
-
-	public void homeToInformes() {
-		informes.setVisible(true);
-	}
-
-	public void homeToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void homeToOcupaciones() {
-		home.setVisible(false);
-//		ocupaciones.setVisible(true);
-	}
-
-	public void homeToPerfil() {
-		home.setVisible(false);
-		perfil.setVisible(true);
-	}
-
-	// Ventana ocupaciones
-
-	public void ocupacionesToHome() {
-//		ocupaciones.setVisible(false);
-		home.setVisible(true);
-	}
-
-	// Ventana Gestion
-
-	public void gestionToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	public void gestionToGestionarUsuarios() {
-		gestionUsuarios.setVisible(true);
-	}
-
-	public void gestionToGestionarRegistros() {
-		gestionRegistros.setVisible(true);
-	}
-
-	public void gestionToGestionarActividades() {
-		gestionActividad.setVisible(true);
-	}
-
-	public void gestionToGestionarAsignatura() {
-		gestionAsignatura.setVisible(true);
-	}
-
-	public void gestionToGestionarAlumnos() {
-		gestionAlumnos.setVisible(true);
-	}
-
-	public void gestionToGestionarProfesores() {
-		gestionProfesores.setVisible(true);
-	}
-
-	public void gestionToGestionarActores() {
-		gestionActores.setVisible(true);
-	}
-
-	public void gestionToGestionarSalas() {
-		gestionSalas.setVisible(true);
-	}
-
-	public void gestionToVerGrupos() {
-		verGrupos.setVisible(true);
-	}
-
-	public void gestionToGestionarAcad() {
-		gestionAcad.setVisible(true);
-	}
-
-	public void gestionToHome() {
-		home.setVisible(true);
-	}
-
-	// Ventana Informes
-
-	public void informesToHome() {
-		home.setVisible(true);
-	}
-
-	public void informesToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Venata Informacion extra
-
-	public void infoExtraToHome() {
-		home.setVisible(true);
-	}
-
-	public void infoExtraToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana crear usuario
-
-	public void crearUsuarioToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	public void crearUsuarioToGestionUsuarios() {
-		gestionUsuarios.setVisible(true);
-	}
-
-	// Ventana gestion usuarios
-
-	public void gestionUsuariosToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionUsuariosToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	public void gestionUsuariosToCrearUsuario() {
-		crearUsuario.setVisible(true);
-	}
-
-	// Ventana gestion acad
-
-	public void gestionAcadToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionAcadToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana gestion actividad
-
-	public void gestionActividadToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionActividadToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana gestion actores
-
-	public void gestionActoresToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionActoresToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana gestion alumnos
-
-	public void gestionAlumnosToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionAlumnosToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana gestion registros
-
-	public void gestionRegistrosToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionRegistrosToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana gestion asignatura
-
-	public void gestionAsignaturaToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionAsignaturaToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana gestion profesores
-
-	public void gestionProfesoresToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionProfesoresToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana gestion salas
-
-	public void gestionSalasToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void gestionSalasToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana gestion grupos
-
-	public void verGruposToGestion() {
-		gestion.setVisible(true);
-	}
-
-	public void verGruposToPerfil() {
-		perfil.setVisible(true);
-	}
-
-	// Ventana perfil
-
-	public void perfilToHome() {
-		home.setVisible(true);
-	}
-
-	/*
-	 * ********************************************* INICIO SETTERS
-	 * *********************************************
-	 */
-
+	// INICIO SETTERS
 	public void setLogin(Login login) {
 		this.login = login;
 	}
@@ -292,9 +51,9 @@ public class Controlador implements IControlador {
 		this.informes = informes;
 	}
 
-//	public void setOcupaciones(Ocupaciones ocupaciones) {
-//		this.ocupaciones = ocupaciones;
-//	}
+//		public void setOcupaciones(Ocupaciones ocupaciones) {
+//			this.ocupaciones = ocupaciones;
+//		}
 
 	public void setInfoExtra(InformacionExtra infoExtra) {
 		this.infoExtra = infoExtra;
@@ -360,76 +119,268 @@ public class Controlador implements IControlador {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
 
-	/*
-	 * ********************************************* VENTANA LOGIN
-	 * *********************************************
-	 */
-
-	public void loginSolicitud() {
-		modeloConsultas.loginConfirmacion(login.getTxtUser(), login.getTextPasswd());
+	// LINKEO DE VENTANAS
+	public void loginToHome() {
+		home.setVisible(true);
 	}
 
-	/*
-	 * ********************************************* VENTANA HOME
-	 * *********************************************
-	 */
-
-	@Override
-	public void confirmacionSalir() {
-		home.confirmacionSalir();
+	public void loginToHomeLectura() {
+		home.vistaUsuarioLectura();
+		home.setVisible(true);
 	}
 
-	/*
-	 * ********************************************* VENTANA CREAR USUARIOS
-	 * *********************************************
-	 */
+	// VENTANA HOME
+	public void homeToLogin() {
+		home.vistaDefault();
+		login.setVisible(true);
 
-	public void solicitudCrearUsuario() {
-		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
 	}
 
-	public void solicitudDatosHome() {
-		modeloConsultas.getTablaHome(home.getModel());
+	public void homeToInfoExtra() {
+		infoExtra.setVisible(true);
 	}
-	
-	public void solicitudDatosExtraHome() {
-		modeloConsultas.getDatosExtraHome(home.getDatosFilaTabla());
+
+	public void homeToInformes() {
+		informes.setVisible(true);
+	}
+
+	public void homeToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void homeToOcupaciones() {
+		home.setVisible(false);
+//		ocupaciones.setVisible(true);
+	}
+
+	public void homeToPerfil() {
+		home.setVisible(false);
+		perfil.setVisible(true);
+	}
+
+	// VENTANA OCUPACIONES
+	public void ocupacionesToHome() {
+//		ocupaciones.setVisible(false);
+		home.setVisible(true);
+	}
+
+	// VENTANA GESTION
+	public void gestionToPerfil() {
+		perfil.setVisible(true);
+	}
+
+	public void gestionToGestionarUsuarios() {
+		gestionUsuarios.setVisible(true);
+	}
+
+	public void gestionToGestionarRegistros() {
+		gestionRegistros.setVisible(true);
+	}
+
+	public void gestionToGestionarActividades() {
+		gestionActividad.setVisible(true);
+	}
+
+	public void gestionToGestionarAsignatura() {
+		gestionAsignatura.setVisible(true);
+	}
+
+	public void gestionToGestionarAlumnos() {
+		gestionAlumnos.setVisible(true);
+	}
+
+	public void gestionToGestionarProfesores() {
+		gestionProfesores.setVisible(true);
+	}
+
+	public void gestionToGestionarActores() {
+		gestionActores.setVisible(true);
+	}
+
+	public void gestionToGestionarSalas() {
+		gestionSalas.setVisible(true);
+	}
+
+	public void gestionToVerGrupos() {
+		verGrupos.setVisible(true);
+	}
+
+	public void gestionToGestionarAcad() {
+		gestionAcad.setVisible(true);
+	}
+
+	public void gestionToHome() {
+		home.setVisible(true);
+	}
+
+	// VENTANA INFORMES
+	public void informesToHome() {
+		home.setVisible(true);
+	}
+
+	public void informesToPerfil() {
+		perfil.setVisible(true);
+	}
+
+	// VENTANA INFORMACION EXTRA
+	public void infoExtraToHome() {
+		home.setVisible(true);
+	}
+
+	public void infoExtraToPerfil() {
+		perfil.setVisible(true);
+	}
+
+	// VENTANA CREAR USUARIO
+	public void crearUsuarioToPerfil() {
+		perfil.setVisible(true);
+	}
+
+	public void crearUsuarioToGestionUsuarios() {
+		gestionUsuarios.setVisible(true);
+	}
+
+	// VENTANA GESTION USUARIOS
+	public void gestionUsuariosToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionUsuariosToPerfil() {
+		perfil.setVisible(true);
+	}
+
+	public void gestionUsuariosToCrearUsuario() {
+		crearUsuario.setVisible(true);
+	}
+
+	public void solicitudDatosUsuarios() {
+		modeloConsultas.getTablaUsuarios(gestionUsuarios.getModel());
+	}
+
+	// VENTANA GESTION ACAD
+	public void gestionAcadToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionAcadToPerfil() {
+		perfil.setVisible(true);
 	}
 
 	public void solicitudDatosAcad() {
 		modeloConsultas.getTablaAcad(gestionAcad.getModel());
 	}
 
+	// VENTANA GESTION ACTIVIDAD
+	public void gestionActividadToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionActividadToPerfil() {
+		perfil.setVisible(true);
+	}
+
 	public void solicitudDatosActividad() {
 		modeloConsultas.getTablaActividad(gestionActividad.getModel());
+	}
+
+	// VENTANA GESTION ACTORES
+	public void gestionActoresToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionActoresToPerfil() {
+		perfil.setVisible(true);
 	}
 
 	public void solicitudDatosActores() {
 		modeloConsultas.getTablaActores(gestionActores.getModel());
 	}
 
+	// VENTANA GESTION ALUMNOS
+	public void gestionAlumnosToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionAlumnosToPerfil() {
+		perfil.setVisible(true);
+	}
+
 	public void solicitudDatosAlumnos() {
 		modeloConsultas.getTablaAlumnos(gestionAlumnos.getModel());
 	}
 
-	public void solicitudDatosAsignatura() {
-		modeloConsultas.getTablaAsignatura(gestionAsignatura.getModel());
+	public void solicitudcrearAlumno() {
+		modeloGestionDatos.crearAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre());
 	}
 
-	public void solicitudDatosProfesores() {
-		modeloConsultas.getTablaProfesores(gestionProfesores.getModel());
+	public void solicitudBorrarAlumno() {
+		modeloGestionDatos.borrarAlumno(gestionAlumnos.getExp());
+	}
+
+	public void solicitudModificarAlumno() {
+		modeloGestionDatos.ModificarAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre(),
+				gestionAlumnos.estadoCheckBox());
+	}
+
+	// VENTANA GESTION REGISTROS
+	public void gestionRegistrosToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionRegistrosToPerfil() {
+		perfil.setVisible(true);
 	}
 
 	public void solicitudDatosRegistros() {
 		modeloConsultas.getTablaRegistros(gestionRegistros.getModel());
 	}
 
+	// VENTANA GESTION ASIGNATURA
+	public void gestionAsignaturaToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionAsignaturaToPerfil() {
+		perfil.setVisible(true);
+	}
+
+	public void solicitudDatosAsignatura() {
+		modeloConsultas.getTablaAsignatura(gestionAsignatura.getModel());
+	}
+
+	// VENTANA GESTION PROFESORES
+	public void gestionProfesoresToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionProfesoresToPerfil() {
+		perfil.setVisible(true);
+	}
+
+	public void solicitudDatosProfesores() {
+		modeloConsultas.getTablaProfesores(gestionProfesores.getModel());
+	}
+
+	// VENTANA GESTION SALAS
+	public void gestionSalasToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void gestionSalasToPerfil() {
+		perfil.setVisible(true);
+	}
+
 	public void solicitudDatosSalas() {
 		modeloConsultas.getTablaSalas(gestionSalas.getModel());
 	}
 
-	public void solicitudDatosUsuarios() {
-		modeloConsultas.getTablaUsuarios(gestionUsuarios.getModel());
+	// VENTANA GESTION GRUPOS
+	public void verGruposToGestion() {
+		gestion.setVisible(true);
+	}
+
+	public void verGruposToPerfil() {
+		perfil.setVisible(true);
 	}
 
 	public void solicitudListadoGrupos() {
@@ -440,18 +391,32 @@ public class Controlador implements IControlador {
 		modeloConsultas.getListadoAlumnosPorGrupo(verGrupos.getModel(), verGrupos.getGrupoComboBox());
 	}
 
-	// Añadir
-	public void solicitudcrearAlumno() {
-		modeloGestionDatos.crearAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre());
+	// VENTANA PERFIL
+	public void perfilToHome() {
+		home.setVisible(true);
 	}
 
-	public void solicitudBorrarAlumno() {
-		modeloGestionDatos.borrarAlumno(gestionAlumnos.getExp());
-	}
-	//Modificar
-	
-	public void solicitudModificarAlumno() {
-		modeloGestionDatos.ModificarAlumno(gestionAlumnos.getExp(),gestionAlumnos.getNombre(),gestionAlumnos.estadoCheckBox());
+	// VENTANA LOGIN
+	public void loginSolicitud() {
+		modeloConsultas.loginConfirmacion(login.getTxtUser(), login.getTextPasswd());
 	}
 
+	// VENTANA HOME
+	@Override
+	public void confirmacionSalir() {
+		home.confirmacionSalir();
+	}
+
+	public void solicitudDatosHome() {
+		modeloConsultas.getTablaHome(home.getModel());
+	}
+
+	public void solicitudDatosExtraHome() {
+		modeloConsultas.getDatosExtraHome(home.getDatosFilaTabla());
+	}
+
+	// VENTANA CREAR USUARIOS
+	public void solicitudCrearUsuario() {
+		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
+	}
 }
