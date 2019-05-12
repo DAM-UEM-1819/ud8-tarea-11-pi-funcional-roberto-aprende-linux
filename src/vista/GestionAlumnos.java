@@ -125,6 +125,7 @@ public class GestionAlumnos extends JFrame {
 		btnAddAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.solicitudcrearAlumno();
+				addAlumno();
 			}
 		});
 		btnBorrarAlumno = new JButton("Borrar Alumno");
@@ -238,6 +239,6 @@ public class GestionAlumnos extends JFrame {
 	
 	public void addAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
-		model.addRow(modeloGestionDatos.getDatosFilasTablas());
+		model.addRow(modeloGestionDatos.getDatosfilasTabla());
 	}
 }
