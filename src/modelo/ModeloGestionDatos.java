@@ -208,10 +208,8 @@ public class ModeloGestionDatos {
 			pstmt.setString(1, exp);
 			pstmt.setString(2, nombre);
 			ResultSet rs = pstmt.executeQuery();
-			respuesta = "Alumno creado";
-			
 		} catch (Exception e) {
-			respuesta = "Error, algun campo vacio";
+			e.printStackTrace();
 		}
 		return respuesta;
 	}
@@ -225,10 +223,8 @@ public class ModeloGestionDatos {
 			pstmt.setString(2, nombre);
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.executeUpdate();
-			respuesta = "Alumno borrado";
-
 		} catch (Exception e) {
-			respuesta = "Error, algun campo vacio";
+			e.printStackTrace();
 		}
 		return respuesta;
 	}
