@@ -69,6 +69,7 @@ public class ModeloGestionDatos {
 	private Connection conexion;
 	private String respuesta;
 	private boolean seHaBorrado;
+	private String clave;
 
 	// Sentencias Insertado SQL
 	private String insertUsuario;
@@ -236,11 +237,12 @@ public class ModeloGestionDatos {
 	}
 
 	public boolean borrarDato(String clave, String opcion) {
+		this.clave = clave;
 		seHaBorrado = false;
 		String sql = "";
 		switch (opcion) {
 		case "A":
-			sql = deleteAlumno;
+			seHaBorrado = borrarDatos(deleteAlumno);
 			break;
 		case "B":
 			sql = deleteUsuario;
@@ -259,6 +261,14 @@ public class ModeloGestionDatos {
 			break;
 		}
 
+		
+		
+		return seHaBorrado;
+
+	}
+
+	private boolean borrarDatos(String sql) {
+		seHaBorrado = false;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt.setString(1, clave);
@@ -268,9 +278,7 @@ public class ModeloGestionDatos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return seHaBorrado;
-
 	}
 
 	public void ModificarAlumno(String exp, String nombre, int activo) {
