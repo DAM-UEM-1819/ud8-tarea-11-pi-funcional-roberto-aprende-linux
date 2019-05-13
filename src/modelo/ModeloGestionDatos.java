@@ -74,10 +74,13 @@ public class ModeloGestionDatos {
 	// Sentencias Insertado SQL
 	private String insertUsuario;
 	private String insertAlumno;
+	private String insertSala;
 
 	// Sentencias Delete SQL
 	private String deleteAlumno;
 	private String deleteUsuario;
+	private String deleteSala;
+	private String deleteOcupa;
 
 	// Sentincias Update SQL
 	private String updateAlumno;
@@ -182,11 +185,14 @@ public class ModeloGestionDatos {
 	private void asignacionInsertado() {
 		insertUsuario = propiedadesInsertado.getProperty("insertUsuario");
 		insertAlumno = propiedadesInsertado.getProperty("insertAlumno");
+		insertSala = propiedadesInsertado.getProperty("insertSala");
 	}
 
 	private void asignacionBorrado() {
 		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
+		deleteSala = propiedadesBorrado.getProperty("deleteSala");
+		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
 	}
 
 	private void asignacionModificacion() {
@@ -215,14 +221,14 @@ public class ModeloGestionDatos {
 	}
 
 	public void crearAlumno(String exp, String nombre) {
-		String sql = insertAlumno;
-		datosFilastabla.removeAll(datosFilastabla);
 		if (!exp.isEmpty() || !nombre.isEmpty()) {
 			try {
-				PreparedStatement pstmt = conexion.prepareStatement(sql);
+				PreparedStatement pstmt = conexion.prepareStatement(insertAlumno);
 				pstmt.setString(1, exp);
 				pstmt.setString(2, nombre);
-				ResultSet rs = pstmt.executeQuery();
+				addDatos(pstmt);
+				
+				datosFilastabla.removeAll(datosFilastabla);
 				datosFilastabla.add(exp);
 				datosFilastabla.add(nombre);
 				datosFilastabla.add(1);
@@ -235,8 +241,41 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 	}
+	
+	public void crearSala(String cod, String tipo, String numero, String capacidad) {
+		if (!cod.isEmpty() || !tipo.isEmpty() || !numero.isEmpty() || !capacidad.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertSala);
+				pstmt.setString(1, cod);
+				pstmt.setString(2, tipo);
+				pstmt.setString(3, numero);
+				pstmt.setString(4, capacidad);
+				addDatos(pstmt);
+				
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(cod);
+				datosFilastabla.add(tipo);
+				datosFilastabla.add(numero);
+				datosFilastabla.add(capacidad);
 
-	public boolean borrarDato(String clave, String opcion) {
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			respuesta = "Error, algun campo vacio";
+		}
+		gestionSalas.actualizarInfo();
+	}
+	
+	private void addDatos(PreparedStatement pstmt) {
+		try {
+			ResultSet rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean opcionesBorrarDatos(String clave, String opcion) {
 		this.clave = clave;
 		seHaBorrado = false;
 		String sql = "";
@@ -254,7 +293,8 @@ public class ModeloGestionDatos {
 			//sql = deleteAsignatura;
 			break;
 		case "E":
-			//sql = deleteSalas;
+			seHaBorrado = borrarDatos(deleteOcupa);
+			seHaBorrado = borrarDatos(deleteSala);
 			break;
 		case "F":
 			//sql = deleteRegistros;
