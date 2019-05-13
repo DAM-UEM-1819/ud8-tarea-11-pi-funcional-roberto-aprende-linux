@@ -133,7 +133,9 @@ public class GestionAlumnos extends JFrame {
 		btnBorrarAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.solicitudBorrar(this);
-				delAlumno();
+				if (modeloGestionDatos.getSeHaBorrado()) {
+					delAlumno();
+				}
 
 			}
 		});

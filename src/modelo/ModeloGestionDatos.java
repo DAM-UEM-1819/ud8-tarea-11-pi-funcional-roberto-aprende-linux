@@ -68,6 +68,7 @@ public class ModeloGestionDatos {
 	// Atributos internos
 	private Connection conexion;
 	private String respuesta;
+	private boolean seHaBorrado;
 
 	// Sentencias Insertado SQL
 	private String insertUsuario;
@@ -172,6 +173,10 @@ public class ModeloGestionDatos {
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
+	
+	public boolean getSeHaBorrado() {
+		return seHaBorrado;
+	}
 
 	private void asignacionInsertado() {
 		insertUsuario = propiedadesInsertado.getProperty("insertUsuario");
@@ -230,7 +235,8 @@ public class ModeloGestionDatos {
 		gestionAlumnos.actualizarInfo();
 	}
 
-	public void borrarDato(String clave, String opcion) {
+	public boolean borrarDato(String clave, String opcion) {
+		seHaBorrado = false;
 		String sql = "";
 		switch (opcion) {
 		case "A":
@@ -240,16 +246,16 @@ public class ModeloGestionDatos {
 			sql = deleteUsuario;
 			break;
 		case "C":
-			sql = deleteActividad;
+			//sql = deleteActividad;
 			break;
 		case "D":
-			sql = deleteAsignatura;
+			//sql = deleteAsignatura;
 			break;
 		case "E":
-			sql = deleteSalas;
+			//sql = deleteSalas;
 			break;
 		case "F":
-			sql = deleteRegistros;
+			//sql = deleteRegistros;
 			break;
 		}
 
@@ -258,9 +264,12 @@ public class ModeloGestionDatos {
 			pstmt.setString(1, clave);
 			ResultSet rs = pstmt.executeQuery();
 			datosFilastabla.removeAll(datosFilastabla);
+			seHaBorrado = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return seHaBorrado;
 
 	}
 
