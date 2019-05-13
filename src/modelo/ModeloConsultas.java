@@ -79,6 +79,7 @@ public class ModeloConsultas {
 	private String numeroAlumos;
 	private String simulador;
 	private boolean actor;
+	private boolean existe;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -112,6 +113,9 @@ public class ModeloConsultas {
 	private String selectBuscadorActores;
 	private String selectBuscadorSalas;
 	private String selectBuscadorAcad;
+	
+	//SENTENCIAS SELECT SQL COMPROBACION
+	private String selectExisteSala;
 
 	public ModeloConsultas() {
 		propiedades = new Properties();
@@ -137,9 +141,11 @@ public class ModeloConsultas {
 		// Asignamos select de listado
 		// Asignamos las Select SQL BUSCADOR
 		selectBuscador();
+		
+		selectComprobacionExiste();
 	}
 
-	public void selectTablas() {
+	private void selectTablas() {
 		// select login
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
 		//
@@ -156,7 +162,7 @@ public class ModeloConsultas {
 		selectTodosAcad = propiedades.getProperty("selectTodosAcad");
 	}
 
-	public void selectBuscador() {
+	private void selectBuscador() {
 		// select de listado de grupo
 		selectTodosCodigoGrupo = propiedades.getProperty("selectTodosCodigoGrupo");
 		selectListadoAlumnosPorGrupo = propiedades.getProperty("selectListadoAlumnosPorGrupo");
@@ -172,6 +178,10 @@ public class ModeloConsultas {
 		selectBuscadorActores = propiedades.getProperty("selectBuscadorActores");
 		selectBuscadorSalas = propiedades.getProperty("selectBuscadorSalas");
 		selectBuscadorAcad = propiedades.getProperty("selectBuscadorAcad");
+	}
+	
+	private void selectComprobacionExiste() {
+		selectExisteSala = propiedades.getProperty("selectExisteSala");
 	}
 
 	// INICIO SETTERS
@@ -276,6 +286,10 @@ public class ModeloConsultas {
 
 	public boolean tieneActor() {
 		return actor;
+	}
+	
+	public boolean getExiste() {
+		return existe;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -522,6 +536,22 @@ public class ModeloConsultas {
 				tableModel.addRow(datosFilasTabla);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void comprobarSala(String sala) {
+		existe = false;
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectTodasSalas);
+			pstmt.setString(1, sala);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				existe = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

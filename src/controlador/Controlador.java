@@ -318,22 +318,22 @@ public class Controlador implements IControlador {
 		String opcion = clase.substring(12, clase.length()-2).toUpperCase();
 		switch (opcion) {
 		case "GESTIONALUMNOS":
-			modeloGestionDatos.borrarDato(gestionAlumnos.getPrimaryKey(), "A");
+			modeloGestionDatos.opcionesBorrarDatos(gestionAlumnos.getPrimaryKey(), "A");
 			break;
 		case "GESTIONUSUARIOS":
-			modeloGestionDatos.borrarDato(gestionUsuarios.getPrimaryKey(), "B");
+			modeloGestionDatos.opcionesBorrarDatos(gestionUsuarios.getPrimaryKey(), "B");
 			break;
 		case "GESTIONACTIVIDAD":
-			modeloGestionDatos.borrarDato(gestionActividad.getPrimaryKey(), "C");
+			modeloGestionDatos.opcionesBorrarDatos(gestionActividad.getPrimaryKey(), "C");
 			break;
 		case "GESTIONASIGNATURA":
-			modeloGestionDatos.borrarDato(gestionAsignatura.getPrimaryKey(), "D");
+			modeloGestionDatos.opcionesBorrarDatos(gestionAsignatura.getPrimaryKey(), "D");
 			break;
 		case "GESTIONSALAS":
-			modeloGestionDatos.borrarDato(gestionSalas.getPrimaryKey(), "E");
+			modeloGestionDatos.opcionesBorrarDatos(gestionSalas.getPrimaryKey(), "E");
 			break;
 		case "GESTIONREGISTROS":
-			modeloGestionDatos.borrarDato(gestionRegistros.getPrimaryKey(), "F");
+			modeloGestionDatos.opcionesBorrarDatos(gestionRegistros.getPrimaryKey(), "F");
 			break;
 		}
 		
@@ -394,6 +394,11 @@ public class Controlador implements IControlador {
 
 	public void solicitudDatosSalas() {
 		modeloConsultas.getTablaSalas(gestionSalas.getModel());
+	}
+	
+	public void solicitudCrearSala() {
+		modeloConsultas.comprobarSala(gestionSalas.getCodigo());
+		modeloGestionDatos.crearSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
 	}
 
 	// VENTANA GESTION GRUPOS
