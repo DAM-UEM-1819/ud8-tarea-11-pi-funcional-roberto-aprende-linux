@@ -258,6 +258,11 @@ public class ModeloGestionDatos {
 				pstmt.setString(3, numero);
 				pstmt.setString(4, capacidad);
 				addDatos(pstmt);
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(cod);
+				datosFilastabla.add(tipo);
+				datosFilastabla.add(numero);
+				datosFilastabla.add(capacidad);
 				seHaCreado = true;
 
 			} catch (Exception e) {
@@ -353,6 +358,7 @@ public class ModeloGestionDatos {
 				pstmt.setString(3, numero);
 				pstmt.setString(4, cod);
 				addDatos(pstmt);
+				
 				
 				seHaCreado = true;
 
