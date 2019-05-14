@@ -33,7 +33,11 @@ public class Modelo {
 	private InputStream entrada;
 	private OutputStream salida;
 	private File fichero;
-
+	
+	/**
+	 * Constructor que recoge los datos de la conexion a la BBDD
+	 * y realiza lz conexion con la BBDD
+	 */
 	public Modelo() {
 		propiedades = new Properties();
 		fichero = new File("./conf/configuracion.ini");

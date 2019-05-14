@@ -87,6 +87,10 @@ public class ModeloGestionDatos {
 	private String updateAlumno;
 	private String updateSala;
 
+	/**
+	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
+	 * modificado. Asigna las sentencias a los atributos
+	 */
 	public ModeloGestionDatos() {
 
 		propiedadesInsertado = new Properties();
@@ -116,6 +120,7 @@ public class ModeloGestionDatos {
 
 	}
 
+	// INICIO SETTERS
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
@@ -179,21 +184,37 @@ public class ModeloGestionDatos {
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
-	
+
+	// INICIO GETTERS
 	public boolean getSeHaBorrado() {
 		return seHaBorrado;
 	}
-	
+
 	public boolean getSeHaCreado() {
 		return seHaCreado;
 	}
 
+	public Object[] getDatosfilasTabla() {
+		return datosFilastabla.toArray();
+
+	}
+
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	/**
+	 * Metodo para asignar las sentencias de insertado a los atributos
+	 */
 	private void asignacionInsertado() {
 		insertUsuario = propiedadesInsertado.getProperty("insertUsuario");
 		insertAlumno = propiedadesInsertado.getProperty("insertAlumno");
 		insertSala = propiedadesInsertado.getProperty("insertSala");
 	}
 
+	/**
+	 * Metodo para asignar las sentencias de borrado a los atributos
+	 */
 	private void asignacionBorrado() {
 		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
@@ -201,12 +222,23 @@ public class ModeloGestionDatos {
 		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
 	}
 
+	/**
+	 * Metodo para asignar las sentencias de modificacion a los atributos
+	 */
 	private void asignacionModificacion() {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 
 	}
 
+	/**
+	 * Metodo para crear un usuario en la BBDD
+	 * 
+	 * @param user   El usuario a crear
+	 * @param passwd La contraseña del usuario
+	 * @param rol    El rol del usuario
+	 * @return Un String con el estado del metodo (si se ha creado o no)
+	 */
 	public String crearUsuario(String user, String passwd, String rol) {
 		String sql = insertUsuario;
 		try {
@@ -227,6 +259,12 @@ public class ModeloGestionDatos {
 
 	}
 
+	/**
+	 * Metodo para crear un alumno en la BBDD
+	 * 
+	 * @param exp    El expediente del alumno
+	 * @param nombre El nombre del alumno
+	 */
 	public void crearAlumno(String exp, String nombre) {
 		if (!exp.isEmpty() && !nombre.isEmpty()) {
 			try {
@@ -234,7 +272,7 @@ public class ModeloGestionDatos {
 				pstmt.setString(1, exp);
 				pstmt.setString(2, nombre);
 				addDatos(pstmt);
-				
+
 				datosFilastabla.removeAll(datosFilastabla);
 				datosFilastabla.add(exp);
 				datosFilastabla.add(nombre);
@@ -248,7 +286,15 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 	}
-	
+
+	/**
+	 * Metodo para crear una sala en la BBDD
+	 * 
+	 * @param cod       Codigo de la sala
+	 * @param tipo      Tipo de sala
+	 * @param numero    Numero de la sala
+	 * @param capacidad Capacidad de la sala
+	 */
 	public void crearSala(String cod, String tipo, String numero, String capacidad) {
 		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
@@ -273,9 +319,14 @@ public class ModeloGestionDatos {
 			respuesta = "Error, sala ya creada";
 			gestionSalas.actualizarInfoDatos();
 		}
-		
+
 	}
-	
+
+	/**
+	 * Metodo para ejecutar las sentencias
+	 * 
+	 * @param pstmt La sentencia con los interrogantes puestos
+	 */
 	private void addDatos(PreparedStatement pstmt) {
 		try {
 			ResultSet rs = pstmt.executeQuery();
@@ -284,6 +335,14 @@ public class ModeloGestionDatos {
 		}
 	}
 
+	/**
+	 * Metodo para borrar datos de una tabla en funcion de la tabla a la que se haga
+	 * referencia
+	 * 
+	 * @param clave  La clave de la fila a borrar
+	 * @param opcion El tipo de tabla al que se hace referencia
+	 * @return booleano indicando si la sentencia se ha realizado con exito
+	 */
 	public boolean opcionesBorrarDatos(String clave, String opcion) {
 		this.clave = clave;
 		seHaBorrado = false;
@@ -296,26 +355,30 @@ public class ModeloGestionDatos {
 			sql = deleteUsuario;
 			break;
 		case "C":
-			//sql = deleteActividad;
+			// sql = deleteActividad;
 			break;
 		case "D":
-			//sql = deleteAsignatura;
+			// sql = deleteAsignatura;
 			break;
 		case "E":
 			seHaBorrado = borrarDatos(deleteOcupa);
 			seHaBorrado = borrarDatos(deleteSala);
 			break;
 		case "F":
-			//sql = deleteRegistros;
+			// sql = deleteRegistros;
 			break;
 		}
 
-		
-		
 		return seHaBorrado;
 
 	}
 
+	/**
+	 * Metodo para borrar los datos
+	 * 
+	 * @param sql La sentencia de borrado
+	 * @return booleano indicando si la sentencia se ha realizado con exito
+	 */
 	private boolean borrarDatos(String sql) {
 		seHaBorrado = false;
 		try {
@@ -330,6 +393,13 @@ public class ModeloGestionDatos {
 		return seHaBorrado;
 	}
 
+	/**
+	 * Metodo para modificar los datos de un alumno
+	 * 
+	 * @param exp    El expediente del alumno
+	 * @param nombre El nombre del alumno
+	 * @param activo El estado del alumno
+	 */
 	public void modificarAlumno(String exp, String nombre, int activo) {
 		String sql = updateAlumno;
 		datosFilastabla.removeAll(datosFilastabla);
@@ -348,7 +418,15 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 	}
-	
+
+	/**
+	 * Metodo para modificar los datos de una sala
+	 * 
+	 * @param cod       Codigo de la sala
+	 * @param tipo      El tipo de sala
+	 * @param numero    El numero de la sala
+	 * @param capacidad La capacidad de la sala
+	 */
 	public void modificarSala(String cod, String tipo, String numero, String capacidad) {
 		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
@@ -358,8 +436,7 @@ public class ModeloGestionDatos {
 				pstmt.setString(3, numero);
 				pstmt.setString(4, cod);
 				addDatos(pstmt);
-				
-				
+
 				seHaCreado = true;
 
 			} catch (Exception e) {
@@ -370,15 +447,6 @@ public class ModeloGestionDatos {
 			respuesta = "Error, estas modificando el codigo de sala";
 			gestionSalas.actualizarInfoDatos();
 		}
-	}
-
-	public Object[] getDatosfilasTabla() {
-		return datosFilastabla.toArray();
-
-	}
-
-	public String getRespuesta() {
-		return respuesta;
 	}
 
 }
