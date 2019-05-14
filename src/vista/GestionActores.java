@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -78,6 +79,8 @@ public class GestionActores extends JFrame {
 
 		tablaActores = new JTable();
 		tablaActores.setRowHeight(40);
+		tablaActores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tablaActores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaActores);
 
 		txtNombre = new JTextField();

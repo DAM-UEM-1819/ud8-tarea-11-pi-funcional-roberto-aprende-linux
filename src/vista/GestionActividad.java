@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -82,7 +83,9 @@ public class GestionActividad extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaActividad = new JTable();
+		tablaActividad.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaActividad.setRowHeight(30);
+		tablaActividad.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaActividad);
 
 		txtNombre = new JTextField();

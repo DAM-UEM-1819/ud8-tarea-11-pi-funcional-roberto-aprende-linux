@@ -85,8 +85,10 @@ public class GestionSalas extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				txtCodigo.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0)));
 				txtTipoSala.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 1)));
-				txtNumero.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 2)));
-				txtCapacidad.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 3)));
+				txtCapacidad.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 2)));
+				txtNumero.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 3)));
+				
+				
 			}
 		});
 
@@ -128,6 +130,11 @@ public class GestionSalas extends JFrame {
 		btnModificarSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblInfo.setText("");
+				controlador.solicutudModificarSala();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					modSala();
+				}
+				
 			}
 		});
 		btnModificarSala.setBounds(325, 685, 120, 40);
@@ -286,6 +293,24 @@ public class GestionSalas extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
 		model.removeRow(tablaSalas.getSelectedRow());
 		limpiarTxt();
+
+	}
+	
+	public void modSala() {
+		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
+		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
+
+		if (getCodigo().equals(String.valueOf(model.getValueAt(tablaSalas.getSelectedRow(), 0)))) {
+				lblInfo.setText("Sala modificada");
+				model.setValueAt(getCodigo(), tablaSalas.getSelectedRow(), 0);
+				model.setValueAt(getTipoSala(), tablaSalas.getSelectedRow(), 1);
+				model.setValueAt(getCapacidad(), tablaSalas.getSelectedRow(), 2);
+				model.setValueAt(getNumero(), tablaSalas.getSelectedRow(), 3);
+				
+			
+		} else {
+			lblInfo.setText("Error , no puedes modificar el codigo de la sala");
+		}
 
 	}
 	

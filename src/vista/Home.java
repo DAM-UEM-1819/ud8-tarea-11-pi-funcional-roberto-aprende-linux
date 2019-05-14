@@ -23,6 +23,8 @@ import modelo.*;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
@@ -96,6 +98,7 @@ public class Home extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaRegistros = new JTable();
+		tablaRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaRegistros.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -103,7 +106,7 @@ public class Home extends JFrame {
 			}
 		});
 		tablaRegistros.setRowHeight(30);
-
+		tablaRegistros.getTableHeader().setReorderingAllowed(false);
 		scrollPaneRegistros.setViewportView(tablaRegistros);
 
 		btnSalir = new JButton("Salir");

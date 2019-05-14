@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
@@ -80,6 +81,7 @@ public class GestionAlumnos extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaAlumnos = new JTable();
+		tablaAlumnos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaAlumnos.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
 		tablaAlumnos.addMouseListener(new MouseAdapter() {
 			@Override
@@ -90,6 +92,7 @@ public class GestionAlumnos extends JFrame {
 		});
 		tablaAlumnos.setRowHeight(30);
 		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
+		
 		scrollPaneRegistros.setViewportView(tablaAlumnos);
 
 		txtExpediente = new JTextField();

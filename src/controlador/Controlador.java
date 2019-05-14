@@ -340,9 +340,11 @@ public class Controlador implements IControlador {
 	}
 
 	public void solicitudModificarAlumno() {
-		modeloGestionDatos.ModificarAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre(),
+		modeloGestionDatos.modificarAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre(),
 				gestionAlumnos.estadoCheckBox());
 	}
+	
+
 
 	// VENTANA GESTION REGISTROS
 	public void gestionRegistrosToGestion() {
@@ -399,6 +401,11 @@ public class Controlador implements IControlador {
 	public void solicitudCrearSala() {
 		modeloConsultas.comprobarSala(gestionSalas.getCodigo());
 		modeloGestionDatos.crearSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
+	}
+	
+	public void solicutudModificarSala() {
+		modeloGestionDatos.modificarSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
+		
 	}
 
 	// VENTANA GESTION GRUPOS

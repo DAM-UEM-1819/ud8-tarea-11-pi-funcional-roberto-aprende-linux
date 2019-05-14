@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -78,7 +79,9 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaRegistros = new JTable();
+		tablaRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaRegistros.setRowHeight(30);
+		tablaRegistros.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaRegistros);
 
 		txtCod_registro = new JTextField();

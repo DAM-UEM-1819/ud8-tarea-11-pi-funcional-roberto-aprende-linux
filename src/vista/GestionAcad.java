@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +36,7 @@ public class GestionAcad extends JFrame {
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
-	private JTable tablaActores;
+	private JTable tablaAcad;
 	private JPanel HeaderPanel;
 	private JScrollPane scrollPane;
 	private JLabel lblTitulo;
@@ -72,9 +73,11 @@ public class GestionAcad extends JFrame {
 		scrollPane.setBounds(98, 168, 800, 411);
 		contentPane.add(scrollPane);
 
-		tablaActores = new JTable();
-		tablaActores.setRowHeight(40);
-		scrollPane.setViewportView(tablaActores);
+		tablaAcad = new JTable();
+		tablaAcad.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tablaAcad.setRowHeight(40);
+		tablaAcad.getTableHeader().setReorderingAllowed(false);
+		scrollPane.setViewportView(tablaAcad);
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
@@ -183,6 +186,6 @@ public class GestionAcad extends JFrame {
 	}
 
 	public DefaultTableModel getModel() {
-		return (DefaultTableModel) tablaActores.getModel();
+		return (DefaultTableModel) tablaAcad.getModel();
 	}
 }

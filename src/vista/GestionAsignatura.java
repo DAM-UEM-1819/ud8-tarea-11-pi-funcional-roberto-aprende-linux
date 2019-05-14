@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -76,7 +77,9 @@ public class GestionAsignatura extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaAsignaturas = new JTable();
+		tablaAsignaturas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaAsignaturas.setRowHeight(40);
+		tablaAsignaturas.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaAsignaturas);
 
 		txtCodigoAsignatura = new JTextField();

@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -83,7 +84,9 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaProfesores = new JTable();
+		tablaProfesores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaProfesores.setRowHeight(40);
+		tablaProfesores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaProfesores);
 
 		txtNumero = new JTextField();

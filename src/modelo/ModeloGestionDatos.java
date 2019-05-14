@@ -85,6 +85,7 @@ public class ModeloGestionDatos {
 
 	// Sentincias Update SQL
 	private String updateAlumno;
+	private String updateSala;
 
 	public ModeloGestionDatos() {
 
@@ -202,6 +203,7 @@ public class ModeloGestionDatos {
 
 	private void asignacionModificacion() {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
+		updateSala = propiedadesModificacion.getProperty("updateSala");
 
 	}
 
@@ -256,13 +258,6 @@ public class ModeloGestionDatos {
 				pstmt.setString(3, numero);
 				pstmt.setString(4, capacidad);
 				addDatos(pstmt);
-				
-				datosFilastabla.removeAll(datosFilastabla);
-				datosFilastabla.add(cod);
-				datosFilastabla.add(tipo);
-				datosFilastabla.add(numero);
-				datosFilastabla.add(capacidad);
-				
 				seHaCreado = true;
 
 			} catch (Exception e) {
@@ -270,7 +265,7 @@ public class ModeloGestionDatos {
 			}
 		} else {
 			seHaCreado = false;
-			respuesta = "Error, algun campo vacio";
+			respuesta = "Error, sala ya creada";
 			gestionSalas.actualizarInfoDatos();
 		}
 		
@@ -330,7 +325,7 @@ public class ModeloGestionDatos {
 		return seHaBorrado;
 	}
 
-	public void ModificarAlumno(String exp, String nombre, int activo) {
+	public void modificarAlumno(String exp, String nombre, int activo) {
 		String sql = updateAlumno;
 		datosFilastabla.removeAll(datosFilastabla);
 		if (!exp.isEmpty() || !nombre.isEmpty()) {
@@ -347,6 +342,28 @@ public class ModeloGestionDatos {
 			respuesta = "Error, expediente o nombre vacio";
 		}
 		gestionAlumnos.actualizarInfo();
+	}
+	
+	public void modificarSala(String cod, String tipo, String numero, String capacidad) {
+		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateSala);
+				pstmt.setString(1, tipo);
+				pstmt.setString(2, capacidad);
+				pstmt.setString(3, numero);
+				pstmt.setString(4, cod);
+				addDatos(pstmt);
+				
+				seHaCreado = true;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, estas modificando el codigo de sala";
+			gestionSalas.actualizarInfoDatos();
+		}
 	}
 
 	public Object[] getDatosfilasTabla() {
