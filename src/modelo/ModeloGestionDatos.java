@@ -69,6 +69,7 @@ public class ModeloGestionDatos {
 	private Connection conexion;
 	private String respuesta;
 	private boolean seHaBorrado;
+	private boolean seHaCreado;
 	private String clave;
 
 	// Sentencias Insertado SQL
@@ -181,6 +182,10 @@ public class ModeloGestionDatos {
 	public boolean getSeHaBorrado() {
 		return seHaBorrado;
 	}
+	
+	public boolean getSeHaCreado() {
+		return seHaCreado;
+	}
 
 	private void asignacionInsertado() {
 		insertUsuario = propiedadesInsertado.getProperty("insertUsuario");
@@ -221,7 +226,7 @@ public class ModeloGestionDatos {
 	}
 
 	public void crearAlumno(String exp, String nombre) {
-		if (!exp.isEmpty() || !nombre.isEmpty()) {
+		if (!exp.isEmpty() && !nombre.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(insertAlumno);
 				pstmt.setString(1, exp);
@@ -243,7 +248,7 @@ public class ModeloGestionDatos {
 	}
 	
 	public void crearSala(String cod, String tipo, String numero, String capacidad) {
-		if (!cod.isEmpty() || !tipo.isEmpty() || !numero.isEmpty() || !capacidad.isEmpty()) {
+		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(insertSala);
 				pstmt.setString(1, cod);
@@ -257,14 +262,18 @@ public class ModeloGestionDatos {
 				datosFilastabla.add(tipo);
 				datosFilastabla.add(numero);
 				datosFilastabla.add(capacidad);
+				
+				seHaCreado = true;
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
+			seHaCreado = false;
 			respuesta = "Error, algun campo vacio";
+			gestionSalas.actualizarInfoDatos();
 		}
-		gestionSalas.actualizarInfo();
+		
 	}
 	
 	private void addDatos(PreparedStatement pstmt) {

@@ -25,10 +25,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.TabableView;
 
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import javax.swing.ListSelectionModel;
 
 public class GestionSalas extends JFrame {
 
@@ -77,8 +79,19 @@ public class GestionSalas extends JFrame {
 		contentPane.add(scrollPaneRegistros);
 
 		tablaSalas = new JTable();
+		tablaSalas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tablaSalas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtCodigo.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0)));
+				txtTipoSala.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 1)));
+				txtNumero.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 2)));
+				txtCapacidad.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 3)));
+			}
+		});
 
 		tablaSalas.setRowHeight(30);
+		tablaSalas.getTableHeader().setReorderingAllowed(false);
 		scrollPaneRegistros.setViewportView(tablaSalas);
 
 		txtCodigo = new JTextField();
@@ -114,6 +127,7 @@ public class GestionSalas extends JFrame {
 		btnModificarSala = new JButton("Modificar Sala");
 		btnModificarSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblInfo.setText("");
 			}
 		});
 		btnModificarSala.setBounds(325, 685, 120, 40);
@@ -122,8 +136,9 @@ public class GestionSalas extends JFrame {
 		btnAddSala = new JButton("A\u00F1adir Sala");
 		btnAddSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblInfo.setText("");
 				controlador.solicitudCrearSala();
-				if (!modeloConsultas.getExiste()) {
+				if (!modeloConsultas.getExiste() && modeloGestionDatos.getSeHaCreado()) {
 					addSala();
 				}
 				
@@ -133,6 +148,7 @@ public class GestionSalas extends JFrame {
 		btnBorrar = new JButton("Borrar Sala");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblInfo.setText("");
 				controlador.solicitudBorrar(this);
 				if (modeloGestionDatos.getSeHaBorrado()) {
 					borrado();
@@ -256,19 +272,29 @@ public class GestionSalas extends JFrame {
 	public void addSala() {
 		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
 		model.addRow(modeloGestionDatos.getDatosfilasTabla());
+		limpiarTxt();
+	}
+
+	private void limpiarTxt() {
+		txtCodigo.setText("");
+		txtTipoSala.setText("");
+		txtNumero.setText("");
+		txtCapacidad.setText("");
 	}
 	
 	public void borrado() {
 		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
 		model.removeRow(tablaSalas.getSelectedRow());
-		txtCodigo.setText("");
-		txtTipoSala.setText("");
-		txtNumero.setText("");
-		txtCapacidad.setText("");
+		limpiarTxt();
 
 	}
 	
-	public void actualizarInfo() {
-		lblInfo.setText(modeloGestionDatos.getRespuesta());
+	public void actualizarInfoConsulta() {
+			lblInfo.setText(modeloConsultas.getRespuesta());
+	}
+	
+	public void actualizarInfoDatos() {
+			lblInfo.setText(modeloGestionDatos.getRespuesta());
+		
 	}
 }

@@ -544,14 +544,15 @@ public class ModeloConsultas {
 		existe = false;
 		PreparedStatement pstmt;
 		try {
-			pstmt = conexion.prepareStatement(selectTodasSalas);
+			pstmt = conexion.prepareStatement(selectExisteSala);
 			pstmt.setString(1, sala);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				existe = true;
+				respuesta = "Error, la sala ya existe";
+				gestionSalas.actualizarInfoConsulta();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

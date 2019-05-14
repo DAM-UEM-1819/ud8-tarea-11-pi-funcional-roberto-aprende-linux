@@ -89,7 +89,7 @@ public class GestionAlumnos extends JFrame {
 
 		});
 		tablaAlumnos.setRowHeight(30);
-
+		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
 		scrollPaneRegistros.setViewportView(tablaAlumnos);
 
 		txtExpediente = new JTextField();
