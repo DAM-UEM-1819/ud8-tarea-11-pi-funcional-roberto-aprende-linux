@@ -306,11 +306,13 @@ public class GestionSalas extends JFrame {
 				model.setValueAt(getTipoSala(), tablaSalas.getSelectedRow(), 1);
 				model.setValueAt(getCapacidad(), tablaSalas.getSelectedRow(), 2);
 				model.setValueAt(getNumero(), tablaSalas.getSelectedRow(), 3);
-				
+				limpiarTxt();
 			
 		} else {
 			lblInfo.setText("Error , no puedes modificar el codigo de la sala");
 		}
+		
+		
 
 	}
 	
