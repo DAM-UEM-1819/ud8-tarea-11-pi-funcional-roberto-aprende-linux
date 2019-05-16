@@ -76,6 +76,16 @@ public class ModeloGestionDatos {
 	private String insertUsuario;
 	private String insertAlumno;
 	private String insertSala;
+	private String insertRegistro;
+	private String insertProfesor;
+	private String insertActor;
+	private String insertAcad;
+	private String insertAsignatura;
+	private String insertRealiza;
+	private String insertActua;
+	private String insertParticipa;
+	private String insertMatricula;
+	private String insertOcupa;
 
 	// Sentencias Delete SQL
 	private String deleteAlumno;
@@ -210,6 +220,16 @@ public class ModeloGestionDatos {
 		insertUsuario = propiedadesInsertado.getProperty("insertUsuario");
 		insertAlumno = propiedadesInsertado.getProperty("insertAlumno");
 		insertSala = propiedadesInsertado.getProperty("insertSala");
+		insertRegistro = propiedadesInsertado.getProperty("insertRegistro");
+		insertProfesor = propiedadesInsertado.getProperty("insertProfesor");
+		insertActor = propiedadesInsertado.getProperty("insertActor");
+		insertAcad = propiedadesInsertado.getProperty("insertAcad");
+		insertAsignatura = propiedadesInsertado.getProperty("insertAsignatura");
+		insertRealiza = propiedadesInsertado.getProperty("insertRealiza");
+		insertActua = propiedadesInsertado.getProperty("insertActua");
+		insertParticipa = propiedadesInsertado.getProperty("insertParticipa");
+		insertMatricula = propiedadesInsertado.getProperty("insertMatricula");
+		insertOcupa = propiedadesInsertado.getProperty("insertOcupa");
 	}
 
 	/**
@@ -233,7 +253,7 @@ public class ModeloGestionDatos {
 
 	/**
 	 * Metodo para crear un usuario en la BBDD
-	 * 
+	 *
 	 * @param user   El usuario a crear
 	 * @param passwd La contraseña del usuario
 	 * @param rol    El rol del usuario
@@ -261,7 +281,7 @@ public class ModeloGestionDatos {
 
 	/**
 	 * Metodo para crear un alumno en la BBDD
-	 * 
+	 *
 	 * @param exp    El expediente del alumno
 	 * @param nombre El nombre del alumno
 	 */
@@ -289,7 +309,7 @@ public class ModeloGestionDatos {
 
 	/**
 	 * Metodo para crear una sala en la BBDD
-	 * 
+	 *
 	 * @param cod       Codigo de la sala
 	 * @param tipo      Tipo de sala
 	 * @param numero    Numero de la sala
@@ -324,7 +344,7 @@ public class ModeloGestionDatos {
 
 	/**
 	 * Metodo para ejecutar las sentencias
-	 * 
+	 *
 	 * @param pstmt La sentencia con los interrogantes puestos
 	 */
 	private void addDatos(PreparedStatement pstmt) {
@@ -338,7 +358,7 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para borrar datos de una tabla en funcion de la tabla a la que se haga
 	 * referencia
-	 * 
+	 *
 	 * @param clave  La clave de la fila a borrar
 	 * @param opcion El tipo de tabla al que se hace referencia
 	 * @return booleano indicando si la sentencia se ha realizado con exito
@@ -375,7 +395,7 @@ public class ModeloGestionDatos {
 
 	/**
 	 * Metodo para borrar los datos
-	 * 
+	 *
 	 * @param sql La sentencia de borrado
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
@@ -395,7 +415,7 @@ public class ModeloGestionDatos {
 
 	/**
 	 * Metodo para modificar los datos de un alumno
-	 * 
+	 *
 	 * @param exp    El expediente del alumno
 	 * @param nombre El nombre del alumno
 	 * @param activo El estado del alumno
@@ -421,7 +441,7 @@ public class ModeloGestionDatos {
 
 	/**
 	 * Metodo para modificar los datos de una sala
-	 * 
+	 *
 	 * @param cod       Codigo de la sala
 	 * @param tipo      El tipo de sala
 	 * @param numero    El numero de la sala
