@@ -157,7 +157,7 @@ public class ModeloConsultas {
 		selectTodasActividades = propiedades.getProperty("selectTodasActividades");
 		selectTodasAsignaturas = propiedades.getProperty("selectTodasAsignaturas");
 		selectTodosProfesores = propiedades.getProperty("selectTodosProfesores");
-		selectTodosActores = propiedades.getProperty("selectTodosProfesores");
+		selectTodosActores = propiedades.getProperty("selectTodosActores");
 		selectTodasSalas = propiedades.getProperty("selectTodasSalas");
 		selectTodosAcad = propiedades.getProperty("selectTodosAcad");
 	}
@@ -310,7 +310,7 @@ public class ModeloConsultas {
 				}
 
 			} else {
-				respuesta = "Ususario o contraseña incorrectos";
+				respuesta = "Ususario o contraseï¿½a incorrectos";
 				login.actualizarInfo();
 				contador++;
 				if (contador >= 3) {
