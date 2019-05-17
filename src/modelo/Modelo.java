@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.File;
+import javax.mail.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -87,7 +88,7 @@ public class Modelo {
 		return conexion;
 	}
 	
-	public void enviarCorreoGmail() {
+	public void enviarCorreoGmail(String destinatario, String asunto, String mensaje) {
 		
 	}
 
