@@ -165,9 +165,10 @@ ALTER TABLE ocupa ADD CONSTRAINT ocupa_pk PRIMARY KEY ( registro_cod_registro,
                                                             cod_sala );
 
 CREATE TABLE Users(
-    usr 		VARCHAR2 (20) NOT NULL,
-    pwd 		NUMBER	(10) NOT NULL,
-    rol 		VARCHAR2(20)NOT NULL
+    usr 		VARCHAR2(20) NOT NULL,
+    pwd 		NUMBER(10) NOT NULL,
+    rol 		VARCHAR2(20) NOT NULL,
+    email   VARCHAR2(50) NOT NULL
 );
 
 ALTER TABLE Users ADD CONSTRAINT users_pk PRIMARY KEY(usr);

@@ -86,5 +86,9 @@ public class Modelo {
 	public Connection getConexion() {
 		return conexion;
 	}
+	
+	public void enviarCorreoGmail() {
+		
+	}
 
 }
