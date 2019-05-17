@@ -31,7 +31,7 @@ import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 
 public class GestionRegistros extends JFrame {
-	
+
 	private Controlador controlador;
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
@@ -39,9 +39,9 @@ public class GestionRegistros extends JFrame {
 	private JTable tablaRegistros;
 	private JTextField txtCod_registro;
 	private JTextField txtFecha;
-	private JTextField txtHora;
 	private JTextField txtHorasProfesor;
 	private JTextField txtActividadNombre;
+	private JTextField txtCodGrupo;
 	private JPanel HeaderPanel;
 	private JScrollPane scrollPane;
 	private JLabel lblTitulo;
@@ -79,6 +79,18 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaRegistros = new JTable();
+		tablaRegistros.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtCod_registro.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0)));
+				txtFecha.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 1)));
+				txtHorasProfesor.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 2)));
+				txtActividadNombre
+						.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 3)));
+				txtCodGrupo.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 4)));
+
+			}
+		});
 		tablaRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaRegistros.setRowHeight(30);
 		tablaRegistros.getTableHeader().setReorderingAllowed(false);
@@ -94,20 +106,20 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(txtFecha);
 		txtFecha.setColumns(10);
 
-		txtHora = new JTextField();
-		txtHora.setBounds(447, 629, 146, 30);
-		contentPane.add(txtHora);
-		txtHora.setColumns(10);
-
 		txtHorasProfesor = new JTextField();
-		txtHorasProfesor.setBounds(603, 629, 155, 30);
+		txtHorasProfesor.setBounds(447, 629, 146, 30);
 		contentPane.add(txtHorasProfesor);
 		txtHorasProfesor.setColumns(10);
 
 		txtActividadNombre = new JTextField();
-		txtActividadNombre.setBounds(768, 629, 121, 30);
+		txtActividadNombre.setBounds(603, 629, 155, 30);
 		contentPane.add(txtActividadNombre);
 		txtActividadNombre.setColumns(10);
+
+		txtCodGrupo = new JTextField();
+		txtCodGrupo.setBounds(768, 629, 121, 30);
+		contentPane.add(txtCodGrupo);
+		txtCodGrupo.setColumns(10);
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
@@ -129,20 +141,22 @@ public class GestionRegistros extends JFrame {
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		HeaderPanel.add(lblUemLogo);
 
-
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
 		lblPerfil = new JLabel(perfilIcon);
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
-				controlador.gestionRegistrosToPerfil();;
+				controlador.gestionRegistrosToPerfil();
+				;
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -163,6 +177,14 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnBorrarRegistro = new JButton("Borrar Registro");
+		btnBorrarRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.solicitudBorrar(this);
+				if (modeloGestionDatos.getSeHaBorrado()) {
+					borrado();
+				}
+			}
+		});
 		btnBorrarRegistro.setBounds(436, 690, 120, 40);
 		contentPane.add(btnBorrarRegistro);
 
@@ -170,30 +192,31 @@ public class GestionRegistros extends JFrame {
 
 		btnAddRegistro.setBounds(778, 690, 120, 40);
 		contentPane.add(btnAddRegistro);
-		
-		
+
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setBounds(665, 127, 86, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
-		
+
 		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(new String[] {"Columna","Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
+		comboBoxColumna.setModel(new DefaultComboBoxModel(
+				new String[] { "Columna", "Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
 		comboBoxColumna.setBounds(761, 127, 104, 20);
 		contentPane.add(comboBoxColumna);
-		
+
 		lblImportarActividades = new JLabel("Importar Registros");
-		lblImportarActividades.setIcon(new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		lblImportarActividades.setIcon(
+				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 127, 124, 20);
 		contentPane.add(lblImportarActividades);
 	}
-	
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
@@ -201,7 +224,7 @@ public class GestionRegistros extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaRegistros.getModel();
 	}
@@ -209,4 +232,21 @@ public class GestionRegistros extends JFrame {
 	public String getPrimaryKey() {
 		return String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0));
 	}
+
+	public void limpiarTxt() {
+		txtCod_registro.setText("");
+		txtFecha.setText("");
+		txtHorasProfesor.setText("");
+		txtActividadNombre.setText("");
+		txtCodGrupo.setText("");
+
+	}
+
+	public void borrado() {
+		DefaultTableModel model = (DefaultTableModel) tablaRegistros.getModel();
+		model.removeRow(tablaRegistros.getSelectedRow());
+		limpiarTxt();
+
+	}
+
 }

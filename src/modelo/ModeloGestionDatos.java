@@ -90,8 +90,16 @@ public class ModeloGestionDatos {
 	// Sentencias Delete SQL
 	private String deleteAlumno;
 	private String deleteUsuario;
+	//deleteParaSala
 	private String deleteSala;
 	private String deleteOcupa;
+	//deleteParaRegistro
+	private String deleteActuaRegistro;
+	private String deleteParticipaRegistro;
+	private String deleteRealizaRegistro;
+	private String deleteOcupaRegistro;
+	private String deleteRegistro;
+	
 
 	// Sentincias Update SQL
 	private String updateAlumno;
@@ -238,8 +246,18 @@ public class ModeloGestionDatos {
 	private void asignacionBorrado() {
 		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
+		//deleteParaSalas
 		deleteSala = propiedadesBorrado.getProperty("deleteSala");
 		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
+		//deleteParaUnRegistro
+		deleteActuaRegistro = propiedadesBorrado.getProperty("deleteActuaRegistro");
+		deleteParticipaRegistro = propiedadesBorrado.getProperty("deleteParticipaRegistro");
+		deleteRealizaRegistro = propiedadesBorrado.getProperty("deleteRealizaRegistro");
+		deleteOcupaRegistro =propiedadesBorrado.getProperty("deleteOcupa");
+		deleteRegistro = propiedadesBorrado.getProperty("deleteRegistro");
+
+		
+		
 	}
 
 	/**
@@ -386,6 +404,11 @@ public class ModeloGestionDatos {
 			break;
 		case "F":
 			// sql = deleteRegistros;
+			seHaBorrado = borrarDatos(deleteOcupaRegistro);
+			seHaBorrado = borrarDatos(deleteActuaRegistro);
+			seHaBorrado = borrarDatos(deleteParticipaRegistro);
+			seHaBorrado = borrarDatos(deleteRealizaRegistro);
+			seHaBorrado = borrarDatos(deleteRegistro);
 			break;
 		}
 
