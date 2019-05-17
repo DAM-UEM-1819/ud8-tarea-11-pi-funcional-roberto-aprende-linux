@@ -38,14 +38,14 @@ public class CrearUsuario extends JFrame {
 	private JButton btnCrearUsuario;
 	private JTextField txtUsuario;
 	private JLabel lblUsuario;
-	private JLabel lblPasswordCreaUsuario;
+	private JLabel lblCorreo;
 	private JComboBox comboBoxRol;
 	private JLabel lblRol;
-	private JPasswordField passwordField;
-	private JButton btnMostrarPwd;
 
 	private boolean estado;
 	private JLabel lblInfo;
+	private JTextField txtCorreo;
+	private JTextField txtCorreoComprobacion;
 
 	public CrearUsuario() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -132,11 +132,12 @@ public class CrearUsuario extends JFrame {
 		lblUsuario.setBounds(481, 174, 62, 54);
 		contentPane.add(lblUsuario);
 
-		lblPasswordCreaUsuario = new JLabel("Contrase\u00F1a");
-		lblPasswordCreaUsuario.setForeground(Color.BLACK);
-		lblPasswordCreaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPasswordCreaUsuario.setBounds(467, 475, 91, 54);
-		contentPane.add(lblPasswordCreaUsuario);
+		lblCorreo = new JLabel("Correo electónico");
+		lblCorreo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCorreo.setForeground(Color.BLACK);
+		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblCorreo.setBounds(407, 475, 205, 54);
+		contentPane.add(lblCorreo);
 
 		comboBoxRol = new JComboBox();
 		comboBoxRol.setModel(new DefaultComboBoxModel(new String[] { "Lectura", "Administrador" }));
@@ -149,24 +150,27 @@ public class CrearUsuario extends JFrame {
 		lblRol.setBounds(493, 317, 35, 54);
 		contentPane.add(lblRol);
 
-		passwordField = new JPasswordField();
-		passwordField.setBounds(402, 540, 210, 30);
-		contentPane.add(passwordField);
-
-		btnMostrarPwd = new JButton("Mostrar");
-		btnMostrarPwd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				mostrarPasswd();
-			}
-
-		});
-		btnMostrarPwd.setBounds(622, 544, 69, 23);
-		contentPane.add(btnMostrarPwd);
-
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(407, 124, 205, 39);
 		contentPane.add(lblInfo);
+		
+		JLabel label = new JLabel("Correo electónico");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setForeground(Color.BLACK);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setBounds(692, 225, 205, 54);
+		contentPane.add(label);
+		
+		txtCorreo = new JTextField();
+		txtCorreo.setColumns(10);
+		txtCorreo.setBounds(402, 527, 210, 30);
+		contentPane.add(txtCorreo);
+		
+		txtCorreoComprobacion = new JTextField();
+		txtCorreoComprobacion.setColumns(10);
+		txtCorreoComprobacion.setBounds(692, 289, 210, 30);
+		contentPane.add(txtCorreoComprobacion);
 
 	}
 
@@ -197,15 +201,18 @@ public class CrearUsuario extends JFrame {
 	public void actualizarInfo() {
 		lblInfo.setText(modeloConsultas.getRespuesta());
 	}
-
-	private void mostrarPasswd() {
-		if (!estado) {
-			passwordField.setEchoChar((char) 0);
-			estado = true;
-		} else {
-			passwordField.setEchoChar('●');
-			estado = false;
-		}
+	
+	public String getEmail() {
+		return txtCorreo.getText();
 	}
-
+	
+	public boolean comprobaciones() {
+		boolean todoCorrecto = false;
+		
+		if (!txtUsuario.getText().equals("") && !txtCorreo.getText().equals("") && !txtCorreoComprobacion.getText().equals("")) {
+			
+		}
+		
+		return todoCorrecto;
+	}
 }
