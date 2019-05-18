@@ -130,10 +130,19 @@ public class Modelo {
 		asunto = propiedades.getProperty("asunto");
 		cuerpoSaludo = propiedades.getProperty("cuerpoSaludo");
 		cuerpoUsuario = propiedades.getProperty("cuerpoUsuario");
-		cuerpoPasswd =  propiedades.getProperty("cuerpoPasswd");
+		cuerpoPasswd = propiedades.getProperty("cuerpoPasswd");
 		cuerpoDespedida = propiedades.getProperty("cuerpoDespedida");
 	}
 
+	/**
+	 * Este metodo envia un correo electrónico al destinatario con su usario y su
+	 * contraseña
+	 * Primero configuramos los datos esenciales, despues creamos el mensaje
+	 * 
+	 * @param destinatario El destinatario del correo
+	 * @param user         El usuario creado
+	 * @param passwd       La contraseña generada
+	 */
 	public void enviarCorreoGmail(String destinatario, String user, String passwd) {
 		Properties propiedades = System.getProperties();
 
@@ -152,7 +161,8 @@ public class Modelo {
 			mensaje.setFrom(new InternetAddress(remitente));
 			mensaje.addRecipients(Message.RecipientType.TO, destinatario);
 			mensaje.setSubject(asunto);
-			mensaje.setText(cuerpoSaludo + "\n" + cuerpoUsuario + user + "\n" + cuerpoPasswd + passwd + "\n" + cuerpoDespedida);
+			mensaje.setText(
+					cuerpoSaludo + "\n" + cuerpoUsuario + user + "\n" + cuerpoPasswd + passwd + "\n" + cuerpoDespedida);
 			Transport transport = sesion.getTransport("smtp");
 			transport.connect(servidor, remitente, clave);
 			transport.sendMessage(mensaje, mensaje.getAllRecipients());
@@ -163,10 +173,12 @@ public class Modelo {
 		}
 
 	}
-	
+
 	/**
-	 * Este método genera una contraseña aleatoria con letras y numeros con una longitud de 9 caracteres
-	 * Selecciona al azar 3 datos de los 3 tipos y los suma a la cadena
+	 * Este método genera una contraseña aleatoria con letras y numeros con una
+	 * longitud de 9 caracteres Selecciona al azar 3 datos de los 3 tipos y los suma
+	 * a la cadena
+	 * 
 	 * @return la contraseña generada
 	 */
 	public String generadorPasswd() {
@@ -174,14 +186,15 @@ public class Modelo {
 		final String numeros = "0123456789";
 		final String mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		final String minusculas = mayusculas.toLowerCase();
-		
 
 		for (int i = 0; i < 3; i++) {
 			passwd += numeros.charAt((int) (Math.random() * numeros.length()));
-			passwd += mayusculas.charAt((int) (Math.random() * mayusculas.length()));;
-			passwd += minusculas.charAt((int) (Math.random() * minusculas.length()));;
+			passwd += mayusculas.charAt((int) (Math.random() * mayusculas.length()));
+			;
+			passwd += minusculas.charAt((int) (Math.random() * minusculas.length()));
+			;
 		}
-		
+
 		return passwd;
 	}
 
