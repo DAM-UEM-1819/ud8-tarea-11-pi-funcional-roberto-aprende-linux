@@ -38,8 +38,6 @@ public class GestionUsuarios extends JFrame {
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaUsuarios;
-	private JTextField txtUsuario;
-	private JTextField txtRol;
 	private JButton btnVolver;
 	private JButton btnBorrarUsr;
 	private JButton btnAddUsuario;
@@ -50,7 +48,6 @@ public class GestionUsuarios extends JFrame {
 	private JScrollPane scrollPaneRegistros;
 	private JLabel lblImportarActividades;
 	private JTextField txtBuscador;
-	private JComboBox comboBoxColumna;
 
 	public GestionUsuarios() {
 		addWindowListener(new WindowAdapter() {
@@ -70,24 +67,20 @@ public class GestionUsuarios extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPaneRegistros = new JScrollPane();
-		scrollPaneRegistros.setBounds(100, 145, 800, 450);
+		scrollPaneRegistros.setBounds(100, 145, 800, 500);
 		contentPane.add(scrollPaneRegistros);
 
 		tablaUsuarios = new JTable();
+		tablaUsuarios.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnBorrarUsr.setEnabled(true);
+			}
+		});
 		tablaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaUsuarios.setRowHeight(30);
 		tablaUsuarios.getTableHeader().setReorderingAllowed(false);
 		scrollPaneRegistros.setViewportView(tablaUsuarios);
-
-		txtUsuario = new JTextField();
-		txtUsuario.setBounds(125, 600, 350, 30);
-		contentPane.add(txtUsuario);
-		txtUsuario.setColumns(10);
-
-		txtRol = new JTextField();
-		txtRol.setBounds(525, 600, 350, 30);
-		contentPane.add(txtRol);
-		txtRol.setColumns(10);
 
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
@@ -100,9 +93,11 @@ public class GestionUsuarios extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnBorrarUsr = new JButton("Borrar Usuario");
+		btnBorrarUsr.setEnabled(false);
 		btnBorrarUsr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.solicitudBorrar(this);
+				btnBorrarUsr.setEnabled(false);
 			}
 		});
 		btnBorrarUsr.setBounds(440, 685, 120, 40);
@@ -162,20 +157,15 @@ public class GestionUsuarios extends JFrame {
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(663, 114, 86, 20);
+		txtBuscador.setBounds(770, 114, 130, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(new String[] { "Columna", "Usuarios", "Rol" }));
-		comboBoxColumna.setBounds(759, 114, 104, 20);
-		contentPane.add(comboBoxColumna);
-
-		lblImportarActividades = new JLabel("Importar Usuarios");
-		lblImportarActividades.setIcon(
-				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblImportarActividades.setBounds(100, 114, 124, 20);
-		contentPane.add(lblImportarActividades);
+//		lblImportarActividades = new JLabel("Importar Usuarios");
+//		lblImportarActividades.setIcon(
+//				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+//		lblImportarActividades.setBounds(100, 114, 124, 20);
+//		contentPane.add(lblImportarActividades);
 	}
 
 	public void setControlador(Controlador controlador) {
