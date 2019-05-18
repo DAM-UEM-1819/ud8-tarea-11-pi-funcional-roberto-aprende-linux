@@ -210,6 +210,9 @@ public class CrearUsuario extends JFrame {
 		boolean todoCorrecto = false;
 		
 		if (!txtUsuario.getText().equals("") && !txtCorreo.getText().equals("") && !txtCorreoComprobacion.getText().equals("")) {
+			if (txtCorreo.getText().equals(txtCorreoComprobacion.getText())) {
+				
+			}
 			
 		}
 		
