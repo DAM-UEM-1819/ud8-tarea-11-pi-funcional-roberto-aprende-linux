@@ -166,7 +166,7 @@ ALTER TABLE ocupa ADD CONSTRAINT ocupa_pk PRIMARY KEY ( registro_cod_registro,
 
 CREATE TABLE Users(
     usr 		VARCHAR2(20) NOT NULL,
-    pwd 		NUMBER(10) NOT NULL,
+    pwd 		VARCHAR2(50) NOT NULL,
     rol 		VARCHAR2(20) NOT NULL,
     email   VARCHAR2(50) NOT NULL
 );
@@ -577,12 +577,12 @@ ALTER TABLE Actividad
 
   REM *** 9º USERS ***
 
-  INSERT INTO Users(Usr,pwd,rol)
-  VALUES ('David Buenaño',12345,'Admin');
-  INSERT INTO Users(Usr,pwd,rol)
-  VALUES ('Javier Plaza',12345,'Admin');
-  INSERT INTO Users(Usr,pwd,rol)
-  VALUES ('Jimmy Merino',12345,'Lectura');
+  INSERT INTO Users(Usr,pwd,rol, email)
+  VALUES ('David Buenaño',12345,'Admin', 'PRUEBA@GMAIL.COM');
+  INSERT INTO Users(Usr,pwd,rol, email)
+  VALUES ('Javier Plaza',12345,'Admin', 'PRUEBA@GMAIL.COM');
+  INSERT INTO Users(Usr,pwd,rol, email)
+  VALUES ('Jimmy Merino',12345,'Lectura', 'PRUEBA@GMAIL.COM');
 
   REM *** 10º REALIZA ***
 

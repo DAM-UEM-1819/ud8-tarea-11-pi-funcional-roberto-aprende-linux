@@ -46,7 +46,10 @@ public class Modelo {
 	private String conexionSegura;
 	private String puerto;
 	private String asunto;
-	private String cuerpo;
+	private String cuerpoSaludo;
+	private String cuerpoUsuario;
+	private String cuerpoPasswd;
+	private String cuerpoDespedida;
 
 	/**
 	 * Constructor que recoge los datos de la conexion a la BBDD y realiza la
@@ -125,37 +128,61 @@ public class Modelo {
 		conexionSegura = propiedades.getProperty("conexionSegura");
 		puerto = propiedades.getProperty("puerto");
 		asunto = propiedades.getProperty("asunto");
-		cuerpo = propiedades.getProperty("cuerpo");
+		cuerpoSaludo = propiedades.getProperty("cuerpoSaludo");
+		cuerpoUsuario = propiedades.getProperty("cuerpoUsuario");
+		cuerpoPasswd =  propiedades.getProperty("cuerpoPasswd");
+		cuerpoDespedida = propiedades.getProperty("cuerpoDespedida");
 	}
 
-	public void enviarCorreoGmail(String destinatario,String user, String passwd) {
+	public void enviarCorreoGmail(String destinatario, String user, String passwd) {
 		Properties propiedades = System.getProperties();
-		
+
 		propiedades.put("mail.smtp.host", servidor);
 		propiedades.put("mail.smtp.user", remitente);
 		propiedades.put("mail.smtp.clave", clave);
 		propiedades.put("mail.smtp.auth", autenticacion);
 		propiedades.put("mail.smtp.starttls.enable", conexionSegura);
 		propiedades.put("mail.smtp.port", puerto);
-		
+
 		Session sesion = Session.getDefaultInstance(propiedades);
 		MimeMessage mensaje = new MimeMessage(sesion);
-		
+
 		try {
-			
+
 			mensaje.setFrom(new InternetAddress(remitente));
 			mensaje.addRecipients(Message.RecipientType.TO, destinatario);
 			mensaje.setSubject(asunto);
-			mensaje.setText(cuerpo + user + passwd);
+			mensaje.setText(cuerpoSaludo + "\n" + cuerpoUsuario + user + "\n" + cuerpoPasswd + passwd + "\n" + cuerpoDespedida);
 			Transport transport = sesion.getTransport("smtp");
 			transport.connect(servidor, remitente, clave);
 			transport.sendMessage(mensaje, mensaje.getAllRecipients());
 			transport.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	/**
+	 * Este método genera una contraseña aleatoria con letras y numeros con una longitud de 9 caracteres
+	 * Selecciona al azar 3 datos de los 3 tipos y los suma a la cadena
+	 * @return la contraseña generada
+	 */
+	public String generadorPasswd() {
+		String passwd = "";
+		final String numeros = "0123456789";
+		final String mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		final String minusculas = mayusculas.toLowerCase();
+		
+
+		for (int i = 0; i < 3; i++) {
+			passwd += numeros.charAt((int) (Math.random() * numeros.length()));
+			passwd += mayusculas.charAt((int) (Math.random() * mayusculas.length()));;
+			passwd += minusculas.charAt((int) (Math.random() * minusculas.length()));;
+		}
+		
+		return passwd;
 	}
 
 }

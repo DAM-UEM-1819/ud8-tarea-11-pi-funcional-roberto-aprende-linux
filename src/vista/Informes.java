@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import enums.ListadoInformes;
 import modelo.ModeloConsultas;
 
 public class Informes extends JFrame {

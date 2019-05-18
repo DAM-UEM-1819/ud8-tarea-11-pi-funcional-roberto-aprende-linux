@@ -111,6 +111,7 @@ public class GestionUsuarios extends JFrame {
 		btnAddUsuario = new JButton("A\u00F1adir Usuario");
 		btnAddUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				controlador.gestionUsuariosToCrearUsuario();
 			}
 		});

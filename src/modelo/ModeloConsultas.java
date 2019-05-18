@@ -299,7 +299,7 @@ public class ModeloConsultas {
 		String sql = selectPasswdUsuario;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, usuario);
+			pstmt.setString(1, usuario.toUpperCase());
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next() && rs.getString(1).equals(passwd)) {
 				// CAmbiar solo a ADMIN

@@ -259,15 +259,18 @@ public class ModeloGestionDatos {
 	 * @param rol    El rol del usuario
 	 * @return Un String con el estado del metodo (si se ha creado o no)
 	 */
-	public String crearUsuario(String user, String passwd, String rol) {
+	public String crearUsuario(String user, String rol, String correo) {
 		String sql = insertUsuario;
+		String passwd = modelo.generadorPasswd();
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, user);
+			pstmt.setString(1, user.toUpperCase());
 			pstmt.setString(2, passwd);
-			pstmt.setString(3, rol);
+			pstmt.setString(3, rol.toUpperCase());
+			pstmt.setString(4, correo.toUpperCase());
 			ResultSet rs = pstmt.executeQuery();
+			modelo.enviarCorreoGmail(correo, user, passwd);
 			respuesta = "Usuario creado";
 		} catch (Exception e) {
 			respuesta = "Error, algun campo vacio";
@@ -278,6 +281,8 @@ public class ModeloGestionDatos {
 		return respuesta;
 
 	}
+
+
 
 	/**
 	 * Metodo para crear un alumno en la BBDD

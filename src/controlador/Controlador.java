@@ -451,6 +451,6 @@ public class Controlador implements IControlador {
 
 	// VENTANA CREAR USUARIOS
 	public void solicitudCrearUsuario() {
-		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
+		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getRol(), crearUsuario.getEmail());
 	}
 }
