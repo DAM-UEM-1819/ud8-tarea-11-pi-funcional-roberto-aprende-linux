@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import enums.Roles;
 
 public class CrearUsuario extends JFrame {
 	private Controlador controlador;
@@ -38,16 +39,17 @@ public class CrearUsuario extends JFrame {
 	private JButton btnCrearUsuario;
 	private JTextField txtUsuario;
 	private JLabel lblUsuario;
-	private JLabel lblPasswordCreaUsuario;
+	private JLabel lblCorreo;
 	private JComboBox comboBoxRol;
 	private JLabel lblRol;
-	private JPasswordField passwordField;
-	private JButton btnMostrarPwd;
 
 	private boolean estado;
 	private JLabel lblInfo;
+	private JTextField txtCorreo;
+	private JTextField txtCorreoComprobacion;
 
 	public CrearUsuario() {
+		setAutoRequestFocus(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,58 +117,68 @@ public class CrearUsuario extends JFrame {
 		btnCrearUsuario = new JButton(" Crear usuario");
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.solicitudCrearUsuario();
+				if (comprobaciones()) {
+					controlador.solicitudCrearUsuario();
+				} else {
+
+				}
 			}
 		});
 		btnCrearUsuario.setBounds(762, 685, 140, 40);
 		contentPane.add(btnCrearUsuario);
 
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(402, 239, 210, 30);
+		txtUsuario.setBounds(200, 317, 200, 30);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
 		lblUsuario = new JLabel("Usuario");
+		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblUsuario.setForeground(Color.BLACK);
-		lblUsuario.setBounds(481, 174, 62, 54);
+		lblUsuario.setBounds(200, 262, 200, 54);
 		contentPane.add(lblUsuario);
 
-		lblPasswordCreaUsuario = new JLabel("Contrase\u00F1a");
-		lblPasswordCreaUsuario.setForeground(Color.BLACK);
-		lblPasswordCreaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPasswordCreaUsuario.setBounds(467, 475, 91, 54);
-		contentPane.add(lblPasswordCreaUsuario);
+		lblCorreo = new JLabel("Email");
+		lblCorreo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCorreo.setForeground(Color.BLACK);
+		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblCorreo.setBounds(600, 262, 200, 54);
+		contentPane.add(lblCorreo);
 
 		comboBoxRol = new JComboBox();
-		comboBoxRol.setModel(new DefaultComboBoxModel(new String[] { "Lectura", "Administrador" }));
-		comboBoxRol.setBounds(402, 385, 210, 30);
+		comboBoxRol.setModel(new DefaultComboBoxModel(Roles.values()));
+		comboBoxRol.setBounds(200, 467, 200, 30);
 		contentPane.add(comboBoxRol);
 
 		lblRol = new JLabel("Rol");
+		lblRol.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRol.setForeground(Color.BLACK);
 		lblRol.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRol.setBounds(493, 317, 35, 54);
+		lblRol.setBounds(200, 412, 200, 54);
 		contentPane.add(lblRol);
-
-		passwordField = new JPasswordField();
-		passwordField.setBounds(402, 540, 210, 30);
-		contentPane.add(passwordField);
-
-		btnMostrarPwd = new JButton("Mostrar");
-		btnMostrarPwd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				mostrarPasswd();
-			}
-
-		});
-		btnMostrarPwd.setBounds(622, 544, 69, 23);
-		contentPane.add(btnMostrarPwd);
 
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInfo.setBounds(407, 124, 205, 39);
+		lblInfo.setBounds(0, 124, 984, 39);
 		contentPane.add(lblInfo);
+
+		JLabel lblConfirmarEmail = new JLabel("Confirmar email");
+		lblConfirmarEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConfirmarEmail.setForeground(Color.BLACK);
+		lblConfirmarEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblConfirmarEmail.setBounds(600, 412, 200, 54);
+		contentPane.add(lblConfirmarEmail);
+
+		txtCorreo = new JTextField();
+		txtCorreo.setColumns(10);
+		txtCorreo.setBounds(600, 317, 200, 30);
+		contentPane.add(txtCorreo);
+
+		txtCorreoComprobacion = new JTextField();
+		txtCorreoComprobacion.setColumns(10);
+		txtCorreoComprobacion.setBounds(600, 467, 200, 30);
+		contentPane.add(txtCorreoComprobacion);
 
 	}
 
@@ -186,10 +198,6 @@ public class CrearUsuario extends JFrame {
 		return txtUsuario.getText();
 	}
 
-	public String getPasswd() {
-		return String.valueOf(passwordField.getPassword());
-	}
-
 	public String getRol() {
 		return String.valueOf(comboBoxRol.getSelectedItem());
 	}
@@ -198,14 +206,35 @@ public class CrearUsuario extends JFrame {
 		lblInfo.setText(modeloConsultas.getRespuesta());
 	}
 
-	private void mostrarPasswd() {
-		if (!estado) {
-			passwordField.setEchoChar((char) 0);
-			estado = true;
-		} else {
-			passwordField.setEchoChar('●');
-			estado = false;
-		}
+	public void actualizarInfoVista(String error) {
+		lblInfo.setText(error);
 	}
 
+	public String getEmail() {
+		return txtCorreo.getText();
+	}
+
+	public boolean comprobaciones() {
+		boolean todoCorrecto = false;
+		String user = txtUsuario.getText();
+		String correo = txtCorreo.getText();
+		String correoComprobacion = txtCorreoComprobacion.getText();
+		if (!user.equals("") && !correo.equals("") && !correoComprobacion.equals("")) {
+			if (correo.contains("@") && correo.contains(".") && !correo.contains(" ")) {
+				if (correo.equals(correoComprobacion)) {
+					todoCorrecto = true;
+				} else {
+					actualizarInfoVista("Error, los correos no coinciden");
+				}
+
+			} else {
+				actualizarInfoVista("Error, el email tiene que tener un @, un . y no puede contener espacios");
+			}
+
+		} else {
+			actualizarInfoVista("Error, rellene todos los campos");
+		}
+
+		return todoCorrecto;
+	}
 }

@@ -299,7 +299,7 @@ public class ModeloConsultas {
 		String sql = selectPasswdUsuario;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, usuario);
+			pstmt.setString(1, usuario.toUpperCase());
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next() && rs.getString(1).equals(passwd)) {
 				// CAmbiar solo a ADMIN
@@ -553,6 +553,21 @@ public class ModeloConsultas {
 				gestionSalas.actualizarInfoConsulta();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//BUSCADORES
+	public void buscadorUsuarios(DefaultTableModel tableModel, String palabra) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
+			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -1,4 +1,4 @@
-package vista;
+package enums;
 
 public enum ListadoInformes {
 	HorasTotalesActividad,

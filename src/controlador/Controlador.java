@@ -256,6 +256,10 @@ public class Controlador implements IControlador {
 	public void solicitudDatosUsuarios() {
 		modeloConsultas.getTablaUsuarios(gestionUsuarios.getModel());
 	}
+	
+	public void solicitudBuscadorUsuario() {
+		modeloConsultas.buscadorUsuarios(gestionUsuarios.getModel(), gestionUsuarios.getPalabraBuscador());
+	}
 
 	// VENTANA GESTION ACAD
 	public void gestionAcadToGestion() {
@@ -451,6 +455,6 @@ public class Controlador implements IControlador {
 
 	// VENTANA CREAR USUARIOS
 	public void solicitudCrearUsuario() {
-		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getPasswd(), crearUsuario.getRol());
+		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getRol(), crearUsuario.getEmail());
 	}
 }
