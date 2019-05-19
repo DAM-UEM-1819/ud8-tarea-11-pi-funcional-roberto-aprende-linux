@@ -556,4 +556,19 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
+	
+	//BUSCADORES
+	public void buscadorUsuarios(DefaultTableModel tableModel, String palabra) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
+			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

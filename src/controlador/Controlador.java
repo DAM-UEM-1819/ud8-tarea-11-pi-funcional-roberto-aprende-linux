@@ -256,6 +256,10 @@ public class Controlador implements IControlador {
 	public void solicitudDatosUsuarios() {
 		modeloConsultas.getTablaUsuarios(gestionUsuarios.getModel());
 	}
+	
+	public void solicitudBuscadorUsuario() {
+		modeloConsultas.buscadorUsuarios(gestionUsuarios.getModel(), gestionUsuarios.getPalabraBuscador());
+	}
 
 	// VENTANA GESTION ACAD
 	public void gestionAcadToGestion() {

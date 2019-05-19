@@ -30,6 +30,8 @@ import javax.swing.table.DefaultTableModel;
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GestionUsuarios extends JFrame {
 
@@ -155,11 +157,26 @@ public class GestionUsuarios extends JFrame {
 		Header.add(lblPerfil);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscadorUsuario();
+				}else {
+					controlador.solicitudDatosUsuarios();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setBounds(770, 114, 130, 20);
 		contentPane.add(txtBuscador);
-		txtBuscador.setColumns(10);
 
 //		lblImportarActividades = new JLabel("Importar Usuarios");
 //		lblImportarActividades.setIcon(
@@ -191,5 +208,9 @@ public class GestionUsuarios extends JFrame {
 	
 	public String getPrimaryKey() {
 		return String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0));
+	}
+	
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 }
