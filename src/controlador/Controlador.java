@@ -433,6 +433,10 @@ public class Controlador implements IControlador {
 	public void perfilToHome() {
 		home.setVisible(true);
 	}
+	
+	public void solicitudDatosUsuarioActual() {
+		modeloConsultas.getDatosUsuarioPerfil();
+	}
 
 	// VENTANA LOGIN
 	public void loginSolicitud() {

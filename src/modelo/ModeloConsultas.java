@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.TreeSet;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
@@ -73,6 +74,7 @@ public class ModeloConsultas {
 	private DefaultTableModel tableModel;
 	private String[] nombreColumnasTabla;
 	private Object[] datosFilasTabla;
+	private String nombreUsuario;
 	private String rolUsuario;
 	private TreeSet<String> listadoGrupos;
 	private String grupo;
@@ -80,6 +82,7 @@ public class ModeloConsultas {
 	private String simulador;
 	private boolean actor;
 	private boolean existe;
+	private Object[] datosUsuario;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -113,8 +116,11 @@ public class ModeloConsultas {
 	private String selectBuscadorActores;
 	private String selectBuscadorSalas;
 	private String selectBuscadorAcad;
-	
-	//SENTENCIAS SELECT SQL COMPROBACION
+
+	// SENTENCIAS SELECT SQL DATOS EXTRA
+	private String selectDatosUsuarioPerfil;
+
+	// SENTENCIAS SELECT SQL COMPROBACION
 	private String selectExisteSala;
 
 	public ModeloConsultas() {
@@ -141,8 +147,9 @@ public class ModeloConsultas {
 		// Asignamos select de listado
 		// Asignamos las Select SQL BUSCADOR
 		selectBuscador();
-		
+
 		selectComprobacionExiste();
+		selectDatosExtra();
 	}
 
 	private void selectTablas() {
@@ -179,9 +186,13 @@ public class ModeloConsultas {
 		selectBuscadorSalas = propiedades.getProperty("selectBuscadorSalas");
 		selectBuscadorAcad = propiedades.getProperty("selectBuscadorAcad");
 	}
-	
+
 	private void selectComprobacionExiste() {
 		selectExisteSala = propiedades.getProperty("selectExisteSala");
+	}
+
+	private void selectDatosExtra() {
+		selectDatosUsuarioPerfil = propiedades.getProperty("selectDatosUsuarioPerfil");
 	}
 
 	// INICIO SETTERS
@@ -287,9 +298,17 @@ public class ModeloConsultas {
 	public boolean tieneActor() {
 		return actor;
 	}
-	
+
 	public boolean getExiste() {
 		return existe;
+	}
+
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public Object[] getDatosUsuario() {
+		return datosUsuario;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -297,9 +316,10 @@ public class ModeloConsultas {
 	public void loginConfirmacion(String usuario, String passwd) {
 		conexion = modelo.getConexion();
 		String sql = selectPasswdUsuario;
+		usuario = usuario.toUpperCase();
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, usuario.toUpperCase());
+			pstmt.setString(1,usuario);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next() && rs.getString(1).equals(passwd)) {
 				// CAmbiar solo a ADMIN
@@ -308,7 +328,7 @@ public class ModeloConsultas {
 				} else {
 					login.loginExitosoLectura();
 				}
-
+				nombreUsuario = usuario;
 			} else {
 				respuesta = "Ususario o contrase�a incorrectos";
 				login.actualizarInfo();
@@ -368,6 +388,29 @@ public class ModeloConsultas {
 		}
 
 		home.actualizarInfoExtra();
+	}
+
+	public void getDatosUsuarioPerfil() {
+		PreparedStatement pstmt;
+
+		try {
+			pstmt = conexion.prepareStatement(selectDatosUsuarioPerfil);
+			pstmt.setString(1, nombreUsuario);
+			ResultSet rs = pstmt.executeQuery();
+			ResultSetMetaData metadatos = rs.getMetaData();
+			datosUsuario = new Object[metadatos.getColumnCount()];
+			if (rs.next()) {
+
+				for (int i = 0; i < metadatos.getColumnCount(); i++) {
+					datosUsuario[i] = rs.getString(i + 1);
+				}
+
+				perfil.mostrarDatosPerfil();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getTablaUsuarios(DefaultTableModel tableModel) {
@@ -539,7 +582,7 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void comprobarSala(String sala) {
 		existe = false;
 		PreparedStatement pstmt;
@@ -556,8 +599,8 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
-	
-	//BUSCADORES
+
+	// BUSCADORES
 	public void buscadorUsuarios(DefaultTableModel tableModel, String palabra) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;

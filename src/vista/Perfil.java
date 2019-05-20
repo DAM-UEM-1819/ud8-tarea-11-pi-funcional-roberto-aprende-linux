@@ -20,6 +20,9 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.Controlador;
 import modelo.ModeloConsultas;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JPasswordField;
 
 public class Perfil extends JFrame {
 
@@ -34,20 +37,35 @@ public class Perfil extends JFrame {
 	private JButton btnConfirmarCambios;
 	private JTextField txtUsuario;
 	private JLabel lblUsuario;
-	private JTextField txtPasswordActual;
 	private JLabel lblPasswordActual;
 	private JLabel lblRolTitulo;
 	private JLabel lblRol;
 	private JLabel lblPasswordNueva;
-	private JTextField txtPasswordNueva;
 	private JLabel lblConfirmarContrasea;
-	private JTextField txtPasswordConfirmar;
+	private JTextField txtEmail;
+	private JButton btnMostrar;
+	private JPasswordField pwdActual;
+	private JPasswordField pwdNueva;
+	private JPasswordField pwdConfirmar;
+	private boolean estaMostrada;
 
 
 	/**
 	 * Create the frame.
 	 */
 	public Perfil() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosUsuarioActual();
+			}
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				limpiarInfo();
+			}
+			
+		});
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,60 +116,84 @@ public class Perfil extends JFrame {
 		contentPane.add(btnConfirmarCambios);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(130, 246, 210, 30);
+		txtUsuario.setBounds(200, 250, 200, 30);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		lblUsuario = new JLabel("Usuario");
+		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblUsuario.setForeground(Color.BLACK);
-		lblUsuario.setBounds(206, 181, 62, 54);
+		lblUsuario.setBounds(200, 200, 200, 40);
 		contentPane.add(lblUsuario);
 		
-		txtPasswordActual = new JTextField();
-		txtPasswordActual.setColumns(10);
-		txtPasswordActual.setBounds(572, 246, 210, 30);
-		contentPane.add(txtPasswordActual);
-		
 		lblPasswordActual = new JLabel("Contrase\u00F1a actual");
+		lblPasswordActual.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPasswordActual.setForeground(Color.BLACK);
 		lblPasswordActual.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPasswordActual.setBounds(635, 181, 147, 54);
+		lblPasswordActual.setBounds(600, 200, 200, 40);
 		contentPane.add(lblPasswordActual);
 		
 		lblRolTitulo = new JLabel("Rol");
+		lblRolTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRolTitulo.setForeground(Color.BLACK);
 		lblRolTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRolTitulo.setBounds(212, 402, 31, 54);
+		lblRolTitulo.setBounds(200, 500, 200, 40);
 		contentPane.add(lblRolTitulo);
 		
 		lblRol = new JLabel("Administrador");
+		lblRol.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRol.setForeground(Color.BLACK);
 		lblRol.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblRol.setBounds(187, 467, 97, 30);
+		lblRol.setBounds(200, 550, 200, 30);
 		contentPane.add(lblRol);
 		
 		lblPasswordNueva = new JLabel("Nueva contrase\u00F1a");
+		lblPasswordNueva.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPasswordNueva.setForeground(Color.BLACK);
 		lblPasswordNueva.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPasswordNueva.setBounds(635, 317, 147, 54);
+		lblPasswordNueva.setBounds(600, 350, 200, 40);
 		contentPane.add(lblPasswordNueva);
 		
-		txtPasswordNueva = new JTextField();
-		txtPasswordNueva.setColumns(10);
-		txtPasswordNueva.setBounds(572, 382, 210, 30);
-		contentPane.add(txtPasswordNueva);
-		
 		lblConfirmarContrasea = new JLabel("Confirmar contrase\u00F1a");
+		lblConfirmarContrasea.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConfirmarContrasea.setForeground(Color.BLACK);
 		lblConfirmarContrasea.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblConfirmarContrasea.setBounds(604, 443, 178, 54);
+		lblConfirmarContrasea.setBounds(600, 500, 200, 40);
 		contentPane.add(lblConfirmarContrasea);
 		
-		txtPasswordConfirmar = new JTextField();
-		txtPasswordConfirmar.setColumns(10);
-		txtPasswordConfirmar.setBounds(572, 508, 210, 30);
-		contentPane.add(txtPasswordConfirmar);
+		JLabel lblEmail = new JLabel("Correo Electr\u00F3nico");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmail.setForeground(Color.BLACK);
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblEmail.setBounds(200, 350, 200, 40);
+		contentPane.add(lblEmail);
+		
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(200, 400, 200, 30);
+		contentPane.add(txtEmail);
+		
+		btnMostrar = new JButton("Mostrar");
+		btnMostrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarPasswd();
+			}
+		});
+		btnMostrar.setBounds(824, 404, 78, 23);
+		contentPane.add(btnMostrar);
+		
+		pwdActual = new JPasswordField();
+		pwdActual.setBounds(600, 250, 200, 30);
+		contentPane.add(pwdActual);
+		
+		pwdNueva = new JPasswordField();
+		pwdNueva.setBounds(600, 400, 200, 30);
+		contentPane.add(pwdNueva);
+		
+		pwdConfirmar = new JPasswordField();
+		pwdConfirmar.setBounds(600, 550, 200, 30);
+		contentPane.add(pwdConfirmar);
 		
 	}
 	
@@ -162,4 +204,36 @@ public class Perfil extends JFrame {
 		this.modeloConsultas= modeloConsultas;
 	}
 	
+	public void mostrarDatosPerfil() {
+		Object[] datos = modeloConsultas.getDatosUsuario();
+		txtUsuario.setText(String.valueOf(datos[0]));
+		pwdActual.setText(String.valueOf(datos[1]));
+		lblRol.setText(String.valueOf(datos[2]));
+		txtEmail.setText(String.valueOf(datos[3]));
+		
+		
+	}
+	
+	private void mostrarPasswd() {
+		if (estaMostrada) {
+			pwdActual.setEchoChar('●');
+			pwdNueva.setEchoChar('●');
+			pwdConfirmar.setEchoChar('●');
+			estaMostrada = false;
+		}else {
+			pwdActual.setEchoChar((char)0);
+			pwdNueva.setEchoChar((char)0);
+			pwdConfirmar.setEchoChar((char)0);
+			estaMostrada = true;
+		}
+	}
+	
+	private void limpiarInfo() {
+		txtUsuario.setText("");
+		pwdActual.setText("");
+		lblRol.setText("");
+		txtEmail.setText("");
+		pwdNueva.setText("");
+		pwdConfirmar.setText("");
+	}
 }
