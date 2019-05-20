@@ -102,6 +102,7 @@ public class ModeloGestionDatos {
 	private String updateAlumno;
 	private String updateSala;
 	private String updateRegistro;
+	private String updateUsuario;
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -261,6 +262,7 @@ public class ModeloGestionDatos {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
+		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
 
 	}
 
@@ -273,13 +275,12 @@ public class ModeloGestionDatos {
 	 * @return Un String con el estado del metodo (si se ha creado o no)
 	 */
 	public String crearUsuario(String user, String rol, String correo) {
-		String sql = insertUsuario;
 		String passwd = modelo.generadorPasswd();
+		String passwdMD5 = modelo.generarMD5(passwd);
 		try {
-			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt = conexion.prepareStatement(sql);
+			PreparedStatement pstmt = conexion.prepareStatement(insertUsuario);
 			pstmt.setString(1, user.toUpperCase());
-			pstmt.setString(2, passwd);
+			pstmt.setString(2, passwdMD5);
 			pstmt.setString(3, rol.toUpperCase());
 			pstmt.setString(4, correo.toUpperCase());
 			ResultSet rs = pstmt.executeQuery();
@@ -292,6 +293,41 @@ public class ModeloGestionDatos {
 		}
 
 		return respuesta;
+
+	}
+
+	public void actualizarUsuario(String user, String correo, String passwdActual, String passwdNueva,
+			String passwdComprobacion) {
+		passwdActual = modelo.generarMD5(passwdActual);
+		String passwdBD = modeloConsultas.consultarPasswdUsuario(user);
+		try {
+
+			if (passwdActual.equals(passwdBD)) {
+
+				if (passwdNueva.equals(passwdComprobacion)) {
+
+					PreparedStatement pstmt = conexion.prepareStatement(updateUsuario);
+					pstmt.setString(1, user.toUpperCase());
+					pstmt.setString(2, modelo.generarMD5(passwdActual));
+					pstmt.setString(3, correo.toUpperCase());
+					pstmt.setString(4, user.toUpperCase());
+					ResultSet rs = pstmt.executeQuery();
+					respuesta = "Usuario modificado correctamente";
+
+				} else {
+					respuesta = "Error, las nuevas contraseñas no coinciden";
+				}
+
+			} else {
+				respuesta = "Error, contraseña incorrecta";
+			}
+
+		} catch (Exception e) {
+			respuesta = "Error, ese usuario ya existe";
+			e.printStackTrace();
+		}
+		
+		perfil. actualizarInfo();
 
 	}
 
@@ -493,7 +529,8 @@ public class ModeloGestionDatos {
 	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor,
 			String actividadNombre) {
 		// TODO Auto-generated method stub
-		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty() && !actividadNombre.isEmpty()) {
+		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty()
+				&& !actividadNombre.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
 				pstmt.setString(1, fecha);
@@ -513,7 +550,7 @@ public class ModeloGestionDatos {
 			respuesta = "Error, estas modificando el codigo de registro";
 //			gestionRegistros.actualizarInfoDatos();
 		}
-		
+
 	}
 
 }

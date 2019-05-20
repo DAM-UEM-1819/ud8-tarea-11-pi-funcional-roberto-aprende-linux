@@ -441,6 +441,10 @@ public class Controlador implements IControlador {
 	public void solicitudDatosUsuarioActual() {
 		modeloConsultas.getDatosUsuarioPerfil();
 	}
+	
+	public void solicitudActualizarUsuario() {
+		modeloGestionDatos.actualizarUsuario(perfil.getUsuario(), perfil.getEmail(), perfil.getPasswdActual(), perfil.getPasswdNueva(), perfil.getPasswdComprobacion());
+	}
 
 	// VENTANA LOGIN
 	public void loginSolicitud() {
@@ -465,4 +469,5 @@ public class Controlador implements IControlador {
 	public void solicitudCrearUsuario() {
 		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getRol(), crearUsuario.getEmail());
 	}
+
 }

@@ -141,6 +141,7 @@ public class Main {
 		gestionProfesores.setModeloGestionDatos(modeloGestionDatos);
 		gestionSalas.setModeloGestionDatos(modeloGestionDatos);
 		gestionUsuarios.setModeloGestionDatos(modeloGestionDatos);
+		perfil.setModeloGestionDatos(modeloGestionDatos);
 		
 		//ASIGNAMOS LA CONEXION AL MODELO GESTION DATOS
 		modeloGestionDatos.setConexion(modelo.getConexion());

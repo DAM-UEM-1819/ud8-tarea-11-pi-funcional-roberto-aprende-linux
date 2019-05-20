@@ -314,9 +314,15 @@ public class ModeloConsultas {
 	// INICIO METODOS BASE DATOS
 
 	public void loginConfirmacion(String usuario, String passwd) {
+		//BORRAR, ESTO SIRVE PARA AHORRARNOS TRABAJO, NO DEJARLO EN LA VERSION FINAL
+		//FALLO DE SEGURIDAD IMPORTANTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if (usuario.equals("") || passwd.equals("")) {
+			login.loginExitoso();
+		}
 		conexion = modelo.getConexion();
 		String sql = selectPasswdUsuario;
 		usuario = usuario.toUpperCase();
+		passwd = modelo.generarMD5(passwd);
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt.setString(1,usuario);
@@ -342,6 +348,23 @@ public class ModeloConsultas {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String consultarPasswdUsuario(String usuario) {
+		String passwd = "";
+		
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(selectPasswdUsuario);
+			pstmt.setString(1,usuario);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				passwd = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return passwd;
 	}
 
 	public void crearUsuario(String user, String passwd, String rol) {

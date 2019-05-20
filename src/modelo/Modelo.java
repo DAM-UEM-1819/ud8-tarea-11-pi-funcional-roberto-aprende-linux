@@ -10,11 +10,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Properties;
 import java.util.TreeSet;
 
 import javax.swing.table.DefaultTableModel;
+
+import com.sun.mail.smtp.DigestMD5;
 
 import controlador.*;
 import vista.*;
@@ -136,8 +141,8 @@ public class Modelo {
 
 	/**
 	 * Este metodo envia un correo electrónico al destinatario con su usario y su
-	 * contraseña
-	 * Primero configuramos los datos esenciales, despues creamos el mensaje
+	 * contraseña Primero configuramos los datos esenciales, despues creamos el
+	 * mensaje
 	 * 
 	 * @param destinatario El destinatario del correo
 	 * @param user         El usuario creado
@@ -196,6 +201,35 @@ public class Modelo {
 		}
 
 		return passwd;
+	}
+
+	public String generarMD5(String passwd) {
+		String generatedHash = "";
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+
+			// Almacenamos el array de bytes del passwd
+			byte[] messageDigest = md.digest(passwd.getBytes());
+
+			StringBuffer sb = new StringBuffer(messageDigest.length);
+
+			for (int i = 0; i < messageDigest.length; i++) {
+	            int u = messageDigest[i] & 255;
+	                if (u < 16) {
+	                	sb.append("0" + Integer.toHexString(u));
+	                }
+	               else {
+	            	   sb.append(Integer.toHexString(u));
+	               }
+	           }
+			generatedHash = sb.toString();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return generatedHash;
+
 	}
 
 }
