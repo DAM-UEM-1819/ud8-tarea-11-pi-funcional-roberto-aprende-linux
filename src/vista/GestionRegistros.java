@@ -51,7 +51,6 @@ public class GestionRegistros extends JFrame {
 	private JButton btnBorrarRegistro;
 	private JButton btnAddRegistro;
 	private JTextField txtBuscador;
-	private JComboBox comboBoxColumna;
 	private JLabel lblImportarActividades;
 	private JButton btnModificar;
 	private JLabel lblInfo;
@@ -203,12 +202,6 @@ public class GestionRegistros extends JFrame {
 		txtBuscador.setBounds(665, 127, 86, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
-
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(
-				new String[] { "Columna", "Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
-		comboBoxColumna.setBounds(761, 127, 104, 20);
-		contentPane.add(comboBoxColumna);
 
 		lblImportarActividades = new JLabel("Importar Registros");
 		lblImportarActividades.setIcon(
