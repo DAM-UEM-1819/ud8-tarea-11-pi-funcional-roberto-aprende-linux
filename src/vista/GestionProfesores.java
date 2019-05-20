@@ -216,15 +216,13 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 		
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(new String[] {"Columna", "Numero", "Nombre", "Titulación", "DNI","Activo","Relacion","Telefono 1","Telefono 2","Mail 1","Mail 2" }));
-		comboBoxColumna.setBounds(761, 127, 104, 20);
-		contentPane.add(comboBoxColumna);
+	
 		
 		lblImportarActividades = new JLabel("Importar Profesores");
 		lblImportarActividades.setIcon(new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 127, 124, 20);
 		contentPane.add(lblImportarActividades);
+		lblImportarActividades.setVisible(false);
 	}
 	
 	public void setControlador(Controlador controlador) {

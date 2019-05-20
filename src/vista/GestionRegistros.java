@@ -208,6 +208,7 @@ public class GestionRegistros extends JFrame {
 				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 127, 124, 20);
 		contentPane.add(lblImportarActividades);
+		lblImportarActividades.setVisible(false);
 
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
