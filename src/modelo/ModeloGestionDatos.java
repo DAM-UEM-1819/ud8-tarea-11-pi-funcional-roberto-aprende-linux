@@ -510,7 +510,7 @@ public class ModeloGestionDatos {
 			}
 		} else {
 			seHaCreado = false;
-			respuesta = "Error, estas modificando el codigo de sala";
+			respuesta = "Error, estas modificando el codigo de registro";
 //			gestionRegistros.actualizarInfoDatos();
 		}
 		

@@ -220,6 +220,9 @@ public class GestionRegistros extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.solicitudModificarRegistro();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					modificadoRegsitro();
+				}
 			}
 		});
 		btnModificar.setBounds(505, 690, 120, 40);
@@ -294,7 +297,7 @@ public class GestionRegistros extends JFrame {
 		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
 
 		if (getCod_registro().equals(String.valueOf(model.getValueAt(tablaRegistros.getSelectedRow(), 0)))) {
-				lblInfo.setText("Sala modificada");
+				lblInfo.setText("Regsitro modificado");
 				model.setValueAt(getCod_registro(), tablaRegistros.getSelectedRow(), 0);
 				model.setValueAt(getFecha(), tablaRegistros.getSelectedRow(), 1);
 				model.setValueAt(getHora(), tablaRegistros.getSelectedRow(), 2);
@@ -303,7 +306,7 @@ public class GestionRegistros extends JFrame {
 				limpiarTxt();
 			
 		} else {
-			lblInfo.setText("Error , no puedes modificar el codigo de la sala");
+			lblInfo.setText("Error , no puedes modificar el codigo del registro");
 		}
 		
 	}
