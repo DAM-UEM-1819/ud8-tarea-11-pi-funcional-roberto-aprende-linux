@@ -92,10 +92,16 @@ public class ModeloGestionDatos {
 	private String deleteUsuario;
 	private String deleteSala;
 	private String deleteOcupa;
+	private String deleteActuaRegistro;
+	private String deleteParticipaRegistro;
+	private String deleteRealizaRegistro;
+	private String deleteOcupaRegistro;
+	private String deleteRegistro;
 
 	// Sentincias Update SQL
 	private String updateAlumno;
 	private String updateSala;
+	private String updateRegistro;
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -240,6 +246,12 @@ public class ModeloGestionDatos {
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
 		deleteSala = propiedadesBorrado.getProperty("deleteSala");
 		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
+		//
+		deleteActuaRegistro = propiedadesBorrado.getProperty("deleteActuaRegistro");
+		deleteParticipaRegistro = propiedadesBorrado.getProperty("deleteParticipaRegistro");
+		deleteRealizaRegistro = propiedadesBorrado.getProperty("deleteRealizaRegistro");
+		deleteOcupaRegistro = propiedadesBorrado.getProperty("deleteOcupaRegistro");
+		deleteRegistro = propiedadesBorrado.getProperty("deleteRegistro");
 	}
 
 	/**
@@ -248,6 +260,7 @@ public class ModeloGestionDatos {
 	private void asignacionModificacion() {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
 		updateSala = propiedadesModificacion.getProperty("updateSala");
+		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 
 	}
 
@@ -281,8 +294,6 @@ public class ModeloGestionDatos {
 		return respuesta;
 
 	}
-
-
 
 	/**
 	 * Metodo para crear un alumno en la BBDD
@@ -391,6 +402,11 @@ public class ModeloGestionDatos {
 			break;
 		case "F":
 			// sql = deleteRegistros;
+			seHaBorrado = borrarDatos(deleteOcupaRegistro);
+			seHaBorrado = borrarDatos(deleteActuaRegistro);
+			seHaBorrado = borrarDatos(deleteParticipaRegistro);
+			seHaBorrado = borrarDatos(deleteRealizaRegistro);
+			seHaBorrado = borrarDatos(deleteRegistro);
 			break;
 		}
 
@@ -472,6 +488,32 @@ public class ModeloGestionDatos {
 			respuesta = "Error, estas modificando el codigo de sala";
 			gestionSalas.actualizarInfoDatos();
 		}
+	}
+
+	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor,
+			String actividadNombre) {
+		// TODO Auto-generated method stub
+		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty() && !actividadNombre.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
+				pstmt.setString(1, fecha);
+				pstmt.setString(2, hora);
+				pstmt.setString(3, horasProfesor);
+				pstmt.setString(4, actividadNombre);
+				pstmt.setInt(5, Integer.parseInt(cod_registro));
+				addDatos(pstmt);
+
+				seHaCreado = true;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, estas modificando el codigo de sala";
+//			gestionRegistros.actualizarInfoDatos();
+		}
+		
 	}
 
 }

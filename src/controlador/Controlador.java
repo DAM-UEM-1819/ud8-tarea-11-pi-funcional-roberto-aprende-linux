@@ -362,6 +362,10 @@ public class Controlador implements IControlador {
 	public void solicitudDatosRegistros() {
 		modeloConsultas.getTablaRegistros(gestionRegistros.getModel());
 	}
+	
+	public void solicitudModificarRegistro() {
+		modeloGestionDatos.modificarRegistro(gestionRegistros.getCod_registro(),gestionRegistros.getFecha(),gestionRegistros.getHora(),gestionRegistros.getHorasProfesor(),gestionRegistros.getActividadNombre());
+	}
 
 	// VENTANA GESTION ASIGNATURA
 	public void gestionAsignaturaToGestion() {

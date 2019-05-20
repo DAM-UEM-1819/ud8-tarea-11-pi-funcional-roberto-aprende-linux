@@ -31,7 +31,7 @@ import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 
 public class GestionRegistros extends JFrame {
-	
+
 	private Controlador controlador;
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
@@ -53,6 +53,8 @@ public class GestionRegistros extends JFrame {
 	private JTextField txtBuscador;
 	private JComboBox comboBoxColumna;
 	private JLabel lblImportarActividades;
+	private JButton btnModificar;
+	private JLabel lblInfo;
 
 	/**
 	 * Create the frame.
@@ -62,6 +64,7 @@ public class GestionRegistros extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosRegistros();
+
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -79,6 +82,18 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaRegistros = new JTable();
+		tablaRegistros.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtCod_registro.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0)));
+				txtFecha.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 1)));
+				txtHora.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 2)));
+				txtHorasProfesor
+						.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 3)));
+				txtActividadNombre.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 4)));
+
+			}
+		});
 		tablaRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaRegistros.setRowHeight(30);
 		tablaRegistros.getTableHeader().setReorderingAllowed(false);
@@ -129,20 +144,22 @@ public class GestionRegistros extends JFrame {
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		HeaderPanel.add(lblUemLogo);
 
-
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
 		lblPerfil = new JLabel(perfilIcon);
 		lblPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
-				controlador.gestionRegistrosToPerfil();;
+				controlador.gestionRegistrosToPerfil();
+				;
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -163,37 +180,62 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnBorrarRegistro = new JButton("Borrar Registro");
-		btnBorrarRegistro.setBounds(436, 690, 120, 40);
+		btnBorrarRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.solicitudBorrar(this);
+
+				if (modeloGestionDatos.getSeHaBorrado()) {
+					borrado();
+				}
+			}
+		});
+		btnBorrarRegistro.setBounds(273, 690, 120, 40);
 		contentPane.add(btnBorrarRegistro);
 
 		btnAddRegistro = new JButton("A\u00F1adir Registro");
 
 		btnAddRegistro.setBounds(778, 690, 120, 40);
 		contentPane.add(btnAddRegistro);
-		
-		
+
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setBounds(665, 127, 86, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
-		
+
 		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(new String[] {"Columna","Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
+		comboBoxColumna.setModel(new DefaultComboBoxModel(
+				new String[] { "Columna", "Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
 		comboBoxColumna.setBounds(761, 127, 104, 20);
 		contentPane.add(comboBoxColumna);
-		
+
 		lblImportarActividades = new JLabel("Importar Registros");
-		lblImportarActividades.setIcon(new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		lblImportarActividades.setIcon(
+				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 127, 124, 20);
 		contentPane.add(lblImportarActividades);
+
+		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.solicitudModificarRegistro();
+			}
+		});
+		btnModificar.setBounds(505, 690, 120, 40);
+		contentPane.add(btnModificar);
+		
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(234, 111, 429, 23);
+		contentPane.add(lblInfo);
 	}
-	
+
+	// Setter
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
@@ -201,12 +243,75 @@ public class GestionRegistros extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	
+
+	// Getter
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaRegistros.getModel();
 	}
 
 	public String getPrimaryKey() {
 		return String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0));
+	}
+
+	public String getCod_registro() {
+		return txtCod_registro.getText();
+	}
+
+	public String  getFecha() {
+		return txtFecha.getText();
+	}
+
+	public String  getHora() {
+		return txtHora.getText();
+	}
+
+	public String  getHorasProfesor() {
+		return txtHorasProfesor.getText();
+	}
+
+	public String  getActividadNombre() {
+		return txtActividadNombre.getText();
+	}
+
+//	public void utilidadBotones() {
+//		if(!txtCod_registro.getText().isEmpty()) {
+//			btnBorrarRegistro.setEnabled(true);
+//		}else {
+//			btnBorrarRegistro.setEnabled(false);
+//		}
+//	}
+
+	public void limpiarTxt() {
+		txtCod_registro.setText("");
+		txtFecha.setText("");
+		txtHorasProfesor.setText("");
+		txtHora.setText("");
+		txtActividadNombre.setText("");
+	}
+	
+	public void modificadoRegsitro () {
+		DefaultTableModel model = (DefaultTableModel) tablaRegistros.getModel();
+		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
+
+		if (getCod_registro().equals(String.valueOf(model.getValueAt(tablaRegistros.getSelectedRow(), 0)))) {
+				lblInfo.setText("Sala modificada");
+				model.setValueAt(getCod_registro(), tablaRegistros.getSelectedRow(), 0);
+				model.setValueAt(getFecha(), tablaRegistros.getSelectedRow(), 1);
+				model.setValueAt(getHora(), tablaRegistros.getSelectedRow(), 2);
+				model.setValueAt(getHorasProfesor(), tablaRegistros.getSelectedRow(), 3);
+				model.setValueAt(getActividadNombre(), tablaRegistros.getSelectedRow(), 4);
+				limpiarTxt();
+			
+		} else {
+			lblInfo.setText("Error , no puedes modificar el codigo de la sala");
+		}
+		
+	}
+
+	public void borrado() {
+		DefaultTableModel model = (DefaultTableModel) tablaRegistros.getModel();
+		model.removeRow(tablaRegistros.getSelectedRow());
+		limpiarTxt();
+
 	}
 }
