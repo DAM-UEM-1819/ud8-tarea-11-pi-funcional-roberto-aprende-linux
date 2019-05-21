@@ -52,7 +52,7 @@ public class GestionSalas extends JFrame {
 	private JButton btnBorrar;
 	private JTextField txtNumero;
 	private JTextField txtCapacidad;
-	private JLabel labelImportar;
+	private JLabel lblImportarSalas;
 	private JTextField txtBuscador;
 	private JComboBox comboBoxColumna;
 	private JLabel lblInfo;
@@ -209,24 +209,22 @@ public class GestionSalas extends JFrame {
 		Header.add(lblPerfil);
 		
 
-		labelImportar = new JLabel("Importar Actividades");
-		labelImportar.setIcon(
+		lblImportarSalas = new JLabel("Importar Salas");
+		lblImportarSalas.setIcon(
 				new ImageIcon(GestionAlumnos.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		labelImportar.setBounds(100, 111, 124, 20);
-		contentPane.add(labelImportar);
+		lblImportarSalas.setBounds(100, 111, 124, 20);
+		contentPane.add(lblImportarSalas);
+		lblImportarSalas.setVisible(false);
+		
 		
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setColumns(10);
-		txtBuscador.setBounds(667, 111, 86, 20);
+		txtBuscador.setBounds(814, 114, 86, 20);
 		contentPane.add(txtBuscador);
 
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna
-				.setModel(new DefaultComboBoxModel(new String[] { "Columna", "Expediente", "Nombre y apellido" }));
-		comboBoxColumna.setBounds(763, 111, 104, 20);
-		contentPane.add(comboBoxColumna);
+	
 		
 
 		lblInfo = new JLabel("");

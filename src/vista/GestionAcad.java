@@ -49,8 +49,7 @@ public class GestionAcad extends JFrame {
 	private JTextField txtBuscador;
 	private JComboBox comboBoxSem2;
 	private JComboBox comboBoxSem1;
-	private JLabel label;
-	private JComboBox comboBoxColumna;
+	private JLabel lblImportaionesActividades;
 
 	public GestionAcad() {
 		addWindowListener(new WindowAdapter() {
@@ -156,21 +155,19 @@ public class GestionAcad extends JFrame {
 		comboBoxSem2.setBounds(657, 610, 241, 40);
 		contentPane.add(comboBoxSem2);
 
-		label = new JLabel("Importar Actividades");
-		label.setIcon(new ImageIcon(GestionAcad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		label.setBounds(98, 132, 124, 20);
-		contentPane.add(label);
+		lblImportaionesActividades = new JLabel("Importar Actividades");
+		lblImportaionesActividades.setEnabled(false);
+		lblImportaionesActividades.setIcon(new ImageIcon(GestionAcad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		lblImportaionesActividades.setBounds(98, 132, 124, 20);
+		contentPane.add(lblImportaionesActividades);
+		lblImportaionesActividades.setVisible(false);
 
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setColumns(10);
-		txtBuscador.setBounds(665, 132, 86, 20);
+		txtBuscador.setBounds(812, 132, 86, 20);
 		contentPane.add(txtBuscador);
-
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setBounds(761, 132, 104, 20);
-		contentPane.add(comboBoxColumna);
 	}
 
 	public void setControlador(Controlador controlador) {

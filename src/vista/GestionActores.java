@@ -48,13 +48,13 @@ public class GestionActores extends JFrame {
 	private JButton btnAI_actor;
 	private JButton btnAddActor;
 	private JButton btnModificarActor;
-	private JComboBox comboBoxColumna;
-	private JTextField textField;
-	private JLabel labelImportar;
+	private JTextField txtBuscador;
+	private JLabel lblImportarActores;
 	private JComboBox comboBoxEdad;
 	private JComboBox comboBoxGenero;
 	private JComboBox comboBoxIdioma;
 	private JComboBox comboBoxComplexion;
+	private JCheckBox chckbxActivo;
 
 	public GestionActores() {
 		addWindowListener(new WindowAdapter() {
@@ -152,22 +152,19 @@ public class GestionActores extends JFrame {
 		btnAddActor.setBounds(782, 685, 120, 40);
 		contentPane.add(btnAddActor);
 
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setBounds(761, 127, 104, 20);
-		contentPane.add(comboBoxColumna);
+		txtBuscador = new JTextField();
+		txtBuscador.setText("Buscador");
+		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
+		txtBuscador.setColumns(10);
+		txtBuscador.setBounds(812, 132, 86, 20);
+		contentPane.add(txtBuscador);
 
-		textField = new JTextField();
-		textField.setText("Buscador");
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setColumns(10);
-		textField.setBounds(665, 127, 86, 20);
-		contentPane.add(textField);
-
-		labelImportar = new JLabel("Importar Actividades");
-		labelImportar.setIcon(
+		lblImportarActores = new JLabel("Importar Actores");
+		lblImportarActores.setIcon(
 				new ImageIcon(GestionActores.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		labelImportar.setBounds(98, 127, 124, 20);
-		contentPane.add(labelImportar);
+		lblImportarActores.setBounds(98, 127, 124, 20);
+		contentPane.add(lblImportarActores);
+		lblImportarActores.setVisible(false);
 
 		comboBoxEdad = new JComboBox();
 		comboBoxEdad.setModel(new DefaultComboBoxModel(new String[] { "Edad" }));
@@ -189,7 +186,7 @@ public class GestionActores extends JFrame {
 		comboBoxComplexion.setBounds(688, 629, 103, 30);
 		contentPane.add(comboBoxComplexion);
 
-		JCheckBox chckbxActivo = new JCheckBox("Activo");
+		chckbxActivo = new JCheckBox("Activo");
 		chckbxActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxActivo.setBounds(801, 633, 97, 23);
 		contentPane.add(chckbxActivo);

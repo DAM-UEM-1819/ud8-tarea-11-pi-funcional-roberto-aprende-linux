@@ -199,7 +199,7 @@ public class GestionRegistros extends JFrame {
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(665, 127, 86, 20);
+		txtBuscador.setBounds(812, 132, 86, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
