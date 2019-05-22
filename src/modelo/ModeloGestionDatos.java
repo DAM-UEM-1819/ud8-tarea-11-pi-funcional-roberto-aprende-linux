@@ -302,24 +302,28 @@ public class ModeloGestionDatos {
 		String passwdBD = modeloConsultas.consultarPasswdUsuario(user, passwdActual);
 		try {
 
-			if (passwdActual.equals(passwdBD)) {
+			if (!user.equals("") || !correo.equals("")) {
+				if (passwdActual.equals(passwdBD)) {
 
-				if (passwdNueva.equals(passwdComprobacion)) {
+					if (passwdNueva.equals(passwdComprobacion)) {
 
-					PreparedStatement pstmt = conexion.prepareStatement(updateUsuario);
-					pstmt.setString(1, user.toUpperCase());
-					pstmt.setString(2, modelo.generarMD5(passwdNueva));
-					pstmt.setString(3, correo.toUpperCase());
-					pstmt.setString(4, user.toUpperCase());
-					ResultSet rs = pstmt.executeQuery();
-					respuesta = "Usuario modificado correctamente";
+						PreparedStatement pstmt = conexion.prepareStatement(updateUsuario);
+						pstmt.setString(1, user.toUpperCase());
+						pstmt.setString(2, modelo.generarMD5(passwdNueva));
+						pstmt.setString(3, correo.toUpperCase());
+						pstmt.setString(4, user.toUpperCase());
+						ResultSet rs = pstmt.executeQuery();
+						respuesta = "Usuario modificado correctamente";
+
+					} else {
+						respuesta = "Error, las nuevas contraseñas no coinciden";
+					}
 
 				} else {
-					respuesta = "Error, las nuevas contraseñas no coinciden";
+					respuesta = "Error, contraseña incorrecta";
 				}
-
 			} else {
-				respuesta = "Error, contraseña incorrecta";
+				respuesta = "Error, los campos de usuario y email están vacios";
 			}
 
 		} catch (Exception e) {
