@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -32,6 +33,13 @@ import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.SystemColor;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 public class GestionUsuarios extends JFrame {
 
@@ -40,18 +48,25 @@ public class GestionUsuarios extends JFrame {
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaUsuarios;
-	private JButton btnVolver;
-	private JButton btnBorrarUsr;
-	private JButton btnAddUsuario;
 	private JPanel Header;
 	private JLabel lblTitulo;
 	private JLabel lblUemLogo;
 	private JLabel lblPerfil;
 	private JScrollPane scrollPaneRegistros;
 	private JLabel lblImportarActividades;
-	private JTextField txtBuscador;
+	private JPanel titulo;
+	private JPanel logo;
+	private JPanel perfil;
+	private JPanel center;
+	private JPanel izquierda;
+	private JPanel derecha;
 
 	public GestionUsuarios() {
+		Dimension dimensiones = new Dimension(1000, 150);
+
+		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
+
+		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -66,13 +81,83 @@ public class GestionUsuarios extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout(0, 0));
+
+		Header = new JPanel();
+		Header.setMaximumSize(new Dimension(32767, 100));
+		Header.setBackground(SystemColor.activeCaption);
+		Header.setPreferredSize(new Dimension(1000, 100));
+		contentPane.add(Header, BorderLayout.NORTH);
+		Header.setLayout(new GridLayout(0, 3, 0, 0));
+
+		logo = new JPanel();
+		logo.setMaximumSize(new Dimension(150, 32767));
+		logo.setPreferredSize(new Dimension(150, 10));
+		logo.setBackground(SystemColor.controlHighlight);
+		Header.add(logo);
+		logo.setLayout(new BorderLayout(0, 0));
+		lblUemLogo = new JLabel();
+		lblUemLogo.setMaximumSize(new Dimension(100, 0));
+		lblUemLogo.setIcon(ueIcon);
+		lblUemLogo.setPreferredSize(new Dimension(100, 100));
+		logo.add(lblUemLogo, BorderLayout.NORTH);
+		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
+
+		titulo = new JPanel();
+		titulo.setMinimumSize(new Dimension(700, 10));
+		titulo.setPreferredSize(new Dimension(600, 100));
+		titulo.setBackground(SystemColor.controlHighlight);
+		Header.add(titulo);
+		titulo.setLayout(new BorderLayout(0, 0));
+
+		lblTitulo = new JLabel("Usuarios");
+		titulo.add(lblTitulo, BorderLayout.NORTH);
+		lblTitulo.setPreferredSize(new Dimension(700, 100));
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
+
+		perfil = new JPanel();
+		perfil.setMaximumSize(new Dimension(150, 32767));
+		perfil.setPreferredSize(new Dimension(150, 10));
+		Header.add(perfil);
+		perfil.setBackground(SystemColor.controlHighlight);
+		perfil.setLayout(new BorderLayout(0, 0));
+		lblPerfil = new JLabel();
+		lblPerfil.setPreferredSize(new Dimension(100, 100));
+		lblPerfil.setIcon(perfilIcon);
+		perfil.add(lblPerfil, BorderLayout.CENTER);
+		lblPerfil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.gestionUsuariosToPerfil();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
+
+		center = new JPanel();
+		center.setPreferredSize(new Dimension(800, 600));
+		contentPane.add(center, BorderLayout.CENTER);
+		center.setLayout(new BorderLayout(0, 0));
 
 		scrollPaneRegistros = new JScrollPane();
-		scrollPaneRegistros.setBounds(100, 145, 800, 500);
-		contentPane.add(scrollPaneRegistros);
+		scrollPaneRegistros.setPreferredSize(new Dimension(800, 600));
+		center.add(scrollPaneRegistros);
 
 		tablaUsuarios = new JTable();
+		tablaUsuarios.setPreferredSize(new Dimension(800, 600));
 		tablaUsuarios.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -84,99 +169,13 @@ public class GestionUsuarios extends JFrame {
 		tablaUsuarios.getTableHeader().setReorderingAllowed(false);
 		scrollPaneRegistros.setViewportView(tablaUsuarios);
 
-		btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				controlador.gestionUsuariosToGestion();
-			}
-		});
-		btnVolver.setBounds(100, 685, 120, 40);
-		contentPane.add(btnVolver);
+		izquierda = new JPanel();
+		izquierda.setPreferredSize(new Dimension(100, 10));
+		contentPane.add(izquierda, BorderLayout.WEST);
 
-		btnBorrarUsr = new JButton("Borrar Usuario");
-		btnBorrarUsr.setEnabled(false);
-		btnBorrarUsr.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controlador.solicitudBorrar(this);
-				btnBorrarUsr.setEnabled(false);
-			}
-		});
-		btnBorrarUsr.setBounds(440, 685, 120, 40);
-		contentPane.add(btnBorrarUsr);
-
-		btnAddUsuario = new JButton("A\u00F1adir Usuario");
-		btnAddUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				controlador.gestionUsuariosToCrearUsuario();
-			}
-		});
-		btnAddUsuario.setBounds(782, 685, 120, 40);
-		contentPane.add(btnAddUsuario);
-
-		Header = new JPanel();
-		Header.setBackground(new Color(165, 42, 42));
-		Header.setBounds(0, 0, 984, 100);
-		contentPane.add(Header);
-		Header.setLayout(null);
-
-		lblTitulo = new JLabel("Usuarios");
-		lblTitulo.setForeground(new Color(255, 255, 255));
-		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(250, 0, 500, 100);
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		Header.add(lblTitulo);
-
-		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
-		lblUemLogo = new JLabel(ueIcon);
-		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
-		Header.add(lblUemLogo);
-
-		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
-		lblPerfil = new JLabel(perfilIcon);
-		lblPerfil.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				setVisible(false);
-				controlador.gestionUsuariosToPerfil();
-			}
-			@SuppressWarnings("deprecation")
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				setCursor(Cursor.HAND_CURSOR);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				setCursor(Cursor.DEFAULT_CURSOR);
-			}
-		});
-		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
-		Header.add(lblPerfil);
-
-		txtBuscador = new JTextField();
-		txtBuscador.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtBuscador.setText("");
-			}
-		});
-		txtBuscador.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (!txtBuscador.getText().equals("")) {
-					controlador.solicitudBuscadorUsuario();
-				}else {
-					controlador.solicitudDatosUsuarios();
-				}
-			}
-		});
-		txtBuscador.setText("Buscador");
-		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(770, 114, 130, 20);
-		contentPane.add(txtBuscador);
+		derecha = new JPanel();
+		derecha.setPreferredSize(new Dimension(100, 10));
+		contentPane.add(derecha, BorderLayout.EAST);
 
 //		lblImportarActividades = new JLabel("Importar Usuarios");
 //		lblImportarActividades.setIcon(
@@ -192,7 +191,7 @@ public class GestionUsuarios extends JFrame {
 	public void borrarUsuarioAlerta() {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea borrar el usuario seleccionado?");
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
@@ -200,16 +199,16 @@ public class GestionUsuarios extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaUsuarios.getModel();
-		
+
 	}
-	
+
 	public String getPrimaryKey() {
 		return String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0));
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
