@@ -392,6 +392,10 @@ public class Controlador implements IControlador {
 	public void solicitudDatosProfesores() {
 		modeloConsultas.getTablaProfesores(gestionProfesores.getModel());
 	}
+	
+//	public void solicitusCrearPorfesor() {
+//		modeloGestionDatos.crearProfesor();
+//	}
 
 	// VENTANA GESTION SALAS
 	public void gestionSalasToGestion() {

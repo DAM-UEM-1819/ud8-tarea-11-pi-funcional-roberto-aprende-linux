@@ -33,7 +33,7 @@ import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 
 public class GestionProfesores extends JFrame {
-	
+
 	private Controlador controlador;
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
@@ -118,17 +118,17 @@ public class GestionProfesores extends JFrame {
 		txtTelefono1.setColumns(10);
 		txtTelefono1.setBounds(581, 629, 71, 30);
 		contentPane.add(txtTelefono1);
-		
+
 		txtTelefono2 = new JTextField();
 		txtTelefono2.setBounds(662, 629, 71, 30);
 		contentPane.add(txtTelefono2);
 		txtTelefono2.setColumns(10);
-		
+
 		txtEmail1 = new JTextField();
 		txtEmail1.setColumns(10);
 		txtEmail1.setBounds(743, 629, 71, 30);
 		contentPane.add(txtEmail1);
-		
+
 		txtEmail2 = new JTextField();
 		txtEmail2.setColumns(10);
 		txtEmail2.setBounds(824, 629, 71, 30);
@@ -154,7 +154,6 @@ public class GestionProfesores extends JFrame {
 		lblUemLogo.setBounds(0, 0, 240, 100);
 		HeaderPanel.add(lblUemLogo);
 
-
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
 		lblPerfil = new JLabel(perfilIcon);
 		lblPerfil.addMouseListener(new MouseAdapter() {
@@ -163,11 +162,13 @@ public class GestionProfesores extends JFrame {
 				setVisible(false);
 				controlador.gestionProfesoresToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -190,7 +191,7 @@ public class GestionProfesores extends JFrame {
 		btnModificarProfesor = new JButton("Modificar profesor");
 		btnModificarProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?" );
+				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?");
 			}
 		});
 		btnModificarProfesor.setBounds(325, 685, 120, 40);
@@ -203,32 +204,31 @@ public class GestionProfesores extends JFrame {
 		btnAddProfesor = new JButton(" A\u00F1adir profesores");
 		btnAddProfesor.setBounds(774, 685, 128, 40);
 		contentPane.add(btnAddProfesor);
-		
-		chckbxAI_profesores = new JCheckBox(""
-				+ "A/I");
+
+		chckbxAI_profesores = new JCheckBox("" + "A/I");
 		chckbxAI_profesores.setBounds(439, 633, 41, 23);
 		contentPane.add(chckbxAI_profesores);
-		
+
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setBounds(812, 132, 86, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
-		
-	
-		
+
 		lblImportarActividades = new JLabel("Importar Profesores");
-		lblImportarActividades.setIcon(new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		lblImportarActividades.setIcon(
+				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 127, 124, 20);
 		contentPane.add(lblImportarActividades);
 		lblImportarActividades.setVisible(false);
 	}
-	
+	//Setters
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
@@ -236,7 +236,44 @@ public class GestionProfesores extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	
+	//Getters
+
+	public String getNumero() {
+		return txtNumero.getText();
+	}
+
+	public String getNombre() {
+		return txtNombre.getText();
+	}
+
+	public String getTitulacion() {
+		return txtTitulacion.getText();
+	}
+
+	public String getDni() {
+		return txtDni.getText();
+	}
+
+	public String getRelacion_laboral() {
+		return txtRelacion_laboral.getText();
+	}
+
+	public String getTelefono1() {
+		return txtTelefono1.getText();
+	}
+
+	public String getTelefono2() {
+		return txtTelefono2.getText();
+	}
+
+	public String getEmail1() {
+		return txtEmail1.getText();
+	}
+
+	public String getEmail2() {
+		return txtEmail2.getText();
+	}
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaProfesores.getModel();
 	}

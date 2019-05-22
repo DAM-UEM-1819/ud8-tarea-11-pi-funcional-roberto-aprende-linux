@@ -526,11 +526,9 @@ public class ModeloGestionDatos {
 		}
 	}
 
-	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor,
-			String actividadNombre) {
+	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor, String actividadNombre) {
 		// TODO Auto-generated method stub
-		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty()
-				&& !actividadNombre.isEmpty()) {
+		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty() && !actividadNombre.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
 				pstmt.setString(1, fecha);
