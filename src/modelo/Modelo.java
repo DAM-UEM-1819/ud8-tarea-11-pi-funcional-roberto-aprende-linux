@@ -19,6 +19,9 @@ import java.util.TreeSet;
 
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.MessageDigestAlgorithms;
+
 import com.sun.mail.smtp.DigestMD5;
 
 import controlador.*;
@@ -204,31 +207,29 @@ public class Modelo {
 	}
 
 	public String generarMD5(String passwd) {
-		String generatedHash = "";
+		
 		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
+			//Indicamos el algoritmo a utilizar
+			MessageDigest md = MessageDigest.getInstance(MessageDigestAlgorithms.MD5);
+			
+			//Convertimos la contraseña a bytes y se la pasamos al MessageDigest
+			md.update(passwd.getBytes());
+			
+			//La contraseña en un array de bytes
+			byte[] digest = md.digest();
 
-			// Almacenamos el array de bytes del passwd
-			byte[] messageDigest = md.digest(passwd.getBytes());
+			// Lo codificamos en base 64.
+			byte[] encoded = Base64.encodeBase64(digest);
+			
+			//Convertimos la codificacion a un String
+			passwd = new String(encoded);
 
-			StringBuffer sb = new StringBuffer(messageDigest.length);
-
-			for (int i = 0; i < messageDigest.length; i++) {
-	            int u = messageDigest[i] & 255;
-	                if (u < 16) {
-	                	sb.append("0" + Integer.toHexString(u));
-	                }
-	               else {
-	            	   sb.append(Integer.toHexString(u));
-	               }
-	           }
-			generatedHash = sb.toString();
-
-		} catch (Exception e) {
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return generatedHash;
+		return passwd;
 
 	}
 

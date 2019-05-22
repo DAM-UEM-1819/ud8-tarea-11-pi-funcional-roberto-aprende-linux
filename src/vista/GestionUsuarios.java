@@ -56,6 +56,7 @@ public class GestionUsuarios extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosUsuarios();
+				btnBorrarUsr.setEnabled(false);
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -100,6 +101,9 @@ public class GestionUsuarios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				controlador.solicitudBorrar(this);
 				btnBorrarUsr.setEnabled(false);
+				if (modeloGestionDatos.getSeHaBorrado()) {
+					borrado();
+				}
 			}
 		});
 		btnBorrarUsr.setBounds(440, 685, 120, 40);
@@ -142,11 +146,13 @@ public class GestionUsuarios extends JFrame {
 				setVisible(false);
 				controlador.gestionUsuariosToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -167,15 +173,15 @@ public class GestionUsuarios extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (!txtBuscador.getText().equals("")) {
-					controlador.solicitudBuscadorUsuario();
-				}else {
+					controlador.solicitudBuscador(this);
+				} else {
 					controlador.solicitudDatosUsuarios();
 				}
 			}
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(814, 114, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
 
 		lblImportarUsuario = new JLabel("Importar Usuarios");
@@ -193,7 +199,7 @@ public class GestionUsuarios extends JFrame {
 	public void borrarUsuarioAlerta() {
 		JOptionPane.showConfirmDialog(rootPane, "�Desea borrar el usuario seleccionado?");
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
@@ -201,17 +207,23 @@ public class GestionUsuarios extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaUsuarios.getModel();
-		
+
 	}
-	
+
 	public String getPrimaryKey() {
 		return String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0));
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
+
+	private void borrado() {
+		DefaultTableModel model = (DefaultTableModel) tablaUsuarios.getModel();
+		model.removeRow(tablaUsuarios.getSelectedRow());
+	}
+
 }

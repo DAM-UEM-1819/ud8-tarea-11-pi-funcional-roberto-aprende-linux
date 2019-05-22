@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -205,10 +207,25 @@ public class GestionAlumnos extends JFrame {
 		
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosAlumnos();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setColumns(10);
-		txtBuscador.setBounds(810, 114, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
 
 
@@ -301,6 +318,10 @@ public class GestionAlumnos extends JFrame {
 	public int estadoCheckBox() {
 		int resultado = chckbxActivoInactivo.isSelected() == true ? 1 : 0;
 		return resultado;
+	}
+	
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 
 }

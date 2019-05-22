@@ -578,11 +578,15 @@ ALTER TABLE Actividad
   REM *** 9Âº USERS ***
 
   INSERT INTO Users(Usr,pwd,rol, email)
-  VALUES ('DAVID BUENAÑO','gnzLDuqKcGxMNKFokfhOew','ADMINISTRADOR', 'PRUEBA@GMAIL.COM');
+  VALUES ('DAVID BUENAÑO','gnzLDuqKcGxMNKFokfhOew==','ADMINISTRADOR', 'PRUEBA@GMAIL.COM');
   INSERT INTO Users(Usr,pwd,rol, email)
-  VALUES ('JAVIER PLAZA','gnzLDuqKcGxMNKFokfhOew','ADMINISTRADOR', 'PRUEBA@GMAIL.COM');
+  VALUES ('JAVIER PLAZA','gnzLDuqKcGxMNKFokfhOew==','ADMINISTRADOR', 'PRUEBA@GMAIL.COM');
   INSERT INTO Users(Usr,pwd,rol, email)
-  VALUES ('JIMMY MERINO','gnzLDuqKcGxMNKFokfhOew','LECTURA', 'PRUEBA@GMAIL.COM');
+  VALUES ('JIMMY MERINO','gnzLDuqKcGxMNKFokfhOew==','LECTURA', 'PRUEBA@GMAIL.COM');
+  INSERT INTO Users(Usr,pwd,rol, email)
+  VALUES ('DEMO ADMIN','gnzLDuqKcGxMNKFokfhOew==','ADMINISTRADOR', 'ADMIN@GMAIL.COM');
+    INSERT INTO Users(Usr,pwd,rol, email)
+  VALUES ('DEMO LECTURA','gnzLDuqKcGxMNKFokfhOew==','LECTURA', 'LECTURA@GMAIL.COM');
 
   REM *** 10Âº REALIZA ***
 

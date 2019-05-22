@@ -348,6 +348,10 @@ public class Controlador implements IControlador {
 				gestionAlumnos.estadoCheckBox());
 	}
 	
+	public void solicitudBuscadorAlumno() {
+		modeloConsultas.buscadorAlumnos(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador());
+	}
+	
 
 
 	// VENTANA GESTION REGISTROS
@@ -419,6 +423,10 @@ public class Controlador implements IControlador {
 		modeloGestionDatos.modificarSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
 		
 	}
+	
+	public void solicitudBuscadorSala() {
+		modeloConsultas.buscadorSalas(gestionSalas.getModel(), gestionSalas.getPalabraBuscador());
+	}
 
 	// VENTANA GESTION GRUPOS
 	public void verGruposToGestion() {
@@ -473,5 +481,32 @@ public class Controlador implements IControlador {
 	public void solicitudCrearUsuario() {
 		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getRol(), crearUsuario.getEmail());
 	}
+	
+	public void solicitudBuscador(Object obj) {
+		String clase = obj.getClass().toString(); 
+		String opcion = clase.substring(12, clase.indexOf("$")).toUpperCase(); 
+		switch (opcion) {
+		case "GESTIONALUMNOS":
+			modeloConsultas.buscador(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador(), "A");
+			break;
+		case "GESTIONUSUARIOS":
+			modeloConsultas.buscador(gestionUsuarios.getModel(), gestionUsuarios.getPalabraBuscador(), "B");
+			break;
+		case "GESTIONACTIVIDAD":
+			modeloConsultas.buscador(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador(), "C");
+			break;
+		case "GESTIONASIGNATURA":
+			modeloConsultas.buscador(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador(), "D");
+			break;
+		case "GESTIONSALAS":
+			modeloConsultas.buscador(gestionSalas.getModel(), gestionSalas.getPalabraBuscador(), "E");
+			break;
+		case "GESTIONREGISTROS":
+			modeloConsultas.buscador(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador(), "F");
+			break;
+		}
+		
+	}
+
 
 }

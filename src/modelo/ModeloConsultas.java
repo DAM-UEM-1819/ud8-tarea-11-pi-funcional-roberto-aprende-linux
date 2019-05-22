@@ -69,7 +69,6 @@ public class ModeloConsultas {
 
 	// Atributos internos
 	private Connection conexion;
-	private int contador;
 	private String respuesta;
 	private DefaultTableModel tableModel;
 	private String[] nombreColumnasTabla;
@@ -314,8 +313,8 @@ public class ModeloConsultas {
 	// INICIO METODOS BASE DATOS
 
 	public void loginConfirmacion(String usuario, String passwd) {
-		//BORRAR, ESTO SIRVE PARA AHORRARNOS TRABAJO, NO DEJARLO EN LA VERSION FINAL
-		//FALLO DE SEGURIDAD IMPORTANTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		// BORRAR, ESTO SIRVE PARA AHORRARNOS TRABAJO, NO DEJARLO EN LA VERSION FINAL
+		// FALLO DE SEGURIDAD IMPORTANTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (usuario.equals("") || passwd.equals("")) {
 			login.loginExitoso();
 		}
@@ -325,7 +324,7 @@ public class ModeloConsultas {
 		passwd = modelo.generarMD5(passwd);
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1,usuario);
+			pstmt.setString(1, usuario);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next() && rs.getString(1).equals(passwd)) {
 				// CAmbiar solo a ADMIN
@@ -338,10 +337,6 @@ public class ModeloConsultas {
 			} else {
 				respuesta = "Ususario o contrase�a incorrectos";
 				login.actualizarInfo();
-				contador++;
-				if (contador >= 3) {
-					login.salir();
-				}
 			}
 
 		} catch (Exception e) {
@@ -349,13 +344,12 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
-	
-	public String consultarPasswdUsuario(String usuario) {
-		String passwd = "";
-		
+
+	public String consultarPasswdUsuario(String usuario, String passwd) {
+
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(selectPasswdUsuario);
-			pstmt.setString(1,usuario);
+			pstmt.setString(1, usuario);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				passwd = rs.getString(1);
@@ -363,7 +357,7 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return passwd;
 	}
 
@@ -636,5 +630,84 @@ public class ModeloConsultas {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void buscadorSalas(DefaultTableModel tableModel, String palabra) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectBuscadorSalas);
+			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void buscadorAlumnos(DefaultTableModel tableModel, String palabra) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectBuscadorSalas);
+			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void buscador(DefaultTableModel tableModel, String palabra, String opcion) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt = null;
+
+		try {
+			switch (opcion) {
+			case "A":
+				pstmt = conexion.prepareStatement(selectBuscadorAlumnos);
+				pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
+				break;
+			case "B":
+				pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
+				pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+				break;
+			case "C":
+				// sql = deleteActividad;
+				break;
+			case "D":
+				// sql = deleteAsignatura;
+				break;
+			case "E":
+				pstmt = conexion.prepareStatement(selectBuscadorSalas);
+				pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
+				break;
+			case "F":
+				// sql = deleteRegistros;
+				// seHaBorrado = borrarDatos(deleteOcupaRegistro);
+//				seHaBorrado = borrarDatos(deleteActuaRegistro);
+//				seHaBorrado = borrarDatos(deleteParticipaRegistro);
+//				seHaBorrado = borrarDatos(deleteRealizaRegistro);
+//				seHaBorrado = borrarDatos(deleteRegistro);
+				break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		getDatos(pstmt);
+
 	}
 }
