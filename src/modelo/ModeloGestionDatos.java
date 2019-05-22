@@ -299,7 +299,7 @@ public class ModeloGestionDatos {
 	public void actualizarUsuario(String user, String correo, String passwdActual, String passwdNueva,
 			String passwdComprobacion) {
 		passwdActual = modelo.generarMD5(passwdActual);
-		String passwdBD = modeloConsultas.consultarPasswdUsuario(user);
+		String passwdBD = modeloConsultas.consultarPasswdUsuario(user, passwdActual);
 		try {
 
 			if (passwdActual.equals(passwdBD)) {
@@ -308,7 +308,7 @@ public class ModeloGestionDatos {
 
 					PreparedStatement pstmt = conexion.prepareStatement(updateUsuario);
 					pstmt.setString(1, user.toUpperCase());
-					pstmt.setString(2, modelo.generarMD5(passwdActual));
+					pstmt.setString(2, modelo.generarMD5(passwdNueva));
 					pstmt.setString(3, correo.toUpperCase());
 					pstmt.setString(4, user.toUpperCase());
 					ResultSet rs = pstmt.executeQuery();
@@ -326,8 +326,8 @@ public class ModeloGestionDatos {
 			respuesta = "Error, ese usuario ya existe";
 			e.printStackTrace();
 		}
-		
-		perfil. actualizarInfo();
+
+		perfil.actualizarInfo();
 
 	}
 
@@ -418,13 +418,12 @@ public class ModeloGestionDatos {
 	public boolean opcionesBorrarDatos(String clave, String opcion) {
 		this.clave = clave;
 		seHaBorrado = false;
-		String sql = "";
 		switch (opcion) {
 		case "A":
 			seHaBorrado = borrarDatos(deleteAlumno);
 			break;
 		case "B":
-			sql = deleteUsuario;
+			seHaBorrado = borrarDatos(deleteUsuario);
 			break;
 		case "C":
 			// sql = deleteActividad;

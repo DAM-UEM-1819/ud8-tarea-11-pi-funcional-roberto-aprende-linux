@@ -350,8 +350,7 @@ public class ModeloConsultas {
 		}
 	}
 	
-	public String consultarPasswdUsuario(String usuario) {
-		String passwd = "";
+	public String consultarPasswdUsuario(String usuario, String passwd) {
 		
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(selectPasswdUsuario);
