@@ -174,21 +174,17 @@ public class GestionAsignatura extends JFrame {
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(665, 127, 86, 20);
+		txtBuscador.setBounds(812, 132, 86, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(
-				new String[] { "Columna", "Codigo Registro", "Fecha", "Hora", "Hora Profesor", "Actividad nombre" }));
-		comboBoxColumna.setBounds(761, 127, 104, 20);
-		contentPane.add(comboBoxColumna);
 
 		lblImportarActividades = new JLabel("Importar Asignaturas");
 		lblImportarActividades.setIcon(
 				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 127, 124, 20);
 		contentPane.add(lblImportarActividades);
+		lblImportarActividades.setVisible(false);
 
 	}
 

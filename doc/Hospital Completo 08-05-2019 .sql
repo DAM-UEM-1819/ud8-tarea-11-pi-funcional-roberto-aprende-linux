@@ -27,7 +27,7 @@ DROP TABLE ocupa CASCADE CONSTRAINTS;
 DROP TABLE Users CASCADE CONSTRAINTS;
 
 CREATE TABLE actividad (
-    nombre                  VARCHAR2(30) NOT NULL,
+    nombre                  VARCHAR2(40) NOT NULL,
     tipo_actividad          VARCHAR2(30) NOT NULL,
     tipo_sala               VARCHAR2(30) NOT NULL,
     documentacion_tecnica   NUMBER NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE actividad (
 ALTER TABLE actividad ADD CONSTRAINT actividad_pk PRIMARY KEY ( nombre );
 
 CREATE TABLE actor (
-    edad         VARCHAR2(15) NOT NULL,
+    edad         VARCHAR2(20) NOT NULL,
     genero       VARCHAR2(15) NOT NULL,
     idioma       VARCHAR2(15) NOT NULL,
     nombre       VARCHAR2(50) NOT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE registro (
     fecha              DATE NOT NULL,
     hora               VARCHAR2(5) NOT NULL,
     horas_profesor     NUMBER(2) NOT NULL,
-    actividad_nombre   VARCHAR2(30) NOT NULL,
+    actividad_nombre   VARCHAR2(40) NOT NULL,
     cod_grupo          VARCHAR2(5) NOT  NULL
 );
 

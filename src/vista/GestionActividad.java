@@ -91,28 +91,28 @@ public class GestionActividad extends JFrame {
 		txtNombre = new JTextField();
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombre.setText("Nombre");
-		txtNombre.setBounds(108, 629, 114, 30);
+		txtNombre.setBounds(98, 629, 114, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtDocumentacion_tecnica = new JTextField();
 		txtDocumentacion_tecnica.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDocumentacion_tecnica.setText("Tipo de Sala");
-		txtDocumentacion_tecnica.setBounds(367, 629, 86, 30);
+		txtDocumentacion_tecnica.setBounds(354, 629, 86, 30);
 		contentPane.add(txtDocumentacion_tecnica);
 		txtDocumentacion_tecnica.setColumns(10);
 
 		txtHorasActividad = new JTextField();
 		txtHorasActividad.setText("Horas de actividad");
 		txtHorasActividad.setHorizontalAlignment(SwingConstants.CENTER);
-		txtHorasActividad.setBounds(692, 629, 114, 30);
+		txtHorasActividad.setBounds(663, 629, 114, 30);
 		contentPane.add(txtHorasActividad);
 		txtHorasActividad.setColumns(10);
 
 		txtCod_asignatura = new JTextField();
 		txtCod_asignatura.setText("Documentaci\u00F3n");
 		txtCod_asignatura.setHorizontalAlignment(SwingConstants.CENTER);
-		txtCod_asignatura.setBounds(583, 629, 86, 30);
+		txtCod_asignatura.setBounds(557, 629, 86, 30);
 		contentPane.add(txtCod_asignatura);
 		txtCod_asignatura.setColumns(10);
 
@@ -120,7 +120,7 @@ public class GestionActividad extends JFrame {
 		txtSimulador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtSimulador.setText("A\u00F1o");
 		txtSimulador.setColumns(10);
-		txtSimulador.setBounds(820, 629, 58, 30);
+		txtSimulador.setBounds(787, 629, 98, 30);
 		contentPane.add(txtSimulador);
 		
 
@@ -197,31 +197,27 @@ public class GestionActividad extends JFrame {
 		
 		comboBoxTipoActividad = new JComboBox();
 		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(new String[] {"Tipo de actividad"}));
-		comboBoxTipoActividad.setBounds(246, 629, 98, 30);
+		comboBoxTipoActividad.setBounds(234, 629, 98, 30);
 		contentPane.add(comboBoxTipoActividad);
 		
 		comboBoxSimulador = new JComboBox();
 		comboBoxSimulador.setModel(new DefaultComboBoxModel(new String[] {"Simulador"}));
-		comboBoxSimulador.setBounds(487, 629, 71, 30);
+		comboBoxSimulador.setBounds(466, 629, 71, 30);
 		contentPane.add(comboBoxSimulador);
 		
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(665, 127, 86, 20);
+		txtBuscador.setBounds(812, 132, 86, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 		
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setModel(new DefaultComboBoxModel(new String[] {"Columna", "Nombre", "Tipo de actividad", "Tipo de sala", "Simulador", "Documentaci\u00F3n", "Horas de actividad", "A\u00F1o acad\u00E9mico"}));
-		comboBoxColumna.setBounds(761, 127, 104, 20);
-		contentPane.add(comboBoxColumna);
 		
 		lblImportarActividades = new JLabel("Importar Actividades");
 		lblImportarActividades.setIcon(new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 127, 124, 20);
 		contentPane.add(lblImportarActividades);
-		
+		lblImportarActividades.setVisible(false);
 	
 	}
 	

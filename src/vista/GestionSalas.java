@@ -31,6 +31,8 @@ import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 import javax.swing.ListSelectionModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GestionSalas extends JFrame {
 
@@ -52,7 +54,7 @@ public class GestionSalas extends JFrame {
 	private JButton btnBorrar;
 	private JTextField txtNumero;
 	private JTextField txtCapacidad;
-	private JLabel labelImportar;
+	private JLabel lblImportarSalas;
 	private JTextField txtBuscador;
 	private JComboBox comboBoxColumna;
 	private JLabel lblInfo;
@@ -62,6 +64,7 @@ public class GestionSalas extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosSalas();
+
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -84,11 +87,14 @@ public class GestionSalas extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				txtCodigo.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0)));
+				;
 				txtTipoSala.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 1)));
+				;
 				txtCapacidad.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 2)));
+				;
 				txtNumero.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 3)));
-				
-				
+				;
+				habilitarBotones();
 			}
 		});
 
@@ -97,16 +103,44 @@ public class GestionSalas extends JFrame {
 		scrollPaneRegistros.setViewportView(tablaSalas);
 
 		txtCodigo = new JTextField();
+		txtCodigo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
 		txtCodigo.setBounds(110, 600, 150, 30);
 		contentPane.add(txtCodigo);
 		txtCodigo.setColumns(10);
 
 		txtTipoSala = new JTextField();
+		txtTipoSala.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
 		txtTipoSala.setBounds(322, 600, 150, 30);
 		contentPane.add(txtTipoSala);
 		txtTipoSala.setColumns(10);
 
 		txtNumero = new JTextField();
+		txtNumero.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
 		txtNumero.setColumns(10);
 		txtNumero.setBounds(735, 600, 150, 30);
 		contentPane.add(txtNumero);
@@ -120,6 +154,15 @@ public class GestionSalas extends JFrame {
 		});
 
 		txtCapacidad = new JTextField();
+		txtCapacidad.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
 		txtCapacidad.setColumns(10);
 		txtCapacidad.setBounds(533, 600, 150, 30);
 		contentPane.add(txtCapacidad);
@@ -127,6 +170,7 @@ public class GestionSalas extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnModificarSala = new JButton("Modificar Sala");
+		btnModificarSala.setEnabled(false);
 		btnModificarSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblInfo.setText("");
@@ -134,13 +178,14 @@ public class GestionSalas extends JFrame {
 				if (modeloGestionDatos.getSeHaCreado()) {
 					modSala();
 				}
-				
+				habilitarBotones();
 			}
 		});
 		btnModificarSala.setBounds(325, 685, 120, 40);
 		contentPane.add(btnModificarSala);
 
 		btnAddSala = new JButton("A\u00F1adir Sala");
+		btnAddSala.setEnabled(false);
 		btnAddSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblInfo.setText("");
@@ -148,11 +193,12 @@ public class GestionSalas extends JFrame {
 				if (!modeloConsultas.getExiste() && modeloGestionDatos.getSeHaCreado()) {
 					addSala();
 				}
-				
+				habilitarBotones();
 			}
 		});
 
 		btnBorrar = new JButton("Borrar Sala");
+		btnBorrar.setEnabled(false);
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblInfo.setText("");
@@ -160,6 +206,7 @@ public class GestionSalas extends JFrame {
 				if (modeloGestionDatos.getSeHaBorrado()) {
 					borrado();
 				}
+				habilitarBotones();
 			}
 		});
 		btnBorrar.setBounds(575, 685, 120, 40);
@@ -194,11 +241,13 @@ public class GestionSalas extends JFrame {
 				setVisible(false);
 				controlador.gestionSalasToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -207,27 +256,20 @@ public class GestionSalas extends JFrame {
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPerfil.setBounds(818, 0, 100, 100);
 		Header.add(lblPerfil);
-		
 
-		labelImportar = new JLabel("Importar Actividades");
-		labelImportar.setIcon(
+		lblImportarSalas = new JLabel("Importar Salas");
+		lblImportarSalas.setIcon(
 				new ImageIcon(GestionAlumnos.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		labelImportar.setBounds(100, 111, 124, 20);
-		contentPane.add(labelImportar);
-		
+		lblImportarSalas.setBounds(100, 111, 124, 20);
+		contentPane.add(lblImportarSalas);
+		lblImportarSalas.setVisible(false);
+
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setColumns(10);
-		txtBuscador.setBounds(667, 111, 86, 20);
+		txtBuscador.setBounds(814, 114, 86, 20);
 		contentPane.add(txtBuscador);
-
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna
-				.setModel(new DefaultComboBoxModel(new String[] { "Columna", "Expediente", "Nombre y apellido" }));
-		comboBoxColumna.setBounds(763, 111, 104, 20);
-		contentPane.add(comboBoxColumna);
-		
 
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -259,23 +301,23 @@ public class GestionSalas extends JFrame {
 	public String getPrimaryKey() {
 		return String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0));
 	}
-	
+
 	public String getCodigo() {
 		return txtCodigo.getText();
 	}
-	
+
 	public String getTipoSala() {
 		return txtTipoSala.getText();
 	}
-	
+
 	public String getNumero() {
 		return txtNumero.getText();
 	}
-	
+
 	public String getCapacidad() {
 		return txtCapacidad.getText();
 	}
-	
+
 	public void addSala() {
 		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
 		model.addRow(modeloGestionDatos.getDatosfilasTabla());
@@ -288,40 +330,63 @@ public class GestionSalas extends JFrame {
 		txtNumero.setText("");
 		txtCapacidad.setText("");
 	}
-	
+
 	public void borrado() {
 		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
 		model.removeRow(tablaSalas.getSelectedRow());
 		limpiarTxt();
 
 	}
-	
+
 	public void modSala() {
 		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
 		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
 
 		if (getCodigo().equals(String.valueOf(model.getValueAt(tablaSalas.getSelectedRow(), 0)))) {
-				lblInfo.setText("Sala modificada");
-				model.setValueAt(getCodigo(), tablaSalas.getSelectedRow(), 0);
-				model.setValueAt(getTipoSala(), tablaSalas.getSelectedRow(), 1);
-				model.setValueAt(getCapacidad(), tablaSalas.getSelectedRow(), 2);
-				model.setValueAt(getNumero(), tablaSalas.getSelectedRow(), 3);
-				limpiarTxt();
-			
+			lblInfo.setText("Sala modificada");
+			model.setValueAt(getCodigo(), tablaSalas.getSelectedRow(), 0);
+			model.setValueAt(getTipoSala(), tablaSalas.getSelectedRow(), 1);
+			model.setValueAt(getCapacidad(), tablaSalas.getSelectedRow(), 2);
+			model.setValueAt(getNumero(), tablaSalas.getSelectedRow(), 3);
+			limpiarTxt();
+
 		} else {
 			lblInfo.setText("Error , no puedes modificar el codigo de la sala");
 		}
-		
-		
 
 	}
-	
-	public void actualizarInfoConsulta() {
-			lblInfo.setText(modeloConsultas.getRespuesta());
+
+	public void habilitarBotones() {
+		// btnAlta
+		if (!txtCodigo.getText().equals("") && !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
+			btnAddSala.setEnabled(true);
+		} else {
+			btnAddSala.setEnabled(false);
+		}
+
+		// btnmodificar
+		if (tablaSalas.getSelectedRowCount() == 1 && !txtCodigo.getText().equals("") && !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
+			btnModificarSala.setEnabled(true);
+		} else {
+			btnModificarSala.setEnabled(false);
+		}
+
+		// btnBorrar
+		if (tablaSalas.getSelectedRowCount() == 1 && !txtCodigo.getText().equals("")
+				&& !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
+			btnBorrar.setEnabled(true);
+		} else {
+			btnBorrar.setEnabled(false);
+		}
+
 	}
-	
+
+	public void actualizarInfoConsulta() {
+		lblInfo.setText(modeloConsultas.getRespuesta());
+	}
+
 	public void actualizarInfoDatos() {
-			lblInfo.setText(modeloGestionDatos.getRespuesta());
-		
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+
 	}
 }
