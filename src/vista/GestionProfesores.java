@@ -39,12 +39,6 @@ public class GestionProfesores extends JFrame {
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaProfesores;
-	private JTextField txtNumero;
-	private JTextField txtNombre;
-	private JTextField txtTitulacion;
-	private JTextField txtDni;
-	private JTextField txtRelacion_laboral;
-	private JTextField txtTelefono1;
 	private JPanel HeaderPanel;
 	private JScrollPane scrollPane;
 	private JLabel lblTitulo;
@@ -53,11 +47,6 @@ public class GestionProfesores extends JFrame {
 	private JButton btnVolver;
 	private JButton btnAI_profesor;
 	private JButton btnAddProfesor;
-	private JButton btnModificarProfesor;
-	private JTextField txtTelefono2;
-	private JTextField txtEmail1;
-	private JTextField txtEmail2;
-	private JCheckBox chckbxAI_profesores;
 	private JLabel lblImportarActividades;
 	private JComboBox comboBoxColumna;
 	private JTextField txtBuscador;
@@ -84,55 +73,11 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaProfesores = new JTable();
+
 		tablaProfesores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaProfesores.setRowHeight(40);
 		tablaProfesores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaProfesores);
-
-		txtNumero = new JTextField();
-		txtNumero.setBounds(108, 629, 71, 30);
-		contentPane.add(txtNumero);
-		txtNumero.setColumns(10);
-
-		txtNombre = new JTextField();
-		txtNombre.setBounds(189, 629, 71, 30);
-		contentPane.add(txtNombre);
-		txtNombre.setColumns(10);
-
-		txtTitulacion = new JTextField();
-		txtTitulacion.setBounds(276, 629, 71, 30);
-		contentPane.add(txtTitulacion);
-		txtTitulacion.setColumns(10);
-
-		txtDni = new JTextField();
-		txtDni.setBounds(363, 629, 71, 30);
-		contentPane.add(txtDni);
-		txtDni.setColumns(10);
-
-		txtRelacion_laboral = new JTextField();
-		txtRelacion_laboral.setBounds(500, 629, 71, 30);
-		contentPane.add(txtRelacion_laboral);
-		txtRelacion_laboral.setColumns(10);
-
-		txtTelefono1 = new JTextField();
-		txtTelefono1.setColumns(10);
-		txtTelefono1.setBounds(581, 629, 71, 30);
-		contentPane.add(txtTelefono1);
-
-		txtTelefono2 = new JTextField();
-		txtTelefono2.setBounds(662, 629, 71, 30);
-		contentPane.add(txtTelefono2);
-		txtTelefono2.setColumns(10);
-
-		txtEmail1 = new JTextField();
-		txtEmail1.setColumns(10);
-		txtEmail1.setBounds(743, 629, 71, 30);
-		contentPane.add(txtEmail1);
-
-		txtEmail2 = new JTextField();
-		txtEmail2.setColumns(10);
-		txtEmail2.setBounds(824, 629, 71, 30);
-		contentPane.add(txtEmail2);
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
@@ -188,26 +133,17 @@ public class GestionProfesores extends JFrame {
 		btnVolver.setBounds(100, 685, 120, 40);
 		contentPane.add(btnVolver);
 
-		btnModificarProfesor = new JButton("Modificar profesor");
-		btnModificarProfesor.addActionListener(new ActionListener() {
+		btnAI_profesor = new JButton("Activo/Inactivo");
+		btnAI_profesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?");
 			}
 		});
-		btnModificarProfesor.setBounds(325, 685, 120, 40);
-		contentPane.add(btnModificarProfesor);
-
-		btnAI_profesor = new JButton("Activo/Inactivo");
-		btnAI_profesor.setBounds(575, 685, 120, 40);
+		btnAI_profesor.setBounds(436, 685, 120, 40);
 		contentPane.add(btnAI_profesor);
 
-		btnAddProfesor = new JButton(" A\u00F1adir profesores");
-		btnAddProfesor.setBounds(774, 685, 128, 40);
+		btnAddProfesor = new JButton(" A\u00F1adir y modificar");
+		btnAddProfesor.setBounds(752, 685, 146, 40);
 		contentPane.add(btnAddProfesor);
-
-		chckbxAI_profesores = new JCheckBox("" + "A/I");
-		chckbxAI_profesores.setBounds(439, 633, 41, 23);
-		contentPane.add(chckbxAI_profesores);
 
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
@@ -237,42 +173,12 @@ public class GestionProfesores extends JFrame {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
 	//Getters
-
-	public String getNumero() {
-		return txtNumero.getText();
+	public String getNumGP() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
+		
 	}
+	
 
-	public String getNombre() {
-		return txtNombre.getText();
-	}
-
-	public String getTitulacion() {
-		return txtTitulacion.getText();
-	}
-
-	public String getDni() {
-		return txtDni.getText();
-	}
-
-	public String getRelacion_laboral() {
-		return txtRelacion_laboral.getText();
-	}
-
-	public String getTelefono1() {
-		return txtTelefono1.getText();
-	}
-
-	public String getTelefono2() {
-		return txtTelefono2.getText();
-	}
-
-	public String getEmail1() {
-		return txtEmail1.getText();
-	}
-
-	public String getEmail2() {
-		return txtEmail2.getText();
-	}
 
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaProfesores.getModel();
