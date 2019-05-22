@@ -358,7 +358,7 @@ public class GestionSalas extends JFrame {
 
 	public void habilitarBotones() {
 		// btnAlta
-		if (!txtCodigo.getText().equals("") && !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
+		if ( !txtCodigo.getText().equals("") && !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
 			btnAddSala.setEnabled(true);
 		} else {
 			btnAddSala.setEnabled(false);
