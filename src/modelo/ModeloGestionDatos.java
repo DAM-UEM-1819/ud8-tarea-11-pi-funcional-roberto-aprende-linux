@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 
+import javax.swing.table.DefaultTableModel;
+
 import controlador.Controlador;
 import vista.CrearUsuario;
 import vista.Gestion;
@@ -553,5 +555,6 @@ public class ModeloGestionDatos {
 		}
 
 	}
+	
 
 }

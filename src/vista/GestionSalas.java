@@ -279,7 +279,7 @@ public class GestionSalas extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (!txtBuscador.getText().equals("")) {
-					controlador.solicitudBuscadorSala();
+					controlador.solicitudBuscador(this);
 				} else {
 					controlador.solicitudDatosSalas();
 				}

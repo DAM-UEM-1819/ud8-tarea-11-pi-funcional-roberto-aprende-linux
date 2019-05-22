@@ -173,7 +173,7 @@ public class GestionUsuarios extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (!txtBuscador.getText().equals("")) {
-					controlador.solicitudBuscadorUsuario();
+					controlador.solicitudBuscador(this);
 				} else {
 					controlador.solicitudDatosUsuarios();
 				}
