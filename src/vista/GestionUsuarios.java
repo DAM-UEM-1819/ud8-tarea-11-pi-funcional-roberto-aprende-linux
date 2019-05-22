@@ -181,7 +181,7 @@ public class GestionUsuarios extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(814, 114, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
 
 		lblImportarUsuario = new JLabel("Importar Usuarios");

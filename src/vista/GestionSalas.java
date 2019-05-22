@@ -268,7 +268,23 @@ public class GestionSalas extends JFrame {
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setColumns(10);
-		txtBuscador.setBounds(814, 114, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscadorUsuario();
+				} else {
+					controlador.solicitudDatosUsuarios();
+				}
+			}
+		});
 		contentPane.add(txtBuscador);
 
 		lblInfo = new JLabel("");
