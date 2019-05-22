@@ -69,7 +69,6 @@ public class ModeloConsultas {
 
 	// Atributos internos
 	private Connection conexion;
-	private int contador;
 	private String respuesta;
 	private DefaultTableModel tableModel;
 	private String[] nombreColumnasTabla;
@@ -338,10 +337,6 @@ public class ModeloConsultas {
 			} else {
 				respuesta = "Ususario o contrase�a incorrectos";
 				login.actualizarInfo();
-				contador++;
-				if (contador >= 3) {
-					login.salir();
-				}
 			}
 
 		} catch (Exception e) {
@@ -630,6 +625,22 @@ public class ModeloConsultas {
 			pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
 			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
 			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void buscadorSalas(DefaultTableModel tableModel, String palabra) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectBuscadorSalas);
+			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
+			pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
 			getDatos(pstmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

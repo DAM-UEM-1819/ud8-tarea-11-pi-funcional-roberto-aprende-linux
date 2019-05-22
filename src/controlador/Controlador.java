@@ -419,6 +419,10 @@ public class Controlador implements IControlador {
 		modeloGestionDatos.modificarSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
 		
 	}
+	
+	public void solicitudBuscadorSala() {
+		modeloConsultas.buscadorSalas(gestionSalas.getModel(), gestionSalas.getPalabraBuscador());
+	}
 
 	// VENTANA GESTION GRUPOS
 	public void verGruposToGestion() {

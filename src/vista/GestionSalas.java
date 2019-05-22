@@ -279,9 +279,9 @@ public class GestionSalas extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (!txtBuscador.getText().equals("")) {
-					controlador.solicitudBuscadorUsuario();
+					controlador.solicitudBuscadorSala();
 				} else {
-					controlador.solicitudDatosUsuarios();
+					controlador.solicitudDatosSalas();
 				}
 			}
 		});
@@ -404,5 +404,9 @@ public class GestionSalas extends JFrame {
 	public void actualizarInfoDatos() {
 		lblInfo.setText(modeloGestionDatos.getRespuesta());
 
+	}
+
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 }
