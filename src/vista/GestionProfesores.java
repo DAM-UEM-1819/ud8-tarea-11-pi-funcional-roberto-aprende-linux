@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -50,6 +51,10 @@ public class GestionProfesores extends JFrame {
 	private JLabel lblImportarActividades;
 	private JComboBox comboBoxColumna;
 	private JTextField txtBuscador;
+	private String nombre;
+	private String ape1;
+	private String ape2;
+	
 
 	public GestionProfesores() {
 		addWindowListener(new WindowAdapter() {
@@ -142,6 +147,11 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(btnAI_profesor);
 
 		btnAddProfesor = new JButton(" A\u00F1adir y modificar");
+		btnAddProfesor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.solicitudCamposDeTextoProfe();
+			}
+		});
 		btnAddProfesor.setBounds(752, 685, 146, 40);
 		contentPane.add(btnAddProfesor);
 
@@ -177,6 +187,27 @@ public class GestionProfesores extends JFrame {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
 		
 	}
+	public void getNombreGP() {
+		String nombreYapellidos = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 1));
+		String nombreSeparado [] = nombreYapellidos.split(" ");
+		this.nombre = nombreSeparado[0];
+		this.ape1 = nombreSeparado[1];
+		this.ape2 = nombreSeparado[2];
+		
+		
+	}
+	
+	public String getNombreProfeGP() {
+		return this.nombre;
+	}
+	public String getApe1GP () {
+		return this.ape1;
+	}
+	
+	public String getApe2GP () {
+		return this.ape2;
+	}
+	
 	
 
 

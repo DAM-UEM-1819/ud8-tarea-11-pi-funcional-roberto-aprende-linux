@@ -58,6 +58,7 @@ public class ModeloGestionDatos {
 	private ModeloConsultas modeloConsultas;
 
 	private ArrayList<Object> datosFilastabla;
+	private ArrayList<String> datosProfe;
 
 	// Atributos Fichero
 	private Properties propiedadesInsertado;
@@ -554,6 +555,17 @@ public class ModeloGestionDatos {
 //			gestionRegistros.actualizarInfoDatos();
 		}
 
+	}
+	
+	
+	public void datosDeProfesor() {
+		
+	}
+
+	public void rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp) {
+		
+
+		
 	}
 	
 

@@ -397,6 +397,11 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaProfesores(gestionProfesores.getModel());
 	}
 	
+	public void solicitudCamposDeTextoProfe() {
+		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(),gestionProfesores.getNombreProfeGP(),gestionProfesores.getApe1GP(),gestionProfesores.getApe2GP());
+	}
+	
+	
 //	public void solicitusCrearPorfesor() {
 //		modeloGestionDatos.crearProfesor();
 //	}
