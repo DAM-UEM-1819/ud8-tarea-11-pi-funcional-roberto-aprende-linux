@@ -115,13 +115,14 @@ public class VerGrupos extends JFrame {
 		contentPane.add(btnVolver);
 
 		comboBoxColumna = new JComboBox();
+		comboBoxColumna.setEditable(true);
 		comboBoxColumna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.solicitudListadoAlumnosPorGrupo();
 			}
 		});
 		comboBoxColumna.setMaximumRowCount(100);
-		comboBoxColumna.setBounds(100, 127, 765, 40);
+		comboBoxColumna.setBounds(715, 127, 150, 40);
 		contentPane.add(comboBoxColumna);
 
 		scrollPane = new JScrollPane();
@@ -129,8 +130,13 @@ public class VerGrupos extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaGrupos = new JTable();
+		tablaGrupos.getTableHeader().setReorderingAllowed(false);
 		tablaGrupos.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nombre y apellido" }));
 		scrollPane.setViewportView(tablaGrupos);
+		
+		JLabel lblNumeroAlumnos = new JLabel("Numero de alumnos: ");
+		lblNumeroAlumnos.setBounds(100, 137, 300, 40);
+		contentPane.add(lblNumeroAlumnos);
 
 	}
 

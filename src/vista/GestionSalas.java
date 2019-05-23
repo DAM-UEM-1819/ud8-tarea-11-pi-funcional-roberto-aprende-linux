@@ -150,6 +150,7 @@ public class GestionSalas extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				limpiarTxt();
 				controlador.gestionSalasToGestion();
 			}
 		});
