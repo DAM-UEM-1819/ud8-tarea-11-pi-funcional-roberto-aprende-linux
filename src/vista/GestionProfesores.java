@@ -54,6 +54,7 @@ public class GestionProfesores extends JFrame {
 	private String nombre;
 	private String ape1;
 	private String ape2;
+	private String nombreSeparado [];
 	
 
 	public GestionProfesores() {
@@ -184,12 +185,13 @@ public class GestionProfesores extends JFrame {
 	}
 	//Getters
 	public String getNumGP() {
-		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
+		String num = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
+		return num;
 		
 	}
 	public void getNombreGP() {
 		String nombreYapellidos = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 1));
-		String nombreSeparado [] = nombreYapellidos.split(" ");
+		nombreSeparado = nombreYapellidos.split(" ");
 		this.nombre = nombreSeparado[0];
 		this.ape1 = nombreSeparado[1];
 		this.ape2 = nombreSeparado[2];
@@ -198,14 +200,19 @@ public class GestionProfesores extends JFrame {
 	}
 	
 	public String getNombreProfeGP() {
-		return this.nombre;
+		getNombreGP();
+		return nombre;
 	}
 	public String getApe1GP () {
-		return this.ape1;
+		return ape1;
 	}
 	
 	public String getApe2GP () {
-		return this.ape2;
+		return ape2;
+	}
+	
+	public String getTitulacion() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 2));
 	}
 	
 	
