@@ -158,4 +158,8 @@ public class VerGrupos extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaGrupos.getModel();
 	}
+	
+	public String getPalabraBuscador() {
+		return null; //txtBuscador.getText();
+	}
 }

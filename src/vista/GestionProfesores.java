@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -211,9 +213,25 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(chckbxAI_profesores);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosProfesores();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(812, 132, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
@@ -224,7 +242,7 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(lblImportarActividades);
 		lblImportarActividades.setVisible(false);
 	}
-	//Setters
+	// Setters
 
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
@@ -237,7 +255,7 @@ public class GestionProfesores extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	//Getters
+	// Getters
 
 	public String getNumero() {
 		return txtNumero.getText();
@@ -277,5 +295,9 @@ public class GestionProfesores extends JFrame {
 
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaProfesores.getModel();
+	}
+
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 }

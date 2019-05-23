@@ -493,16 +493,28 @@ public class Controlador implements IControlador {
 			modeloConsultas.buscador(gestionUsuarios.getModel(), gestionUsuarios.getPalabraBuscador(), "B");
 			break;
 		case "GESTIONACTIVIDAD":
-			modeloConsultas.buscador(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador(), "C");
+			modeloConsultas.buscador(gestionActividad.getModel(), gestionActividad.getPalabraBuscador(), "C");
 			break;
 		case "GESTIONASIGNATURA":
-			modeloConsultas.buscador(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador(), "D");
+			modeloConsultas.buscador(gestionAsignatura.getModel(), gestionAsignatura.getPalabraBuscador(), "D");
 			break;
 		case "GESTIONSALAS":
 			modeloConsultas.buscador(gestionSalas.getModel(), gestionSalas.getPalabraBuscador(), "E");
 			break;
+		case "GESTIONPROFESORES":
+			modeloConsultas.buscador(gestionProfesores.getModel(), gestionProfesores.getPalabraBuscador(), "F");
+			break;
+		case "GESTIONACAD":
+			modeloConsultas.buscador(gestionAcad.getModel(), gestionAcad.getPalabraBuscador(), "G");
+			break;
+		case "GESTIONACTORES":
+			modeloConsultas.buscador(gestionActores.getModel(), gestionActores.getPalabraBuscador(), "H");
+			break;
 		case "GESTIONREGISTROS":
-			modeloConsultas.buscador(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador(), "F");
+			modeloConsultas.buscador(gestionRegistros.getModel(), gestionRegistros.getPalabraBuscador(), "I");
+			break;
+		case "VERGRUPOS":
+			modeloConsultas.buscador(verGrupos.getModel(), verGrupos.getPalabraBuscador(), "J");
 			break;
 		}
 		
