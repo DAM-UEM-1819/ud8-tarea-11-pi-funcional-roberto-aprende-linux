@@ -44,6 +44,7 @@ public class InformacionExtra extends JFrame {
 
 
 	public InformacionExtra() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +63,7 @@ public class InformacionExtra extends JFrame {
 		tablaInfoProfesores.setModel(new DefaultTableModel(
 				new Object[][] { { "1", "431567Z", "Marta Laborda", "Medicina", "Mlaborda@gmail.com", "666111222"},
 						{ null, null, null, null, null, null, null }, },
-				new String[] { "Numero", "DNI", "Nombre y apellidos", "Titulación", "Mail", "Telefono"}));
+				new String[] { "Numero", "DNI", "Nombre y apellidos", "Titulaciï¿½n", "Mail", "Telefono"}));
 		tablaInfoProfesores.setRowHeight(40);
 		scrollPane.setViewportView(tablaInfoProfesores);
 		//
@@ -90,7 +91,7 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Información extra");
+		lblTitulo = new JLabel("Informaciï¿½n extra");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBounds(268, 11, 404, 61);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));

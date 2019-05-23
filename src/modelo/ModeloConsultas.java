@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.SelectableChannel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -667,40 +668,81 @@ public class ModeloConsultas {
 	public void buscador(DefaultTableModel tableModel, String palabra, String opcion) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt = null;
+		palabra = palabra.toUpperCase();
 
 		try {
 			switch (opcion) {
 			case "A":
 				pstmt = conexion.prepareStatement(selectBuscadorAlumnos);
-				pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-				pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
-				pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(1, "%" + palabra + "%");
+				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(3, "%" + palabra + "%");
 				break;
 			case "B":
 				pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
-				pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-				pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(1, "%" + palabra + "%");
+				pstmt.setString(2, "%" + palabra + "%");
 				break;
 			case "C":
-				// sql = deleteActividad;
+				pstmt = conexion.prepareStatement(selectBuscadorActividades);
+				pstmt.setString(1, "%" + palabra + "%");
+				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(4, "%" + palabra + "%");
+				pstmt.setString(5, "%" + palabra + "%");
+				pstmt.setString(6, "%" + palabra + "%");
+				pstmt.setString(7, "%" + palabra + "%");
 				break;
 			case "D":
-				// sql = deleteAsignatura;
+				pstmt = conexion.prepareStatement(selectBuscadorAsignatura);
+				pstmt.setString(1, "%" + palabra + "%");
+				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(4, "%" + palabra + "%");
 				break;
 			case "E":
 				pstmt = conexion.prepareStatement(selectBuscadorSalas);
-				pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-				pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
-				pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
-				pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
+				pstmt.setString(1, "%" + palabra + "%");
+				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(4, "%" + palabra + "%");
 				break;
 			case "F":
-				// sql = deleteRegistros;
-				// seHaBorrado = borrarDatos(deleteOcupaRegistro);
-//				seHaBorrado = borrarDatos(deleteActuaRegistro);
-//				seHaBorrado = borrarDatos(deleteParticipaRegistro);
-//				seHaBorrado = borrarDatos(deleteRealizaRegistro);
-//				seHaBorrado = borrarDatos(deleteRegistro);
+				pstmt = conexion.prepareStatement(selectBuscadorProfesores);
+				pstmt.setString(1, "%" + palabra + "%");
+				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(4, "%" + palabra + "%");
+				pstmt.setString(5, "%" + palabra + "%");
+				pstmt.setString(6, "%" + palabra + "%");
+				pstmt.setString(7, "%" + palabra + "%");
+				pstmt.setString(8, "%" + palabra + "%");
+				pstmt.setString(9, "%" + palabra + "%");
+				pstmt.setString(10, "%" + palabra + "%");
+				pstmt.setString(11, "%" + palabra + "%");
+				pstmt.setString(12, "%" + palabra + "%");
+				break;
+			case "G":
+				pstmt = conexion.prepareStatement(selectBuscadorAcad);
+				pstmt.setString(1, "%" + palabra + "%");
+				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(3, "%" + palabra + "%");
+				break;
+			case "H":
+				pstmt = conexion.prepareStatement(selectBuscadorActores);
+				pstmt.setString(1, "%" + palabra + "%");
+				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(4, "%" + palabra + "%");
+				pstmt.setString(5, "%" + palabra + "%");
+				pstmt.setString(6, "%" + palabra + "%");
+				pstmt.setString(7, "%" + palabra + "%");
+				break;
+			case "I":
+				// sql = deleteAsignatura;
+				break;
+			case "J":
+				// sql = deleteAsignatura;
 				break;
 			}
 		} catch (Exception e) {

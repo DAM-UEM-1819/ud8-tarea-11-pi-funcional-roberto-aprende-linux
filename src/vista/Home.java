@@ -77,6 +77,7 @@ public class Home extends JFrame {
 	// private JDateChooser calendario;
 
 	public Home() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -272,7 +273,7 @@ public class Home extends JFrame {
 	}
 
 	public void confirmacionSalir() {
-		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea salir?");
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "ï¿½Estï¿½ seguro/a de que desea salir?");
 		if (JOptionPane.YES_OPTION == valorRetorno) {
 			setVisible(false);
 			controlador.homeToLogin();

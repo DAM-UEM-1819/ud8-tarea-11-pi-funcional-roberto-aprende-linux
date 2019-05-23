@@ -46,6 +46,7 @@ public class Informes extends JFrame {
 	private JComboBox comboBoxInformes;
 
 	public Informes() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

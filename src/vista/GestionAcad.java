@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -52,6 +54,7 @@ public class GestionAcad extends JFrame {
 	private JLabel lblImportaionesActividades;
 
 	public GestionAcad() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -84,7 +87,7 @@ public class GestionAcad extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Año académico");
+		lblTitulo = new JLabel("Aï¿½o acadï¿½mico");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBounds(322, 11, 333, 61);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
@@ -163,10 +166,25 @@ public class GestionAcad extends JFrame {
 		lblImportaionesActividades.setVisible(false);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosAcad();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setColumns(10);
-		txtBuscador.setBounds(812, 132, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
 	}
 
@@ -184,5 +202,9 @@ public class GestionAcad extends JFrame {
 
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaAcad.getModel();
+	}
+	
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 }

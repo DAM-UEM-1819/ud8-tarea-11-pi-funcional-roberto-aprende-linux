@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -59,6 +61,7 @@ public class GestionRegistros extends JFrame {
 	 * Create the frame.
 	 */
 	public GestionRegistros() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -197,9 +200,25 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(btnAddRegistro);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosRegistros();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(812, 132, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
@@ -310,5 +329,9 @@ public class GestionRegistros extends JFrame {
 		model.removeRow(tablaRegistros.getSelectedRow());
 		limpiarTxt();
 
+	}
+	
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 }

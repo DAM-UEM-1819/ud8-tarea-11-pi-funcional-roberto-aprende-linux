@@ -61,6 +61,7 @@ public class GestionAlumnos extends JFrame {
 	private JLabel lblInfo;
 
 	public GestionAlumnos() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

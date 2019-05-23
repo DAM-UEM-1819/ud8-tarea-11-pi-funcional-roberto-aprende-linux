@@ -42,6 +42,7 @@ public class VerGrupos extends JFrame {
 
 	
 	public VerGrupos() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -156,5 +157,9 @@ public class VerGrupos extends JFrame {
 	
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaGrupos.getModel();
+	}
+	
+	public String getPalabraBuscador() {
+		return null; //txtBuscador.getText();
 	}
 }

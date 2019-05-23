@@ -60,6 +60,7 @@ public class GestionSalas extends JFrame {
 	private JLabel lblInfo;
 
 	public GestionSalas() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

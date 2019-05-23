@@ -42,6 +42,7 @@ public class Gestion extends JFrame {
 	private JButton btnVerGrupos;
 
 	public Gestion() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

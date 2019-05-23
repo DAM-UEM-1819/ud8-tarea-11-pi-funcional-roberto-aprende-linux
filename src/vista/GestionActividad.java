@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -62,6 +64,7 @@ public class GestionActividad extends JFrame {
 
 	 
 	public GestionActividad() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -181,7 +184,7 @@ public class GestionActividad extends JFrame {
 		btnModificarActividad = new JButton("Modificar actividad");
 		btnModificarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?" );
+				JOptionPane.showConfirmDialog(rootPane, "ï¿½Desea modificar el profesor seleccionado?" );
 			}
 		});
 		btnModificarActividad.setBounds(325, 685, 128, 40);
@@ -206,9 +209,25 @@ public class GestionActividad extends JFrame {
 		contentPane.add(comboBoxSimulador);
 		
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosActividad();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(812, 132, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 		
@@ -242,5 +261,9 @@ public class GestionActividad extends JFrame {
 
 	public String getPrimaryKey() {
 		return String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0));
+	}
+	
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 }
