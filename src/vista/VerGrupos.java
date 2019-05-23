@@ -25,6 +25,8 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
 import modelo.ModeloConsultas;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VerGrupos extends JFrame {
 
@@ -39,6 +41,8 @@ public class VerGrupos extends JFrame {
 	private JComboBox comboBoxColumna;
 	private JTable tablaGrupos;
 	private JScrollPane scrollPane;
+	private JLabel lblNumeroAlumnos;
+	private JLabel lblGrupo;
 
 	
 	public VerGrupos() {
@@ -47,7 +51,6 @@ public class VerGrupos extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				borrarGrupos();
-				comboBoxColumna.addItem("Selecciona un grupo");
 				controlador.solicitudListadoGrupos();
 			}
 		});
@@ -115,6 +118,12 @@ public class VerGrupos extends JFrame {
 		contentPane.add(btnVolver);
 
 		comboBoxColumna = new JComboBox();
+		comboBoxColumna.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				controlador.solicitudListadoAlumnosPorGrupo();
+			}
+		});
 		comboBoxColumna.setEditable(true);
 		comboBoxColumna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -134,9 +143,14 @@ public class VerGrupos extends JFrame {
 		tablaGrupos.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nombre y apellido" }));
 		scrollPane.setViewportView(tablaGrupos);
 		
-		JLabel lblNumeroAlumnos = new JLabel("Numero de alumnos: ");
-		lblNumeroAlumnos.setBounds(100, 137, 300, 40);
+		lblNumeroAlumnos = new JLabel();
+		lblNumeroAlumnos.setBounds(100, 139, 300, 16);
 		contentPane.add(lblNumeroAlumnos);
+		
+		lblGrupo = new JLabel("Grupo:");
+		lblGrupo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGrupo.setBounds(642, 139, 61, 16);
+		contentPane.add(lblGrupo);
 
 	}
 
@@ -167,5 +181,9 @@ public class VerGrupos extends JFrame {
 	
 	public String getPalabraBuscador() {
 		return null; //txtBuscador.getText();
+	}
+
+	public void contarAlumnos() {
+		lblNumeroAlumnos.setText("Número de alumnos: " + tablaGrupos.getRowCount());
 	}
 }

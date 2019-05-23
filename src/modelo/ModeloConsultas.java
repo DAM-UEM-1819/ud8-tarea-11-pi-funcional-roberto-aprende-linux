@@ -566,13 +566,15 @@ public class ModeloConsultas {
 		if (!grupo.equalsIgnoreCase("Selecciona un grupo")) {
 			try {
 				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo);
-				pstmt.setString(1, grupo);
+				pstmt.setString(1, "%" + grupo.toUpperCase() + "%");
 				getDatos(pstmt);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
+		verGrupos.contarAlumnos();
 
 	}
 

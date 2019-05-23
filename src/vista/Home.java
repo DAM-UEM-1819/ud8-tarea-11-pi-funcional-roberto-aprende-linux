@@ -233,6 +233,7 @@ public class Home extends JFrame {
 		contentPane.add(btnInformes);
 
 		lblOcupaciones = new JLabel("Ocupaciones");
+		lblOcupaciones.setVisible(false);
 		lblOcupaciones.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOcupaciones.addMouseListener(new MouseAdapter() {
 			@Override

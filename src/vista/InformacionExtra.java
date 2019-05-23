@@ -60,6 +60,7 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaInfoProfesores = new JTable();
+		tablaInfoProfesores.getTableHeader().setReorderingAllowed(false);
 		tablaInfoProfesores.setModel(new DefaultTableModel(
 				new Object[][] { { "1", "431567Z", "Marta Laborda", "Medicina", "Mlaborda@gmail.com", "666111222"},
 						{ null, null, null, null, null, null, null }, },
@@ -72,6 +73,7 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(scrollPane_2);
 		
 		TablaInfoAlumnos = new JTable();
+		TablaInfoAlumnos.getTableHeader().setReorderingAllowed(false);
 		scrollPane_2.setViewportView(TablaInfoAlumnos);
 		
 		TablaInfoAlumnos.setModel(new DefaultTableModel(
