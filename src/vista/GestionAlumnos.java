@@ -36,6 +36,8 @@ import javax.swing.table.TableModel;
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class GestionAlumnos extends JFrame {
 
@@ -102,6 +104,10 @@ public class GestionAlumnos extends JFrame {
 			public void keyTyped(KeyEvent arg0) {
 				habilitarBotones();
 			}
+			public void keyPressed(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			
 		});
 		txtExpediente.setBounds(125, 600, 200, 30);
 		contentPane.add(txtExpediente);
@@ -115,6 +121,10 @@ public class GestionAlumnos extends JFrame {
 			}
 		
 		
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				habilitarBotones();
+			}
 		});
 		txtNombre.setBounds(407, 600, 200, 30);
 		contentPane.add(txtNombre);
@@ -211,6 +221,11 @@ public class GestionAlumnos extends JFrame {
 		Header.add(lblPerfil);
 
 		chckbxActivoInactivo = new JCheckBox("Activo/Inactivo");
+		chckbxActivoInactivo.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				habilitarBotones();
+			}
+		});
 		chckbxActivoInactivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxActivoInactivo.setBounds(679, 602, 200, 23);
 		contentPane.add(chckbxActivoInactivo);
