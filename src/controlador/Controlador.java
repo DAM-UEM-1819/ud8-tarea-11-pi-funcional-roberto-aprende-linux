@@ -27,6 +27,7 @@ public class Controlador implements IControlador {
 	private GestionRegistros gestionRegistros;
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
+	private GestionProfesoresAddMod gestionProfesoresAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -93,6 +94,10 @@ public class Controlador implements IControlador {
 
 	public void setGestionProfesores(GestionProfesores gestionProfesores) {
 		this.gestionProfesores = gestionProfesores;
+	}
+	
+	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
+		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
 	}
 
 	public void setGestionSalas(GestionSalas gestionSalas) {
@@ -392,6 +397,11 @@ public class Controlador implements IControlador {
 	public void gestionProfesoresToPerfil() {
 		perfil.setVisible(true);
 	}
+	
+	public void gestionProfesoresTogestionProsoresAddMod() {
+		gestionProfesoresAddMod.setVisible(true);
+		
+	}
 
 	public void solicitudDatosProfesores() {
 		modeloConsultas.getTablaProfesores(gestionProfesores.getModel());
@@ -400,6 +410,11 @@ public class Controlador implements IControlador {
 	public void solicitudCamposDeTextoProfe() {
 		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(),gestionProfesores.getNombreProfeGP(),gestionProfesores.getApe1GP(),gestionProfesores.getApe2GP());
 	}
+	
+	// VENTANA GESTION PROFESORESADDMOD
+	
+	
+	
 	
 	
 //	public void solicitusCrearPorfesor() {

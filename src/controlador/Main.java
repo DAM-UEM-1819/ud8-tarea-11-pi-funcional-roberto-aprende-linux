@@ -25,6 +25,7 @@ public class Main {
 		GestionRegistros gestionRegistros = new GestionRegistros();
 		GestionAsignatura gestionAsignaturas = new GestionAsignatura();
 		GestionProfesores gestionProfesores = new GestionProfesores();
+		GestionProfesoresAddMod gestionProfesoresAddMod = new GestionProfesoresAddMod();
 		GestionSalas gestionSalas = new GestionSalas();
 		GestionUsuarios gestionUsuarios = new GestionUsuarios();
 		Perfil perfil = new Perfil();
@@ -43,12 +44,12 @@ public class Main {
 		controlador.setGestionAlumnos(gestionAlumnos);
 		controlador.setGestionRegistros(gestionRegistros);
 		controlador.setGestionAsignatura(gestionAsignaturas);
+		controlador.setGestionProfesoresAddMod(gestionProfesoresAddMod);
 		controlador.setGestionProfesores(gestionProfesores);
 		controlador.setGestionSalas(gestionSalas);
 		controlador.setGestionUsuarios(gestionUsuarios);
 		controlador.setPerfil(perfil);
 		controlador.setVerGrupos(verGrupos);
-		
 		controlador.setModelo(modelo);
 		controlador.setModeloConsultas(modeloConsultas);
 		controlador.setModeloGestionDatos(modeloGestionDatos);
@@ -67,6 +68,7 @@ public class Main {
 		gestionRegistros.setControlador(controlador);
 		gestionAsignaturas.setControlador(controlador);
 		gestionProfesores.setControlador(controlador);
+		gestionProfesoresAddMod.setControlador(controlador);
 		gestionSalas.setControlador(controlador);
 		gestionUsuarios.setControlador(controlador);
 		perfil.setControlador(controlador);
@@ -104,6 +106,7 @@ public class Main {
 		modeloGestionDatos.setGestionAlumnos(gestionAlumnos);
 		modeloGestionDatos.setGestionRegistros(gestionRegistros);
 		modeloGestionDatos.setGestionAsignatura(gestionAsignaturas);
+		modeloGestionDatos.setGestionProfesoresAddMod(gestionProfesoresAddMod);
 		modeloGestionDatos.setGestionProfesores(gestionProfesores);
 		modeloGestionDatos.setGestionSalas(gestionSalas);
 		modeloGestionDatos.setGestionUsuarios(gestionUsuarios);
@@ -138,6 +141,7 @@ public class Main {
 		gestionAlumnos.setModeloGestionDatos(modeloGestionDatos);
 		gestionRegistros.setModeloGestionDatos(modeloGestionDatos);
 		gestionAsignaturas.setModeloGestionDatos(modeloGestionDatos);
+		gestionProfesoresAddMod.setModeloGestionDatos(modeloGestionDatos);
 		gestionProfesores.setModeloGestionDatos(modeloGestionDatos);
 		gestionSalas.setModeloGestionDatos(modeloGestionDatos);
 		gestionUsuarios.setModeloGestionDatos(modeloGestionDatos);

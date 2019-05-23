@@ -54,8 +54,7 @@ public class GestionProfesores extends JFrame {
 	private String nombre;
 	private String ape1;
 	private String ape2;
-	private String nombreSeparado [];
-	
+	private String nombreSeparado[];
 
 	public GestionProfesores() {
 		addWindowListener(new WindowAdapter() {
@@ -150,7 +149,12 @@ public class GestionProfesores extends JFrame {
 		btnAddProfesor = new JButton(" A\u00F1adir y modificar");
 		btnAddProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.solicitudCamposDeTextoProfe();
+				setVisible(false);
+				controlador.gestionProfesoresTogestionProsoresAddMod();
+				if (tablaProfesores.getRowCount() == 1) {
+					controlador.solicitudCamposDeTextoProfe();
+				}
+
 			}
 		});
 		btnAddProfesor.setBounds(752, 685, 146, 40);
@@ -170,7 +174,7 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(lblImportarActividades);
 		lblImportarActividades.setVisible(false);
 	}
-	//Setters
+	// Setters
 
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
@@ -183,40 +187,67 @@ public class GestionProfesores extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	//Getters
+
+	// Getters
 	public String getNumGP() {
 		String num = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
 		return num;
-		
+
 	}
+
 	public void getNombreGP() {
 		String nombreYapellidos = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 1));
 		nombreSeparado = nombreYapellidos.split(" ");
 		this.nombre = nombreSeparado[0];
 		this.ape1 = nombreSeparado[1];
 		this.ape2 = nombreSeparado[2];
-		
-		
+
 	}
-	
+
 	public String getNombreProfeGP() {
 		getNombreGP();
 		return nombre;
 	}
-	public String getApe1GP () {
+
+	public String getApe1GP() {
 		return ape1;
 	}
-	
-	public String getApe2GP () {
+
+	public String getApe2GP() {
 		return ape2;
 	}
-	
+
 	public String getTitulacion() {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 2));
 	}
-	
-	
 
+	public String getDni() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 3));
+	}
+
+	public String Activo() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 4));
+	}
+
+	public String getRelacion() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 5));
+	}
+
+	public String getTlfn1() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 6));
+	}
+
+	public String getTlfn2() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 7));
+	}
+
+	public String getEmail1() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 8));
+	}
+
+	public String getEmail2() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 9));
+	}
 
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaProfesores.getModel();
