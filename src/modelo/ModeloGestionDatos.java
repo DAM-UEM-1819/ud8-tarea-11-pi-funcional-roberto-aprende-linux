@@ -75,6 +75,7 @@ public class ModeloGestionDatos {
 	private String respuesta;
 	private boolean seHaBorrado;
 	private boolean seHaCreado;
+	private boolean seHaCambiadoEstado;
 	private String clave;
 
 	// Sentencias Insertado SQL
@@ -93,7 +94,7 @@ public class ModeloGestionDatos {
 	private String insertOcupa;
 
 	// Sentencias Delete SQL
-	private String deleteAlumno;
+//	private String deleteAlumno;
 	private String deleteUsuario;
 	private String deleteSala;
 	private String deleteOcupa;
@@ -108,6 +109,7 @@ public class ModeloGestionDatos {
 	private String updateSala;
 	private String updateRegistro;
 	private String updateUsuario;
+	
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -253,7 +255,7 @@ public class ModeloGestionDatos {
 	 * Metodo para asignar las sentencias de borrado a los atributos
 	 */
 	private void asignacionBorrado() {
-		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
+//		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
 		deleteSala = propiedadesBorrado.getProperty("deleteSala");
 		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
@@ -434,7 +436,7 @@ public class ModeloGestionDatos {
 		seHaBorrado = false;
 		switch (opcion) {
 		case "A":
-			seHaBorrado = borrarDatos(deleteAlumno);
+			seHaBorrado = borrarDatos(updateAlumno);
 			break;
 		case "B":
 			seHaBorrado = borrarDatos(deleteUsuario);
@@ -462,6 +464,36 @@ public class ModeloGestionDatos {
 		return seHaBorrado;
 
 	}
+	
+	
+	public boolean opcionesActivoDatos(String activo ,String clave, String opcion) {
+		this.clave = clave;
+		seHaCambiadoEstado = false;
+		switch (opcion) {
+		case "A":
+			seHaCambiadoEstado = ActivoDatos(updateAlumno);
+			break;
+		case "B":
+
+			break;
+		case "C":
+			// sql = deleteActividad;
+			break;
+		case "D":
+			// sql = deleteAsignatura;
+			break;
+		case "E":
+			
+			break;
+		case "F":
+			// sql = deleteRegistros;
+		
+			break;
+		}
+
+		return seHaBorrado;
+
+	}
 
 	/**
 	 * Metodo para borrar los datos
@@ -482,6 +514,23 @@ public class ModeloGestionDatos {
 		}
 		return seHaBorrado;
 	}
+	
+	private boolean ActivoDatos(String sql) {
+		seHaBorrado = false;
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			pstmt.setString(1, clave);
+			ResultSet rs = pstmt.executeQuery();
+			datosFilastabla.removeAll(datosFilastabla);
+			seHaBorrado = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return seHaBorrado;
+	}
+	
+
+	
 
 	/**
 	 * Metodo para modificar los datos de un alumno
@@ -508,6 +557,8 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 	}
+	
+	
 
 	/**
 	 * Metodo para modificar los datos de una sala
