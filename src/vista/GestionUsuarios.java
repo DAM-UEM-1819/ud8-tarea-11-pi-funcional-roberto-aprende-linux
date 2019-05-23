@@ -52,6 +52,7 @@ public class GestionUsuarios extends JFrame {
 	private JTextField txtBuscador;
 
 	public GestionUsuarios() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

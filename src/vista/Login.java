@@ -45,6 +45,7 @@ public class Login extends JFrame {
 	private JLabel lblInfo;
 
 	public Login() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

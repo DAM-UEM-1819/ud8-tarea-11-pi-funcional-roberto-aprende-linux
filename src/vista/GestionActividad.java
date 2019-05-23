@@ -62,6 +62,7 @@ public class GestionActividad extends JFrame {
 
 	 
 	public GestionActividad() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -181,7 +182,7 @@ public class GestionActividad extends JFrame {
 		btnModificarActividad = new JButton("Modificar actividad");
 		btnModificarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?" );
+				JOptionPane.showConfirmDialog(rootPane, "ï¿½Desea modificar el profesor seleccionado?" );
 			}
 		});
 		btnModificarActividad.setBounds(325, 685, 128, 40);

@@ -49,6 +49,7 @@ public class CrearUsuario extends JFrame {
 	private JTextField txtCorreoComprobacion;
 
 	public CrearUsuario() {
+		setResizable(false);
 		setAutoRequestFocus(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");

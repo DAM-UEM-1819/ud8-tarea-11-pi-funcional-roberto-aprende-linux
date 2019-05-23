@@ -59,6 +59,7 @@ public class GestionRegistros extends JFrame {
 	 * Create the frame.
 	 */
 	public GestionRegistros() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

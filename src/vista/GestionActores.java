@@ -57,6 +57,7 @@ public class GestionActores extends JFrame {
 	private JCheckBox chckbxActivo;
 
 	public GestionActores() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

@@ -62,6 +62,7 @@ public class GestionProfesoresAddMod extends JFrame {
 	private JTextField txtApellidos;
 
 	public GestionProfesoresAddMod() {
+		setResizable(false);
 		// TODO Auto-generated constructor stub
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -186,7 +187,7 @@ public class GestionProfesoresAddMod extends JFrame {
 		btnModificarProfesor = new JButton("Modificar profesor");
 		btnModificarProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?");
+				JOptionPane.showConfirmDialog(rootPane, "ï¿½Desea modificar el profesor seleccionado?");
 			}
 		});
 		btnModificarProfesor.setBounds(325, 685, 120, 40);

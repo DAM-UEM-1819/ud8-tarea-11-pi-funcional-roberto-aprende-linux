@@ -56,6 +56,7 @@ public class GestionAsignatura extends JFrame {
 	private JLabel lblImportarActividades;
 
 	public GestionAsignatura() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -157,7 +158,7 @@ public class GestionAsignatura extends JFrame {
 		btnModificarAsignatura = new JButton("Modificar asignatura");
 		btnModificarAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el profesor seleccionado?");
+				JOptionPane.showConfirmDialog(rootPane, "ï¿½Desea modificar el profesor seleccionado?");
 			}
 		});
 		btnModificarAsignatura.setBounds(325, 685, 135, 40);

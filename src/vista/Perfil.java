@@ -57,6 +57,7 @@ public class Perfil extends JFrame {
 	 * Create the frame.
 	 */
 	public Perfil() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

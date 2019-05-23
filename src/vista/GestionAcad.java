@@ -52,6 +52,7 @@ public class GestionAcad extends JFrame {
 	private JLabel lblImportaionesActividades;
 
 	public GestionAcad() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -84,7 +85,7 @@ public class GestionAcad extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Año académico");
+		lblTitulo = new JLabel("Aï¿½o acadï¿½mico");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBounds(322, 11, 333, 61);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));

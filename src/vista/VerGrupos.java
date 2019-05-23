@@ -42,6 +42,7 @@ public class VerGrupos extends JFrame {
 
 	
 	public VerGrupos() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
