@@ -77,6 +77,7 @@ public class ModeloGestionDatos {
 	private boolean seHaCreado;
 	private boolean seHaCambiadoEstado;
 	private String clave;
+	private int activo;
 
 	// Sentencias Insertado SQL
 	private String insertUsuario;
@@ -109,6 +110,8 @@ public class ModeloGestionDatos {
 	private String updateSala;
 	private String updateRegistro;
 	private String updateUsuario;
+	//activo-inactivo
+	private String activoInactivoUpdateAlumno;
 	
 
 	/**
@@ -222,6 +225,10 @@ public class ModeloGestionDatos {
 	public boolean getSeHaCreado() {
 		return seHaCreado;
 	}
+	
+	public boolean getSeHaCambiadoEstado() {
+		return seHaCambiadoEstado;
+	}
 
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
@@ -275,6 +282,8 @@ public class ModeloGestionDatos {
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
+		
+		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 
 	}
 
@@ -466,12 +475,13 @@ public class ModeloGestionDatos {
 	}
 	
 	
-	public boolean opcionesActivoDatos(String activo ,String clave, String opcion) {
+	public boolean opcionesActivoDatos(int activo ,String clave, String opcion) {
 		this.clave = clave;
+		this.activo = activo;
 		seHaCambiadoEstado = false;
 		switch (opcion) {
 		case "A":
-			seHaCambiadoEstado = ActivoDatos(updateAlumno);
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateAlumno);
 			break;
 		case "B":
 
@@ -516,17 +526,17 @@ public class ModeloGestionDatos {
 	}
 	
 	private boolean ActivoDatos(String sql) {
-		seHaBorrado = false;
+		seHaCambiadoEstado = false;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, clave);
-			ResultSet rs = pstmt.executeQuery();
-			datosFilastabla.removeAll(datosFilastabla);
-			seHaBorrado = true;
+			pstmt.setInt(1, activo);
+			pstmt.setString(2, clave);
+			pstmt.executeUpdate();
+			seHaCambiadoEstado = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return seHaBorrado;
+		return seHaCambiadoEstado;
 	}
 	
 
@@ -549,6 +559,7 @@ public class ModeloGestionDatos {
 				pstmt.setInt(2, activo);
 				pstmt.setString(3, exp);
 				pstmt.executeUpdate();
+				respuesta = "Has modificado alumno";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -579,7 +590,7 @@ public class ModeloGestionDatos {
 				addDatos(pstmt);
 
 				seHaCreado = true;
-
+				respuesta = "Has modificado sala";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -327,7 +327,7 @@ public class Controlador implements IControlador {
 		String opcion = clase.substring(12, clase.length()-2).toUpperCase();
 		switch (opcion) {
 		case "GESTIONALUMNOS":
-			modeloGestionDatos.opcionesBorrarDatos(gestionAlumnos.getPrimaryKey(), "A");
+			modeloGestionDatos.opcionesActivoDatos(gestionAlumnos.estadoCheckBox(), gestionAlumnos.getPrimaryKey(), "A");
 			break;
 		case "GESTIONUSUARIOS":
 			modeloGestionDatos.opcionesBorrarDatos(gestionUsuarios.getPrimaryKey(), "B");
@@ -408,7 +408,7 @@ public class Controlador implements IControlador {
 	}
 	
 	public void solicitudCamposDeTextoProfe() {
-		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(),gestionProfesores.getNombreProfeGP(),gestionProfesores.getApe1GP(),gestionProfesores.getApe2GP());
+		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(),gestionProfesores.getNombreProfeGP(),gestionProfesores.getApe1GP(),gestionProfesores.getApe2GP() , gestionProfesores.getTitulacion() , gestionProfesores.getDni(), gestionProfesores);
 	}
 	
 	// VENTANA GESTION PROFESORESADDMOD

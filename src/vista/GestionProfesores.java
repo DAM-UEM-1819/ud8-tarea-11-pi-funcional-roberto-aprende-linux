@@ -232,6 +232,8 @@ public class GestionProfesores extends JFrame {
 	public String getDni() {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 3));
 	}
+	
+	
 
 	public String Activo() {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 4));
@@ -260,4 +262,6 @@ public class GestionProfesores extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaProfesores.getModel();
 	}
+	
+
 }

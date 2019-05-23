@@ -96,7 +96,7 @@ public class GestionAlumnos extends JFrame {
 		});
 		tablaAlumnos.setRowHeight(30);
 		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
-		
+
 		scrollPaneRegistros.setViewportView(tablaAlumnos);
 
 		txtExpediente = new JTextField();
@@ -105,10 +105,11 @@ public class GestionAlumnos extends JFrame {
 			public void keyTyped(KeyEvent arg0) {
 				habilitarBotones();
 			}
+
 			public void keyPressed(KeyEvent arg0) {
 				habilitarBotones();
 			}
-			
+
 		});
 		txtExpediente.setBounds(125, 600, 200, 30);
 		contentPane.add(txtExpediente);
@@ -120,8 +121,7 @@ public class GestionAlumnos extends JFrame {
 			public void keyTyped(KeyEvent arg0) {
 				habilitarBotones();
 			}
-		
-		
+
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				habilitarBotones();
@@ -146,6 +146,7 @@ public class GestionAlumnos extends JFrame {
 		btnModificarAlumno.setEnabled(false);
 		btnModificarAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				controlador.solicitudModificarAlumno();
 				modAlumno();
 			}
@@ -165,8 +166,13 @@ public class GestionAlumnos extends JFrame {
 		btnActivoAlumno.setEnabled(false);
 		btnActivoAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (estadoCheckBox() == 1) {
+					chckbxActivoInactivo.setSelected(false);
+				} else {
+					chckbxActivoInactivo.setSelected(true);
+				}
 				controlador.solicitudBorrar(this);
-				if (modeloGestionDatos.getSeHaBorrado()) {
+				if (modeloGestionDatos.getSeHaCambiadoEstado()) {
 					activoAlumno();
 				}
 
@@ -238,7 +244,6 @@ public class GestionAlumnos extends JFrame {
 		lblImportarAlumnos.setBounds(100, 111, 124, 20);
 		contentPane.add(lblImportarAlumnos);
 		lblImportarAlumnos.setVisible(false);
-		
 
 		txtBuscador = new JTextField();
 		txtBuscador.addMouseListener(new MouseAdapter() {
@@ -261,7 +266,6 @@ public class GestionAlumnos extends JFrame {
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
-
 
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -290,11 +294,11 @@ public class GestionAlumnos extends JFrame {
 	}
 
 	// getters
-	
+
 	public String getPrimaryKey() {
 		return String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0));
 	}
-	
+
 	public String getActividad() {
 		return String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 2));
 	}
@@ -314,15 +318,14 @@ public class GestionAlumnos extends JFrame {
 
 	public void activoAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
-		model.removeRow(tablaAlumnos.getSelectedRow());
 		if (getExp().equals(String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0)))) {
 			lblInfo.setText("Se ha cambiado estado alumno");
 			model.setValueAt(getNombre(), tablaAlumnos.getSelectedRow(), 1);
 			model.setValueAt(estadoCheckBox(), tablaAlumnos.getSelectedRow(), 2);
-		
-	} else {
-		lblInfo.setText("No se ha cambiado estado alumno");
-	}
+
+		} else {
+			lblInfo.setText("No se ha cambiado estado alumno");
+		}
 
 	}
 
@@ -331,12 +334,11 @@ public class GestionAlumnos extends JFrame {
 		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
 
 		if (getExp().equals(String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0)))) {
-				lblInfo.setText("MOD");
-				model.setValueAt(getNombre(), tablaAlumnos.getSelectedRow(), 1);
-				model.setValueAt(estadoCheckBox(), tablaAlumnos.getSelectedRow(), 2);
-			
+			model.setValueAt(getNombre(), tablaAlumnos.getSelectedRow(), 1);
+			model.setValueAt(estadoCheckBox(), tablaAlumnos.getSelectedRow(), 2);
+
 		} else {
-			lblInfo.setText("Mal");
+			lblInfo.setText("No se ha podido modificar alumno");
 		}
 
 	}
@@ -361,16 +363,22 @@ public class GestionAlumnos extends JFrame {
 		int resultado = chckbxActivoInactivo.isSelected() == true ? 1 : 0;
 		return resultado;
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
+
 	private void limpiarTxt() {
 		txtExpediente.setText("");
 		txtNombre.setText("");
 		chckbxActivoInactivo.setSelected(false);
 	}
-	
+
+	public void actualizarInfoDatos() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+
+	}
+
 	public void habilitarBotones() {
 		// btnAlta
 		if (!txtExpediente.getText().equals("") && !txtNombre.getText().equals("")) {
@@ -380,14 +388,16 @@ public class GestionAlumnos extends JFrame {
 		}
 
 		// btnmodificar
-		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("") && !txtNombre.getText().equals("") ) {
+		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("")
+				&& !txtNombre.getText().equals("")) {
 			btnModificarAlumno.setEnabled(true);
 		} else {
 			btnModificarAlumno.setEnabled(false);
 		}
 
 		// btnBorrar
-		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("") && !txtNombre.getText().equals("") ) {
+		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("")
+				&& !txtNombre.getText().equals("")) {
 			btnActivoAlumno.setEnabled(true);
 		} else {
 			btnActivoAlumno.setEnabled(false);
