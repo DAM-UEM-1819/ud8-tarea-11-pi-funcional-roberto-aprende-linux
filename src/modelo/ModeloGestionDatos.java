@@ -398,14 +398,14 @@ public class ModeloGestionDatos {
 				PreparedStatement pstmt = conexion.prepareStatement(insertSala);
 				pstmt.setString(1, cod);
 				pstmt.setString(2, tipo);
-				pstmt.setString(3, numero);
-				pstmt.setString(4, capacidad);
+				pstmt.setString(3, capacidad);
+				pstmt.setString(4, numero);
 				addDatos(pstmt);
 				datosFilastabla.removeAll(datosFilastabla);
 				datosFilastabla.add(cod);
 				datosFilastabla.add(tipo);
-				datosFilastabla.add(numero);
 				datosFilastabla.add(capacidad);
+				datosFilastabla.add(numero);
 				seHaCreado = true;
 
 			} catch (Exception e) {
