@@ -140,7 +140,7 @@ public class VerGrupos extends JFrame {
 
 		tablaGrupos = new JTable();
 		tablaGrupos.getTableHeader().setReorderingAllowed(false);
-		tablaGrupos.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nombre y apellido" }));
+		tablaGrupos.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
 		scrollPane.setViewportView(tablaGrupos);
 		
 		lblNumeroAlumnos = new JLabel();
