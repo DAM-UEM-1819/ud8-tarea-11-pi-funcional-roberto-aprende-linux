@@ -22,6 +22,7 @@ import vista.GestionActores;
 import vista.GestionAlumnos;
 import vista.GestionAsignatura;
 import vista.GestionProfesores;
+import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
@@ -50,6 +51,7 @@ public class ModeloGestionDatos {
 	private GestionRegistros gestionRegistros;
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
+	private GestionProfesoresAddMod gestionProfesoresAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -58,6 +60,7 @@ public class ModeloGestionDatos {
 	private ModeloConsultas modeloConsultas;
 
 	private ArrayList<Object> datosFilastabla;
+	private ArrayList<String> datosProfe;
 
 	// Atributos Fichero
 	private Properties propiedadesInsertado;
@@ -186,6 +189,11 @@ public class ModeloGestionDatos {
 
 	public void setGestionAsignatura(GestionAsignatura gestionAsignatura) {
 		this.gestionAsignatura = gestionAsignatura;
+	}
+
+	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
+		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
+
 	}
 
 	public void setGestionProfesores(GestionProfesores gestionProfesores) {
@@ -531,9 +539,11 @@ public class ModeloGestionDatos {
 		}
 	}
 
-	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor, String actividadNombre) {
+	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor,
+			String actividadNombre) {
 		// TODO Auto-generated method stub
-		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty() && !actividadNombre.isEmpty()) {
+		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty()
+				&& !actividadNombre.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
 				pstmt.setString(1, fecha);
@@ -555,6 +565,9 @@ public class ModeloGestionDatos {
 		}
 
 	}
-	
+
+	public void rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp) {
+
+	}
 
 }

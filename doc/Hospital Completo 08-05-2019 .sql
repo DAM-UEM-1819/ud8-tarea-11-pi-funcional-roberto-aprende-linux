@@ -238,13 +238,13 @@ ALTER TABLE Actividad
   REM ***1Âº Profesores***
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
-  VALUES(2224, 'MERCANTIL', '00000001F', 'lourdes@gmail.com', 'lourdes2@gmail.com', 654433891, 114433891, 'LOURDES ', 'MARTIN', 'MENDEZ', 'MEDICO');
+  VALUES(2224, 'MERCANTIL', '00000001F', 'lourdes@gmail.com', 'lourdes2@gmail.com', 654433891, 114433891, 'LOURDES', 'MARTIN', 'MENDEZ', 'MEDICO');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
-  VALUES(3332, 'LABORAL', '00000002D', 'marta@gmail.com', 'marta2@gmail.com', 774433891, 224433891, 'MARTA', 'LABORDA ', 'MARTÃ�N', 'CONSULTOR');
+  VALUES(3332, 'LABORAL', '00000002D', 'marta@gmail.com', 'marta2@gmail.com', 774433891, 224433891, 'MARTA', 'LABORDA', 'MARTÃ�N', 'CONSULTOR');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
-  VALUES(2324, 'LABORAL', '00000003G', 'maria@gmail.com', 'maria2@gmail.com', 884433891, 334433891, 'MARIA ', 'GILSANZ', 'MUÃ‘OZ', 'DESARROLLADOR');
+  VALUES(2324, 'LABORAL', '00000003G', 'maria@gmail.com', 'maria2@gmail.com', 884433891, 334433891, 'MARIA', 'GILSANZ', 'MUÃ‘OZ', 'DESARROLLADOR');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
   VALUES(2325, 'LABORAL', '00000004C', 'santiago@gmail.com', 'santiago2@gmail.com', 994433891, 444433891, 'SANTIAGO', 'SEGURA', 'MARTIN', 'LEGADO');
