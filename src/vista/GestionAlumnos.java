@@ -134,6 +134,7 @@ public class GestionAlumnos extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				limpiarTxt();
 				setVisible(false);
 				controlador.gestionAlumnosToGestion();
 			}
@@ -166,7 +167,7 @@ public class GestionAlumnos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				controlador.solicitudBorrar(this);
 				if (modeloGestionDatos.getSeHaBorrado()) {
-					delAlumno();
+					activoAlumno();
 				}
 
 			}
@@ -293,6 +294,10 @@ public class GestionAlumnos extends JFrame {
 	public String getPrimaryKey() {
 		return String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0));
 	}
+	
+	public String getActividad() {
+		return String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 2));
+	}
 
 	public String getExp() {
 		return txtExpediente.getText();
@@ -307,20 +312,23 @@ public class GestionAlumnos extends JFrame {
 		model.addRow(modeloGestionDatos.getDatosfilasTabla());
 	}
 
-	public void delAlumno() {
+	public void activoAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
 		model.removeRow(tablaAlumnos.getSelectedRow());
-		txtExpediente.setText("");
-		txtNombre.setText("");
-		chckbxActivoInactivo.setSelected(false);
+		if (getExp().equals(String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0)))) {
+			lblInfo.setText("Se ha cambiado estado alumno");
+			model.setValueAt(getNombre(), tablaAlumnos.getSelectedRow(), 1);
+			model.setValueAt(estadoCheckBox(), tablaAlumnos.getSelectedRow(), 2);
+		
+	} else {
+		lblInfo.setText("No se ha cambiado estado alumno");
+	}
 
 	}
 
 	public void modAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
 		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
-		String EXP = getExp();
-		String exp2 = String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0));
 
 		if (getExp().equals(String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0)))) {
 				lblInfo.setText("MOD");
@@ -357,24 +365,29 @@ public class GestionAlumnos extends JFrame {
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
+	private void limpiarTxt() {
+		txtExpediente.setText("");
+		txtNombre.setText("");
+		chckbxActivoInactivo.setSelected(false);
+	}
 	
 	public void habilitarBotones() {
 		// btnAlta
-		if (!txtExpediente.getText().equals("") && !txtNombre.getText().equals("") && chckbxActivoInactivo.isSelected()) {
+		if (!txtExpediente.getText().equals("") && !txtNombre.getText().equals("")) {
 			btnAddAlumno.setEnabled(true);
 		} else {
 			btnAddAlumno.setEnabled(false);
 		}
 
 		// btnmodificar
-		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("") && !txtNombre.getText().equals("") && chckbxActivoInactivo.isSelected()) {
+		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("") && !txtNombre.getText().equals("") ) {
 			btnModificarAlumno.setEnabled(true);
 		} else {
 			btnModificarAlumno.setEnabled(false);
 		}
 
 		// btnBorrar
-		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("") && !txtNombre.getText().equals("") && chckbxActivoInactivo.isSelected()) {
+		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("") && !txtNombre.getText().equals("") ) {
 			btnActivoAlumno.setEnabled(true);
 		} else {
 			btnActivoAlumno.setEnabled(false);

@@ -327,7 +327,7 @@ public class Controlador implements IControlador {
 		String opcion = clase.substring(12, clase.length()-2).toUpperCase();
 		switch (opcion) {
 		case "GESTIONALUMNOS":
-			modeloGestionDatos.opcionesBorrarDatos(gestionAlumnos.getPrimaryKey(), "A");
+			modeloGestionDatos.opcionesActivoDatos(gestionAlumnos.getActividad(),gestionAlumnos.getPrimaryKey(), "A");
 			break;
 		case "GESTIONUSUARIOS":
 			modeloGestionDatos.opcionesBorrarDatos(gestionUsuarios.getPrimaryKey(), "B");
