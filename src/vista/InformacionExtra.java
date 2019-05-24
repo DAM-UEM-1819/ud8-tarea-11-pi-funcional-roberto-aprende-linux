@@ -144,13 +144,15 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(btnGuardarCambios);
 		
 		lblProfesores = new Label("Profesores");
+		lblProfesores.setAlignment(Label.CENTER);
 		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(425, 128, 95, 22);
+		lblProfesores.setBounds(98, 128, 800, 34);
 		contentPane.add(lblProfesores);
 		
 		lblAlumnos = new Label("Alumnos");
+		lblAlumnos.setAlignment(Label.CENTER);
 		lblAlumnos.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblAlumnos.setBounds(448, 307, 72, 22);
+		lblAlumnos.setBounds(98, 301, 800, 28);
 		contentPane.add(lblAlumnos);
 	}
 	

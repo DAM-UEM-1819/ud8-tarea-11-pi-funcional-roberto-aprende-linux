@@ -130,12 +130,12 @@ public class Informes extends JFrame {
 
 		lblProfesores = new Label("Nombre del informe: ");
 		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(98, 129, 490, 22);
+		lblProfesores.setBounds(98, 129, 400, 22);
 		contentPane.add(lblProfesores);
 		
 		comboBoxInformes = new JComboBox();
 		comboBoxInformes.setModel(new DefaultComboBoxModel(ListadoInformes.values()));
-		comboBoxInformes.setBounds(597, 123, 301, 33);
+		comboBoxInformes.setBounds(504, 123, 394, 33);
 		contentPane.add(comboBoxInformes);
 	}
 	public void setControlador(Controlador controlador) {
