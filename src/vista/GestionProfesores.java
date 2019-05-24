@@ -174,9 +174,25 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(btnAddProfesor);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosUsuarios();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(812, 132, 86, 20);
+		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
@@ -269,8 +285,7 @@ public class GestionProfesores extends JFrame {
 	}
 
 	public String getPalabraBuscador() {
-		// TODO Auto-generated method stub
-		return null;
+		return txtBuscador.getText();
 	}
 	
 	

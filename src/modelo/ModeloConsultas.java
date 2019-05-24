@@ -318,7 +318,7 @@ public class ModeloConsultas {
 	 * dados con los datos de la BBDD. Para comparar la contraseña genera un MD5 de
 	 * la misma y compara el hash con el que haya en la BBDD para el usuario
 	 * correspondiente
-	 * 
+	 *
 	 * @param usuario El usuario escrito en el textfield del login
 	 * @param passwd  La contraseña del usuario
 	 */
@@ -358,7 +358,7 @@ public class ModeloConsultas {
 
 	/**
 	 * Este método devuelve el hash de la contraseña de un usuario en específico
-	 * 
+	 *
 	 * @param usuario El usuario a consultar
 	 * @param passwd  La contraseña del usuario
 	 * @return El hash de la contraseña ubicada en la BBDD
@@ -383,7 +383,7 @@ public class ModeloConsultas {
 	 * Este método consulta si el usuario que se quiere añadir ya existe o no en la
 	 * base de datos. En caso de que no exista llamará al metodo correspondiente
 	 * para crear el usuario
-	 * 
+	 *
 	 * @param user   El nombre del usuario
 	 * @param passwd La contraseña del usuario
 	 * @param rol    El rol del usuario
@@ -410,7 +410,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana home
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista Home
 	 */
 	public void getTablaHome(DefaultTableModel tableModel) {
@@ -466,7 +466,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de usuarios
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de usuarios
 	 */
 	public void getTablaUsuarios(DefaultTableModel tableModel) {
@@ -484,7 +484,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de año academico
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de acad
 	 */
 	public void getTablaAcad(DefaultTableModel tableModel) {
@@ -502,7 +502,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de actividades
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de actividad
 	 */
 	public void getTablaActividad(DefaultTableModel tableModel) {
@@ -520,7 +520,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de actores
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de actores
 	 */
 	public void getTablaActores(DefaultTableModel tableModel) {
@@ -538,7 +538,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de alumnos
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de alumnos
 	 */
 	public void getTablaAlumnos(DefaultTableModel tableModel) {
@@ -556,7 +556,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de asignaturas
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de asignaturas
 	 */
 	public void getTablaAsignatura(DefaultTableModel tableModel) {
@@ -574,7 +574,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de profesores
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de fgestion de profesores
 	 */
 	public void getTablaProfesores(DefaultTableModel tableModel) {
@@ -592,7 +592,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de registros
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de registros
 	 */
 	public void getTablaRegistros(DefaultTableModel tableModel) {
@@ -610,7 +610,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de salas
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de salas
 	 */
 	public void getTablaSalas(DefaultTableModel tableModel) {
@@ -652,7 +652,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para sacar los alumnos que hay en un determinado grupo
 	 * especificado en el segundo de los parametros
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de ver grupo
 	 * @param grupo      El grupo por el que se va a filtrar
 	 */
@@ -661,7 +661,7 @@ public class ModeloConsultas {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo);
-			pstmt.setString(1, "%" + grupo.toUpperCase() + "%");
+			pstmt.setString(1, grupo.toUpperCase() + "%");
 			getDatos(pstmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -674,7 +674,7 @@ public class ModeloConsultas {
 
 	/**
 	 * Metodo que sirve para
-	 * 
+	 *
 	 * @param pstmt La consulta preparada y lista para ejecutarse
 	 */
 	private void getDatos(PreparedStatement pstmt) {
@@ -724,68 +724,7 @@ public class ModeloConsultas {
 	}
 
 	// BUSCADORES
-	
-	/**
-	 * Metodo que sirve para preparar la consulta del buscador en la ventana de ususarios
-	 * @param tableModel	La tabla de la vista de usuarios	
-	 * @param palabra		La palabra a buscar
-	 */
-	public void buscadorUsuarios(DefaultTableModel tableModel, String palabra) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		try {
-			pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
-			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
-			getDatos(pstmt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Metodo que sirve para preparar la consulta del buscador en la ventana de salas
-	 * @param tableModel	La tabla de la vista de salas	
-	 * @param palabra		La palabra a buscar
-	 */
-	public void buscadorSalas(DefaultTableModel tableModel, String palabra) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		try {
-			pstmt = conexion.prepareStatement(selectBuscadorSalas);
-			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
-			getDatos(pstmt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Metodo que sirve para preparar la consulta del buscador en la ventana de alumnos
-	 * @param tableModel	La tabla de la vista de alumnos	
-	 * @param palabra		La palabra a buscar
-	 */
-	public void buscadorAlumnos(DefaultTableModel tableModel, String palabra) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		try {
-			pstmt = conexion.prepareStatement(selectBuscadorSalas);
-			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
-			getDatos(pstmt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+
 	/**
 	 * Metodo general que sirve para realizar todas las consultas de búsqueda
 	 * @param tableModel	La tabla donde se va a mostrar el resultado
@@ -801,75 +740,87 @@ public class ModeloConsultas {
 			switch (opcion) {
 			case "A":
 				pstmt = conexion.prepareStatement(selectBuscadorAlumnos);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
 				break;
 			case "B":
 				pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
 				break;
 			case "C":
 				pstmt = conexion.prepareStatement(selectBuscadorActividades);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
-				pstmt.setString(5, "%" + palabra + "%");
-				pstmt.setString(6, "%" + palabra + "%");
-				pstmt.setString(7, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
 				break;
 			case "D":
 				pstmt = conexion.prepareStatement(selectBuscadorAsignatura);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
 				break;
 			case "E":
 				pstmt = conexion.prepareStatement(selectBuscadorSalas);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
 				break;
 			case "F":
 				pstmt = conexion.prepareStatement(selectBuscadorProfesores);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
-				pstmt.setString(5, "%" + palabra + "%");
-				pstmt.setString(6, "%" + palabra + "%");
-				pstmt.setString(7, "%" + palabra + "%");
-				pstmt.setString(8, "%" + palabra + "%");
-				pstmt.setString(9, "%" + palabra + "%");
-				pstmt.setString(10, "%" + palabra + "%");
-				pstmt.setString(11, "%" + palabra + "%");
-				pstmt.setString(12, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
+				pstmt.setString(8, palabra + "%");
+				pstmt.setString(9, palabra + "%");
+				pstmt.setString(10, palabra + "%");
+				pstmt.setString(11, palabra + "%");
+				pstmt.setString(12, palabra + "%");
 				break;
 			case "G":
 				pstmt = conexion.prepareStatement(selectBuscadorAcad);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
 				break;
 			case "H":
 				pstmt = conexion.prepareStatement(selectBuscadorActores);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
-				pstmt.setString(5, "%" + palabra + "%");
-				pstmt.setString(6, "%" + palabra + "%");
-				pstmt.setString(7, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
 				break;
 			case "I":
-				// sql = deleteAsignatura;
+				pstmt = conexion.prepareStatement(selectBuscadorRegistros);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
 				break;
 			case "J":
-				// sql = deleteAsignatura;
+				pstmt = conexion.prepareStatement(selectBuscadorActividades); // Cambiar
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
 				break;
 			}
 		} catch (Exception e) {

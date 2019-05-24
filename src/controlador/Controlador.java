@@ -262,10 +262,6 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaUsuarios(gestionUsuarios.getModel());
 	}
 
-	public void solicitudBuscadorUsuario() {
-		modeloConsultas.buscadorUsuarios(gestionUsuarios.getModel(), gestionUsuarios.getPalabraBuscador());
-	}
-
 	// VENTANA GESTION ACAD
 	public void gestionAcadToGestion() {
 		gestion.setVisible(true);
@@ -352,10 +348,6 @@ public class Controlador implements IControlador {
 	public void solicitudModificarAlumno() {
 		modeloGestionDatos.modificarAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre(),
 				gestionAlumnos.estadoCheckBox());
-	}
-
-	public void solicitudBuscadorAlumno() {
-		modeloConsultas.buscadorAlumnos(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador());
 	}
 
 	// VENTANA GESTION REGISTROS
@@ -448,10 +440,6 @@ public class Controlador implements IControlador {
 		modeloGestionDatos.modificarSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(),
 				gestionSalas.getCapacidad());
 
-	}
-
-	public void solicitudBuscadorSala() {
-		modeloConsultas.buscadorSalas(gestionSalas.getModel(), gestionSalas.getPalabraBuscador());
 	}
 
 	// VENTANA GESTION GRUPOS
