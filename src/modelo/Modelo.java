@@ -143,13 +143,13 @@ public class Modelo {
 	}
 
 	/**
-	 * Este metodo envia un correo electrónico al destinatario con su usario y su
-	 * contraseña Primero configuramos los datos esenciales, despues creamos el
+	 * Este metodo envia un correo electrï¿½nico al destinatario con su usario y su
+	 * contraseï¿½a Primero configuramos los datos esenciales, despues creamos el
 	 * mensaje
 	 * 
 	 * @param destinatario El destinatario del correo
 	 * @param user         El usuario creado
-	 * @param passwd       La contraseña generada
+	 * @param passwd       La contraseï¿½a generada
 	 */
 	public void enviarCorreoGmail(String destinatario, String user, String passwd) {
 		Properties propiedades = System.getProperties();
@@ -183,11 +183,11 @@ public class Modelo {
 	}
 
 	/**
-	 * Este método genera una contraseña aleatoria con letras y numeros con una
+	 * Este mï¿½todo genera una contraseï¿½a aleatoria con letras y numeros con una
 	 * longitud de 9 caracteres Selecciona al azar 3 datos de los 3 tipos y los suma
 	 * a la cadena
 	 * 
-	 * @return la contraseña generada
+	 * @return la contraseï¿½a generada
 	 */
 	public String generadorPasswd() {
 		String passwd = "";
@@ -206,22 +206,29 @@ public class Modelo {
 		return passwd;
 	}
 
+	/**
+	 * Metodo que sirve para encriptar una contraseÃ±a dada
+	 * 
+	 * @param passwd La contraseÃ±a a encriptar
+	 * @return La contraseÃ±a encriptada
+	 */
+
 	public String generarMD5(String passwd) {
-		
+
 		try {
-			//Indicamos el algoritmo a utilizar
+			// Indicamos el algoritmo a utilizar
 			MessageDigest md = MessageDigest.getInstance(MessageDigestAlgorithms.MD5);
-			
-			//Convertimos la contraseña a bytes y se la pasamos al MessageDigest
+
+			// Convertimos la contraseï¿½a a bytes y se la pasamos al MessageDigest
 			md.update(passwd.getBytes());
-			
-			//La contraseña en un array de bytes
+
+			// La contraseï¿½a en un array de bytes
 			byte[] digest = md.digest();
 
 			// Lo codificamos en base 64.
 			byte[] encoded = Base64.encodeBase64(digest);
-			
-			//Convertimos la codificacion a un String
+
+			// Convertimos la codificacion a un String
 			passwd = new String(encoded);
 
 		} catch (NoSuchAlgorithmException e) {
