@@ -314,8 +314,15 @@ public class GestionProfesoresAddMod extends JFrame {
 	public void rellenar() {
 		if (modeloGestionDatos.getRellenarDatos().length != 0) {
 			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
-			txtApellidos.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
-			
+			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
+			txtApellidos.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
+			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
+			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
+			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
+			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
+			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
 		}
 			
 		
