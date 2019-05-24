@@ -52,15 +52,14 @@ public class GestionProfesoresAddMod extends JFrame {
 	private JLabel lblUemLogo;
 	private JLabel lblPerfil;
 	private JButton btnVolver;
-	private JButton btnAddProfesor;
-	private JButton btnModificarProfesor;
+	private JButton btnGuardarCambios;
 	private JTextField txtTelefono2;
 	private JTextField txtEmail1;
 	private JTextField txtEmail2;
 	private JCheckBox chckbxAI_profesores;
 	private JComboBox comboBoxColumna;
 	private JLabel lblNombre;
-	private JTextField txtApellidos;
+	private JTextField txtApellido1;
 	private JLabel lblRelacionLaboral;
 	private JLabel lblTlfn1;
 	private JLabel lblTlfn2;
@@ -68,10 +67,11 @@ public class GestionProfesoresAddMod extends JFrame {
 	private JLabel lblEmail2;
 	private JLabel lblDni;
 	private JLabel lblNumero;
-	private JLabel lblApellidos;
+	private JLabel lblApellido1;
 	private JLabel lblTitulacion;
-	private Array [] rellenarCampos;
-	private String num;
+	private JTextField txtApellido2;
+	private JLabel lblApellido2;
+	private String activo;
 
 	public GestionProfesoresAddMod() {
 		setResizable(false);
@@ -80,9 +80,9 @@ public class GestionProfesoresAddMod extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				rellenar();
-				
-				
+
 			}
+
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
@@ -104,19 +104,24 @@ public class GestionProfesoresAddMod extends JFrame {
 		txtNombre.setBounds(233, 281, 247, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
-		
-		txtApellidos = new JTextField();
-		txtApellidos.setBounds(233, 361, 247, 30);
-		contentPane.add(txtApellidos);
-		txtApellidos.setColumns(10);
+
+		txtApellido1 = new JTextField();
+		txtApellido1.setBounds(233, 361, 247, 30);
+		contentPane.add(txtApellido1);
+		txtApellido1.setColumns(10);
+
+		txtApellido2 = new JTextField();
+		txtApellido2.setColumns(10);
+		txtApellido2.setBounds(233, 440, 247, 30);
+		contentPane.add(txtApellido2);
 
 		txtTitulacion = new JTextField();
-		txtTitulacion.setBounds(233, 440, 247, 30);
+		txtTitulacion.setBounds(233, 519, 247, 30);
 		contentPane.add(txtTitulacion);
 		txtTitulacion.setColumns(10);
 
 		txtDni = new JTextField();
-		txtDni.setBounds(233, 519, 247, 30);
+		txtDni.setBounds(233, 597, 247, 30);
 		contentPane.add(txtDni);
 		txtDni.setColumns(10);
 
@@ -127,22 +132,22 @@ public class GestionProfesoresAddMod extends JFrame {
 
 		txtTelefono1 = new JTextField();
 		txtTelefono1.setColumns(10);
-		txtTelefono1.setBounds(546, 281, 241, 30);
+		txtTelefono1.setBounds(546, 281, 247, 30);
 		contentPane.add(txtTelefono1);
 
 		txtTelefono2 = new JTextField();
-		txtTelefono2.setBounds(546, 361, 241, 30);
+		txtTelefono2.setBounds(546, 361, 247, 30);
 		contentPane.add(txtTelefono2);
 		txtTelefono2.setColumns(10);
 
 		txtEmail1 = new JTextField();
 		txtEmail1.setColumns(10);
-		txtEmail1.setBounds(546, 440, 241, 30);
+		txtEmail1.setBounds(546, 440, 247, 30);
 		contentPane.add(txtEmail1);
 
 		txtEmail2 = new JTextField();
 		txtEmail2.setColumns(10);
-		txtEmail2.setBounds(546, 519, 241, 30);
+		txtEmail2.setBounds(546, 519, 247, 30);
 		contentPane.add(txtEmail2);
 
 		HeaderPanel = new JPanel();
@@ -192,75 +197,71 @@ public class GestionProfesoresAddMod extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpiarTxt();
+				if (modeloGestionDatos.getVaciarDatos()) {
+					limpiarTxt();
+				}
 				setVisible(false);
 				controlador.gestionProfesoresAddModToGestionProfesores();
-				
-				
+
 			}
 		});
 		btnVolver.setBounds(100, 685, 120, 40);
 		contentPane.add(btnVolver);
 
-		btnModificarProfesor = new JButton("Modificar profesor");
-		btnModificarProfesor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?");
-			}
-		});
-		btnModificarProfesor.setBounds(464, 685, 120, 40);
-		contentPane.add(btnModificarProfesor);
-
-		btnAddProfesor = new JButton(" A\u00F1adir profesores");
-		btnAddProfesor.setBounds(774, 685, 128, 40);
-		contentPane.add(btnAddProfesor);
+		btnGuardarCambios = new JButton("Guardar cambios");
+		btnGuardarCambios.setBounds(765, 685, 137, 40);
+		contentPane.add(btnGuardarCambios);
 
 		chckbxAI_profesores = new JCheckBox("Activo / Inactivo");
-		chckbxAI_profesores.setBounds(464, 590, 128, 23);
+		chckbxAI_profesores.setBounds(558, 601, 128, 23);
 		contentPane.add(chckbxAI_profesores);
-		
+
 		lblNumero = new JLabel("Numero");
 		lblNumero.setBounds(243, 177, 46, 14);
 		contentPane.add(lblNumero);
-		
+
 		lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(243, 257, 46, 14);
+		lblNombre.setBounds(243, 257, 237, 14);
 		contentPane.add(lblNombre);
-		
-		lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setBounds(243, 337, 46, 14);
-		contentPane.add(lblApellidos);
-		
+
+		lblApellido1 = new JLabel("Apellido 1");
+		lblApellido1.setBounds(243, 337, 237, 14);
+		contentPane.add(lblApellido1);
+
+		lblApellido2 = new JLabel("Apellido 2");
+		lblApellido2.setBounds(243, 416, 237, 14);
+		contentPane.add(lblApellido2);
+
 		lblTitulacion = new JLabel("Titulacion");
-		lblTitulacion.setBounds(243, 416, 71, 14);
+		lblTitulacion.setBounds(243, 495, 237, 14);
 		contentPane.add(lblTitulacion);
-		
+
 		lblDni = new JLabel("D.N.I");
-		lblDni.setBounds(243, 494, 71, 14);
+		lblDni.setBounds(243, 572, 71, 14);
 		contentPane.add(lblDni);
-		
+
 		lblRelacionLaboral = new JLabel("Relacion laboral");
-		lblRelacionLaboral.setBounds(558, 177, 80, 14);
+		lblRelacionLaboral.setBounds(558, 177, 235, 14);
 		contentPane.add(lblRelacionLaboral);
-		
+
 		lblTlfn1 = new JLabel("Telefono 1");
-		lblTlfn1.setBounds(558, 257, 71, 14);
+		lblTlfn1.setBounds(558, 257, 235, 14);
 		contentPane.add(lblTlfn1);
-		
+
 		lblTlfn2 = new JLabel("Telefono 2");
-		lblTlfn2.setBounds(558, 336, 71, 14);
+		lblTlfn2.setBounds(558, 336, 229, 14);
 		contentPane.add(lblTlfn2);
-		
+
 		lblEmail1 = new JLabel("Email 1");
 		lblEmail1.setBounds(558, 416, 71, 14);
 		contentPane.add(lblEmail1);
-		
+
 		lblEmail2 = new JLabel("Email 2");
 		lblEmail2.setBounds(558, 494, 71, 14);
 		contentPane.add(lblEmail2);
-		
+
 	}
-	//Setters
+	// Setters
 
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
@@ -273,7 +274,7 @@ public class GestionProfesoresAddMod extends JFrame {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	//Getters
+	// Getters
 
 	public String getNumero() {
 		return txtNumero.getText();
@@ -310,29 +311,45 @@ public class GestionProfesoresAddMod extends JFrame {
 	public String getEmail2() {
 		return txtEmail2.getText();
 	}
+
 	//
 	public void rellenar() {
 		if (modeloGestionDatos.getRellenarDatos().length != 0) {
 			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
 			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
-			txtApellidos.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
-			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
-			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
-			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
-			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
-			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
-			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
+			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
+			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
+			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
+			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
+			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
+			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
+			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
+			activo = (String.valueOf(modeloGestionDatos.getRellenarDatos()[11]));
+			if (Integer.parseInt(activo) == 1) {
+				chckbxAI_profesores.setSelected(true);
+			}
 		}
-			
-		
-		
-		
-		
 	}
+
+	public int estadoCheckBox() {
+		int resultado = chckbxAI_profesores.isSelected() == true ? 1 : 0;
+		return resultado;
+	}
+
 	public void limpiarTxt() {
-		txtNumero.removeAll();
+		txtNumero.setText("");
+		txtNombre.setText("");
+		txtApellido1.setText("");
+		txtApellido2.setText("");
+		txtTitulacion.setText("");
+		txtDni.setText("");
+		txtRelacion_laboral.setText("");
+		txtTelefono1.setText("");
+		txtTelefono2.setText("");
+		txtEmail1.setText("");
+		txtEmail2.setText("");
+		chckbxAI_profesores.setSelected(false);
 	}
-	
-	
 }
