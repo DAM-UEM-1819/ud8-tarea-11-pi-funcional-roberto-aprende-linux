@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -43,6 +45,7 @@ public class VerGrupos extends JFrame {
 	private JScrollPane scrollPane;
 	private JLabel lblNumeroAlumnos;
 	private JLabel lblGrupo;
+	private LinkedList<RowFilter> filtros;
 
 	
 	public VerGrupos() {
@@ -66,13 +69,13 @@ public class VerGrupos extends JFrame {
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Grupos");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(10, 0, 974, 100);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -185,5 +188,18 @@ public class VerGrupos extends JFrame {
 
 	public void contarAlumnos() {
 		lblNumeroAlumnos.setText("Número de alumnos: " + tablaGrupos.getRowCount());
+	}
+	
+	//ACABAR DE HACER
+	private void agregarFiltros() {
+		filtros = new LinkedList<RowFilter>();
+		String palabra = comboBoxColumna. getSelectedItem().toString();
+		for (int i = 0; i < tablaGrupos.getColumnCount(); i++) {
+			filtros.add(RowFilter.regexFilter("^" + palabra, i));
+		}
+	}
+	
+	private void filtrado() {
+		
 	}
 }

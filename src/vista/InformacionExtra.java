@@ -89,13 +89,13 @@ public class InformacionExtra extends JFrame {
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Información extra");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(268, 11, 404, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -144,13 +144,15 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(btnGuardarCambios);
 		
 		lblProfesores = new Label("Profesores");
+		lblProfesores.setAlignment(Label.CENTER);
 		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(425, 128, 95, 22);
+		lblProfesores.setBounds(98, 128, 800, 34);
 		contentPane.add(lblProfesores);
 		
 		lblAlumnos = new Label("Alumnos");
+		lblAlumnos.setAlignment(Label.CENTER);
 		lblAlumnos.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblAlumnos.setBounds(448, 307, 72, 22);
+		lblAlumnos.setBounds(98, 301, 800, 28);
 		contentPane.add(lblAlumnos);
 	}
 	
