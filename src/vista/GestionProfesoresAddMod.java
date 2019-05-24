@@ -313,8 +313,9 @@ public class GestionProfesoresAddMod extends JFrame {
 	//
 	public void rellenar() {
 		if (modeloGestionDatos.getRellenarDatos().length != 0) {
-			num = String.valueOf(modeloGestionDatos.getRellenarDatos()[0]);
-			txtNumero.setText(num);
+			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
+			txtApellidos.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
+			
 		}
 			
 		
