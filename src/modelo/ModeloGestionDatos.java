@@ -140,6 +140,7 @@ public class ModeloGestionDatos {
 			e.printStackTrace();
 		}
 		datosFilastabla = new ArrayList<Object>();
+		datosProfe = new ArrayList<String>();
 		asignacionInsertado();
 		asignacionBorrado();
 		asignacionModificacion();

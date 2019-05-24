@@ -415,7 +415,7 @@ public class Controlador implements IControlador {
 	// VENTANA GESTION PROFESORESADDMOD
 	
 	public void gestionProfesoresAddModToGestionProfesores() {
-		 gestionProfesoresAddMod.setVisible(true);
+		 gestionProfesores.setVisible(true);
 		
 	}
 	
