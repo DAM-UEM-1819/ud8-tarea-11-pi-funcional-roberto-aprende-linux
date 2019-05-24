@@ -323,7 +323,7 @@ public class GestionProfesoresAddMod extends JFrame {
 		
 	}
 	public void limpiarTxt() {
-		txtNumero.setText("");
+		txtNumero.removeAll();
 	}
 	
 	
