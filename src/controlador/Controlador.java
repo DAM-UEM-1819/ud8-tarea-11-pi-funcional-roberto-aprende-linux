@@ -416,6 +416,10 @@ public class Controlador implements IControlador {
 	}
 
 	// VENTANA GESTION PROFESORESADDMOD
+	public void gestionProfesoresAddModToGestionProfesores() {
+		gestionProfesores.setVisible(true);
+		
+	}
 
 	// public void solicitusCrearPorfesor() {
 	// modeloGestionDatos.crearProfesor();
@@ -542,5 +546,7 @@ public class Controlador implements IControlador {
 		}
 
 	}
+
+
 
 }

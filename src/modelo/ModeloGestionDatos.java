@@ -649,6 +649,7 @@ public class ModeloGestionDatos {
 
 	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp, String tiulacion,
 			String dni, String activo, String relacion, String tlf1, String tlf2, String mail1, String mail2) {
+		datosProfe.removeAll(datosProfe);
 		String.valueOf(datosProfe.add(numGP));
 		
 		return datosProfe;

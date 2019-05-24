@@ -95,6 +95,7 @@ public class GestionProfesoresAddMod extends JFrame {
 		contentPane.setLayout(null);
 
 		txtNumero = new JTextField();
+
 		txtNumero.setBounds(233, 201, 247, 30);
 		contentPane.add(txtNumero);
 		txtNumero.setColumns(10);
@@ -191,8 +192,11 @@ public class GestionProfesoresAddMod extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				setVisible(false);
-				controlador.gestionProfesoresToGestion();
+				controlador.gestionProfesoresAddModToGestionProfesores();
+				limpiarTxt();
+				
 			}
 		});
 		btnVolver.setBounds(100, 685, 120, 40);
@@ -312,6 +316,9 @@ public class GestionProfesoresAddMod extends JFrame {
 		
 		
 	}
-
+	public void limpiarTxt() {
+		txtNumero.setText("");
+	}
+	
 	
 }

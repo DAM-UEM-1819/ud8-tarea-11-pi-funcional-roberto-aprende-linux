@@ -59,6 +59,7 @@ public class GestionProfesores extends JFrame {
 	private JLabel lblImportarActividades;
 	private JComboBox comboBoxColumna;
 	private JTextField txtBuscador;
+	private String num;
 	private String nombre;
 	private String ape1;
 	private String ape2;
@@ -158,8 +159,9 @@ public class GestionProfesores extends JFrame {
 		btnAddProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				controlador.solicitudCamposDeTextoProfe();
 				controlador.gestionProfesoresTogestionProsoresAddMod();
-					controlador.solicitudCamposDeTextoProfe();
+			
 				
 
 			}
@@ -197,7 +199,7 @@ public class GestionProfesores extends JFrame {
 
 	// Getters
 	public String getNumGP() {
-		String num = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
+		 num = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
 		return num;
 
 	}
@@ -261,6 +263,7 @@ public class GestionProfesores extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaProfesores.getModel();
 	}
+	
 	
 
 }
