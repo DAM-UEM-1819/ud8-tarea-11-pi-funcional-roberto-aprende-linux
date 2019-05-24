@@ -185,14 +185,14 @@ public class GestionAlumnos extends JFrame {
 
 		Header = new JPanel();
 		Header.setBackground(new Color(165, 42, 42));
-		Header.setBounds(0, 0, 984, 100);
+		Header.setBounds(0, 0, 1000, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
 
 		lblAlumnos = new JLabel("Alumnos");
 		lblAlumnos.setForeground(new Color(255, 255, 255));
 		lblAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlumnos.setBounds(250, 0, 500, 100);
+		lblAlumnos.setBounds(0, 0, 1000, 100);
 		lblAlumnos.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblAlumnos);
 

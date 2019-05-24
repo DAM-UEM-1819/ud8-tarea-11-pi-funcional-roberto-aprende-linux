@@ -71,19 +71,20 @@ public class Informes extends JFrame {
 			}
 		));
 		tablaInfoProfesores.setRowHeight(40);
+		tablaInfoProfesores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaInfoProfesores);
 		//
 
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Informes");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(278, 11, 404, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -129,12 +130,12 @@ public class Informes extends JFrame {
 
 		lblProfesores = new Label("Nombre del informe: ");
 		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(98, 140, 163, 22);
+		lblProfesores.setBounds(98, 129, 400, 22);
 		contentPane.add(lblProfesores);
 		
 		comboBoxInformes = new JComboBox();
 		comboBoxInformes.setModel(new DefaultComboBoxModel(ListadoInformes.values()));
-		comboBoxInformes.setBounds(594, 129, 301, 33);
+		comboBoxInformes.setBounds(504, 123, 394, 33);
 		contentPane.add(comboBoxInformes);
 	}
 	public void setControlador(Controlador controlador) {
