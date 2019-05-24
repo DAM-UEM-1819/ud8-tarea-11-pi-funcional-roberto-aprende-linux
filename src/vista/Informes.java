@@ -39,7 +39,6 @@ public class Informes extends JFrame {
 	private JLabel lblUemLogo;
 	private JLabel lblPerfil;
 	private JButton btnVolver;
-	private JButton btnGuardarCambios;
 	private Label lblProfesores;
 	private JTable TablaInfoAlumnos;
 	private JScrollPane scrollPane_2;
@@ -72,19 +71,20 @@ public class Informes extends JFrame {
 			}
 		));
 		tablaInfoProfesores.setRowHeight(40);
+		tablaInfoProfesores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaInfoProfesores);
 		//
 
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Informes");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(278, 11, 404, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -125,21 +125,17 @@ public class Informes extends JFrame {
 				controlador.informesToHome();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(435, 685, 120, 40);
 		contentPane.add(btnVolver);
 
-		btnGuardarCambios = new JButton("Mostrar");
-		btnGuardarCambios.setBounds(782, 685, 120, 40);
-		contentPane.add(btnGuardarCambios);
-
-		lblProfesores = new Label("Nombre del informe");
+		lblProfesores = new Label("Nombre del informe: ");
 		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(397, 128, 163, 22);
+		lblProfesores.setBounds(98, 129, 400, 22);
 		contentPane.add(lblProfesores);
 		
 		comboBoxInformes = new JComboBox();
 		comboBoxInformes.setModel(new DefaultComboBoxModel(ListadoInformes.values()));
-		comboBoxInformes.setBounds(352, 689, 301, 33);
+		comboBoxInformes.setBounds(504, 123, 394, 33);
 		contentPane.add(comboBoxInformes);
 	}
 	public void setControlador(Controlador controlador) {

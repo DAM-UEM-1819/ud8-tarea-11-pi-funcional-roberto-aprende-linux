@@ -96,7 +96,7 @@ public class GestionAlumnos extends JFrame {
 		});
 		tablaAlumnos.setRowHeight(30);
 		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
-
+		
 		scrollPaneRegistros.setViewportView(tablaAlumnos);
 
 		txtExpediente = new JTextField();
@@ -105,11 +105,10 @@ public class GestionAlumnos extends JFrame {
 			public void keyTyped(KeyEvent arg0) {
 				habilitarBotones();
 			}
-
 			public void keyPressed(KeyEvent arg0) {
 				habilitarBotones();
 			}
-
+			
 		});
 		txtExpediente.setBounds(125, 600, 200, 30);
 		contentPane.add(txtExpediente);
@@ -121,7 +120,8 @@ public class GestionAlumnos extends JFrame {
 			public void keyTyped(KeyEvent arg0) {
 				habilitarBotones();
 			}
-
+		
+		
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				habilitarBotones();
@@ -146,7 +146,6 @@ public class GestionAlumnos extends JFrame {
 		btnModificarAlumno.setEnabled(false);
 		btnModificarAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				controlador.solicitudModificarAlumno();
 				modAlumno();
 			}
@@ -186,14 +185,14 @@ public class GestionAlumnos extends JFrame {
 
 		Header = new JPanel();
 		Header.setBackground(new Color(165, 42, 42));
-		Header.setBounds(0, 0, 984, 100);
+		Header.setBounds(0, 0, 1000, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
 
 		lblAlumnos = new JLabel("Alumnos");
 		lblAlumnos.setForeground(new Color(255, 255, 255));
 		lblAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlumnos.setBounds(250, 0, 500, 100);
+		lblAlumnos.setBounds(0, 0, 1000, 100);
 		lblAlumnos.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblAlumnos);
 
@@ -244,6 +243,7 @@ public class GestionAlumnos extends JFrame {
 		lblImportarAlumnos.setBounds(100, 111, 124, 20);
 		contentPane.add(lblImportarAlumnos);
 		lblImportarAlumnos.setVisible(false);
+		
 
 		txtBuscador = new JTextField();
 		txtBuscador.addMouseListener(new MouseAdapter() {
@@ -266,6 +266,7 @@ public class GestionAlumnos extends JFrame {
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setBounds(800, 114, 100, 20);
 		contentPane.add(txtBuscador);
+
 
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -294,11 +295,11 @@ public class GestionAlumnos extends JFrame {
 	}
 
 	// getters
-
+	
 	public String getPrimaryKey() {
 		return String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0));
 	}
-
+	
 	public String getActividad() {
 		return String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 2));
 	}
@@ -316,7 +317,7 @@ public class GestionAlumnos extends JFrame {
 		model.addRow(modeloGestionDatos.getDatosfilasTabla());
 	}
 
-	public void activoAlumno() {
+		public void activoAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
 		if (getExp().equals(String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0)))) {
 			lblInfo.setText("Se ha cambiado estado alumno");
@@ -329,7 +330,7 @@ public class GestionAlumnos extends JFrame {
 
 	}
 
-	public void modAlumno() {
+		public void modAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
 		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
 
@@ -363,23 +364,17 @@ public class GestionAlumnos extends JFrame {
 		int resultado = chckbxActivoInactivo.isSelected() == true ? 1 : 0;
 		return resultado;
 	}
-
+	
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
-
 	private void limpiarTxt() {
 		txtExpediente.setText("");
 		txtNombre.setText("");
 		chckbxActivoInactivo.setSelected(false);
 	}
-
-	public void actualizarInfoDatos() {
-		lblInfo.setText(modeloGestionDatos.getRespuesta());
-
-	}
-
-	public void habilitarBotones() {
+	
+		public void habilitarBotones() {
 		// btnAlta
 		if (!txtExpediente.getText().equals("") && !txtNombre.getText().equals("")) {
 			btnAddAlumno.setEnabled(true);

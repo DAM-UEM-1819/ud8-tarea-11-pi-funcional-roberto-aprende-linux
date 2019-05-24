@@ -55,7 +55,7 @@ public class GestionProfesores extends JFrame {
 	private JLabel lblPerfil;
 	private JButton btnVolver;
 	private JButton btnAI_profesor;
-	private JButton btnAddProfesor;
+	private JButton btnModProfesor;
 	private JLabel lblImportarActividades;
 	private JComboBox comboBoxColumna;
 	private JTextField txtBuscador;
@@ -95,13 +95,13 @@ public class GestionProfesores extends JFrame {
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Profesores");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 266, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -155,8 +155,8 @@ public class GestionProfesores extends JFrame {
 		btnAI_profesor.setBounds(436, 685, 120, 40);
 		contentPane.add(btnAI_profesor);
 
-		btnAddProfesor = new JButton(" A\u00F1adir y modificar");
-		btnAddProfesor.addActionListener(new ActionListener() {
+		btnModProfesor = new JButton("Modificar profesor");
+		btnModProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				
@@ -170,8 +170,8 @@ public class GestionProfesores extends JFrame {
 
 			}
 		});
-		btnAddProfesor.setBounds(752, 685, 146, 40);
-		contentPane.add(btnAddProfesor);
+		btnModProfesor.setBounds(752, 685, 146, 40);
+		contentPane.add(btnModProfesor);
 
 		txtBuscador = new JTextField();
 		txtBuscador.setText("Buscador");
@@ -266,6 +266,11 @@ public class GestionProfesores extends JFrame {
 
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaProfesores.getModel();
+	}
+
+	public String getPalabraBuscador() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

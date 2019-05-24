@@ -218,14 +218,14 @@ public class GestionSalas extends JFrame {
 
 		Header = new JPanel();
 		Header.setBackground(new Color(165, 42, 42));
-		Header.setBounds(0, 0, 984, 100);
+		Header.setBounds(0, 0, 1000, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
 
 		lblSalas = new JLabel("Salas");
 		lblSalas.setForeground(new Color(255, 255, 255));
 		lblSalas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSalas.setBounds(250, 0, 500, 100);
+		lblSalas.setBounds(0, 0, 1000, 100);
 		lblSalas.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblSalas);
 

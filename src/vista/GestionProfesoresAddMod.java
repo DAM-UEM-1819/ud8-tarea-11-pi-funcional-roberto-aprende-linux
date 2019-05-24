@@ -147,13 +147,13 @@ public class GestionProfesoresAddMod extends JFrame {
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Profesores");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 266, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -313,8 +313,16 @@ public class GestionProfesoresAddMod extends JFrame {
 	//
 	public void rellenar() {
 		if (modeloGestionDatos.getRellenarDatos().length != 0) {
-			num = String.valueOf(modeloGestionDatos.getRellenarDatos()[0]);
-			txtNumero.setText(num);
+			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
+			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
+			txtApellidos.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
+			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
+			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
+			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
+			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
+			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
 		}
 			
 		

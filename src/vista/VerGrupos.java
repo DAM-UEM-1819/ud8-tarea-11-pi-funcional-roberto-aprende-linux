@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,12 +20,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
 import modelo.ModeloConsultas;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VerGrupos extends JFrame {
 
@@ -39,6 +43,9 @@ public class VerGrupos extends JFrame {
 	private JComboBox comboBoxColumna;
 	private JTable tablaGrupos;
 	private JScrollPane scrollPane;
+	private JLabel lblNumeroAlumnos;
+	private JLabel lblGrupo;
+	private LinkedList<RowFilter> filtros;
 
 	
 	public VerGrupos() {
@@ -47,7 +54,6 @@ public class VerGrupos extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				borrarGrupos();
-				comboBoxColumna.addItem("Selecciona un grupo");
 				controlador.solicitudListadoGrupos();
 			}
 		});
@@ -63,13 +69,13 @@ public class VerGrupos extends JFrame {
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Grupos");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(10, 0, 974, 100);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -115,6 +121,12 @@ public class VerGrupos extends JFrame {
 		contentPane.add(btnVolver);
 
 		comboBoxColumna = new JComboBox();
+		comboBoxColumna.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				controlador.solicitudListadoAlumnosPorGrupo();
+			}
+		});
 		comboBoxColumna.setEditable(true);
 		comboBoxColumna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -131,12 +143,17 @@ public class VerGrupos extends JFrame {
 
 		tablaGrupos = new JTable();
 		tablaGrupos.getTableHeader().setReorderingAllowed(false);
-		tablaGrupos.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nombre y apellido" }));
+		tablaGrupos.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
 		scrollPane.setViewportView(tablaGrupos);
 		
-		JLabel lblNumeroAlumnos = new JLabel("Numero de alumnos: ");
-		lblNumeroAlumnos.setBounds(100, 137, 300, 40);
+		lblNumeroAlumnos = new JLabel();
+		lblNumeroAlumnos.setBounds(100, 139, 300, 16);
 		contentPane.add(lblNumeroAlumnos);
+		
+		lblGrupo = new JLabel("Grupo:");
+		lblGrupo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGrupo.setBounds(642, 139, 61, 16);
+		contentPane.add(lblGrupo);
 
 	}
 
@@ -167,5 +184,22 @@ public class VerGrupos extends JFrame {
 	
 	public String getPalabraBuscador() {
 		return null; //txtBuscador.getText();
+	}
+
+	public void contarAlumnos() {
+		lblNumeroAlumnos.setText("Número de alumnos: " + tablaGrupos.getRowCount());
+	}
+	
+	//ACABAR DE HACER
+	private void agregarFiltros() {
+		filtros = new LinkedList<RowFilter>();
+		String palabra = comboBoxColumna. getSelectedItem().toString();
+		for (int i = 0; i < tablaGrupos.getColumnCount(); i++) {
+			filtros.add(RowFilter.regexFilter("^" + palabra, i));
+		}
+	}
+	
+	private void filtrado() {
+		
 	}
 }

@@ -16,7 +16,7 @@ public class Controlador implements IControlador {
 	private Home home;
 	private Gestion gestion;
 	private Informes informes;
-	// private Ocupaciones ocupaciones;
+//	private Ocupaciones ocupaciones;
 	private InformacionExtra infoExtra;
 	private CrearUsuario crearUsuario;
 	private GestionUsuarios gestionUsuarios;
@@ -52,9 +52,9 @@ public class Controlador implements IControlador {
 		this.informes = informes;
 	}
 
-	// public void setOcupaciones(Ocupaciones ocupaciones) {
-	// this.ocupaciones = ocupaciones;
-	// }
+//		public void setOcupaciones(Ocupaciones ocupaciones) {
+//			this.ocupaciones = ocupaciones;
+//		}
 
 	public void setInfoExtra(InformacionExtra infoExtra) {
 		this.infoExtra = infoExtra;
@@ -155,7 +155,7 @@ public class Controlador implements IControlador {
 
 	public void homeToOcupaciones() {
 		home.setVisible(false);
-		// ocupaciones.setVisible(true);
+//		ocupaciones.setVisible(true);
 	}
 
 	public void homeToPerfil() {
@@ -165,7 +165,7 @@ public class Controlador implements IControlador {
 
 	// VENTANA OCUPACIONES
 	public void ocupacionesToHome() {
-		// ocupaciones.setVisible(false);
+//		ocupaciones.setVisible(false);
 		home.setVisible(true);
 	}
 
@@ -410,20 +410,20 @@ public class Controlador implements IControlador {
 	public void solicitudCamposDeTextoProfe() {
 		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(), gestionProfesores.getNombreProfeGP(),
 				gestionProfesores.getApe1GP(), gestionProfesores.getApe2GP(), gestionProfesores.getTitulacion(),
-				gestionProfesores.getDni(), gestionProfesores.getActivo(), gestionProfesores.getRelacion(),
-				gestionProfesores.getTlfn1(), gestionProfesores.getTlfn2(), gestionProfesores.getEmail1(),
-				gestionProfesores.getEmail2());
+				gestionProfesores.getDni(),gestionProfesores.getActivo(), gestionProfesores.getRelacion(), gestionProfesores.getTlfn1(),
+				gestionProfesores.getTlfn2(), gestionProfesores.getEmail1(), gestionProfesores.getEmail2());
 	}
 
 	// VENTANA GESTION PROFESORESADDMOD
+
 	public void gestionProfesoresAddModToGestionProfesores() {
 		gestionProfesores.setVisible(true);
-		
+
 	}
 
-	// public void solicitusCrearPorfesor() {
-	// modeloGestionDatos.crearProfesor();
-	// }
+//	public void solicitusCrearPorfesor() {
+//		modeloGestionDatos.crearProfesor();
+//	}
 
 	// VENTANA GESTION SALAS
 	public void gestionSalasToGestion() {
@@ -546,7 +546,5 @@ public class Controlador implements IControlador {
 		}
 
 	}
-
-
 
 }

@@ -95,7 +95,7 @@ public class ModeloGestionDatos {
 	private String insertOcupa;
 
 	// Sentencias Delete SQL
-	// private String deleteAlumno;
+//	private String deleteAlumno;
 	private String deleteUsuario;
 	private String deleteSala;
 	private String deleteOcupa;
@@ -221,13 +221,12 @@ public class ModeloGestionDatos {
 	public boolean getSeHaBorrado() {
 		return seHaBorrado;
 	}
+	public boolean getSeHaCambiadoEstado() {
+		return seHaCambiadoEstado;
+	}
 
 	public boolean getSeHaCreado() {
 		return seHaCreado;
-	}
-
-	public boolean getSeHaCambiadoEstado() {
-		return seHaCambiadoEstado;
 	}
 
 	public Object[] getDatosfilasTabla() {
@@ -237,7 +236,6 @@ public class ModeloGestionDatos {
 	
 	public Object[] getRellenarDatos() {
 		return datosProfe.toArray();
-
 	}
 
 	public String getRespuesta() {
@@ -267,7 +265,7 @@ public class ModeloGestionDatos {
 	 * Metodo para asignar las sentencias de borrado a los atributos
 	 */
 	private void asignacionBorrado() {
-		// deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
+//		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
 		deleteSala = propiedadesBorrado.getProperty("deleteSala");
 		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
@@ -288,19 +286,14 @@ public class ModeloGestionDatos {
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
 
-		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
-
 	}
 
 	/**
 	 * Metodo para crear un usuario en la BBDD
 	 *
-	 * @param user
-	 *            El usuario a crear
-	 * @param passwd
-	 *            La contraseña del usuario
-	 * @param rol
-	 *            El rol del usuario
+	 * @param user   El usuario a crear
+	 * @param passwd La contraseña del usuario
+	 * @param rol    El rol del usuario
 	 * @return Un String con el estado del metodo (si se ha creado o no)
 	 */
 	public String crearUsuario(String user, String rol, String correo) {
@@ -367,10 +360,8 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear un alumno en la BBDD
 	 *
-	 * @param exp
-	 *            El expediente del alumno
-	 * @param nombre
-	 *            El nombre del alumno
+	 * @param exp    El expediente del alumno
+	 * @param nombre El nombre del alumno
 	 */
 	public void crearAlumno(String exp, String nombre) {
 		if (!exp.isEmpty() && !nombre.isEmpty()) {
@@ -397,14 +388,10 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear una sala en la BBDD
 	 *
-	 * @param cod
-	 *            Codigo de la sala
-	 * @param tipo
-	 *            Tipo de sala
-	 * @param numero
-	 *            Numero de la sala
-	 * @param capacidad
-	 *            Capacidad de la sala
+	 * @param cod       Codigo de la sala
+	 * @param tipo      Tipo de sala
+	 * @param numero    Numero de la sala
+	 * @param capacidad Capacidad de la sala
 	 */
 	public void crearSala(String cod, String tipo, String numero, String capacidad) {
 		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
@@ -412,14 +399,14 @@ public class ModeloGestionDatos {
 				PreparedStatement pstmt = conexion.prepareStatement(insertSala);
 				pstmt.setString(1, cod);
 				pstmt.setString(2, tipo);
-				pstmt.setString(3, capacidad);
-				pstmt.setString(4, numero);
+				pstmt.setString(3, numero);
+				pstmt.setString(4, capacidad);
 				addDatos(pstmt);
 				datosFilastabla.removeAll(datosFilastabla);
 				datosFilastabla.add(cod);
 				datosFilastabla.add(tipo);
-				datosFilastabla.add(capacidad);
 				datosFilastabla.add(numero);
+				datosFilastabla.add(capacidad);
 				seHaCreado = true;
 
 			} catch (Exception e) {
@@ -436,8 +423,7 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para ejecutar las sentencias
 	 *
-	 * @param pstmt
-	 *            La sentencia con los interrogantes puestos
+	 * @param pstmt La sentencia con los interrogantes puestos
 	 */
 	private void addDatos(PreparedStatement pstmt) {
 		try {
@@ -451,10 +437,8 @@ public class ModeloGestionDatos {
 	 * Metodo para borrar datos de una tabla en funcion de la tabla a la que se haga
 	 * referencia
 	 *
-	 * @param clave
-	 *            La clave de la fila a borrar
-	 * @param opcion
-	 *            El tipo de tabla al que se hace referencia
+	 * @param clave  La clave de la fila a borrar
+	 * @param opcion El tipo de tabla al que se hace referencia
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
 	public boolean opcionesBorrarDatos(String clave, String opcion) {
@@ -490,14 +474,15 @@ public class ModeloGestionDatos {
 		return seHaBorrado;
 
 	}
-
-	public boolean opcionesActivoDatos(int activo, String clave, String opcion) {
+	
+	
+	public boolean opcionesActivoDatos(int activo ,String clave, String opcion) {
 		this.clave = clave;
 		this.activo = activo;
 		seHaCambiadoEstado = false;
 		switch (opcion) {
 		case "A":
-			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateAlumno);
+			seHaCambiadoEstado = ActivoDatos(updateAlumno);
 			break;
 		case "B":
 
@@ -509,11 +494,11 @@ public class ModeloGestionDatos {
 			// sql = deleteAsignatura;
 			break;
 		case "E":
-
+			
 			break;
 		case "F":
 			// sql = deleteRegistros;
-
+		
 			break;
 		}
 
@@ -524,8 +509,7 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para borrar los datos
 	 *
-	 * @param sql
-	 *            La sentencia de borrado
+	 * @param sql La sentencia de borrado
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
 	private boolean borrarDatos(String sql) {
@@ -541,7 +525,7 @@ public class ModeloGestionDatos {
 		}
 		return seHaBorrado;
 	}
-
+	
 	private boolean ActivoDatos(String sql) {
 		seHaCambiadoEstado = false;
 		try {
@@ -555,16 +539,16 @@ public class ModeloGestionDatos {
 		}
 		return seHaCambiadoEstado;
 	}
+	
+
+	
 
 	/**
 	 * Metodo para modificar los datos de un alumno
 	 *
-	 * @param exp
-	 *            El expediente del alumno
-	 * @param nombre
-	 *            El nombre del alumno
-	 * @param activo
-	 *            El estado del alumno
+	 * @param exp    El expediente del alumno
+	 * @param nombre El nombre del alumno
+	 * @param activo El estado del alumno
 	 */
 	public void modificarAlumno(String exp, String nombre, int activo) {
 		String sql = updateAlumno;
@@ -585,18 +569,16 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 	}
+	
+	
 
 	/**
 	 * Metodo para modificar los datos de una sala
 	 *
-	 * @param cod
-	 *            Codigo de la sala
-	 * @param tipo
-	 *            El tipo de sala
-	 * @param numero
-	 *            El numero de la sala
-	 * @param capacidad
-	 *            La capacidad de la sala
+	 * @param cod       Codigo de la sala
+	 * @param tipo      El tipo de sala
+	 * @param numero    El numero de la sala
+	 * @param capacidad La capacidad de la sala
 	 */
 	public void modificarSala(String cod, String tipo, String numero, String capacidad) {
 		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
@@ -609,7 +591,7 @@ public class ModeloGestionDatos {
 				addDatos(pstmt);
 
 				seHaCreado = true;
-				respuesta = "Has modificado sala";
+respuesta = "Has modificado sala";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -642,20 +624,33 @@ public class ModeloGestionDatos {
 		} else {
 			seHaCreado = false;
 			respuesta = "Error, estas modificando el codigo de registro";
-			// gestionRegistros.actualizarInfoDatos();
+//			gestionRegistros.actualizarInfoDatos();
 		}
 
 	}
 
-	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp, String tiulacion,
+	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp, String titulacion,
 			String dni, String activo, String relacion, String tlf1, String tlf2, String mail1, String mail2) {
 		datosProfe.removeAll(datosProfe);
 		String.valueOf(datosProfe.add(numGP));
+		String.valueOf(datosProfe.add(nombreProfeGP));
+		String.valueOf(datosProfe.add(ape1gp));
+//		String.valueOf(datosProfe.add(ape2gp));
+		String.valueOf(datosProfe.add(titulacion));
+		String.valueOf(datosProfe.add(dni));
+		String.valueOf(datosProfe.add(relacion));
+		String.valueOf(datosProfe.add(tlf1));
+		String.valueOf(datosProfe.add(tlf2));
+		String.valueOf(datosProfe.add(mail1));
+		String.valueOf(datosProfe.add(mail2));
+		
 		
 		return datosProfe;
 
 	}
-	
+
+
+
 	
 
 }
