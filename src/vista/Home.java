@@ -141,7 +141,7 @@ public class Home extends JFrame {
 
 		Header = new JPanel();
 		Header.setBackground(new Color(165, 42, 42));
-		Header.setBounds(0, 0, 984, 100);
+		Header.setBounds(0, 0, 1000, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
 

@@ -94,7 +94,7 @@ public class GestionProfesores extends JFrame {
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
