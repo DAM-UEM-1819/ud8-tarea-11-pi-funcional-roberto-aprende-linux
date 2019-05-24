@@ -455,10 +455,6 @@ public class Controlador implements IControlador {
 		modeloConsultas.listadoGrupos();
 	}
 
-	public void solicitudListadoAlumnosPorGrupo() {
-		modeloConsultas.getListadoAlumnosPorGrupo(verGrupos.getModel(), verGrupos.getGrupoComboBox());
-	}
-
 	// VENTANA PERFIL
 	public void perfilToHome() {
 		home.setVisible(true);

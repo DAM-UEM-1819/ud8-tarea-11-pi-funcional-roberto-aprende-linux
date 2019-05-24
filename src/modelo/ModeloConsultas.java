@@ -650,29 +650,6 @@ public class ModeloConsultas {
 	}
 
 	/**
-	 * Metodo que sirve para sacar los alumnos que hay en un determinado grupo
-	 * especificado en el segundo de los parametros
-	 *
-	 * @param tableModel La tabla de la vista de ver grupo
-	 * @param grupo      El grupo por el que se va a filtrar
-	 */
-	public void getListadoAlumnosPorGrupo(DefaultTableModel tableModel, String grupo) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		try {
-			pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo);
-			pstmt.setString(1, grupo.toUpperCase() + "%");
-			getDatos(pstmt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		verGrupos.contarAlumnos();
-
-	}
-
-	/**
 	 * Metodo que sirve para
 	 *
 	 * @param pstmt La consulta preparada y lista para ejecutarse
@@ -813,14 +790,8 @@ public class ModeloConsultas {
 				pstmt.setString(5, palabra + "%");
 				break;
 			case "J":
-				pstmt = conexion.prepareStatement(selectBuscadorActividades); // Cambiar
+				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo); // Cambiar
 				pstmt.setString(1, palabra + "%");
-				pstmt.setString(2, palabra + "%");
-				pstmt.setString(3, palabra + "%");
-				pstmt.setString(4, palabra + "%");
-				pstmt.setString(5, palabra + "%");
-				pstmt.setString(6, palabra + "%");
-				pstmt.setString(7, palabra + "%");
 				break;
 			}
 		} catch (Exception e) {
