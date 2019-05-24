@@ -77,6 +77,7 @@ public class ModeloGestionDatos {
 	private boolean seHaCreado;
 	private boolean seHaCambiadoEstado;
 	private String clave;
+	private String activo;
 
 	// Sentencias Insertado SQL
 	private String insertUsuario;
@@ -521,7 +522,7 @@ public class ModeloGestionDatos {
 		seHaCambiadoEstado = false;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setInt(1, activo);
+			pstmt.setString(1, activo);
 			pstmt.setString(2, clave);
 			pstmt.executeUpdate();
 			seHaCambiadoEstado = true;
