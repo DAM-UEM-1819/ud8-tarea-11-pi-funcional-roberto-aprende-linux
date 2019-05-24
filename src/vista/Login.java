@@ -80,7 +80,7 @@ public class Login extends JFrame {
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
 		lblTitulo.setVerticalAlignment(JLabel.CENTER);
 
-		ImageIcon usuarioIcon = new ImageIcon("./img/usuario.png");
+		ImageIcon usuarioIcon = new ImageIcon("./img/usuarioLogin.png");
 		lblUsuarioTemp = new JLabel(usuarioIcon);
 		lblUsuarioTemp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuarioTemp.setBounds(345, 225, 100, 100);

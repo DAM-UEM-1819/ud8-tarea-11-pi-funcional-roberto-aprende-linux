@@ -93,7 +93,7 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Informaci�n extra");
+		lblTitulo = new JLabel("Información extra");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBounds(268, 11, 404, 61);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
