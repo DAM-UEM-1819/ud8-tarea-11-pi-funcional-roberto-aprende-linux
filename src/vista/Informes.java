@@ -39,7 +39,6 @@ public class Informes extends JFrame {
 	private JLabel lblUemLogo;
 	private JLabel lblPerfil;
 	private JButton btnVolver;
-	private JButton btnGuardarCambios;
 	private Label lblProfesores;
 	private JTable TablaInfoAlumnos;
 	private JScrollPane scrollPane_2;
@@ -125,21 +124,17 @@ public class Informes extends JFrame {
 				controlador.informesToHome();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(435, 685, 120, 40);
 		contentPane.add(btnVolver);
 
-		btnGuardarCambios = new JButton("Mostrar");
-		btnGuardarCambios.setBounds(782, 685, 120, 40);
-		contentPane.add(btnGuardarCambios);
-
-		lblProfesores = new Label("Nombre del informe");
+		lblProfesores = new Label("Nombre del informe: ");
 		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(397, 128, 163, 22);
+		lblProfesores.setBounds(98, 140, 163, 22);
 		contentPane.add(lblProfesores);
 		
 		comboBoxInformes = new JComboBox();
 		comboBoxInformes.setModel(new DefaultComboBoxModel(ListadoInformes.values()));
-		comboBoxInformes.setBounds(352, 689, 301, 33);
+		comboBoxInformes.setBounds(594, 129, 301, 33);
 		contentPane.add(comboBoxInformes);
 	}
 	public void setControlador(Controlador controlador) {
