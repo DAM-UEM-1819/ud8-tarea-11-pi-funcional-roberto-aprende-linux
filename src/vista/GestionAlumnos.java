@@ -165,8 +165,13 @@ public class GestionAlumnos extends JFrame {
 		btnActivoAlumno.setEnabled(false);
 		btnActivoAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (estadoCheckBox() == 1) {
+					chckbxActivoInactivo.setSelected(false);
+				} else {
+					chckbxActivoInactivo.setSelected(true);
+				}
 				controlador.solicitudBorrar(this);
-				if (modeloGestionDatos.getSeHaBorrado()) {
+				if (modeloGestionDatos.getSeHaCambiadoEstado()) {
 					activoAlumno();
 				}
 
@@ -312,31 +317,29 @@ public class GestionAlumnos extends JFrame {
 		model.addRow(modeloGestionDatos.getDatosfilasTabla());
 	}
 
-	public void activoAlumno() {
+		public void activoAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
-		model.removeRow(tablaAlumnos.getSelectedRow());
 		if (getExp().equals(String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0)))) {
 			lblInfo.setText("Se ha cambiado estado alumno");
 			model.setValueAt(getNombre(), tablaAlumnos.getSelectedRow(), 1);
 			model.setValueAt(estadoCheckBox(), tablaAlumnos.getSelectedRow(), 2);
-		
-	} else {
-		lblInfo.setText("No se ha cambiado estado alumno");
-	}
+
+		} else {
+			lblInfo.setText("No se ha cambiado estado alumno");
+		}
 
 	}
 
-	public void modAlumno() {
+		public void modAlumno() {
 		DefaultTableModel model = (DefaultTableModel) tablaAlumnos.getModel();
 		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
 
 		if (getExp().equals(String.valueOf(model.getValueAt(tablaAlumnos.getSelectedRow(), 0)))) {
-				lblInfo.setText("MOD");
-				model.setValueAt(getNombre(), tablaAlumnos.getSelectedRow(), 1);
-				model.setValueAt(estadoCheckBox(), tablaAlumnos.getSelectedRow(), 2);
-			
+			model.setValueAt(getNombre(), tablaAlumnos.getSelectedRow(), 1);
+			model.setValueAt(estadoCheckBox(), tablaAlumnos.getSelectedRow(), 2);
+
 		} else {
-			lblInfo.setText("Mal");
+			lblInfo.setText("No se ha podido modificar alumno");
 		}
 
 	}
@@ -371,7 +374,7 @@ public class GestionAlumnos extends JFrame {
 		chckbxActivoInactivo.setSelected(false);
 	}
 	
-	public void habilitarBotones() {
+		public void habilitarBotones() {
 		// btnAlta
 		if (!txtExpediente.getText().equals("") && !txtNombre.getText().equals("")) {
 			btnAddAlumno.setEnabled(true);
@@ -380,14 +383,16 @@ public class GestionAlumnos extends JFrame {
 		}
 
 		// btnmodificar
-		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("") && !txtNombre.getText().equals("") ) {
+		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("")
+				&& !txtNombre.getText().equals("")) {
 			btnModificarAlumno.setEnabled(true);
 		} else {
 			btnModificarAlumno.setEnabled(false);
 		}
 
 		// btnBorrar
-		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("") && !txtNombre.getText().equals("") ) {
+		if (tablaAlumnos.getSelectedRowCount() == 1 && !txtExpediente.getText().equals("")
+				&& !txtNombre.getText().equals("")) {
 			btnActivoAlumno.setEnabled(true);
 		} else {
 			btnActivoAlumno.setEnabled(false);

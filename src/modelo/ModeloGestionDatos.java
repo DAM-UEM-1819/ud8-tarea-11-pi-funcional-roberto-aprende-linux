@@ -109,7 +109,8 @@ public class ModeloGestionDatos {
 	private String updateSala;
 	private String updateRegistro;
 	private String updateUsuario;
-	
+	// activo-inactivo
+	private String activoInactivoUpdateAlumno;
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -468,6 +469,7 @@ public class ModeloGestionDatos {
 	
 	public boolean opcionesActivoDatos(String activo ,String clave, String opcion) {
 		this.clave = clave;
+		this.activo = activo;
 		seHaCambiadoEstado = false;
 		switch (opcion) {
 		case "A":
@@ -516,17 +518,17 @@ public class ModeloGestionDatos {
 	}
 	
 	private boolean ActivoDatos(String sql) {
-		seHaBorrado = false;
+		seHaCambiadoEstado = false;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, clave);
-			ResultSet rs = pstmt.executeQuery();
-			datosFilastabla.removeAll(datosFilastabla);
-			seHaBorrado = true;
+			pstmt.setInt(1, activo);
+			pstmt.setString(2, clave);
+			pstmt.executeUpdate();
+			seHaCambiadoEstado = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return seHaBorrado;
+		return seHaCambiadoEstado;
 	}
 	
 
@@ -549,6 +551,7 @@ public class ModeloGestionDatos {
 				pstmt.setInt(2, activo);
 				pstmt.setString(3, exp);
 				pstmt.executeUpdate();
+				respuesta = "Has modificado alumno";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -579,7 +582,7 @@ public class ModeloGestionDatos {
 				addDatos(pstmt);
 
 				seHaCreado = true;
-
+respuesta = "Has modificado sala";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -617,7 +620,23 @@ public class ModeloGestionDatos {
 
 	}
 
-	public void rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp) {
+	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp, String titulacion,
+			String dni, String activo, String relacion, String tlf1, String tlf2, String mail1, String mail2) {
+		datosProfe.removeAll(datosProfe);
+		String.valueOf(datosProfe.add(numGP));
+		String.valueOf(datosProfe.add(nombreProfeGP));
+		String.valueOf(datosProfe.add(ape1gp));
+//		String.valueOf(datosProfe.add(ape2gp));
+		String.valueOf(datosProfe.add(titulacion));
+		String.valueOf(datosProfe.add(dni));
+		String.valueOf(datosProfe.add(relacion));
+		String.valueOf(datosProfe.add(tlf1));
+		String.valueOf(datosProfe.add(tlf2));
+		String.valueOf(datosProfe.add(mail1));
+		String.valueOf(datosProfe.add(mail2));
+		
+		
+		return datosProfe;
 
 	}
 
