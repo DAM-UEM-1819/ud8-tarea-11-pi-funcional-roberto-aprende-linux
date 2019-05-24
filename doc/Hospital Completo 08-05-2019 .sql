@@ -335,22 +335,22 @@ ALTER TABLE Actividad
   VALUES('Seg paciente 1', 'Taller de habilidades', 2, 2, 01411, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('BioÃ©tica 1 LET/Rechazo al tto', 'Escenario Complejo', 3, 2, 01401, 'ISTAN', '18/19', 'consulta');
+  VALUES('Bioética 1 LET/Rechazo al tto', 'Escenario Complejo', 3, 2, 01401, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('BioÃ©tica 2 Ãºltima cama', 'Taller de habilidades', 4, 2, 01402, '', '18/19', 'consulta');
+  VALUES('Bioética 2 última cama', 'Taller de habilidades', 4, 2, 01402, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('EPOC-Neumonia', 'Escenario Complejo', 5, 2, 01405, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('Asma-Ca PulmÃ³n', 'Taller de habilidades', 6, 2, 01409, '', '18/19', 'consulta');
+  VALUES('Asma-Ca Pulmón', 'Taller de habilidades', 6, 2, 01409, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('NefrologÃ­a FRA', 'Escenario Complejo', 7, 2, 01403, '', '18/19', 'consulta');
+  VALUES('Nefrología FRA', 'Escenario Complejo', 7, 2, 01403, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('NefrologÃ­a S NEFRÃ�TICO', 'Taller de habilidades', 8, 2, 01404, '', '18/19', 'consulta');
+  VALUES('Nefrología S NEFRÍTICO', 'Taller de habilidades', 8, 2, 01404, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('VIA PERIFERICA', 'Escenario Complejo', 9, 2, 01406, '', '18/19', 'consulta');
@@ -365,10 +365,10 @@ ALTER TABLE Actividad
   VALUES('Expl abd RX', 'Taller de habilidades', 12, 2, 01410, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('UrologÃ­a', 'Escenario Complejo', 13, 2, 01412, '', '18/19', 'consulta');
+  VALUES('Urología', 'Escenario Complejo', 13, 2, 01412, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('Taller UrologÃ­a sv', 'Taller de habilidades', 14, 2, 01411, '', '18/19', 'consulta');
+  VALUES('Taller Urología sv', 'Taller de habilidades', 14, 2, 01411, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Digestivo 1', 'HDA/Cirrosis', 15, 2, 01408,'', '18/19', 'consulta');
@@ -383,7 +383,7 @@ ALTER TABLE Actividad
   VALUES('TORACOCENTESIS', 'Taller de habilidades', 18, 2, 01409, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('HematologÃ­a 1', 'Escenario Complejo', 19, 2, 01403, '', '18/19', 'consulta');
+  VALUES('Hematología 1', 'Escenario Complejo', 19, 2, 01403, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Pielonefritis', 'Taller de habilidades', 20, 2, 01404, '', '18/19', 'consulta');
@@ -398,16 +398,16 @@ ALTER TABLE Actividad
   VALUES('Hipertiroidismo', 'Escenario Complejo', 23, 2, 01408, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('CardiologÃ­a 1', 'Taller de habilidades', 24, 2, 01410, 'ISTAN', '18/19', 'consulta');
+  VALUES('Cardiología 1', 'Taller de habilidades', 24, 2, 01410, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('CardiologÃ­a 2', 'Escenario Complejo', 25, 2, 01412, 'ISTAN', '18/19', 'consulta');
+  VALUES('Cardiología 2', 'Escenario Complejo', 25, 2, 01412, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('CardiologÃ­a 3', 'Taller de habilidades', 26, 2, 01411, 'ISTAN', '18/19', 'consulta');
+  VALUES('Cardiología 3', 'Taller de habilidades', 26, 2, 01411, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('CardiologÃ­a 4', 'Escenario Complejo', 27, 2, 01401, 'IOT', '18/19', 'consulta');
+  VALUES('Cardiología 4', 'Escenario Complejo', 27, 2, 01401, 'IOT', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Medicina interna 1', 'Taller de habilidades', 28, 2, 01402, 'OTRO', '18/19', 'consulta');
@@ -434,16 +434,17 @@ ALTER TABLE Actividad
   VALUES('Seg paciente 2', 'Escenario Complejo', 35, 2, 01408, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('BioÃ©tica 3', 'Taller de habilidades', 36, 2, 01410, 'ISTAN', '18/19', 'consulta');
+  VALUES('Bioética 3', 'Taller de habilidades', 36, 2, 01410, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('BioÃ©tica 4', 'Escenario Complejo', 37, 2, 01412, '', '18/19', 'consulta');
+  VALUES('Bioética 4', 'Escenario Complejo', 37, 2, 01412, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Viajero', 'Taller de habilidades', 38, 2, 01411, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('VIH/TBC', 'Escenario Complejo', 39, 2, 01411, '', '18/19', 'consulta');
+
 
   REM *** 6Âº Registro ***
 
