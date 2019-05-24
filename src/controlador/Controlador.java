@@ -16,7 +16,7 @@ public class Controlador implements IControlador {
 	private Home home;
 	private Gestion gestion;
 	private Informes informes;
-//	private Ocupaciones ocupaciones;
+	// private Ocupaciones ocupaciones;
 	private InformacionExtra infoExtra;
 	private CrearUsuario crearUsuario;
 	private GestionUsuarios gestionUsuarios;
@@ -52,9 +52,9 @@ public class Controlador implements IControlador {
 		this.informes = informes;
 	}
 
-//		public void setOcupaciones(Ocupaciones ocupaciones) {
-//			this.ocupaciones = ocupaciones;
-//		}
+	// public void setOcupaciones(Ocupaciones ocupaciones) {
+	// this.ocupaciones = ocupaciones;
+	// }
 
 	public void setInfoExtra(InformacionExtra infoExtra) {
 		this.infoExtra = infoExtra;
@@ -95,7 +95,7 @@ public class Controlador implements IControlador {
 	public void setGestionProfesores(GestionProfesores gestionProfesores) {
 		this.gestionProfesores = gestionProfesores;
 	}
-	
+
 	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
 		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
 	}
@@ -155,7 +155,7 @@ public class Controlador implements IControlador {
 
 	public void homeToOcupaciones() {
 		home.setVisible(false);
-//		ocupaciones.setVisible(true);
+		// ocupaciones.setVisible(true);
 	}
 
 	public void homeToPerfil() {
@@ -165,7 +165,7 @@ public class Controlador implements IControlador {
 
 	// VENTANA OCUPACIONES
 	public void ocupacionesToHome() {
-//		ocupaciones.setVisible(false);
+		// ocupaciones.setVisible(false);
 		home.setVisible(true);
 	}
 
@@ -261,7 +261,7 @@ public class Controlador implements IControlador {
 	public void solicitudDatosUsuarios() {
 		modeloConsultas.getTablaUsuarios(gestionUsuarios.getModel());
 	}
-	
+
 	public void solicitudBuscadorUsuario() {
 		modeloConsultas.buscadorUsuarios(gestionUsuarios.getModel(), gestionUsuarios.getPalabraBuscador());
 	}
@@ -323,11 +323,12 @@ public class Controlador implements IControlador {
 	}
 
 	public void solicitudBorrar(Object obj) {
-		String clase = obj.getClass().toString(); 
-		String opcion = clase.substring(12, clase.length()-2).toUpperCase();
+		String clase = obj.getClass().toString();
+		String opcion = clase.substring(12, clase.length() - 2).toUpperCase();
 		switch (opcion) {
 		case "GESTIONALUMNOS":
-			modeloGestionDatos.opcionesActivoDatos(gestionAlumnos.estadoCheckBox(), gestionAlumnos.getPrimaryKey(), "A");
+			modeloGestionDatos.opcionesActivoDatos(gestionAlumnos.estadoCheckBox(), gestionAlumnos.getPrimaryKey(),
+					"A");
 			break;
 		case "GESTIONUSUARIOS":
 			modeloGestionDatos.opcionesBorrarDatos(gestionUsuarios.getPrimaryKey(), "B");
@@ -338,26 +339,24 @@ public class Controlador implements IControlador {
 		case "GESTIONASIGNATURA":
 			modeloGestionDatos.opcionesBorrarDatos(gestionAsignatura.getPrimaryKey(), "D");
 			break;
-		case "GESTIONSALAS":
+		case "GESTIONSALAS$":
 			modeloGestionDatos.opcionesBorrarDatos(gestionSalas.getPrimaryKey(), "E");
 			break;
 		case "GESTIONREGISTROS":
 			modeloGestionDatos.opcionesBorrarDatos(gestionRegistros.getPrimaryKey(), "F");
 			break;
 		}
-		
+
 	}
 
 	public void solicitudModificarAlumno() {
 		modeloGestionDatos.modificarAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre(),
 				gestionAlumnos.estadoCheckBox());
 	}
-	
+
 	public void solicitudBuscadorAlumno() {
 		modeloConsultas.buscadorAlumnos(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador());
 	}
-	
-
 
 	// VENTANA GESTION REGISTROS
 	public void gestionRegistrosToGestion() {
@@ -371,9 +370,10 @@ public class Controlador implements IControlador {
 	public void solicitudDatosRegistros() {
 		modeloConsultas.getTablaRegistros(gestionRegistros.getModel());
 	}
-	
+
 	public void solicitudModificarRegistro() {
-		modeloGestionDatos.modificarRegistro(gestionRegistros.getCod_registro(),gestionRegistros.getFecha(),gestionRegistros.getHora(),gestionRegistros.getHorasProfesor(),gestionRegistros.getActividadNombre());
+		modeloGestionDatos.modificarRegistro(gestionRegistros.getCod_registro(), gestionRegistros.getFecha(),
+				gestionRegistros.getHora(), gestionRegistros.getHorasProfesor(), gestionRegistros.getActividadNombre());
 	}
 
 	// VENTANA GESTION ASIGNATURA
@@ -397,29 +397,29 @@ public class Controlador implements IControlador {
 	public void gestionProfesoresToPerfil() {
 		perfil.setVisible(true);
 	}
-	
+
 	public void gestionProfesoresTogestionProsoresAddMod() {
 		gestionProfesoresAddMod.setVisible(true);
-		
+
 	}
 
 	public void solicitudDatosProfesores() {
 		modeloConsultas.getTablaProfesores(gestionProfesores.getModel());
 	}
-	
+
 	public void solicitudCamposDeTextoProfe() {
-		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(),gestionProfesores.getNombreProfeGP(),gestionProfesores.getApe1GP(),gestionProfesores.getApe2GP() , gestionProfesores.getTitulacion() , gestionProfesores.getDni(), gestionProfesores);
+		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(), gestionProfesores.getNombreProfeGP(),
+				gestionProfesores.getApe1GP(), gestionProfesores.getApe2GP(), gestionProfesores.getTitulacion(),
+				gestionProfesores.getDni(), gestionProfesores.getActivo(), gestionProfesores.getRelacion(),
+				gestionProfesores.getTlfn1(), gestionProfesores.getTlfn2(), gestionProfesores.getEmail1(),
+				gestionProfesores.getEmail2());
 	}
-	
+
 	// VENTANA GESTION PROFESORESADDMOD
-	
-	
-	
-	
-	
-//	public void solicitusCrearPorfesor() {
-//		modeloGestionDatos.crearProfesor();
-//	}
+
+	// public void solicitusCrearPorfesor() {
+	// modeloGestionDatos.crearProfesor();
+	// }
 
 	// VENTANA GESTION SALAS
 	public void gestionSalasToGestion() {
@@ -433,17 +433,19 @@ public class Controlador implements IControlador {
 	public void solicitudDatosSalas() {
 		modeloConsultas.getTablaSalas(gestionSalas.getModel());
 	}
-	
+
 	public void solicitudCrearSala() {
 		modeloConsultas.comprobarSala(gestionSalas.getCodigo());
-		modeloGestionDatos.crearSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
+		modeloGestionDatos.crearSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(),
+				gestionSalas.getCapacidad());
 	}
-	
+
 	public void solicutudModificarSala() {
-		modeloGestionDatos.modificarSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
-		
+		modeloGestionDatos.modificarSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(),
+				gestionSalas.getCapacidad());
+
 	}
-	
+
 	public void solicitudBuscadorSala() {
 		modeloConsultas.buscadorSalas(gestionSalas.getModel(), gestionSalas.getPalabraBuscador());
 	}
@@ -469,13 +471,14 @@ public class Controlador implements IControlador {
 	public void perfilToHome() {
 		home.setVisible(true);
 	}
-	
+
 	public void solicitudDatosUsuarioActual() {
 		modeloConsultas.getDatosUsuarioPerfil();
 	}
-	
+
 	public void solicitudActualizarUsuario() {
-		modeloGestionDatos.actualizarUsuario(perfil.getUsuario(), perfil.getEmail(), perfil.getPasswdActual(), perfil.getPasswdNueva(), perfil.getPasswdComprobacion());
+		modeloGestionDatos.actualizarUsuario(perfil.getUsuario(), perfil.getEmail(), perfil.getPasswdActual(),
+				perfil.getPasswdNueva(), perfil.getPasswdComprobacion());
 	}
 
 	// VENTANA LOGIN
@@ -501,10 +504,10 @@ public class Controlador implements IControlador {
 	public void solicitudCrearUsuario() {
 		modeloConsultas.crearUsuario(crearUsuario.getNombreUsuario(), crearUsuario.getRol(), crearUsuario.getEmail());
 	}
-	
+
 	public void solicitudBuscador(Object obj) {
-		String clase = obj.getClass().toString(); 
-		String opcion = clase.substring(12, clase.indexOf("$")).toUpperCase(); 
+		String clase = obj.getClass().toString();
+		String opcion = clase.substring(12, clase.indexOf("$")).toUpperCase();
 		switch (opcion) {
 		case "GESTIONALUMNOS":
 			modeloConsultas.buscador(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador(), "A");
@@ -537,8 +540,7 @@ public class Controlador implements IControlador {
 			modeloConsultas.buscador(verGrupos.getModel(), verGrupos.getPalabraBuscador(), "J");
 			break;
 		}
-		
-	}
 
+	}
 
 }

@@ -159,9 +159,8 @@ public class GestionProfesores extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				controlador.gestionProfesoresTogestionProsoresAddMod();
-				if (tablaProfesores.getRowCount() == 1) {
 					controlador.solicitudCamposDeTextoProfe();
-				}
+				
 
 			}
 		});
@@ -235,7 +234,7 @@ public class GestionProfesores extends JFrame {
 	
 	
 
-	public String Activo() {
+	public String getActivo() {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 4));
 	}
 

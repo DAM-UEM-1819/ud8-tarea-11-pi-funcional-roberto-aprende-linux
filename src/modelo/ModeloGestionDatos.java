@@ -95,7 +95,7 @@ public class ModeloGestionDatos {
 	private String insertOcupa;
 
 	// Sentencias Delete SQL
-//	private String deleteAlumno;
+	// private String deleteAlumno;
 	private String deleteUsuario;
 	private String deleteSala;
 	private String deleteOcupa;
@@ -110,9 +110,8 @@ public class ModeloGestionDatos {
 	private String updateSala;
 	private String updateRegistro;
 	private String updateUsuario;
-	//activo-inactivo
+	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
-	
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -141,6 +140,7 @@ public class ModeloGestionDatos {
 			e.printStackTrace();
 		}
 		datosFilastabla = new ArrayList<Object>();
+		datosProfe = new ArrayList<String>();
 		asignacionInsertado();
 		asignacionBorrado();
 		asignacionModificacion();
@@ -225,13 +225,18 @@ public class ModeloGestionDatos {
 	public boolean getSeHaCreado() {
 		return seHaCreado;
 	}
-	
+
 	public boolean getSeHaCambiadoEstado() {
 		return seHaCambiadoEstado;
 	}
 
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
+
+	}
+	
+	public Object[] getRellenarDatos() {
+		return datosProfe.toArray();
 
 	}
 
@@ -262,7 +267,7 @@ public class ModeloGestionDatos {
 	 * Metodo para asignar las sentencias de borrado a los atributos
 	 */
 	private void asignacionBorrado() {
-//		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
+		// deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
 		deleteSala = propiedadesBorrado.getProperty("deleteSala");
 		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
@@ -282,7 +287,7 @@ public class ModeloGestionDatos {
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
-		
+
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 
 	}
@@ -290,9 +295,12 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear un usuario en la BBDD
 	 *
-	 * @param user   El usuario a crear
-	 * @param passwd La contraseña del usuario
-	 * @param rol    El rol del usuario
+	 * @param user
+	 *            El usuario a crear
+	 * @param passwd
+	 *            La contraseña del usuario
+	 * @param rol
+	 *            El rol del usuario
 	 * @return Un String con el estado del metodo (si se ha creado o no)
 	 */
 	public String crearUsuario(String user, String rol, String correo) {
@@ -359,8 +367,10 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear un alumno en la BBDD
 	 *
-	 * @param exp    El expediente del alumno
-	 * @param nombre El nombre del alumno
+	 * @param exp
+	 *            El expediente del alumno
+	 * @param nombre
+	 *            El nombre del alumno
 	 */
 	public void crearAlumno(String exp, String nombre) {
 		if (!exp.isEmpty() && !nombre.isEmpty()) {
@@ -387,10 +397,14 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear una sala en la BBDD
 	 *
-	 * @param cod       Codigo de la sala
-	 * @param tipo      Tipo de sala
-	 * @param numero    Numero de la sala
-	 * @param capacidad Capacidad de la sala
+	 * @param cod
+	 *            Codigo de la sala
+	 * @param tipo
+	 *            Tipo de sala
+	 * @param numero
+	 *            Numero de la sala
+	 * @param capacidad
+	 *            Capacidad de la sala
 	 */
 	public void crearSala(String cod, String tipo, String numero, String capacidad) {
 		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
@@ -422,7 +436,8 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para ejecutar las sentencias
 	 *
-	 * @param pstmt La sentencia con los interrogantes puestos
+	 * @param pstmt
+	 *            La sentencia con los interrogantes puestos
 	 */
 	private void addDatos(PreparedStatement pstmt) {
 		try {
@@ -436,8 +451,10 @@ public class ModeloGestionDatos {
 	 * Metodo para borrar datos de una tabla en funcion de la tabla a la que se haga
 	 * referencia
 	 *
-	 * @param clave  La clave de la fila a borrar
-	 * @param opcion El tipo de tabla al que se hace referencia
+	 * @param clave
+	 *            La clave de la fila a borrar
+	 * @param opcion
+	 *            El tipo de tabla al que se hace referencia
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
 	public boolean opcionesBorrarDatos(String clave, String opcion) {
@@ -473,9 +490,8 @@ public class ModeloGestionDatos {
 		return seHaBorrado;
 
 	}
-	
-	
-	public boolean opcionesActivoDatos(int activo ,String clave, String opcion) {
+
+	public boolean opcionesActivoDatos(int activo, String clave, String opcion) {
 		this.clave = clave;
 		this.activo = activo;
 		seHaCambiadoEstado = false;
@@ -493,11 +509,11 @@ public class ModeloGestionDatos {
 			// sql = deleteAsignatura;
 			break;
 		case "E":
-			
+
 			break;
 		case "F":
 			// sql = deleteRegistros;
-		
+
 			break;
 		}
 
@@ -508,7 +524,8 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para borrar los datos
 	 *
-	 * @param sql La sentencia de borrado
+	 * @param sql
+	 *            La sentencia de borrado
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
 	private boolean borrarDatos(String sql) {
@@ -524,7 +541,7 @@ public class ModeloGestionDatos {
 		}
 		return seHaBorrado;
 	}
-	
+
 	private boolean ActivoDatos(String sql) {
 		seHaCambiadoEstado = false;
 		try {
@@ -538,16 +555,16 @@ public class ModeloGestionDatos {
 		}
 		return seHaCambiadoEstado;
 	}
-	
-
-	
 
 	/**
 	 * Metodo para modificar los datos de un alumno
 	 *
-	 * @param exp    El expediente del alumno
-	 * @param nombre El nombre del alumno
-	 * @param activo El estado del alumno
+	 * @param exp
+	 *            El expediente del alumno
+	 * @param nombre
+	 *            El nombre del alumno
+	 * @param activo
+	 *            El estado del alumno
 	 */
 	public void modificarAlumno(String exp, String nombre, int activo) {
 		String sql = updateAlumno;
@@ -568,16 +585,18 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 	}
-	
-	
 
 	/**
 	 * Metodo para modificar los datos de una sala
 	 *
-	 * @param cod       Codigo de la sala
-	 * @param tipo      El tipo de sala
-	 * @param numero    El numero de la sala
-	 * @param capacidad La capacidad de la sala
+	 * @param cod
+	 *            Codigo de la sala
+	 * @param tipo
+	 *            El tipo de sala
+	 * @param numero
+	 *            El numero de la sala
+	 * @param capacidad
+	 *            La capacidad de la sala
 	 */
 	public void modificarSala(String cod, String tipo, String numero, String capacidad) {
 		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
@@ -623,13 +642,19 @@ public class ModeloGestionDatos {
 		} else {
 			seHaCreado = false;
 			respuesta = "Error, estas modificando el codigo de registro";
-//			gestionRegistros.actualizarInfoDatos();
+			// gestionRegistros.actualizarInfoDatos();
 		}
 
 	}
 
-	public void rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp) {
+	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp, String tiulacion,
+			String dni, String activo, String relacion, String tlf1, String tlf2, String mail1, String mail2) {
+		String.valueOf(datosProfe.add(numGP));
+		
+		return datosProfe;
 
 	}
+	
+	
 
 }

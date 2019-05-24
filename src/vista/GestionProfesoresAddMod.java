@@ -12,6 +12,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -68,6 +70,8 @@ public class GestionProfesoresAddMod extends JFrame {
 	private JLabel lblNumero;
 	private JLabel lblApellidos;
 	private JLabel lblTitulacion;
+	private Array [] rellenarCampos;
+	private String num;
 
 	public GestionProfesoresAddMod() {
 		setResizable(false);
@@ -75,6 +79,8 @@ public class GestionProfesoresAddMod extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
+				rellenar();
+				txtNumero.setText(num);
 				
 			}
 		});
@@ -248,6 +254,7 @@ public class GestionProfesoresAddMod extends JFrame {
 		lblEmail2 = new JLabel("Email 2");
 		lblEmail2.setBounds(558, 494, 71, 14);
 		contentPane.add(lblEmail2);
+		
 	}
 	//Setters
 
@@ -298,6 +305,12 @@ public class GestionProfesoresAddMod extends JFrame {
 
 	public String getEmail2() {
 		return txtEmail2.getText();
+	}
+	//
+	public void rellenar() {
+		num = String.valueOf(modeloGestionDatos.getRellenarDatos()[0]);
+		
+		
 	}
 
 	
