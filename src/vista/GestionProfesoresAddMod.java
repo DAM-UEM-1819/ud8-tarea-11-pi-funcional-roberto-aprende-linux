@@ -96,59 +96,59 @@ public class GestionProfesoresAddMod extends JFrame {
 
 		txtNumero = new JTextField();
 
-		txtNumero.setBounds(233, 201, 247, 30);
+		txtNumero.setBounds(150, 201, 247, 30);
 		contentPane.add(txtNumero);
 		txtNumero.setColumns(10);
+		
+				txtDni = new JTextField();
+				txtDni.setBounds(575, 201, 250, 30);
+				contentPane.add(txtDni);
+				txtDni.setColumns(10);
 
 		txtNombre = new JTextField();
-		txtNombre.setBounds(233, 281, 247, 30);
+		txtNombre.setBounds(150, 281, 250, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtApellido1 = new JTextField();
-		txtApellido1.setBounds(233, 361, 247, 30);
+		txtApellido1.setBounds(575, 281, 250, 30);
 		contentPane.add(txtApellido1);
 		txtApellido1.setColumns(10);
 
 		txtApellido2 = new JTextField();
 		txtApellido2.setColumns(10);
-		txtApellido2.setBounds(233, 440, 247, 30);
+		txtApellido2.setBounds(150, 361, 250, 30);
 		contentPane.add(txtApellido2);
 
 		txtTitulacion = new JTextField();
-		txtTitulacion.setBounds(233, 519, 247, 30);
+		txtTitulacion.setBounds(575, 361, 247, 30);
 		contentPane.add(txtTitulacion);
 		txtTitulacion.setColumns(10);
-
-		txtDni = new JTextField();
-		txtDni.setBounds(233, 597, 247, 30);
-		contentPane.add(txtDni);
-		txtDni.setColumns(10);
+		
+				txtEmail1 = new JTextField();
+				txtEmail1.setColumns(10);
+				txtEmail1.setBounds(150, 440, 247, 30);
+				contentPane.add(txtEmail1);
+		
+				txtEmail2 = new JTextField();
+				txtEmail2.setColumns(10);
+				txtEmail2.setBounds(575, 440, 247, 30);
+				contentPane.add(txtEmail2);
+		
+				txtTelefono1 = new JTextField();
+				txtTelefono1.setColumns(10);
+				txtTelefono1.setBounds(150, 519, 247, 30);
+				contentPane.add(txtTelefono1);
+		
+				txtTelefono2 = new JTextField();
+				txtTelefono2.setBounds(575, 519, 247, 30);
+				contentPane.add(txtTelefono2);
+				txtTelefono2.setColumns(10);
 
 		txtRelacion_laboral = new JTextField();
-		txtRelacion_laboral.setBounds(546, 201, 247, 30);
+		txtRelacion_laboral.setBounds(150, 597, 247, 30);
 		contentPane.add(txtRelacion_laboral);
 		txtRelacion_laboral.setColumns(10);
-
-		txtTelefono1 = new JTextField();
-		txtTelefono1.setColumns(10);
-		txtTelefono1.setBounds(546, 281, 247, 30);
-		contentPane.add(txtTelefono1);
-
-		txtTelefono2 = new JTextField();
-		txtTelefono2.setBounds(546, 361, 247, 30);
-		contentPane.add(txtTelefono2);
-		txtTelefono2.setColumns(10);
-
-		txtEmail1 = new JTextField();
-		txtEmail1.setColumns(10);
-		txtEmail1.setBounds(546, 440, 247, 30);
-		contentPane.add(txtEmail1);
-
-		txtEmail2 = new JTextField();
-		txtEmail2.setColumns(10);
-		txtEmail2.setBounds(546, 519, 247, 30);
-		contentPane.add(txtEmail2);
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
@@ -212,53 +212,70 @@ public class GestionProfesoresAddMod extends JFrame {
 		btnGuardarCambios.setBounds(765, 685, 137, 40);
 		contentPane.add(btnGuardarCambios);
 
-		chckbxAI_profesores = new JCheckBox("Activo / Inactivo");
-		chckbxAI_profesores.setBounds(558, 601, 128, 23);
-		contentPane.add(chckbxAI_profesores);
-
 		lblNumero = new JLabel("Numero");
-		lblNumero.setBounds(243, 177, 46, 14);
+		lblNumero.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumero.setBounds(150, 177, 250, 20);
 		contentPane.add(lblNumero);
+		
+				lblDni = new JLabel("D.N.I");
+				lblDni.setHorizontalAlignment(SwingConstants.CENTER);
+				lblDni.setBounds(575, 177, 250, 20);
+				contentPane.add(lblDni);
 
 		lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(243, 257, 237, 14);
+		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre.setBounds(150, 257, 250, 20);
 		contentPane.add(lblNombre);
 
 		lblApellido1 = new JLabel("Apellido 1");
-		lblApellido1.setBounds(243, 337, 237, 14);
+		lblApellido1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblApellido1.setBounds(575, 257, 250, 20);
 		contentPane.add(lblApellido1);
 
 		lblApellido2 = new JLabel("Apellido 2");
-		lblApellido2.setBounds(243, 416, 237, 14);
+		lblApellido2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblApellido2.setBounds(150, 336, 250, 20);
 		contentPane.add(lblApellido2);
 
 		lblTitulacion = new JLabel("Titulacion");
-		lblTitulacion.setBounds(243, 495, 237, 14);
+		lblTitulacion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulacion.setBounds(575, 336, 250, 20);
 		contentPane.add(lblTitulacion);
-
-		lblDni = new JLabel("D.N.I");
-		lblDni.setBounds(243, 572, 71, 14);
-		contentPane.add(lblDni);
+		
+				lblEmail1 = new JLabel("Email 1");
+				lblEmail1.setHorizontalAlignment(SwingConstants.CENTER);
+				lblEmail1.setBounds(150, 416, 250, 20);
+				contentPane.add(lblEmail1);
+		
+				lblEmail2 = new JLabel("Email 2");
+				lblEmail2.setHorizontalAlignment(SwingConstants.CENTER);
+				lblEmail2.setBounds(575, 416, 250, 20);
+				contentPane.add(lblEmail2);
+		
+				lblTlfn1 = new JLabel("Telefono 1");
+				lblTlfn1.setHorizontalAlignment(SwingConstants.CENTER);
+				lblTlfn1.setBounds(150, 495, 250, 20);
+				contentPane.add(lblTlfn1);
+		
+				lblTlfn2 = new JLabel("Telefono 2");
+				lblTlfn2.setHorizontalAlignment(SwingConstants.CENTER);
+				lblTlfn2.setBounds(575, 495, 250, 20);
+				contentPane.add(lblTlfn2);
 
 		lblRelacionLaboral = new JLabel("Relacion laboral");
-		lblRelacionLaboral.setBounds(558, 177, 235, 14);
+		lblRelacionLaboral.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRelacionLaboral.setBounds(150, 572, 250, 20);
 		contentPane.add(lblRelacionLaboral);
-
-		lblTlfn1 = new JLabel("Telefono 1");
-		lblTlfn1.setBounds(558, 257, 235, 14);
-		contentPane.add(lblTlfn1);
-
-		lblTlfn2 = new JLabel("Telefono 2");
-		lblTlfn2.setBounds(558, 336, 229, 14);
-		contentPane.add(lblTlfn2);
-
-		lblEmail1 = new JLabel("Email 1");
-		lblEmail1.setBounds(558, 416, 71, 14);
-		contentPane.add(lblEmail1);
-
-		lblEmail2 = new JLabel("Email 2");
-		lblEmail2.setBounds(558, 494, 71, 14);
-		contentPane.add(lblEmail2);
+		
+		JLabel lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(0, 110, 1000, 30);
+		contentPane.add(lblInfo);
+		
+				chckbxAI_profesores = new JCheckBox("Activo / Inactivo");
+				chckbxAI_profesores.setHorizontalAlignment(SwingConstants.CENTER);
+				chckbxAI_profesores.setBounds(575, 601, 250, 23);
+				contentPane.add(chckbxAI_profesores);
 
 	}
 	// Setters
