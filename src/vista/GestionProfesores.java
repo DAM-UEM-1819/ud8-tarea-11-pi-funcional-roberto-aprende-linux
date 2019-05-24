@@ -55,7 +55,7 @@ public class GestionProfesores extends JFrame {
 	private JLabel lblPerfil;
 	private JButton btnVolver;
 	private JButton btnAI_profesor;
-	private JButton btnAddProfesor;
+	private JButton btnModProfesor;
 	private JLabel lblImportarActividades;
 	private JComboBox comboBoxColumna;
 	private JTextField txtBuscador;
@@ -64,6 +64,7 @@ public class GestionProfesores extends JFrame {
 	private String ape1;
 	private String ape2;
 	private String nombreSeparado[];
+	private JButton btnAddProfesor;
 
 	public GestionProfesores() {
 		addWindowListener(new WindowAdapter() {
@@ -152,25 +153,30 @@ public class GestionProfesores extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAI_profesor.setBounds(436, 685, 120, 40);
+		btnAI_profesor.setBounds(560, 685, 120, 40);
 		contentPane.add(btnAI_profesor);
 
-		btnAddProfesor = new JButton(" A\u00F1adir y modificar");
-		btnAddProfesor.addActionListener(new ActionListener() {
+		btnModProfesor = new JButton("Modificar profesor");
+		btnModProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				
 				if (tablaProfesores.getSelectedRowCount()> 0) {
 					controlador.solicitudCamposDeTextoProfe();
+					controlador.gestionProfesoresTogestionProsoresAddMod();
 				}
 				
-				controlador.gestionProfesoresTogestionProsoresAddMod();
-			
-				
-
 			}
 		});
-		btnAddProfesor.setBounds(752, 685, 146, 40);
+		btnModProfesor.setBounds(313, 685, 146, 40);
+		contentPane.add(btnModProfesor);
+		
+		btnAddProfesor = new JButton("A\u00F1adir profesor");
+		btnAddProfesor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.gestionProfesoresTogestionProsoresAddMod();
+			}
+		});
+		btnAddProfesor.setBounds(770, 685, 124, 40);
 		contentPane.add(btnAddProfesor);
 
 		txtBuscador = new JTextField();
@@ -227,23 +233,26 @@ public class GestionProfesores extends JFrame {
 	public void getNombreGP() {
 		String nombreYapellidos = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 1));
 		nombreSeparado = nombreYapellidos.split(" ");
-		this.nombre = nombreSeparado[0];
-		this.ape1 = nombreSeparado[1];
+		this.nombre = nombreSeparado[0].trim();
+		this.ape1 = nombreSeparado[1].trim();
 		this.ape2 = nombreSeparado[2];
 
 	}
 
 	public String getNombreProfeGP() {
 		getNombreGP();
-		return nombre;
+		
+		return nombre.trim();
 	}
 
 	public String getApe1GP() {
-		return ape1;
+		
+		return ape1.trim();
 	}
 
 	public String getApe2GP() {
-		return ape2;
+		
+		return ape2.trim();
 	}
 
 	public String getTitulacion() {
@@ -287,7 +296,4 @@ public class GestionProfesores extends JFrame {
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
-	
-	
-
 }

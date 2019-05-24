@@ -397,7 +397,5 @@ public class GestionAlumnos extends JFrame {
 		} else {
 			btnActivoAlumno.setEnabled(false);
 		}
-
 	}
-
 }

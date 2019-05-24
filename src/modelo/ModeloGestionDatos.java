@@ -228,6 +228,10 @@ public class ModeloGestionDatos {
 	public boolean getSeHaCreado() {
 		return seHaCreado;
 	}
+	
+	public boolean getVaciarDatos() {
+		return datosProfe.removeAll(datosProfe);
+	}
 
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
@@ -237,6 +241,10 @@ public class ModeloGestionDatos {
 	public Object[] getRellenarDatos() {
 		return datosProfe.toArray();
 	}
+	
+	
+	
+
 
 	public String getRespuesta() {
 		return respuesta;
@@ -635,7 +643,7 @@ respuesta = "Has modificado sala";
 		String.valueOf(datosProfe.add(numGP));
 		String.valueOf(datosProfe.add(nombreProfeGP));
 		String.valueOf(datosProfe.add(ape1gp));
-//		String.valueOf(datosProfe.add(ape2gp));
+        String.valueOf(datosProfe.add(ape2gp));
 		String.valueOf(datosProfe.add(titulacion));
 		String.valueOf(datosProfe.add(dni));
 		String.valueOf(datosProfe.add(relacion));
@@ -643,8 +651,7 @@ respuesta = "Has modificado sala";
 		String.valueOf(datosProfe.add(tlf2));
 		String.valueOf(datosProfe.add(mail1));
 		String.valueOf(datosProfe.add(mail2));
-		
-		
+		String.valueOf(datosProfe.add(activo));
 		return datosProfe;
 
 	}

@@ -320,7 +320,7 @@ public class Controlador implements IControlador {
 
 	public void solicitudBorrar(Object obj) {
 		String clase = obj.getClass().toString();
-		String opcion = clase.substring(12, clase.length() - 2).toUpperCase();
+		String opcion = clase.substring(12, clase.indexOf("$")).toUpperCase();
 		switch (opcion) {
 		case "GESTIONALUMNOS":
 			modeloGestionDatos.opcionesActivoDatos(gestionAlumnos.estadoCheckBox(), gestionAlumnos.getPrimaryKey(),
@@ -335,7 +335,7 @@ public class Controlador implements IControlador {
 		case "GESTIONASIGNATURA":
 			modeloGestionDatos.opcionesBorrarDatos(gestionAsignatura.getPrimaryKey(), "D");
 			break;
-		case "GESTIONSALAS$":
+		case "GESTIONSALAS":
 			modeloGestionDatos.opcionesBorrarDatos(gestionSalas.getPrimaryKey(), "E");
 			break;
 		case "GESTIONREGISTROS":
