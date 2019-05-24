@@ -100,7 +100,7 @@ public class GestionProfesores extends JFrame {
 
 		lblTitulo = new JLabel("Profesores");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 266, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);

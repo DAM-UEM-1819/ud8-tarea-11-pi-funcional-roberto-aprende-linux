@@ -134,7 +134,7 @@ public class GestionRegistros extends JFrame {
 
 		lblTitulo = new JLabel("Registros");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 202, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);

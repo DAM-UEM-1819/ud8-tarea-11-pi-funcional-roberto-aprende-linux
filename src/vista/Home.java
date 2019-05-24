@@ -152,7 +152,7 @@ public class Home extends JFrame {
 		lblTitulo = new JLabel(dia + "-" + mes + "-" + year);
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(250, 0, 500, 100);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblTitulo);
 

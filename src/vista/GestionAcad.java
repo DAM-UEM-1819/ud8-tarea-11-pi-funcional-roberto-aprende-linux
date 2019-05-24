@@ -87,9 +87,9 @@ public class GestionAcad extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("A�o acad�mico");
+		lblTitulo = new JLabel("Año académico");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(322, 11, 333, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
