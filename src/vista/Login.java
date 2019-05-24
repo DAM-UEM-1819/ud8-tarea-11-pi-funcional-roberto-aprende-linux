@@ -62,7 +62,7 @@ public class Login extends JFrame {
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 		
@@ -103,15 +103,16 @@ public class Login extends JFrame {
 
 		FooterPanel = new JPanel();
 		FooterPanel.setBackground(new Color(165, 42, 42));
-		FooterPanel.setBounds(0, 709, 984, 53);
+		FooterPanel.setBounds(0, 728, 1000, 50);
 		contentPane.add(FooterPanel);
 		FooterPanel.setLayout(null);
-
-		lblNewLabel = new JLabel("Universidad Europea de Madrid");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(400, 11, 201, 31);
-		FooterPanel.add(lblNewLabel);
+		
+				lblNewLabel = new JLabel("Universidad Europea de Madrid");
+				lblNewLabel.setBounds(0, 0, 1000, 50);
+				FooterPanel.add(lblNewLabel);
+				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				lblNewLabel.setForeground(Color.WHITE);
 
 		passwdPasswordUsuario = new JPasswordField();
 		passwdPasswordUsuario.setBounds(451, 463, 200, 30);
