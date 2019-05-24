@@ -80,7 +80,7 @@ public class GestionProfesoresAddMod extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				rellenar();
-				txtNumero.setText(num);
+				
 				
 			}
 		});
@@ -192,10 +192,10 @@ public class GestionProfesoresAddMod extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				limpiarTxt();
 				setVisible(false);
 				controlador.gestionProfesoresAddModToGestionProfesores();
-				limpiarTxt();
+				
 				
 			}
 		});
@@ -312,7 +312,13 @@ public class GestionProfesoresAddMod extends JFrame {
 	}
 	//
 	public void rellenar() {
-		num = String.valueOf(modeloGestionDatos.getRellenarDatos()[0]);
+		if (modeloGestionDatos.getRellenarDatos().length != 0) {
+			num = String.valueOf(modeloGestionDatos.getRellenarDatos()[0]);
+			txtNumero.setText(num);
+		}
+			
+		
+		
 		
 		
 	}

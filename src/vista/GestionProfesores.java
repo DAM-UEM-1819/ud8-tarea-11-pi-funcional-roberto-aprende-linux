@@ -159,7 +159,11 @@ public class GestionProfesores extends JFrame {
 		btnAddProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				controlador.solicitudCamposDeTextoProfe();
+				
+				if (tablaProfesores.getSelectedRowCount()> 0) {
+					controlador.solicitudCamposDeTextoProfe();
+				}
+				
 				controlador.gestionProfesoresTogestionProsoresAddMod();
 			
 				
