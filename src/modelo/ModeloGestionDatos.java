@@ -77,7 +77,7 @@ public class ModeloGestionDatos {
 	private boolean seHaCreado;
 	private boolean seHaCambiadoEstado;
 	private String clave;
-	private String activo;
+	private int activo;
 
 	// Sentencias Insertado SQL
 	private String insertUsuario;
@@ -220,6 +220,9 @@ public class ModeloGestionDatos {
 	public boolean getSeHaBorrado() {
 		return seHaBorrado;
 	}
+	public boolean getSeHaCambiadoEstado() {
+		return seHaCambiadoEstado;
+	}
 
 	public boolean getSeHaCreado() {
 		return seHaCreado;
@@ -228,6 +231,10 @@ public class ModeloGestionDatos {
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
 
+	}
+	
+	public Object[] getRellenarDatos() {
+		return datosProfe.toArray();
 	}
 
 	public String getRespuesta() {
@@ -468,7 +475,7 @@ public class ModeloGestionDatos {
 	}
 	
 	
-	public boolean opcionesActivoDatos(String activo ,String clave, String opcion) {
+	public boolean opcionesActivoDatos(int activo ,String clave, String opcion) {
 		this.clave = clave;
 		this.activo = activo;
 		seHaCambiadoEstado = false;
@@ -522,7 +529,7 @@ public class ModeloGestionDatos {
 		seHaCambiadoEstado = false;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, activo);
+			pstmt.setInt(1, activo);
 			pstmt.setString(2, clave);
 			pstmt.executeUpdate();
 			seHaCambiadoEstado = true;
@@ -640,5 +647,9 @@ respuesta = "Has modificado sala";
 		return datosProfe;
 
 	}
+
+
+
+	
 
 }

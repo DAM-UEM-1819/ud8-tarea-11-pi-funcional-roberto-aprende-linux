@@ -267,6 +267,11 @@ public class GestionProfesores extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaProfesores.getModel();
 	}
+
+	public String getPalabraBuscador() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

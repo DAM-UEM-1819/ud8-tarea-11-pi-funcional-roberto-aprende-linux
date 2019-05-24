@@ -409,12 +409,15 @@ public class Controlador implements IControlador {
 	}
 	
 	public void solicitudCamposDeTextoProfe() {
-		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(),gestionProfesores.getNombreProfeGP(),gestionProfesores.getApe1GP(),gestionProfesores.getApe2GP());
+		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(),gestionProfesores.getNombreProfeGP(),gestionProfesores.getApe1GP(),gestionProfesores.getApe2GP(), null, null, null, null, null, null, null, null);
 	}
 	
 	// VENTANA GESTION PROFESORESADDMOD
 	
-	
+	public void gestionProfesoresAddModToGestionProfesores() {
+		 gestionProfesoresAddMod.setVisible(true);
+		
+	}
 	
 	
 	
@@ -540,6 +543,8 @@ public class Controlador implements IControlador {
 		}
 		
 	}
+
+	
 
 
 }
