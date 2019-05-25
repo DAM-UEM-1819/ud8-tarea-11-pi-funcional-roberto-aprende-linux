@@ -305,7 +305,7 @@ public class Home extends JFrame {
 	public void vistaDefault() {
 		btnGestionar.setVisible(true);
 		btnInformes.setVisible(true);
-		btnInfoExtra.setBounds(251, 685, 144, 40);
+		btnInfoExtra.setBounds(284, 685, 170, 40);
 	}
 
 	public void getTxtCalendario() {
