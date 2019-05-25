@@ -26,6 +26,8 @@ import java.awt.image.ImageProducer;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Login extends JFrame {
 
@@ -57,6 +59,14 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 
 		txtUser = new TextField();
+		txtUser.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					controlador.loginSolicitud();
+				}
+			}
+		});
 		txtUser.setBounds(451, 263, 200, 30);
 		contentPane.add(txtUser);
 
@@ -115,6 +125,14 @@ public class Login extends JFrame {
 		lblNewLabel.setForeground(Color.WHITE);
 
 		passwdPasswordUsuario = new JPasswordField();
+		passwdPasswordUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					controlador.loginSolicitud();
+				}
+			}
+		});
 		passwdPasswordUsuario.setBounds(451, 463, 200, 30);
 		contentPane.add(passwdPasswordUsuario);
 
