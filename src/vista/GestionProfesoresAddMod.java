@@ -72,6 +72,7 @@ public class GestionProfesoresAddMod extends JFrame {
 	private JTextField txtApellido2;
 	private JLabel lblApellido2;
 	private String activo;
+	private JLabel lblInfo;
 
 	public GestionProfesoresAddMod() {
 		setResizable(false);
@@ -267,7 +268,7 @@ public class GestionProfesoresAddMod extends JFrame {
 		lblRelacionLaboral.setBounds(150, 572, 250, 20);
 		contentPane.add(lblRelacionLaboral);
 		
-		JLabel lblInfo = new JLabel("");
+		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(0, 110, 1000, 30);
 		contentPane.add(lblInfo);
@@ -349,6 +350,8 @@ public class GestionProfesoresAddMod extends JFrame {
 			}
 		}
 	}
+	
+	
 
 	public int estadoCheckBox() {
 		int resultado = chckbxAI_profesores.isSelected() == true ? 1 : 0;
