@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -44,15 +46,16 @@ public class GestionAcad extends JFrame {
 	private JLabel lblPerfil;
 	private JButton btnVolver;
 	private JButton btnAI_actor;
-	private JButton btnAddActor;
-	private JButton btnModificarActor;
+	private JButton btnAddAcad;
+	private JButton btnModificarAcad;
 	private JTextField txtBuscador;
 	private JComboBox comboBoxSem2;
 	private JComboBox comboBoxSem1;
-	private JLabel label;
-	private JComboBox comboBoxColumna;
+	private JLabel lblImportaionesActividades;
+	private JLabel lblLupa;
 
 	public GestionAcad() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -70,7 +73,7 @@ public class GestionAcad extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 411);
+		scrollPane.setBounds(98, 145, 800, 446);
 		contentPane.add(scrollPane);
 
 		tablaAcad = new JTable();
@@ -80,14 +83,14 @@ public class GestionAcad extends JFrame {
 		scrollPane.setViewportView(tablaAcad);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Año académico");
+		lblTitulo = new JLabel("A\u00F1o academico");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(322, 11, 333, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -96,7 +99,26 @@ public class GestionAcad extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -121,7 +143,7 @@ public class GestionAcad extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -131,20 +153,20 @@ public class GestionAcad extends JFrame {
 				controlador.gestionAcadToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
-		btnModificarActor = new JButton("Modificar actor");
-		btnModificarActor.setBounds(325, 685, 120, 40);
-		contentPane.add(btnModificarActor);
+		btnModificarAcad = new JButton("Modificar a\u00F1o");
+		btnModificarAcad.setBounds(316, 685, 150, 40);
+		contentPane.add(btnModificarAcad);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
-		btnAI_actor.setBounds(575, 685, 120, 40);
+		btnAI_actor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_actor);
 
-		btnAddActor = new JButton(" A\u00F1adir actor");
-		btnAddActor.setBounds(782, 685, 120, 40);
-		contentPane.add(btnAddActor);
+		btnAddAcad = new JButton(" A\u00F1adir a\u00F1o");
+		btnAddAcad.setBounds(748, 685, 150, 40);
+		contentPane.add(btnAddAcad);
 
 		comboBoxSem1 = new JComboBox();
 		comboBoxSem1.setModel(new DefaultComboBoxModel(new String[] { "09/01/2018" }));
@@ -156,21 +178,39 @@ public class GestionAcad extends JFrame {
 		comboBoxSem2.setBounds(657, 610, 241, 40);
 		contentPane.add(comboBoxSem2);
 
-		label = new JLabel("Importar Actividades");
-		label.setIcon(new ImageIcon(GestionAcad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		label.setBounds(98, 132, 124, 20);
-		contentPane.add(label);
+		lblImportaionesActividades = new JLabel("Importar Actividades");
+		lblImportaionesActividades.setEnabled(false);
+		lblImportaionesActividades.setIcon(new ImageIcon(GestionAcad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		lblImportaionesActividades.setBounds(96, 111, 124, 20);
+		contentPane.add(lblImportaionesActividades);
+		lblImportaionesActividades.setVisible(false);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosAcad();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setColumns(10);
-		txtBuscador.setBounds(665, 132, 86, 20);
+		txtBuscador.setBounds(728, 112, 140, 22);
 		contentPane.add(txtBuscador);
-
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setBounds(761, 132, 104, 20);
-		contentPane.add(comboBoxColumna);
+		
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 112, 20, 22);
+		contentPane.add(lblLupa);
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -187,5 +227,9 @@ public class GestionAcad extends JFrame {
 
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaAcad.getModel();
+	}
+	
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 }

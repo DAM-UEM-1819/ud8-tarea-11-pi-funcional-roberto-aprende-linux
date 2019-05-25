@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 
+import javax.swing.table.DefaultTableModel;
+
 import controlador.Controlador;
 import vista.CrearUsuario;
 import vista.Gestion;
@@ -20,6 +22,7 @@ import vista.GestionActores;
 import vista.GestionAlumnos;
 import vista.GestionAsignatura;
 import vista.GestionProfesores;
+import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
@@ -48,6 +51,7 @@ public class ModeloGestionDatos {
 	private GestionRegistros gestionRegistros;
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
+	private GestionProfesoresAddMod gestionProfesoresAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -56,6 +60,7 @@ public class ModeloGestionDatos {
 	private ModeloConsultas modeloConsultas;
 
 	private ArrayList<Object> datosFilastabla;
+	private ArrayList<String> datosProfe;
 
 	// Atributos Fichero
 	private Properties propiedadesInsertado;
@@ -70,7 +75,9 @@ public class ModeloGestionDatos {
 	private String respuesta;
 	private boolean seHaBorrado;
 	private boolean seHaCreado;
+	private boolean seHaCambiadoEstado;
 	private String clave;
+	private int activo;
 
 	// Sentencias Insertado SQL
 	private String insertUsuario;
@@ -88,14 +95,24 @@ public class ModeloGestionDatos {
 	private String insertOcupa;
 
 	// Sentencias Delete SQL
-	private String deleteAlumno;
+//	private String deleteAlumno;
 	private String deleteUsuario;
 	private String deleteSala;
 	private String deleteOcupa;
+	private String deleteActuaRegistro;
+	private String deleteParticipaRegistro;
+	private String deleteRealizaRegistro;
+	private String deleteOcupaRegistro;
+	private String deleteRegistro;
 
 	// Sentincias Update SQL
 	private String updateAlumno;
 	private String updateSala;
+	private String updateRegistro;
+	private String updateUsuario;
+	// activo-inactivo
+	private String activoInactivoUpdateAlumno;
+	private String activoInactivoUpdateProfesor;
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -124,6 +141,7 @@ public class ModeloGestionDatos {
 			e.printStackTrace();
 		}
 		datosFilastabla = new ArrayList<Object>();
+		datosProfe = new ArrayList<String>();
 		asignacionInsertado();
 		asignacionBorrado();
 		asignacionModificacion();
@@ -179,6 +197,11 @@ public class ModeloGestionDatos {
 		this.gestionAsignatura = gestionAsignatura;
 	}
 
+	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
+		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
+
+	}
+
 	public void setGestionProfesores(GestionProfesores gestionProfesores) {
 		this.gestionProfesores = gestionProfesores;
 	}
@@ -199,15 +222,30 @@ public class ModeloGestionDatos {
 	public boolean getSeHaBorrado() {
 		return seHaBorrado;
 	}
+	public boolean getSeHaCambiadoEstado() {
+		return seHaCambiadoEstado;
+	}
 
 	public boolean getSeHaCreado() {
 		return seHaCreado;
+	}
+	
+	public boolean getVaciarDatos() {
+		return datosProfe.removeAll(datosProfe);
 	}
 
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
 
 	}
+	
+	public Object[] getRellenarDatos() {
+		return datosProfe.toArray();
+	}
+	
+	
+	
+
 
 	public String getRespuesta() {
 		return respuesta;
@@ -236,10 +274,16 @@ public class ModeloGestionDatos {
 	 * Metodo para asignar las sentencias de borrado a los atributos
 	 */
 	private void asignacionBorrado() {
-		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
+//		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
 		deleteSala = propiedadesBorrado.getProperty("deleteSala");
 		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
+		//
+		deleteActuaRegistro = propiedadesBorrado.getProperty("deleteActuaRegistro");
+		deleteParticipaRegistro = propiedadesBorrado.getProperty("deleteParticipaRegistro");
+		deleteRealizaRegistro = propiedadesBorrado.getProperty("deleteRealizaRegistro");
+		deleteOcupaRegistro = propiedadesBorrado.getProperty("deleteOcupaRegistro");
+		deleteRegistro = propiedadesBorrado.getProperty("deleteRegistro");
 	}
 
 	/**
@@ -248,6 +292,12 @@ public class ModeloGestionDatos {
 	private void asignacionModificacion() {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
 		updateSala = propiedadesModificacion.getProperty("updateSala");
+		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
+		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
+		//
+		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
+		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
+		
 
 	}
 
@@ -259,15 +309,17 @@ public class ModeloGestionDatos {
 	 * @param rol    El rol del usuario
 	 * @return Un String con el estado del metodo (si se ha creado o no)
 	 */
-	public String crearUsuario(String user, String passwd, String rol) {
-		String sql = insertUsuario;
+	public String crearUsuario(String user, String rol, String correo) {
+		String passwd = modelo.generadorPasswd();
+		String passwdMD5 = modelo.generarMD5(passwd);
 		try {
-			PreparedStatement pstmt = conexion.prepareStatement(sql);
-			pstmt = conexion.prepareStatement(sql);
-			pstmt.setString(1, user);
-			pstmt.setString(2, passwd);
-			pstmt.setString(3, rol);
+			PreparedStatement pstmt = conexion.prepareStatement(insertUsuario);
+			pstmt.setString(1, user.toUpperCase());
+			pstmt.setString(2, passwdMD5);
+			pstmt.setString(3, rol.toUpperCase());
+			pstmt.setString(4, correo.toUpperCase());
 			ResultSet rs = pstmt.executeQuery();
+			modelo.enviarCorreoGmail(correo, user, passwd);
 			respuesta = "Usuario creado";
 		} catch (Exception e) {
 			respuesta = "Error, algun campo vacio";
@@ -276,6 +328,45 @@ public class ModeloGestionDatos {
 		}
 
 		return respuesta;
+
+	}
+
+	public void actualizarUsuario(String user, String correo, String passwdActual, String passwdNueva,
+			String passwdComprobacion) {
+		passwdActual = modelo.generarMD5(passwdActual);
+		String passwdBD = modeloConsultas.consultarPasswdUsuario(user, passwdActual);
+		try {
+
+			if (!user.equals("") || !correo.equals("")) {
+				if (passwdActual.equals(passwdBD)) {
+
+					if (passwdNueva.equals(passwdComprobacion)) {
+
+						PreparedStatement pstmt = conexion.prepareStatement(updateUsuario);
+						pstmt.setString(1, user.toUpperCase());
+						pstmt.setString(2, modelo.generarMD5(passwdNueva));
+						pstmt.setString(3, correo.toUpperCase());
+						pstmt.setString(4, user.toUpperCase());
+						ResultSet rs = pstmt.executeQuery();
+						respuesta = "Usuario modificado correctamente";
+
+					} else {
+						respuesta = "Error, las nuevas contraseñas no coinciden";
+					}
+
+				} else {
+					respuesta = "Error, contraseña incorrecta";
+				}
+			} else {
+				respuesta = "Error, los campos de usuario y email están vacios";
+			}
+
+		} catch (Exception e) {
+			respuesta = "Error, ese usuario ya existe";
+			e.printStackTrace();
+		}
+
+		perfil.actualizarInfo();
 
 	}
 
@@ -366,13 +457,12 @@ public class ModeloGestionDatos {
 	public boolean opcionesBorrarDatos(String clave, String opcion) {
 		this.clave = clave;
 		seHaBorrado = false;
-		String sql = "";
 		switch (opcion) {
 		case "A":
-			seHaBorrado = borrarDatos(deleteAlumno);
+			seHaBorrado = borrarDatos(updateAlumno);
 			break;
 		case "B":
-			sql = deleteUsuario;
+			seHaBorrado = borrarDatos(deleteUsuario);
 			break;
 		case "C":
 			// sql = deleteActividad;
@@ -386,6 +476,47 @@ public class ModeloGestionDatos {
 			break;
 		case "F":
 			// sql = deleteRegistros;
+			seHaBorrado = borrarDatos(deleteOcupaRegistro);
+			seHaBorrado = borrarDatos(deleteActuaRegistro);
+			seHaBorrado = borrarDatos(deleteParticipaRegistro);
+			seHaBorrado = borrarDatos(deleteRealizaRegistro);
+			seHaBorrado = borrarDatos(deleteRegistro);
+			break;
+		}
+
+		return seHaBorrado;
+
+	}
+	
+	
+	public boolean opcionesActivoDatos(int activo ,String clave, String opcion) {
+		this.clave = clave;
+		this.activo = activo;
+		seHaCambiadoEstado = false;
+		switch (opcion) {
+		case "A":
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateAlumno);
+			break;
+		case "B":
+
+			break;
+		case "C":
+			// sql = deleteActividad;
+			break;
+		case "D":
+			// sql = deleteAsignatura;
+			break;
+		case "E":
+			
+			break;
+		case "F":
+			// sql = deleteRegistros;
+		
+			break;
+		case "G":
+			// sql = activoProfesor ;
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateProfesor);
+		
 			break;
 		}
 
@@ -412,6 +543,23 @@ public class ModeloGestionDatos {
 		}
 		return seHaBorrado;
 	}
+	
+	private boolean ActivoDatos(String sql) {
+		seHaCambiadoEstado = false;
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(sql);
+			pstmt.setInt(1, activo);
+			pstmt.setString(2, clave);
+			pstmt.executeUpdate();
+			seHaCambiadoEstado = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return seHaCambiadoEstado;
+	}
+	
+
+	
 
 	/**
 	 * Metodo para modificar los datos de un alumno
@@ -430,6 +578,7 @@ public class ModeloGestionDatos {
 				pstmt.setInt(2, activo);
 				pstmt.setString(3, exp);
 				pstmt.executeUpdate();
+				respuesta = "Has modificado alumno";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -438,6 +587,8 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 	}
+	
+	
 
 	/**
 	 * Metodo para modificar los datos de una sala
@@ -458,7 +609,7 @@ public class ModeloGestionDatos {
 				addDatos(pstmt);
 
 				seHaCreado = true;
-
+respuesta = "Has modificado sala";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -468,5 +619,55 @@ public class ModeloGestionDatos {
 			gestionSalas.actualizarInfoDatos();
 		}
 	}
+
+	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor,
+			String actividadNombre) {
+		// TODO Auto-generated method stub
+		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty()
+				&& !actividadNombre.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
+				pstmt.setString(1, fecha);
+				pstmt.setString(2, hora);
+				pstmt.setString(3, horasProfesor);
+				pstmt.setString(4, actividadNombre);
+				pstmt.setInt(5, Integer.parseInt(cod_registro));
+				addDatos(pstmt);
+
+				seHaCreado = true;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, estas modificando el codigo de registro";
+//			gestionRegistros.actualizarInfoDatos();
+		}
+
+	}
+
+	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp, String titulacion,
+			String dni, String activo, String relacion, String tlf1, String tlf2, String mail1, String mail2) {
+		datosProfe.removeAll(datosProfe);
+		String.valueOf(datosProfe.add(numGP));
+		String.valueOf(datosProfe.add(nombreProfeGP));
+		String.valueOf(datosProfe.add(ape1gp));
+        String.valueOf(datosProfe.add(ape2gp));
+		String.valueOf(datosProfe.add(titulacion));
+		String.valueOf(datosProfe.add(dni));
+		String.valueOf(datosProfe.add(relacion));
+		String.valueOf(datosProfe.add(tlf1));
+		String.valueOf(datosProfe.add(tlf2));
+		String.valueOf(datosProfe.add(mail1));
+		String.valueOf(datosProfe.add(mail2));
+		String.valueOf(datosProfe.add(activo));
+		return datosProfe;
+
+	}
+
+
+
+	
 
 }

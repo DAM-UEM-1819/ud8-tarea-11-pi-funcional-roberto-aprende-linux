@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.SelectableChannel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.TreeSet;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
@@ -68,11 +70,11 @@ public class ModeloConsultas {
 
 	// Atributos internos
 	private Connection conexion;
-	private int contador;
 	private String respuesta;
 	private DefaultTableModel tableModel;
 	private String[] nombreColumnasTabla;
 	private Object[] datosFilasTabla;
+	private String nombreUsuario;
 	private String rolUsuario;
 	private TreeSet<String> listadoGrupos;
 	private String grupo;
@@ -80,6 +82,7 @@ public class ModeloConsultas {
 	private String simulador;
 	private boolean actor;
 	private boolean existe;
+	private Object[] datosUsuario;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -97,6 +100,7 @@ public class ModeloConsultas {
 	private String selectTodasSalas;
 	private String selectTodosAcad;
 
+	// SENTENCIAS SELECT SQL PARA DATOS INTERNOS
 	private String selectTodosCodigoGrupo;
 
 	// Sentencias Select SQL LISTADOS
@@ -113,9 +117,34 @@ public class ModeloConsultas {
 	private String selectBuscadorActores;
 	private String selectBuscadorSalas;
 	private String selectBuscadorAcad;
-	
-	//SENTENCIAS SELECT SQL COMPROBACION
+
+	// SENTENCIAS SELECT SQL DATOS EXTRA
+	private String selectDatosUsuarioPerfil;
+
+	// SENTENCIAS SELECT SQL COMPROBACION
 	private String selectExisteSala;
+
+	// SENTENCIAS SELECT SQL INFORMES
+	private String informeNumeroHorasTotalesPorActividad;
+	private String informeNumeroHorasTotalesActividadPorTitulacion;
+	private String informeNumeroHorasTotalesActividadPorTitulacionYCurso;
+	private String informeNumeroHorasTotalesActividadPorTitulacionYAsignatura;
+	private String informeNumeroHorasTotalesActividadPorProfesor;
+	private String informeNumeroHorasTotalesActividadPorSala;
+	private String informeNumeroHorasTotalesActividadPorActividad;
+	private String informeNumeroHorasTotalesActividadPorSemestre;
+	private String informeNumeroHorasTotalesActividadPorMes;
+	private String informeNumeroHorasActorTotalesCursoAcademico;
+	private String informeNumeroHorasActorTotalesTitulacionYMes;
+	private String informeNumeroHorasActorTotalesTitulacionCursoAcademico;
+	private String informeListadoAlumnosAsignaturaYGrupoActivos;
+	private String informeListadoAlumnosNotasPorNombreActividad;
+	private String informeListadoProfesoresPorTitulacionActivos;
+	private String infoExtraProfesores;
+	private String infoExtraAlumnos;
+	
+	//SENTENCIAS SELECT SQL INFORMACION EXTRA
+	
 
 	public ModeloConsultas() {
 		propiedades = new Properties();
@@ -135,20 +164,18 @@ public class ModeloConsultas {
 			e1.printStackTrace();
 		}
 
-		// Asignamos select de login usuario
-		// Asignamos select de tablas
+		// ASIGNACIÓN DE LAS CONSULTAS
 		selectTablas();
-		// Asignamos select de listado
-		// Asignamos las Select SQL BUSCADOR
 		selectBuscador();
-		
 		selectComprobacionExiste();
+		selectDatosExtra();
+		selectInformes();
 	}
 
 	private void selectTablas() {
 		// select login
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
-		//
+
 		selectHome = propiedades.getProperty("selectHome");
 		selectDatosExtraHome = propiedades.getProperty("selectDatosExtraHome");
 		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
@@ -167,7 +194,6 @@ public class ModeloConsultas {
 		selectTodosCodigoGrupo = propiedades.getProperty("selectTodosCodigoGrupo");
 		selectListadoAlumnosPorGrupo = propiedades.getProperty("selectListadoAlumnosPorGrupo");
 
-		//
 		selectBuscadorHome = propiedades.getProperty("selectBuscadorHome");
 		selectBuscadorUsuarios = propiedades.getProperty("selectBuscadorUsuarios");
 		selectBuscadorRegistros = propiedades.getProperty("selectBuscadorRegistros");
@@ -179,10 +205,55 @@ public class ModeloConsultas {
 		selectBuscadorSalas = propiedades.getProperty("selectBuscadorSalas");
 		selectBuscadorAcad = propiedades.getProperty("selectBuscadorAcad");
 	}
-	
+
+	private void selectInformes() {
+		// NÚMERO DE HORAS DE ACTIVIDAD
+		informeNumeroHorasTotalesPorActividad = propiedades.getProperty("informeNumeroHorasTotalesPorActividad");
+		informeNumeroHorasTotalesActividadPorTitulacion = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacion");
+		informeNumeroHorasTotalesActividadPorTitulacionYCurso = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYCurso");
+		informeNumeroHorasTotalesActividadPorTitulacionYAsignatura = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYAsignatura");
+		informeNumeroHorasTotalesActividadPorProfesor = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorProfesor");
+		informeNumeroHorasTotalesActividadPorSala = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorSala");
+		informeNumeroHorasTotalesActividadPorActividad = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorActividad");
+		informeNumeroHorasTotalesActividadPorSemestre = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorSemestre");
+		informeNumeroHorasTotalesActividadPorMes = propiedades.getProperty("informeNumeroHorasTotalesActividadPorMes");
+
+		// NÚMERO DE HORAS DE ACTOR
+		informeNumeroHorasActorTotalesCursoAcademico = propiedades
+				.getProperty("informeNumeroHorasActorTotalesCursoAcademico");
+		informeNumeroHorasActorTotalesTitulacionYMes = propiedades
+				.getProperty("informeNumeroHorasActorTotalesTitulacionYMes");
+		informeNumeroHorasActorTotalesTitulacionCursoAcademico = propiedades
+				.getProperty("informeNumeroHorasActorTotalesTitulacionCursoAcademico");
+
+		// LISTADO DE ALUMNOS
+		informeListadoAlumnosAsignaturaYGrupoActivos = propiedades
+				.getProperty("informeListadoAlumnosAsignaturaYGrupoActivos");
+		informeListadoAlumnosNotasPorNombreActividad = propiedades
+				.getProperty("informeListadoAlumnosNotasPorNombreActividad");
+
+		// LISTADO DE PROFESORES
+		informeListadoProfesoresPorTitulacionActivos = propiedades
+				.getProperty("informeListadoProfesoresPorTitulacionActivos");
+	}
+
 	private void selectComprobacionExiste() {
 		selectExisteSala = propiedades.getProperty("selectExisteSala");
 	}
+
+	private void selectDatosExtra() {
+		selectDatosUsuarioPerfil = propiedades.getProperty("selectDatosUsuarioPerfil");
+		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
+		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
+	}
+	
 
 	// INICIO SETTERS
 
@@ -287,16 +358,41 @@ public class ModeloConsultas {
 	public boolean tieneActor() {
 		return actor;
 	}
-	
+
 	public boolean getExiste() {
 		return existe;
 	}
 
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public Object[] getDatosUsuario() {
+		return datosUsuario;
+	}
+
 	// INICIO METODOS BASE DATOS
 
+	/**
+	 * Metodo que sirve para proceder a la confirmación del login, compara los datos
+	 * dados con los datos de la BBDD. Para comparar la contraseña genera un MD5 de
+	 * la misma y compara el hash con el que haya en la BBDD para el usuario
+	 * correspondiente
+	 *
+	 * @param usuario El usuario escrito en el textfield del login
+	 * @param passwd  La contraseña del usuario
+	 */
 	public void loginConfirmacion(String usuario, String passwd) {
+		// BORRAR, ESTO SIRVE PARA AHORRARNOS TRABAJO, NO DEJARLO EN LA VERSION FINAL
+		// FALLO DE SEGURIDAD IMPORTANTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if (usuario.equals("") || passwd.equals("")) {
+			login.loginExitoso();
+		}
 		conexion = modelo.getConexion();
 		String sql = selectPasswdUsuario;
+		usuario = usuario.toUpperCase();
+		usuario = usuario.trim();
+		passwd = modelo.generarMD5(passwd);
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt.setString(1, usuario);
@@ -308,14 +404,10 @@ public class ModeloConsultas {
 				} else {
 					login.loginExitosoLectura();
 				}
-
+				nombreUsuario = usuario;
 			} else {
-				respuesta = "Ususario o contrase�a incorrectos";
+				respuesta = "Ususario o contraseña incorrectos";
 				login.actualizarInfo();
-				contador++;
-				if (contador >= 3) {
-					login.salir();
-				}
 			}
 
 		} catch (Exception e) {
@@ -324,14 +416,46 @@ public class ModeloConsultas {
 		}
 	}
 
-	public void crearUsuario(String user, String passwd, String rol) {
+	/**
+	 * Este método devuelve el hash de la contraseña de un usuario en específico
+	 *
+	 * @param usuario El usuario a consultar
+	 * @param passwd  La contraseña del usuario
+	 * @return El hash de la contraseña ubicada en la BBDD
+	 */
+	public String consultarPasswdUsuario(String usuario, String passwd) {
+
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(selectPasswdUsuario);
+			pstmt.setString(1, usuario);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				passwd = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return passwd;
+	}
+
+	/**
+	 * Este método consulta si el usuario que se quiere añadir ya existe o no en la
+	 * base de datos. En caso de que no exista llamará al metodo correspondiente
+	 * para crear el usuario
+	 *
+	 * @param user   El nombre del usuario
+	 * @param passwd La contraseña del usuario
+	 * @param rol    El rol del usuario
+	 */
+	public void crearUsuario(String user, String rol, String email) {
 		String sql = selectPasswdUsuario;
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(sql);
 			pstmt.setString(1, user);
 			ResultSet rs = pstmt.executeQuery();
 			if (!rs.next()) {
-				respuesta = modeloGestionDatos.crearUsuario(user, passwd, rol);
+				respuesta = modeloGestionDatos.crearUsuario(user, rol, email);
 			} else {
 				respuesta = "El usuario ya existe";
 			}
@@ -343,6 +467,12 @@ public class ModeloConsultas {
 		crearUsuario.actualizarInfo();
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana home
+	 *
+	 * @param tableModel La tabla de la vista Home
+	 */
 	public void getTablaHome(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -370,6 +500,35 @@ public class ModeloConsultas {
 		home.actualizarInfoExtra();
 	}
 
+	public void getDatosUsuarioPerfil() {
+		PreparedStatement pstmt;
+
+		try {
+			pstmt = conexion.prepareStatement(selectDatosUsuarioPerfil);
+			pstmt.setString(1, nombreUsuario);
+			ResultSet rs = pstmt.executeQuery();
+			ResultSetMetaData metadatos = rs.getMetaData();
+			datosUsuario = new Object[metadatos.getColumnCount()];
+			if (rs.next()) {
+
+				for (int i = 0; i < metadatos.getColumnCount(); i++) {
+					datosUsuario[i] = rs.getString(i + 1);
+				}
+
+				perfil.mostrarDatosPerfil();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de gestion de usuarios
+	 *
+	 * @param tableModel La tabla de la vista de usuarios
+	 */
 	public void getTablaUsuarios(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -382,6 +541,12 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de año academico
+	 *
+	 * @param tableModel La tabla de la vista de acad
+	 */
 	public void getTablaAcad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -394,6 +559,12 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de gestion de actividades
+	 *
+	 * @param tableModel La tabla de la vista de actividad
+	 */
 	public void getTablaActividad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -406,6 +577,12 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de gestion de actores
+	 *
+	 * @param tableModel La tabla de la vista de gestion de actores
+	 */
 	public void getTablaActores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -418,6 +595,12 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de gestion de alumnos
+	 *
+	 * @param tableModel La tabla de la vista de gestion de alumnos
+	 */
 	public void getTablaAlumnos(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -430,6 +613,12 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de gestion de asignaturas
+	 *
+	 * @param tableModel La tabla de la vista de gestion de asignaturas
+	 */
 	public void getTablaAsignatura(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -442,6 +631,12 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de gestion de profesores
+	 *
+	 * @param tableModel La tabla de la vista de fgestion de profesores
+	 */
 	public void getTablaProfesores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -454,6 +649,12 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de gestion de registros
+	 *
+	 * @param tableModel La tabla de la vista de gestion de registros
+	 */
 	public void getTablaRegistros(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -466,6 +667,12 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para preparar la consulta que se va a realizar para la
+	 * ventana de gestion de salas
+	 *
+	 * @param tableModel La tabla de la vista de gestion de salas
+	 */
 	public void getTablaSalas(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
@@ -478,6 +685,9 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Metodo que sirve para sacar los grupos de alumnos
+	 */
 	public void listadoGrupos() {
 		String sql = selectTodosCodigoGrupo;
 		listadoGrupos = new TreeSet<String>();
@@ -499,22 +709,11 @@ public class ModeloConsultas {
 		}
 	}
 
-	public void getListadoAlumnosPorGrupo(DefaultTableModel tableModel, String grupo) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		if (!grupo.equalsIgnoreCase("Selecciona un grupo")) {
-			try {
-				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo);
-				pstmt.setString(1, grupo);
-				getDatos(pstmt);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-	}
-
+	/**
+	 * Metodo que sirve para
+	 *
+	 * @param pstmt La consulta preparada y lista para ejecutarse
+	 */
 	private void getDatos(PreparedStatement pstmt) {
 		tableModel.setColumnCount(0);
 		tableModel.setRowCount(0);
@@ -539,7 +738,12 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Metodo que sirve para saber si uan sala ya existe o no
+	 *
+	 * @param sala La sala a comprobar
+	 */
 	public void comprobarSala(String sala) {
 		existe = false;
 		PreparedStatement pstmt;
@@ -555,5 +759,209 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	// BUSCADORES
+
+	/**
+	 * Metodo general que sirve para realizar todas las consultas de búsqueda
+	 *
+	 * @param tableModel La tabla donde se va a mostrar el resultado
+	 * @param palabra    La palabra a buscar
+	 * @param opcion     La opcion que se desea, depende del tipo de la clase donde
+	 *                   te encuetres
+	 */
+	public void buscador(DefaultTableModel tableModel, String palabra, String opcion) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt = null;
+		palabra = palabra.toUpperCase();
+
+		try {
+			switch (opcion) {
+			case "A":
+				pstmt = conexion.prepareStatement(selectBuscadorAlumnos);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				break;
+			case "B":
+				pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				break;
+			case "C":
+				pstmt = conexion.prepareStatement(selectBuscadorActividades);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
+				break;
+			case "D":
+				pstmt = conexion.prepareStatement(selectBuscadorAsignatura);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				break;
+			case "E":
+				pstmt = conexion.prepareStatement(selectBuscadorSalas);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				break;
+			case "F":
+				pstmt = conexion.prepareStatement(selectBuscadorProfesores);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
+				pstmt.setString(8, palabra + "%");
+				pstmt.setString(9, palabra + "%");
+				pstmt.setString(10, palabra + "%");
+				pstmt.setString(11, palabra + "%");
+				pstmt.setString(12, palabra + "%");
+				break;
+			case "G":
+				pstmt = conexion.prepareStatement(selectBuscadorAcad);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				break;
+			case "H":
+				pstmt = conexion.prepareStatement(selectBuscadorActores);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
+				break;
+			case "I":
+				pstmt = conexion.prepareStatement(selectBuscadorRegistros);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				break;
+			case "J":
+				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo); // Cambiar
+				pstmt.setString(1, palabra + "%");
+				break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		getDatos(pstmt);
+
+	}
+
+	/**
+	 * Metodo que sirve para crear los informes de la ventana informes
+	 *
+	 * @param informe    El informe a mostrar
+	 * @param tableModel La tabla de la vista
+	 */
+	public void crearInforme(DefaultTableModel tableModel, String informe) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt = null;
+		informe = informe.toUpperCase();
+
+		try {
+			switch (informe) {
+			case "HORAS_TOTALES_ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesPorActividad);
+				break;
+			case "HORAS_ACTIVIDAD_TITULACION":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacion);
+				break;
+			case "HORAS_ACTIVIDAD_TITULACION_Y_CURSO":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacionYCurso);
+				break;
+			case "HORAS_ACTIVIDAD_TITULACION_Y_ASIGNATURA":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacionYAsignatura);
+				break;
+			case "HORAS_ACTIVIDAD_PROFESOR":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorProfesor);
+				break;
+			case "HORAS_ACTIVIDAD_SALA":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorSala);
+				break;
+			case "HORAS_ACTIVIDAD_TIPO_ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorActividad);
+				break;
+			case "HORAS_ACTIVIDAD_MESES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorMes);
+				break;
+			case "HORAS_ACTIVIDAD_SEMESTRES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorSemestre);
+				break;
+			case "HORAS_ACTOR_TOTALES_EN_ACAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesCursoAcademico);
+				break;
+			case "HORAS_ACTOR_TITULACION_Y_MES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesTitulacionYMes);
+				break;
+			case "HORAS_ACTOR_TITULACION_Y_ACAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesTitulacionCursoAcademico);
+				break;
+			case "LISTADO_ALUMNOS_SEGUN_ASIGNATURA_Y_GRUPO_ACTIVOS":
+				pstmt = conexion.prepareStatement(informeListadoAlumnosAsignaturaYGrupoActivos);
+				break;
+			case "LISTADO_ALUMNOS_SEGUN_NOMBRE_ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeListadoAlumnosNotasPorNombreActividad);
+				break;
+			case "LISTADO_PROFESORES_SEGUN_TITULACION":
+				pstmt = conexion.prepareStatement(informeListadoProfesoresPorTitulacionActivos);
+				break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		getDatos(pstmt);
+
+	}
+
+	/**
+	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
+	 * home
+	 * 
+	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
+	 *                       la fila seleccionada
+	 */
+	public void guardarDatosFilaHome(Object[] datosFilaTabla) {
+		this.datosFilasTabla = datosFilaTabla;
+	}
+
+	/**
+	 * Metodo para mostrar el listado de alumnos y profesores del registro
+	 * seleccionado en la ventana de home
+	 * 
+	 * @param modelProfesores La tabla de profesores
+	 * @param modelAlumnos    La tabla de alumnos
+	 */
+	public void datosInfoExtra(DefaultTableModel modelProfesores, DefaultTableModel modelAlumnos) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conexion.prepareStatement(infoExtraProfesores);
+			getDatos(pstmt);
+			
+			pstmt = conexion.prepareStatement(infoExtraAlumnos);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

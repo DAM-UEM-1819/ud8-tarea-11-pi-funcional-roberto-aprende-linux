@@ -26,6 +26,8 @@ import java.awt.image.ImageProducer;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Login extends JFrame {
 
@@ -45,6 +47,7 @@ public class Login extends JFrame {
 	private JLabel lblInfo;
 
 	public Login() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,35 +59,43 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 
 		txtUser = new TextField();
+		txtUser.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					controlador.loginSolicitud();
+				}
+			}
+		});
 		txtUser.setBounds(451, 263, 200, 30);
 		contentPane.add(txtUser);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
-		
+
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		lblTitulo = new JLabel("Login");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 266, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
 		lblTitulo.setVerticalAlignment(JLabel.CENTER);
 
-		ImageIcon usuarioIcon = new ImageIcon("./img/usuario.png");
+		ImageIcon usuarioIcon = new ImageIcon("./img/usuarioLogin.png");
 		lblUsuarioTemp = new JLabel(usuarioIcon);
 		lblUsuarioTemp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuarioTemp.setBounds(345, 225, 100, 100);
 		contentPane.add(lblUsuarioTemp);
-		
+
 		ImageIcon passwdIcon = new ImageIcon("./img/candado.png");
 		lblPasswordTemp = new JLabel(passwdIcon);
 		lblPasswordTemp.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,31 +105,40 @@ public class Login extends JFrame {
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					controlador.loginSolicitud();
+				controlador.loginSolicitud();
 			}
 		});
-		btnLogin.setBounds(380, 572, 271, 58);
+		btnLogin.setBounds(369, 572, 282, 58);
 		contentPane.add(btnLogin);
 
 		FooterPanel = new JPanel();
-		FooterPanel.setBackground(new Color(165, 42, 42));
-		FooterPanel.setBounds(0, 709, 984, 53);
+		FooterPanel.setBackground(new Color(164,44,52));
+		FooterPanel.setBounds(0, 728, 1000, 50);
 		contentPane.add(FooterPanel);
 		FooterPanel.setLayout(null);
 
 		lblNewLabel = new JLabel("Universidad Europea de Madrid");
+		lblNewLabel.setBounds(0, 0, 1000, 50);
+		FooterPanel.add(lblNewLabel);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(400, 11, 201, 31);
-		FooterPanel.add(lblNewLabel);
 
 		passwdPasswordUsuario = new JPasswordField();
+		passwdPasswordUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					controlador.loginSolicitud();
+				}
+			}
+		});
 		passwdPasswordUsuario.setBounds(451, 463, 200, 30);
 		contentPane.add(passwdPasswordUsuario);
-		
+
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInfo.setBounds(380, 132, 271, 30);
+		lblInfo.setBounds(0, 104, 1000, 50);
 		contentPane.add(lblInfo);
 	}
 
@@ -138,7 +158,7 @@ public class Login extends JFrame {
 		setVisible(false);
 		controlador.loginToHome();
 	}
-	
+
 	public void loginExitosoLectura() {
 		setVisible(false);
 		controlador.loginToHomeLectura();
@@ -147,11 +167,11 @@ public class Login extends JFrame {
 	public void salir() {
 		System.exit(0);
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
-		this.modeloConsultas= modeloConsultas;
+		this.modeloConsultas = modeloConsultas;
 	}
-	
+
 	public void actualizarInfo() {
 		lblInfo.setText(modeloConsultas.getRespuesta());
 	}

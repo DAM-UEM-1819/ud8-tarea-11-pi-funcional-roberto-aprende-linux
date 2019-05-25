@@ -27,7 +27,7 @@ DROP TABLE ocupa CASCADE CONSTRAINTS;
 DROP TABLE Users CASCADE CONSTRAINTS;
 
 CREATE TABLE actividad (
-    nombre                  VARCHAR2(30) NOT NULL,
+    nombre                  VARCHAR2(40) NOT NULL,
     tipo_actividad          VARCHAR2(30) NOT NULL,
     tipo_sala               VARCHAR2(30) NOT NULL,
     documentacion_tecnica   NUMBER NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE actividad (
 ALTER TABLE actividad ADD CONSTRAINT actividad_pk PRIMARY KEY ( nombre );
 
 CREATE TABLE actor (
-    edad         VARCHAR2(15) NOT NULL,
+    edad         VARCHAR2(20) NOT NULL,
     genero       VARCHAR2(15) NOT NULL,
     idioma       VARCHAR2(15) NOT NULL,
     nombre       VARCHAR2(50) NOT NULL,
@@ -137,9 +137,9 @@ ALTER TABLE realiza ADD CONSTRAINT realiza_pk PRIMARY KEY ( registro_cod_registr
 CREATE TABLE registro (
     cod_registro       NUMBER(5) NOT NULL,
     fecha              DATE NOT NULL,
-    hora               VARCHAR2(5) NOT NULL,
+   	hora               TIMESTAMP DEFAULT SYSTIMESTAMP,
     horas_profesor     NUMBER(2) NOT NULL,
-    actividad_nombre   VARCHAR2(30) NOT NULL,
+    actividad_nombre   VARCHAR2(40) NOT NULL,
     cod_grupo          VARCHAR2(5) NOT  NULL
 );
 
@@ -166,7 +166,7 @@ ALTER TABLE ocupa ADD CONSTRAINT ocupa_pk PRIMARY KEY ( registro_cod_registro,
 
 CREATE TABLE Users(
     usr 		VARCHAR2(20) NOT NULL,
-    pwd 		VARCHAR2(50) NOT NULL,
+    pwd 		VARCHAR2(100) NOT NULL,
     rol 		VARCHAR2(20) NOT NULL,
     email   VARCHAR2(50) NOT NULL
 );
@@ -235,21 +235,21 @@ ALTER TABLE Actividad
 
   REM ******* INSERTADO  ****
 
-  REM ***1º Profesores***
+  REM ***1Âº Profesores***
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
-  VALUES(2224, 'MERCANTIL', '00000001F', 'lourdes@gmail.com', 'lourdes2@gmail.com', 654433891, 114433891, 'LOURDES ', 'MARTIN', 'MENDEZ', 'MEDICO');
+  VALUES(2224, 'MERCANTIL', '00000001F', 'lourdes@gmail.com', 'lourdes2@gmail.com', 654433891, 114433891, 'LOURDES', 'MARTIN', 'MENDEZ', 'MEDICO');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
-  VALUES(3332, 'LABORAL', '00000002D', 'marta@gmail.com', 'marta2@gmail.com', 774433891, 224433891, 'MARTA', 'LABORDA ', 'MARTÍN', 'CONSULTOR');
+  VALUES(3332, 'LABORAL', '00000002D', 'marta@gmail.com', 'marta2@gmail.com', 774433891, 224433891, 'MARTA', 'LABORDA', 'MARTÃ�N', 'CONSULTOR');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
-  VALUES(2324, 'LABORAL', '00000003G', 'maria@gmail.com', 'maria2@gmail.com', 884433891, 334433891, 'MARIA ', 'GILSANZ', 'MUÑOZ', 'DESARROLLADOR');
+  VALUES(2324, 'LABORAL', '00000003G', 'maria@gmail.com', 'maria2@gmail.com', 884433891, 334433891, 'MARIA', 'GILSANZ', 'MUÃ‘OZ', 'DESARROLLADOR');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
   VALUES(2325, 'LABORAL', '00000004C', 'santiago@gmail.com', 'santiago2@gmail.com', 994433891, 444433891, 'SANTIAGO', 'SEGURA', 'MARTIN', 'LEGADO');
 
-  REM *** 2º Asignatura ***
+  REM *** 2Âº Asignatura ***
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
   VALUES(01412, 'HHCC', 'Medicina', 4);
@@ -258,7 +258,7 @@ ALTER TABLE Actividad
   VALUES(01411, 'SEGURIDAD PACIENTE', 'Medicina', 4);
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
-  VALUES(01401, 'BIOÉTICA', 'Enfermeria', 4);
+  VALUES(01401, 'BIOÃ‰TICA', 'Enfermeria', 4);
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
   VALUES(01402, 'RESPIRATORIO', 'Enfermeria', 4);
@@ -276,7 +276,7 @@ ALTER TABLE Actividad
   VALUES(01404, 'UROLOGIA', 'Enfermeria', 3);
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
-  VALUES(01406, 'HEMATOLOGÍA', 'Medicina', 2);
+  VALUES(01406, 'HEMATOLOGÃ�A', 'Medicina', 2);
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
   VALUES(01407, 'INFECCIOSAS', 'Medicina', 1);
@@ -287,7 +287,7 @@ ALTER TABLE Actividad
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
   VALUES(01410, 'CARDIOLOGIA', 'Enfermeria', 2);
 
-  REM *** 3º Alumno ***
+  REM *** 3Âº Alumno ***
 
   INSERT INTO Alumno(EXP, NOMBRE)
   VALUES(1, 'MARIA CARMEN');
@@ -298,7 +298,7 @@ ALTER TABLE Actividad
   INSERT INTO Alumno(EXP, NOMBRE)
   VALUES(3, 'CARMEN');
 
-  REM *** 7º ACAD ***
+  REM *** 7Âº ACAD ***
 
   INSERT INTO acad ( acad, sem1 , sem2)
   VALUES ('18/19','09-01-2018','01-31-2019');
@@ -309,24 +309,24 @@ ALTER TABLE Actividad
   INSERT INTO acad ( acad, sem1 , sem2)
   VALUES ('15/16','09-01-2015','01-31-2016');
 
-  REM *** 4º Actor ***
+  REM *** 4Âº Actor ***
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MEDIANA EDAD', 'Hombre', 'Español', 'Juan', 1, 'Obesa');
+  VALUES('MEDIANA EDAD', 'Hombre', 'EspaÃ±ol', 'Juan', 1, 'Obesa');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÑOS', 'Mujer', 'Inglés', 'Pepa', 2, 'Normal');
+  VALUES('MAYOR 60 AÃ‘OS', 'Mujer', 'InglÃ©s', 'Pepa', 2, 'Normal');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MEDIANA EDAD', 'Hombre', 'Español', 'Anastasio', 3, 'Obesa');
+  VALUES('MEDIANA EDAD', 'Hombre', 'EspaÃ±ol', 'Anastasio', 3, 'Obesa');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÑOS', 'Mujer', 'Inglés', 'Gertrudis', 4, 'Delgada');
+  VALUES('MAYOR 60 AÃ‘OS', 'Mujer', 'InglÃ©s', 'Gertrudis', 4, 'Delgada');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÑOS', 'Hombre', 'Español', 'Pepito', 5, 'Normal');
+  VALUES('MAYOR 60 AÃ‘OS', 'Hombre', 'EspaÃ±ol', 'Pepito', 5, 'Normal');
 
-  REM *** 5º Actividad ***
+  REM *** 5Âº Actividad ***
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Demandante / desagradecido', 'Escenario Complejo', 1, 2, 01412, '', '18/19', 'consulta');
@@ -445,126 +445,127 @@ ALTER TABLE Actividad
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('VIH/TBC', 'Escenario Complejo', 39, 2, 01411, '', '18/19', 'consulta');
 
-  REM *** 6º Registro ***
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(1,'02/24/2019', '18:30', 2, 'Demandante / desagradecido','MEM11');
+  REM *** 6Âº Registro ***
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(2,'02/25/2019', '19:30', 2, 'Seg paciente 1','MEM11');
+   INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(1,'02/24/2019', 2, 'Demandante / desagradecido','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(3,'02/24/2019', '20:30', 2, 'Bioética 1 LET/Rechazo al tto','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(2,'02/25/2019', 2, 'Seg paciente 1','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(4,'02/25/2019', '21:30', 2, 'Bioética 2 última cama','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(3,'02/24/2019', 2, 'Bioética 1 LET/Rechazo al tto','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(5,'02/24/2019', '22:30', 2, 'EPOC-Neumonia','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(4,'02/25/2019', 2, 'Bioética 2 última cama','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(6,'02/25/2019', '23:30', 2, 'Asma-Ca Pulmón','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(5,'02/24/2019', 2, 'EPOC-Neumonia','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(7,'02/24/2019', '0:30', 2, 'Nefrología FRA','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(6,'02/25/2019', 2, 'Asma-Ca Pulmón','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(8,'02/25/2019', '1:30', 2, 'Nefrología S NEFRÍTICO','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(7,'02/24/2019',  2, 'Nefrología FRA','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(9,'02/24/2019', '2:30', 2, 'VIA PERIFERICA','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(8,'02/25/2019',  2, 'Nefrología S NEFRÍTICO','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(10,'02/25/2019', '3:30', 2, 'VIA CENTRAL','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(9,'02/24/2019',  2, 'VIA PERIFERICA','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(11,'02/24/2019', '4:30', 2, 'Expl abdominal','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(10,'02/25/2019',  2, 'VIA CENTRAL','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(12, '02/25/2019', '5:30', 2, 'Expl abd RX','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(11,'02/24/2019',  2, 'Expl abdominal','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(13, '02/24/2019', '6:30', 2, 'Urología','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(12, '02/25/2019',  2, 'Expl abd RX','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(14,'02/25/2019', '7:30', 2, 'Taller Urología sv','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(13, '02/24/2019',  2, 'Urología','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(15,'02/24/2019', '8:30', 2, 'Digestivo 1','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(14,'02/25/2019',  2, 'Taller Urología sv','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(16,'02/25/2019', '9:30', 2, 'Digestivo 2','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(15,'02/24/2019',  2, 'Digestivo 1','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(17,'02/24/2019', '10:30', 2, 'VIA AEREA','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(16,'02/25/2019',  2, 'Digestivo 2','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(18,'02/25/2019', '11:30', 2, 'TORACOCENTESIS','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(17,'02/24/2019', 2, 'VIA AEREA','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(19, '02/24/2019', '12:30', 2, 'Hematología 1','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(18,'02/25/2019', 2, 'TORACOCENTESIS','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(20,'02/25/2019', '13:30', 2, 'Pielonefritis','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(19, '02/24/2019', 2, 'Hematología 1','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(21,'02/24/2019', '14:30', 2, 'Neumonia','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(20,'02/25/2019', 2, 'Pielonefritis','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(22,'02/25/2019', '15:30', 2, 'Diabetes','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(21,'02/24/2019', 2, 'Neumonia','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(23,'02/24/2019', '16:30', 2, 'Hipertiroidismo','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(22,'02/25/2019', 2, 'Diabetes','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(24,'02/25/2019', '17:30', 2, 'Cardiología 1','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(23,'02/24/2019', 2, 'Hipertiroidismo','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(25, '02/24/2019', '18:30', 2, 'Cardiología 2','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(24,'02/25/2019', 2, 'Cardiología 1','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(26, '02/25/2019', '19:30', 2, 'Cardiología 3','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(25, '02/24/2019', 2, 'Cardiología 2','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(27, '02/24/2019', '20:30', 2, 'Cardiología 4','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(26, '02/25/2019', 2, 'Cardiología 3','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(28, '02/25/2019', '21:30', 2, 'Medicina interna 1','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(27, '02/24/2019', 2, 'Cardiología 4','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(29, '02/24/2019', '22:30', 2, 'Medicina interna 2','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(28, '02/25/2019', 2, 'Medicina interna 1','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(30, '02/25/2019', '23:30', 2, 'Fiebre exantematica','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(29, '02/24/2019', 2, 'Medicina interna 2','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(31, '02/24/2019', '0:30', 2, 'Meningitis','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(30, '02/25/2019', 2, 'Fiebre exantematica','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(32, '02/25/2019', '1:30', 2, 'SUTURAS','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(31, '02/24/2019',  2, 'Meningitis','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(33, '02/24/2019', '2:30', 2, 'ECOGRAFIA','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(32, '02/25/2019',  2, 'SUTURAS','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(34, '02/25/2019', '3:30', 2, 'Autoritario','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(33, '02/24/2019',  2, 'ECOGRAFIA','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(35, '02/24/2019', '4:30', 2, 'Seg paciente 2','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(34, '02/25/2019',  2, 'Autoritario','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(36, '02/25/2019', '5:30', 2, 'Bioética 3','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(35, '02/24/2019',  2, 'Seg paciente 2','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(37, '02/24/2019', '6:30', 2, 'Bioética 4','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(36, '02/25/2019',  2, 'Bioética 3','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(38, '02/25/2019', '7:30', 2, 'Viajero','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(37, '02/24/2019',  2, 'Bioética 4','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(39, '02/24/2019', '8:30', 2, 'VIH/TBC','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(38, '02/25/2019',  2, 'Viajero','FAM11');
 
-  REM *** 8º SALA ***
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(39, '02/24/2019',  2, 'VIH/TBC','FAM11');
+
+  REM *** 8Âº SALA ***
 
   INSERT INTO Sala(cod_sala,tipo_sala,numero,capacidad)
   VALUES (1,'Consulta', 1, 15);
@@ -575,16 +576,20 @@ ALTER TABLE Actividad
   INSERT INTO Sala(cod_sala,tipo_sala,numero,capacidad)
   VALUES (4,'Simulador', 2, 25);
 
-  REM *** 9º USERS ***
+  REM *** 9Âº USERS ***
 
   INSERT INTO Users(Usr,pwd,rol, email)
-  VALUES ('DAVID BUENAÑO',12345,'ADMINISTRADOR', 'PRUEBA@GMAIL.COM');
+  VALUES ('DAVID BUENAÑO','gnzLDuqKcGxMNKFokfhOew==','ADMINISTRADOR', 'PRUEBA@GMAIL.COM');
   INSERT INTO Users(Usr,pwd,rol, email)
-  VALUES ('JAVIER PLAZA',12345,'ADMINISTRADOR', 'PRUEBA@GMAIL.COM');
+  VALUES ('JAVIER PLAZA','gnzLDuqKcGxMNKFokfhOew==','ADMINISTRADOR', 'PRUEBA@GMAIL.COM');
   INSERT INTO Users(Usr,pwd,rol, email)
-  VALUES ('JIMMY MERINO',12345,'LECTURA', 'PRUEBA@GMAIL.COM');
+  VALUES ('JIMMY MERINO','gnzLDuqKcGxMNKFokfhOew==','LECTURA', 'PRUEBA@GMAIL.COM');
+  INSERT INTO Users(Usr,pwd,rol, email)
+  VALUES ('DEMO ADMIN','gnzLDuqKcGxMNKFokfhOew==','ADMINISTRADOR', 'ADMIN@GMAIL.COM');
+    INSERT INTO Users(Usr,pwd,rol, email)
+  VALUES ('DEMO LECTURA','gnzLDuqKcGxMNKFokfhOew==','LECTURA', 'LECTURA@GMAIL.COM');
 
-  REM *** 10º REALIZA ***
+  REM *** 10Âº REALIZA ***
 
   INSERT INTO Realiza(REGISTRO_COD_REGISTRO, PROFESOR_NUMERO)
   VALUES(1, 2224);
@@ -733,7 +738,7 @@ ALTER TABLE Actividad
   INSERT INTO Realiza(REGISTRO_COD_REGISTRO, PROFESOR_NUMERO)
   VALUES(39, 2324);
 
-  REM *** 11º Actua ***
+  REM *** 11Âº Actua ***
 
   INSERT INTO Actua(Cod_Actor, registro_cod_registro, info, horas_actor)
   VALUES(1,1,'Texto de prueba',2);
@@ -852,7 +857,7 @@ ALTER TABLE Actividad
   INSERT INTO Actua(Cod_Actor, registro_cod_registro, info, horas_actor)
   VALUES(4,39,'Texto de prueba',2);
 
-  REM *** 12º Participa ***
+  REM *** 12Âº Participa ***
 
   INSERT INTO Participa(ALUMNO_EXP, REGISTRO_COD_REGISTRO, NOTA_ALUMNOS)
   VALUES(1, 1, 0);
@@ -971,7 +976,7 @@ ALTER TABLE Actividad
   INSERT INTO Participa(ALUMNO_EXP, REGISTRO_COD_REGISTRO, NOTA_ALUMNOS)
   VALUES(3, 39, 5);
 
-  REM *** 13º Matricula ***
+  REM *** 13Âº Matricula ***
 
   INSERT INTO Matricula(Alumno_EXP, ASIGNATURA_CODIGO, acad, COD_GRUPO)
   VALUES(1, 01412, '18/19','M41');
@@ -1000,7 +1005,7 @@ ALTER TABLE Actividad
   INSERT INTO Matricula(Alumno_EXP, ASIGNATURA_CODIGO, acad, COD_GRUPO)
   VALUES(3, 01401, '18/19','M13');
 
-  REM *** 14º ***
+  REM *** 14Âº ***
 
   INSERT INTO OCUPA(registro_cod_registro,cod_sala)
   VALUES(1, 1);

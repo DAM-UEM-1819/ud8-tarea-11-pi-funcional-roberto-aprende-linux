@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -48,15 +50,17 @@ public class GestionActores extends JFrame {
 	private JButton btnAI_actor;
 	private JButton btnAddActor;
 	private JButton btnModificarActor;
-	private JComboBox comboBoxColumna;
-	private JTextField textField;
-	private JLabel labelImportar;
+	private JTextField txtBuscador;
+	private JLabel lblImportarActores;
 	private JComboBox comboBoxEdad;
 	private JComboBox comboBoxGenero;
 	private JComboBox comboBoxIdioma;
 	private JComboBox comboBoxComplexion;
+	private JCheckBox chckbxActivo;
+	private JLabel lblLupa;
 
 	public GestionActores() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -74,7 +78,7 @@ public class GestionActores extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 450);
+		scrollPane.setBounds(98, 145, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaActores = new JTable();
@@ -89,14 +93,14 @@ public class GestionActores extends JFrame {
 		txtNombre.setColumns(10);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Actores");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 202, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -105,7 +109,26 @@ public class GestionActores extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -127,7 +150,7 @@ public class GestionActores extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -137,37 +160,49 @@ public class GestionActores extends JFrame {
 				controlador.gestionActoresToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarActor = new JButton("Modificar actor");
-		btnModificarActor.setBounds(325, 685, 120, 40);
+		btnModificarActor.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActor);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
-		btnAI_actor.setBounds(575, 685, 120, 40);
+		btnAI_actor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_actor);
 
 		btnAddActor = new JButton(" A\u00F1adir actor");
-		btnAddActor.setBounds(782, 685, 120, 40);
+		btnAddActor.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActor);
 
-		comboBoxColumna = new JComboBox();
-		comboBoxColumna.setBounds(761, 127, 104, 20);
-		contentPane.add(comboBoxColumna);
+		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosActores();
+				}
+			}
+		});
+		txtBuscador.setText("Buscador");
+		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
+		txtBuscador.setBounds(728, 111, 140, 22);
+		contentPane.add(txtBuscador);
 
-		textField = new JTextField();
-		textField.setText("Buscador");
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setColumns(10);
-		textField.setBounds(665, 127, 86, 20);
-		contentPane.add(textField);
-
-		labelImportar = new JLabel("Importar Actividades");
-		labelImportar.setIcon(
+		lblImportarActores = new JLabel("Importar Actores");
+		lblImportarActores.setIcon(
 				new ImageIcon(GestionActores.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		labelImportar.setBounds(98, 127, 124, 20);
-		contentPane.add(labelImportar);
+		lblImportarActores.setBounds(98, 111, 124, 20);
+		contentPane.add(lblImportarActores);
+		lblImportarActores.setVisible(false);
 
 		comboBoxEdad = new JComboBox();
 		comboBoxEdad.setModel(new DefaultComboBoxModel(new String[] { "Edad" }));
@@ -189,10 +224,15 @@ public class GestionActores extends JFrame {
 		comboBoxComplexion.setBounds(688, 629, 103, 30);
 		contentPane.add(comboBoxComplexion);
 
-		JCheckBox chckbxActivo = new JCheckBox("Activo");
+		chckbxActivo = new JCheckBox("Activo");
 		chckbxActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxActivo.setBounds(801, 633, 97, 23);
 		contentPane.add(chckbxActivo);
+		
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -209,5 +249,9 @@ public class GestionActores extends JFrame {
 
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaActores.getModel();
+	}
+	
+	public String getPalabraBuscador() {
+		return txtBuscador.getText();
 	}
 }

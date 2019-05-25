@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
 import modelo.ModeloConsultas;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class InformacionExtra extends JFrame {
 
@@ -44,6 +46,13 @@ public class InformacionExtra extends JFrame {
 
 
 	public InformacionExtra() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosInfoExtra();
+			}
+		});
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,10 +68,23 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaInfoProfesores = new JTable();
+		tablaInfoProfesores.getTableHeader().setReorderingAllowed(false);
 		tablaInfoProfesores.setModel(new DefaultTableModel(
-				new Object[][] { { "1", "431567Z", "Marta Laborda", "Medicina", "Mlaborda@gmail.com", "666111222"},
-						{ null, null, null, null, null, null, null }, },
-				new String[] { "Numero", "DNI", "Nombre y apellidos", "Titulación", "Mail", "Telefono"}));
+			new Object[][] {
+				{"1", "431567Z", "Marta Laborda", "Medicina", "Mlaborda@gmail.com", "666111222"},
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"Numero", "DNI", "Nombre y apellidos", "Titulaci\uFFFDn", "Mail", "Telefono"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		tablaInfoProfesores.setRowHeight(40);
 		scrollPane.setViewportView(tablaInfoProfesores);
 		//
@@ -71,28 +93,36 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(scrollPane_2);
 		
 		TablaInfoAlumnos = new JTable();
+		TablaInfoAlumnos.getTableHeader().setReorderingAllowed(false);
 		scrollPane_2.setViewportView(TablaInfoAlumnos);
 		
 		TablaInfoAlumnos.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"David Moisï¿½s Buenaï¿½o Viteri", "10"},
+				{"David Mois\uFFFDs Buena\uFFFDo Viteri", "10"},
 				{null, null},
 			},
 			new String[] {
 				"Nombre y apellidos", "Notas"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		TablaInfoAlumnos.setRowHeight(40);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Información extra");
+		lblTitulo = new JLabel("InformaciÃ³n extra");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(268, 11, 404, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -101,7 +131,26 @@ public class InformacionExtra extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -123,7 +172,7 @@ public class InformacionExtra extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -133,21 +182,23 @@ public class InformacionExtra extends JFrame {
 				controlador.infoExtraToHome();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnGuardarCambios = new JButton("Guardar cambios");
-		btnGuardarCambios.setBounds(782, 685, 120, 40);
+		btnGuardarCambios.setBounds(748, 685, 150, 40);
 		contentPane.add(btnGuardarCambios);
 		
 		lblProfesores = new Label("Profesores");
+		lblProfesores.setAlignment(Label.CENTER);
 		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(425, 128, 95, 22);
+		lblProfesores.setBounds(98, 128, 800, 34);
 		contentPane.add(lblProfesores);
 		
 		lblAlumnos = new Label("Alumnos");
+		lblAlumnos.setAlignment(Label.CENTER);
 		lblAlumnos.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblAlumnos.setBounds(448, 307, 72, 22);
+		lblAlumnos.setBounds(98, 301, 800, 28);
 		contentPane.add(lblAlumnos);
 	}
 	
@@ -157,5 +208,13 @@ public class InformacionExtra extends JFrame {
 	
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas= modeloConsultas;
+	}
+	
+	public DefaultTableModel getModelProfesores() {
+		return (DefaultTableModel) tablaInfoProfesores.getModel();
+	}
+	
+	public DefaultTableModel getModelAlumnos() {
+		return (DefaultTableModel) TablaInfoAlumnos.getModel();
 	}
 }
