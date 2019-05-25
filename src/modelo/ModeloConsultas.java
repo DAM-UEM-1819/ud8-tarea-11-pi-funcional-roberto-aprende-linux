@@ -140,6 +140,11 @@ public class ModeloConsultas {
 	private String informeListadoAlumnosAsignaturaYGrupoActivos;
 	private String informeListadoAlumnosNotasPorNombreActividad;
 	private String informeListadoProfesoresPorTitulacionActivos;
+	private String infoExtraProfesores;
+	private String infoExtraAlumnos;
+	
+	//SENTENCIAS SELECT SQL INFORMACION EXTRA
+	
 
 	public ModeloConsultas() {
 		propiedades = new Properties();
@@ -245,7 +250,10 @@ public class ModeloConsultas {
 
 	private void selectDatosExtra() {
 		selectDatosUsuarioPerfil = propiedades.getProperty("selectDatosUsuarioPerfil");
+		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
+		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
 	}
+	
 
 	// INICIO SETTERS
 
@@ -921,6 +929,39 @@ public class ModeloConsultas {
 		}
 
 		getDatos(pstmt);
+
+	}
+
+	/**
+	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
+	 * home
+	 * 
+	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
+	 *                       la fila seleccionada
+	 */
+	public void guardarDatosFilaHome(Object[] datosFilaTabla) {
+		this.datosFilasTabla = datosFilaTabla;
+	}
+
+	/**
+	 * Metodo para mostrar el listado de alumnos y profesores del registro
+	 * seleccionado en la ventana de home
+	 * 
+	 * @param modelProfesores La tabla de profesores
+	 * @param modelAlumnos    La tabla de alumnos
+	 */
+	public void datosInfoExtra(DefaultTableModel modelProfesores, DefaultTableModel modelAlumnos) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conexion.prepareStatement(infoExtraProfesores);
+			getDatos(pstmt);
+			
+			pstmt = conexion.prepareStatement(infoExtraAlumnos);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 }

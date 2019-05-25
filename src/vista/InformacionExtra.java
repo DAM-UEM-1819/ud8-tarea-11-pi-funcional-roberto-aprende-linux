@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
 import modelo.ModeloConsultas;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class InformacionExtra extends JFrame {
 
@@ -44,6 +46,12 @@ public class InformacionExtra extends JFrame {
 
 
 	public InformacionExtra() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controlador.solicitudDatosInfoExtra();
+			}
+		});
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
@@ -181,5 +189,13 @@ public class InformacionExtra extends JFrame {
 	
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas= modeloConsultas;
+	}
+	
+	public DefaultTableModel getModelProfesores() {
+		return (DefaultTableModel) tablaInfoProfesores.getModel();
+	}
+	
+	public DefaultTableModel getModelAlumnos() {
+		return (DefaultTableModel) TablaInfoAlumnos.getModel();
 	}
 }

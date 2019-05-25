@@ -126,6 +126,7 @@ public class Home extends JFrame {
 		btnInfoExtra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				controlador.solicitudGuardarDatos();
 				controlador.homeToInfoExtra();
 			}
 		});
@@ -307,14 +308,11 @@ public class Home extends JFrame {
 	}
 
 	public Object[] getDatosFilaTabla() {
-		int numCol = tablaRegistros.getColumnCount();
-		Object[] datosColumnas = new Object[numCol];
-
-		for (int i = 0; i < numCol; i++) {
-			datosColumnas[i] = String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), i));
+		Object[] datos = new Object[tablaRegistros.getColumnCount()];
+		for (int i = 0; i < datos.length; i++) {
+			datos[i] = String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), i));
 		}
-
-		return datosColumnas;
+		return datos;
 	}
 
 	public void actualizarInfoExtra() {
@@ -327,4 +325,5 @@ public class Home extends JFrame {
 		}
 
 	}
+
 }
