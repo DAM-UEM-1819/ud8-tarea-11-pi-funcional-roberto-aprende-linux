@@ -156,6 +156,7 @@ public class GestionProfesores extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				controlador.gestionProfesoresToGestion();
+				deselecionarFilayBotones();
 			}
 		});
 		btnVolver.setBounds(100, 685, 120, 40);
