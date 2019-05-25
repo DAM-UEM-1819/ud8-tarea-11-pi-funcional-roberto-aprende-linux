@@ -52,6 +52,7 @@ public class GestionAcad extends JFrame {
 	private JComboBox comboBoxSem2;
 	private JComboBox comboBoxSem1;
 	private JLabel lblImportaionesActividades;
+	private JLabel lblLupa;
 
 	public GestionAcad() {
 		setResizable(false);
@@ -72,7 +73,7 @@ public class GestionAcad extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 411);
+		scrollPane.setBounds(98, 145, 800, 446);
 		contentPane.add(scrollPane);
 
 		tablaAcad = new JTable();
@@ -82,7 +83,7 @@ public class GestionAcad extends JFrame {
 		scrollPane.setViewportView(tablaAcad);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
+		HeaderPanel.setBackground(new Color(164,44,52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -161,7 +162,7 @@ public class GestionAcad extends JFrame {
 		lblImportaionesActividades = new JLabel("Importar Actividades");
 		lblImportaionesActividades.setEnabled(false);
 		lblImportaionesActividades.setIcon(new ImageIcon(GestionAcad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblImportaionesActividades.setBounds(98, 132, 124, 20);
+		lblImportaionesActividades.setBounds(96, 111, 124, 20);
 		contentPane.add(lblImportaionesActividades);
 		lblImportaionesActividades.setVisible(false);
 
@@ -184,8 +185,13 @@ public class GestionAcad extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 112, 140, 22);
 		contentPane.add(txtBuscador);
+		
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 112, 20, 22);
+		contentPane.add(lblLupa);
 	}
 
 	public void setControlador(Controlador controlador) {

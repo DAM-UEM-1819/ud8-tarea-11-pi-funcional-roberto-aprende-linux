@@ -65,6 +65,7 @@ public class GestionProfesores extends JFrame {
 	private String ape2;
 	private String nombreSeparado[];
 	private JButton btnAddProfesor;
+	private JLabel lblLupa;
 
 	public GestionProfesores() {
 		addWindowListener(new WindowAdapter() {
@@ -84,7 +85,7 @@ public class GestionProfesores extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 450);
+		scrollPane.setBounds(98, 145, 800, 500);
 		contentPane.add(scrollPane);
 
 		tablaProfesores = new JTable();
@@ -108,7 +109,7 @@ public class GestionProfesores extends JFrame {
 		scrollPane.setViewportView(tablaProfesores);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
+		HeaderPanel.setBackground(new Color(164,44,52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -216,16 +217,21 @@ public class GestionProfesores extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 111, 140, 22);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
 		lblImportarActividades = new JLabel("Importar Profesores");
 		lblImportarActividades.setIcon(
 				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblImportarActividades.setBounds(98, 127, 124, 20);
+		lblImportarActividades.setBounds(98, 111, 124, 20);
 		contentPane.add(lblImportarActividades);
 		lblImportarActividades.setVisible(false);
+		
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 	}
 	// Setters
 

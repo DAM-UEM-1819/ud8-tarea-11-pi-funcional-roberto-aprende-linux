@@ -32,7 +32,7 @@ public class Informes extends JFrame {
 	private Controlador controlador;
 	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
-	private JTable tablaInfoProfesores;
+	private JTable tablaInformes;
 	private JPanel HeaderPanel;
 	private JScrollPane scrollPane;
 	private JLabel lblTitulo;
@@ -60,24 +60,19 @@ public class Informes extends JFrame {
 		scrollPane.setBounds(98, 168, 800, 473);
 		contentPane.add(scrollPane);
 
-		tablaInfoProfesores = new JTable();
-		tablaInfoProfesores.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Medicina", "431"},
-				{null, null},
-			},
-			new String[] {
-				"Titulaci�n", "Horas totales"
-			}
+		tablaInformes = new JTable();
+		tablaInformes.setModel(new DefaultTableModel(
+			new Object[][] {},
+			new String[] {}
 		));
-		tablaInfoProfesores.setRowHeight(40);
-		tablaInfoProfesores.getTableHeader().setReorderingAllowed(false);
-		scrollPane.setViewportView(tablaInfoProfesores);
+		tablaInformes.setRowHeight(40);
+		tablaInformes.getTableHeader().setReorderingAllowed(false);
+		scrollPane.setViewportView(tablaInformes);
 		//
 
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
+		HeaderPanel.setBackground(new Color(164,44,52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -134,6 +129,11 @@ public class Informes extends JFrame {
 		contentPane.add(lblProfesores);
 		
 		comboBoxInformes = new JComboBox();
+		comboBoxInformes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.solicitudInforme();
+			}
+		});
 		comboBoxInformes.setModel(new DefaultComboBoxModel(ListadoInformes.values()));
 		comboBoxInformes.setBounds(504, 123, 394, 33);
 		contentPane.add(comboBoxInformes);
@@ -144,5 +144,13 @@ public class Informes extends JFrame {
 	
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas= modeloConsultas;
+	}
+	
+	public String getInforme() {
+		return String.valueOf(comboBoxInformes.getSelectedItem());
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaInformes.getModel();
 	}
 }
