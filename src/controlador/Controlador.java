@@ -531,4 +531,9 @@ public class Controlador implements IControlador {
 
 	}
 
+	public void solicitudInforme() {
+		modeloConsultas.crearInforme(informes.getModel(), informes.getInforme());
+		
+	}
+
 }

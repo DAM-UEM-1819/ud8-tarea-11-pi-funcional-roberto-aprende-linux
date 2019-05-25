@@ -50,6 +50,7 @@ public class GestionUsuarios extends JFrame {
 	private JScrollPane scrollPaneRegistros;
 	private JLabel lblImportarUsuario;
 	private JTextField txtBuscador;
+	private JLabel lblNewLabel;
 
 	public GestionUsuarios() {
 		setResizable(false);
@@ -182,7 +183,7 @@ public class GestionUsuarios extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(726, 112, 140, 22);
 		contentPane.add(txtBuscador);
 
 		lblImportarUsuario = new JLabel("Importar Usuarios");
@@ -190,6 +191,11 @@ public class GestionUsuarios extends JFrame {
 				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarUsuario.setBounds(100, 114, 124, 20);
 		contentPane.add(lblImportarUsuario);
+		
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblNewLabel = new JLabel(lupa);
+		lblNewLabel.setBounds(880, 111, 20, 22);
+		contentPane.add(lblNewLabel);
 		lblImportarUsuario.setVisible(false);
 	}
 

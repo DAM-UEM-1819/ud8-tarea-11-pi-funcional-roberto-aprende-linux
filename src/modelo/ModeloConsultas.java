@@ -159,7 +159,7 @@ public class ModeloConsultas {
 			e1.printStackTrace();
 		}
 
-		//ASIGNACIÓN DE LAS CONSULTAS
+		// ASIGNACIÓN DE LAS CONSULTAS
 		selectTablas();
 		selectBuscador();
 		selectComprobacionExiste();
@@ -202,28 +202,41 @@ public class ModeloConsultas {
 	}
 
 	private void selectInformes() {
-		//NÚMERO DE HORAS DE ACTIVIDAD
+		// NÚMERO DE HORAS DE ACTIVIDAD
 		informeNumeroHorasTotalesPorActividad = propiedades.getProperty("informeNumeroHorasTotalesPorActividad");
-		informeNumeroHorasTotalesActividadPorTitulacion = propiedades.getProperty("informeNumeroHorasTotalesActividadPorTitulacion");
-		informeNumeroHorasTotalesActividadPorTitulacionYCurso = propiedades.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYCurso");
-		informeNumeroHorasTotalesActividadPorTitulacionYAsignatura = propiedades.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYAsignatura");
-		informeNumeroHorasTotalesActividadPorProfesor = propiedades.getProperty("informeNumeroHorasTotalesActividadPorProfesor");
-		informeNumeroHorasTotalesActividadPorSala = propiedades.getProperty("informeNumeroHorasTotalesActividadPorSala");
-		informeNumeroHorasTotalesActividadPorActividad = propiedades.getProperty("informeNumeroHorasTotalesActividadPorActividad");
-		informeNumeroHorasTotalesActividadPorSemestre = propiedades.getProperty("informeNumeroHorasTotalesActividadPorSemestre");
+		informeNumeroHorasTotalesActividadPorTitulacion = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacion");
+		informeNumeroHorasTotalesActividadPorTitulacionYCurso = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYCurso");
+		informeNumeroHorasTotalesActividadPorTitulacionYAsignatura = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYAsignatura");
+		informeNumeroHorasTotalesActividadPorProfesor = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorProfesor");
+		informeNumeroHorasTotalesActividadPorSala = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorSala");
+		informeNumeroHorasTotalesActividadPorActividad = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorActividad");
+		informeNumeroHorasTotalesActividadPorSemestre = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorSemestre");
 		informeNumeroHorasTotalesActividadPorMes = propiedades.getProperty("informeNumeroHorasTotalesActividadPorMes");
-		
-		//NÚMERO DE HORAS DE ACTOR
-		informeNumeroHorasActorTotalesCursoAcademico = propiedades.getProperty("informeNumeroHorasActorTotalesCursoAcademico");
-		informeNumeroHorasActorTotalesTitulacionYMes = propiedades.getProperty("informeNumeroHorasActorTotalesTitulacionYMes");
-		informeNumeroHorasActorTotalesTitulacionCursoAcademico = propiedades.getProperty("informeNumeroHorasActorTotalesTitulacionCursoAcademico");
-		
-		//LISTADO DE ALUMNOS
-		informeListadoAlumnosAsignaturaYGrupoActivos = propiedades.getProperty("informeListadoAlumnosAsignaturaYGrupoActivos");
-		informeListadoAlumnosNotasPorNombreActividad = propiedades.getProperty("informeListadoAlumnosNotasPorNombreActividad");
-		
-		//LISTADO DE PROFESORES
-		informeListadoProfesoresPorTitulacionActivos = propiedades.getProperty("informeListadoProfesoresPorTitulacionActivos");
+
+		// NÚMERO DE HORAS DE ACTOR
+		informeNumeroHorasActorTotalesCursoAcademico = propiedades
+				.getProperty("informeNumeroHorasActorTotalesCursoAcademico");
+		informeNumeroHorasActorTotalesTitulacionYMes = propiedades
+				.getProperty("informeNumeroHorasActorTotalesTitulacionYMes");
+		informeNumeroHorasActorTotalesTitulacionCursoAcademico = propiedades
+				.getProperty("informeNumeroHorasActorTotalesTitulacionCursoAcademico");
+
+		// LISTADO DE ALUMNOS
+		informeListadoAlumnosAsignaturaYGrupoActivos = propiedades
+				.getProperty("informeListadoAlumnosAsignaturaYGrupoActivos");
+		informeListadoAlumnosNotasPorNombreActividad = propiedades
+				.getProperty("informeListadoAlumnosNotasPorNombreActividad");
+
+		// LISTADO DE PROFESORES
+		informeListadoProfesoresPorTitulacionActivos = propiedades
+				.getProperty("informeListadoProfesoresPorTitulacionActivos");
 	}
 
 	private void selectComprobacionExiste() {
@@ -720,7 +733,7 @@ public class ModeloConsultas {
 
 	/**
 	 * Metodo que sirve para saber si uan sala ya existe o no
-	 * 
+	 *
 	 * @param sala La sala a comprobar
 	 */
 	public void comprobarSala(String sala) {
@@ -744,7 +757,7 @@ public class ModeloConsultas {
 
 	/**
 	 * Metodo general que sirve para realizar todas las consultas de búsqueda
-	 * 
+	 *
 	 * @param tableModel La tabla donde se va a mostrar el resultado
 	 * @param palabra    La palabra a buscar
 	 * @param opcion     La opcion que se desea, depende del tipo de la clase donde
@@ -834,6 +847,73 @@ public class ModeloConsultas {
 			case "J":
 				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo); // Cambiar
 				pstmt.setString(1, palabra + "%");
+				break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		getDatos(pstmt);
+
+	}
+
+	/**
+	 * Metodo que sirve para crear los informes de la ventana informes
+	 *
+	 * @param informe    El informe a mostrar
+	 * @param tableModel La tabla de la vista
+	 */
+	public void crearInforme(DefaultTableModel tableModel, String informe) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt = null;
+		informe = informe.toUpperCase();
+
+		try {
+			switch (informe) {
+			case "HORAS_TOTALES_ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesPorActividad);
+				break;
+			case "HORAS_ACTIVIDAD_TITULACION":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacion);
+				break;
+			case "HORAS_ACTIVIDAD_TITULACION_Y_CURSO":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacionYCurso);
+				break;
+			case "HORAS_ACTIVIDAD_TITULACION_Y_ASIGNATURA":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacionYAsignatura);
+				break;
+			case "HORAS_ACTIVIDAD_PROFESOR":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorProfesor);
+				break;
+			case "HORAS_ACTIVIDAD_SALA":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorSala);
+				break;
+			case "HORAS_ACTIVIDAD_TIPO_ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorActividad);
+				break;
+			case "HORAS_ACTIVIDAD_MESES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorMes);
+				break;
+			case "HORAS_ACTIVIDAD_SEMESTRES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorSemestre);
+				break;
+			case "HORAS_ACTOR_TOTALES_EN_ACAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesCursoAcademico);
+				break;
+			case "HORAS_ACTOR_TITULACION_Y_MES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesTitulacionYMes);
+				break;
+			case "HORAS_ACTOR_TITULACION_Y_ACAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesTitulacionCursoAcademico);
+				break;
+			case "LISTADO_ALUMNOS_SEGUN_ASIGNATURA_Y_GRUPO_ACTIVOS":
+				pstmt = conexion.prepareStatement(informeListadoAlumnosAsignaturaYGrupoActivos);
+				break;
+			case "LISTADO_ALUMNOS_SEGUN_NOMBRE_ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeListadoAlumnosNotasPorNombreActividad);
+				break;
+			case "LISTADO_PROFESORES_SEGUN_TITULACION":
+				pstmt = conexion.prepareStatement(informeListadoProfesoresPorTitulacionActivos);
 				break;
 			}
 		} catch (Exception e) {
