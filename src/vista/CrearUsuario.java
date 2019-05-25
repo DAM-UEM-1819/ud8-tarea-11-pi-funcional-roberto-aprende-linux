@@ -120,8 +120,6 @@ public class CrearUsuario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (comprobaciones()) {
 					controlador.solicitudCrearUsuario();
-				} else {
-
 				}
 			}
 		});
@@ -196,7 +194,7 @@ public class CrearUsuario extends JFrame {
 	}
 
 	public String getNombreUsuario() {
-		return txtUsuario.getText();
+		return txtUsuario.getText().trim();
 	}
 
 	public String getRol() {
@@ -212,14 +210,14 @@ public class CrearUsuario extends JFrame {
 	}
 
 	public String getEmail() {
-		return txtCorreo.getText();
+		return txtCorreo.getText().trim();
 	}
 
 	public boolean comprobaciones() {
 		boolean todoCorrecto = false;
-		String user = txtUsuario.getText();
-		String correo = txtCorreo.getText();
-		String correoComprobacion = txtCorreoComprobacion.getText();
+		String user = txtUsuario.getText().trim();
+		String correo = txtCorreo.getText().trim();
+		String correoComprobacion = txtCorreoComprobacion.getText().trim();
 		if (!user.equals("") && !correo.equals("") && !correoComprobacion.equals("")) {
 			if (correo.contains("@") && correo.contains(".") && !correo.contains(" ")) {
 				if (correo.equals(correoComprobacion)) {
@@ -229,7 +227,7 @@ public class CrearUsuario extends JFrame {
 				}
 
 			} else {
-				actualizarInfoVista("Error, el email tiene que tener un @, un . y no puede contener espacios");
+				actualizarInfoVista("Error, el email tiene que tener un @, un .");
 			}
 
 		} else {

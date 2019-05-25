@@ -65,7 +65,7 @@ public class Login extends JFrame {
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
-		
+
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -85,7 +85,7 @@ public class Login extends JFrame {
 		lblUsuarioTemp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuarioTemp.setBounds(345, 225, 100, 100);
 		contentPane.add(lblUsuarioTemp);
-		
+
 		ImageIcon passwdIcon = new ImageIcon("./img/candado.png");
 		lblPasswordTemp = new JLabel(passwdIcon);
 		lblPasswordTemp.setHorizontalAlignment(SwingConstants.CENTER);
@@ -95,7 +95,7 @@ public class Login extends JFrame {
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					controlador.loginSolicitud();
+				controlador.loginSolicitud();
 			}
 		});
 		btnLogin.setBounds(380, 572, 271, 58);
@@ -106,18 +106,18 @@ public class Login extends JFrame {
 		FooterPanel.setBounds(0, 728, 1000, 50);
 		contentPane.add(FooterPanel);
 		FooterPanel.setLayout(null);
-		
-				lblNewLabel = new JLabel("Universidad Europea de Madrid");
-				lblNewLabel.setBounds(0, 0, 1000, 50);
-				FooterPanel.add(lblNewLabel);
-				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				lblNewLabel.setForeground(Color.WHITE);
+
+		lblNewLabel = new JLabel("Universidad Europea de Madrid");
+		lblNewLabel.setBounds(0, 0, 1000, 50);
+		FooterPanel.add(lblNewLabel);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setForeground(Color.WHITE);
 
 		passwdPasswordUsuario = new JPasswordField();
 		passwdPasswordUsuario.setBounds(451, 463, 200, 30);
 		contentPane.add(passwdPasswordUsuario);
-		
+
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(380, 132, 271, 30);
@@ -140,7 +140,7 @@ public class Login extends JFrame {
 		setVisible(false);
 		controlador.loginToHome();
 	}
-	
+
 	public void loginExitosoLectura() {
 		setVisible(false);
 		controlador.loginToHomeLectura();
@@ -149,11 +149,11 @@ public class Login extends JFrame {
 	public void salir() {
 		System.exit(0);
 	}
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
-		this.modeloConsultas= modeloConsultas;
+		this.modeloConsultas = modeloConsultas;
 	}
-	
+
 	public void actualizarInfo() {
 		lblInfo.setText(modeloConsultas.getRespuesta());
 	}

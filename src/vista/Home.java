@@ -274,7 +274,7 @@ public class Home extends JFrame {
 	}
 
 	public void confirmacionSalir() {
-		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "�Est� seguro/a de que desea salir?");
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea salir?");
 		if (JOptionPane.YES_OPTION == valorRetorno) {
 			setVisible(false);
 			controlador.homeToLogin();

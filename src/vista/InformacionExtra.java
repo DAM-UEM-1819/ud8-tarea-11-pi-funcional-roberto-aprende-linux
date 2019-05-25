@@ -62,9 +62,21 @@ public class InformacionExtra extends JFrame {
 		tablaInfoProfesores = new JTable();
 		tablaInfoProfesores.getTableHeader().setReorderingAllowed(false);
 		tablaInfoProfesores.setModel(new DefaultTableModel(
-				new Object[][] { { "1", "431567Z", "Marta Laborda", "Medicina", "Mlaborda@gmail.com", "666111222"},
-						{ null, null, null, null, null, null, null }, },
-				new String[] { "Numero", "DNI", "Nombre y apellidos", "Titulaci�n", "Mail", "Telefono"}));
+			new Object[][] {
+				{"1", "431567Z", "Marta Laborda", "Medicina", "Mlaborda@gmail.com", "666111222"},
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"Numero", "DNI", "Nombre y apellidos", "Titulaci\uFFFDn", "Mail", "Telefono"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		tablaInfoProfesores.setRowHeight(40);
 		scrollPane.setViewportView(tablaInfoProfesores);
 		//
@@ -78,13 +90,20 @@ public class InformacionExtra extends JFrame {
 		
 		TablaInfoAlumnos.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"David Mois�s Buena�o Viteri", "10"},
+				{"David Mois\uFFFDs Buena\uFFFDo Viteri", "10"},
 				{null, null},
 			},
 			new String[] {
 				"Nombre y apellidos", "Notas"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		TablaInfoAlumnos.setRowHeight(40);
 
 		HeaderPanel = new JPanel();

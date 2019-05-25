@@ -100,6 +100,7 @@ public class ModeloConsultas {
 	private String selectTodasSalas;
 	private String selectTodosAcad;
 
+	// SENTENCIAS SELECT SQL PARA DATOS INTERNOS
 	private String selectTodosCodigoGrupo;
 
 	// Sentencias Select SQL LISTADOS
@@ -123,6 +124,23 @@ public class ModeloConsultas {
 	// SENTENCIAS SELECT SQL COMPROBACION
 	private String selectExisteSala;
 
+	// SENTENCIAS SELECT SQL INFORMES
+	private String informeNumeroHorasTotalesPorActividad;
+	private String informeNumeroHorasTotalesActividadPorTitulacion;
+	private String informeNumeroHorasTotalesActividadPorTitulacionYCurso;
+	private String informeNumeroHorasTotalesActividadPorTitulacionYAsignatura;
+	private String informeNumeroHorasTotalesActividadPorProfesor;
+	private String informeNumeroHorasTotalesActividadPorSala;
+	private String informeNumeroHorasTotalesActividadPorActividad;
+	private String informeNumeroHorasTotalesActividadPorSemestre;
+	private String informeNumeroHorasTotalesActividadPorMes;
+	private String informeNumeroHorasActorTotalesCursoAcademico;
+	private String informeNumeroHorasActorTotalesTitulacionYMes;
+	private String informeNumeroHorasActorTotalesTitulacionCursoAcademico;
+	private String informeListadoAlumnosAsignaturaYGrupoActivos;
+	private String informeListadoAlumnosNotasPorNombreActividad;
+	private String informeListadoProfesoresPorTitulacionActivos;
+
 	public ModeloConsultas() {
 		propiedades = new Properties();
 		fichero = new File("./sql/consultas.ini");
@@ -141,21 +159,18 @@ public class ModeloConsultas {
 			e1.printStackTrace();
 		}
 
-		// Asignamos select de login usuario
-		// Asignamos select de tablas
+		//ASIGNACIÓN DE LAS CONSULTAS
 		selectTablas();
-		// Asignamos select de listado
-		// Asignamos las Select SQL BUSCADOR
 		selectBuscador();
-
 		selectComprobacionExiste();
 		selectDatosExtra();
+		selectInformes();
 	}
 
 	private void selectTablas() {
 		// select login
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
-		//
+
 		selectHome = propiedades.getProperty("selectHome");
 		selectDatosExtraHome = propiedades.getProperty("selectDatosExtraHome");
 		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
@@ -174,7 +189,6 @@ public class ModeloConsultas {
 		selectTodosCodigoGrupo = propiedades.getProperty("selectTodosCodigoGrupo");
 		selectListadoAlumnosPorGrupo = propiedades.getProperty("selectListadoAlumnosPorGrupo");
 
-		//
 		selectBuscadorHome = propiedades.getProperty("selectBuscadorHome");
 		selectBuscadorUsuarios = propiedades.getProperty("selectBuscadorUsuarios");
 		selectBuscadorRegistros = propiedades.getProperty("selectBuscadorRegistros");
@@ -185,6 +199,31 @@ public class ModeloConsultas {
 		selectBuscadorActores = propiedades.getProperty("selectBuscadorActores");
 		selectBuscadorSalas = propiedades.getProperty("selectBuscadorSalas");
 		selectBuscadorAcad = propiedades.getProperty("selectBuscadorAcad");
+	}
+
+	private void selectInformes() {
+		//NÚMERO DE HORAS DE ACTIVIDAD
+		informeNumeroHorasTotalesPorActividad = propiedades.getProperty("informeNumeroHorasTotalesPorActividad");
+		informeNumeroHorasTotalesActividadPorTitulacion = propiedades.getProperty("informeNumeroHorasTotalesActividadPorTitulacion");
+		informeNumeroHorasTotalesActividadPorTitulacionYCurso = propiedades.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYCurso");
+		informeNumeroHorasTotalesActividadPorTitulacionYAsignatura = propiedades.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYAsignatura");
+		informeNumeroHorasTotalesActividadPorProfesor = propiedades.getProperty("informeNumeroHorasTotalesActividadPorProfesor");
+		informeNumeroHorasTotalesActividadPorSala = propiedades.getProperty("informeNumeroHorasTotalesActividadPorSala");
+		informeNumeroHorasTotalesActividadPorActividad = propiedades.getProperty("informeNumeroHorasTotalesActividadPorActividad");
+		informeNumeroHorasTotalesActividadPorSemestre = propiedades.getProperty("informeNumeroHorasTotalesActividadPorSemestre");
+		informeNumeroHorasTotalesActividadPorMes = propiedades.getProperty("informeNumeroHorasTotalesActividadPorMes");
+		
+		//NÚMERO DE HORAS DE ACTOR
+		informeNumeroHorasActorTotalesCursoAcademico = propiedades.getProperty("informeNumeroHorasActorTotalesCursoAcademico");
+		informeNumeroHorasActorTotalesTitulacionYMes = propiedades.getProperty("informeNumeroHorasActorTotalesTitulacionYMes");
+		informeNumeroHorasActorTotalesTitulacionCursoAcademico = propiedades.getProperty("informeNumeroHorasActorTotalesTitulacionCursoAcademico");
+		
+		//LISTADO DE ALUMNOS
+		informeListadoAlumnosAsignaturaYGrupoActivos = propiedades.getProperty("informeListadoAlumnosAsignaturaYGrupoActivos");
+		informeListadoAlumnosNotasPorNombreActividad = propiedades.getProperty("informeListadoAlumnosNotasPorNombreActividad");
+		
+		//LISTADO DE PROFESORES
+		informeListadoProfesoresPorTitulacionActivos = propiedades.getProperty("informeListadoProfesoresPorTitulacionActivos");
 	}
 
 	private void selectComprobacionExiste() {
@@ -346,7 +385,7 @@ public class ModeloConsultas {
 				}
 				nombreUsuario = usuario;
 			} else {
-				respuesta = "Ususario o contrase�a incorrectos";
+				respuesta = "Ususario o contraseña incorrectos";
 				login.actualizarInfo();
 			}
 
@@ -681,6 +720,7 @@ public class ModeloConsultas {
 
 	/**
 	 * Metodo que sirve para saber si uan sala ya existe o no
+	 * 
 	 * @param sala La sala a comprobar
 	 */
 	public void comprobarSala(String sala) {
@@ -704,9 +744,11 @@ public class ModeloConsultas {
 
 	/**
 	 * Metodo general que sirve para realizar todas las consultas de búsqueda
-	 * @param tableModel	La tabla donde se va a mostrar el resultado
-	 * @param palabra		La palabra a buscar
-	 * @param opcion		La opcion que se desea, depende del tipo de la clase donde te encuetres
+	 * 
+	 * @param tableModel La tabla donde se va a mostrar el resultado
+	 * @param palabra    La palabra a buscar
+	 * @param opcion     La opcion que se desea, depende del tipo de la clase donde
+	 *                   te encuetres
 	 */
 	public void buscador(DefaultTableModel tableModel, String palabra, String opcion) {
 		this.tableModel = tableModel;
