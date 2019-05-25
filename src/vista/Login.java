@@ -61,7 +61,7 @@ public class Login extends JFrame {
 		contentPane.add(txtUser);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
+		HeaderPanel.setBackground(new Color(164,44,52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -102,7 +102,7 @@ public class Login extends JFrame {
 		contentPane.add(btnLogin);
 
 		FooterPanel = new JPanel();
-		FooterPanel.setBackground(new Color(165, 42, 42));
+		FooterPanel.setBackground(new Color(164,44,52));
 		FooterPanel.setBounds(0, 728, 1000, 50);
 		contentPane.add(FooterPanel);
 		FooterPanel.setLayout(null);

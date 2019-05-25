@@ -93,7 +93,7 @@ public class GestionActores extends JFrame {
 		txtNombre.setColumns(10);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
+		HeaderPanel.setBackground(new Color(164,44,52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
