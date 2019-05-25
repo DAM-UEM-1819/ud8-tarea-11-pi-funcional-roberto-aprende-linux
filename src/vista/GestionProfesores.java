@@ -186,6 +186,7 @@ public class GestionProfesores extends JFrame {
 		btnAI_profesor.setEnabled(false);
 		btnAI_profesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				controlador.solicitudBorrar(this);
 			}
 		});
 		btnAI_profesor.setBounds(532, 685, 150, 40);
@@ -337,8 +338,26 @@ public class GestionProfesores extends JFrame {
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
+	public String getPrimaryKey() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
+	}
 
 	//
+	
+	
+	public void activoAlumno() {
+		DefaultTableModel model = (DefaultTableModel) tablaProfesores.getModel();
+		if (getNumGP().equals(String.valueOf(model.getValueAt(tablaProfesores.getSelectedRow(), 0)))) {
+//			lblInfo.setText("Se ha cambiado estado alumno");
+			model.setValueAt(getNumGP(), tablaProfesores.getSelectedRow(), 1);
+			model.setValueAt(getActivo(), tablaProfesores.getSelectedRow(), 2);
+
+		} else {
+//			lblInfo.setText("No se ha cambiado estado alumno");
+		}
+
+	}
+	
 	public void deselecionarFilayBotones() {
 		tablaProfesores.isRowSelected(tablaProfesores.getSelectedRowCount() - 1);
 		btnModProfesor.setEnabled(false);

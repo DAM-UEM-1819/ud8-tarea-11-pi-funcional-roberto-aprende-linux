@@ -112,6 +112,7 @@ public class ModeloGestionDatos {
 	private String updateUsuario;
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
+	private String activoInactivoUpdateProfesor;
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -293,8 +294,10 @@ public class ModeloGestionDatos {
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
-		
+		//
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
+		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
+		
 
 	}
 
@@ -508,6 +511,11 @@ public class ModeloGestionDatos {
 			break;
 		case "F":
 			// sql = deleteRegistros;
+		
+			break;
+		case "G":
+			// sql = activoProfesor ;
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateProfesor);
 		
 			break;
 		}
