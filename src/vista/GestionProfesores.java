@@ -88,6 +88,19 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaProfesores = new JTable();
+		tablaProfesores.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				if (!tablaProfesores.isRowSelected(tablaProfesores.getSelectedRowCount())) {
+					btnModProfesor.setEnabled(true);
+					btnAI_profesor.setEnabled(true);
+				}
+				// tablaProfesores.isRowSelected(tablaProfesores.getSelectedRowCount()-1);
+				// btnModProfesor.setEnabled(false);
+
+			}
+		});
 
 		tablaProfesores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaProfesores.setRowHeight(40);
@@ -149,6 +162,7 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnAI_profesor = new JButton("Activo/Inactivo");
+		btnAI_profesor.setEnabled(false);
 		btnAI_profesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -157,26 +171,29 @@ public class GestionProfesores extends JFrame {
 		contentPane.add(btnAI_profesor);
 
 		btnModProfesor = new JButton("Modificar profesor");
+		btnModProfesor.setEnabled(false);
 		btnModProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				if (tablaProfesores.getSelectedRowCount()> 0) {
+				if (tablaProfesores.getSelectedRowCount() > 0) {
 					controlador.solicitudCamposDeTextoProfe();
 					controlador.gestionProfesoresTogestionProsoresAddMod();
+					deselecionarFilayBotones();
 				}
-				
+
 			}
 		});
 		btnModProfesor.setBounds(313, 685, 146, 40);
 		contentPane.add(btnModProfesor);
-		
+
 		btnAddProfesor = new JButton("A\u00F1adir profesor");
 		btnAddProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.gestionProfesoresTogestionProsoresAddMod();
+				deselecionarFilayBotones();
 			}
 		});
-		btnAddProfesor.setBounds(770, 685, 124, 40);
+		btnAddProfesor.setBounds(774, 685, 124, 40);
 		contentPane.add(btnAddProfesor);
 
 		txtBuscador = new JTextField();
@@ -225,7 +242,7 @@ public class GestionProfesores extends JFrame {
 
 	// Getters
 	public String getNumGP() {
-		 num = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
+		num = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
 		return num;
 
 	}
@@ -241,17 +258,17 @@ public class GestionProfesores extends JFrame {
 
 	public String getNombreProfeGP() {
 		getNombreGP();
-		
+
 		return nombre.trim();
 	}
 
 	public String getApe1GP() {
-		
+
 		return ape1.trim();
 	}
 
 	public String getApe2GP() {
-		
+
 		return ape2.trim();
 	}
 
@@ -262,8 +279,6 @@ public class GestionProfesores extends JFrame {
 	public String getDni() {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 3));
 	}
-	
-	
 
 	public String getActivo() {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 4));
@@ -295,5 +310,12 @@ public class GestionProfesores extends JFrame {
 
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+
+	//
+	public void deselecionarFilayBotones() {
+		tablaProfesores.isRowSelected(tablaProfesores.getSelectedRowCount() - 1);
+		btnModProfesor.setEnabled(false);
+		btnAI_profesor.setEnabled(false);
 	}
 }

@@ -46,8 +46,8 @@ public class GestionAcad extends JFrame {
 	private JLabel lblPerfil;
 	private JButton btnVolver;
 	private JButton btnAI_actor;
-	private JButton btnAddActor;
-	private JButton btnModificarActor;
+	private JButton btnAddAcad;
+	private JButton btnModificarAcad;
 	private JTextField txtBuscador;
 	private JComboBox comboBoxSem2;
 	private JComboBox comboBoxSem1;
@@ -87,7 +87,7 @@ public class GestionAcad extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Año académico");
+		lblTitulo = new JLabel("A\u00F1o academico");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
@@ -136,17 +136,17 @@ public class GestionAcad extends JFrame {
 		btnVolver.setBounds(100, 685, 120, 40);
 		contentPane.add(btnVolver);
 
-		btnModificarActor = new JButton("Modificar actor");
-		btnModificarActor.setBounds(325, 685, 120, 40);
-		contentPane.add(btnModificarActor);
+		btnModificarAcad = new JButton("Modificar a\u00F1o");
+		btnModificarAcad.setBounds(325, 685, 120, 40);
+		contentPane.add(btnModificarAcad);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
 		btnAI_actor.setBounds(575, 685, 120, 40);
 		contentPane.add(btnAI_actor);
 
-		btnAddActor = new JButton(" A\u00F1adir actor");
-		btnAddActor.setBounds(782, 685, 120, 40);
-		contentPane.add(btnAddActor);
+		btnAddAcad = new JButton(" A\u00F1adir a\u00F1o");
+		btnAddAcad.setBounds(776, 685, 120, 40);
+		contentPane.add(btnAddAcad);
 
 		comboBoxSem1 = new JComboBox();
 		comboBoxSem1.setModel(new DefaultComboBoxModel(new String[] { "09/01/2018" }));

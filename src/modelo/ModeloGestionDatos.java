@@ -293,6 +293,8 @@ public class ModeloGestionDatos {
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
+		
+		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 
 	}
 
@@ -490,7 +492,7 @@ public class ModeloGestionDatos {
 		seHaCambiadoEstado = false;
 		switch (opcion) {
 		case "A":
-			seHaCambiadoEstado = ActivoDatos(updateAlumno);
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateAlumno);
 			break;
 		case "B":
 
