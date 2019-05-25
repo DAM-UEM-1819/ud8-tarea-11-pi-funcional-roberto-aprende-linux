@@ -60,7 +60,7 @@ public class Gestion extends JFrame {
 				controlador.gestionToHome();
 			}
 		});
-		btnVolver.setBounds(440, 671, 120, 40);
+		btnVolver.setBounds(425, 671, 150, 40);
 		contentPane.add(btnVolver);
 
 		Header = new JPanel();

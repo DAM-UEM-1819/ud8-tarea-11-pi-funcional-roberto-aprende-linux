@@ -169,7 +169,7 @@ public class GestionSalas extends JFrame {
 		txtCapacidad.setColumns(10);
 		txtCapacidad.setBounds(533, 600, 150, 30);
 		contentPane.add(txtCapacidad);
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarSala = new JButton("Modificar Sala");
@@ -184,7 +184,7 @@ public class GestionSalas extends JFrame {
 				habilitarBotones();
 			}
 		});
-		btnModificarSala.setBounds(325, 685, 120, 40);
+		btnModificarSala.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarSala);
 
 		btnAddSala = new JButton("A\u00F1adir Sala");
@@ -212,9 +212,9 @@ public class GestionSalas extends JFrame {
 				habilitarBotones();
 			}
 		});
-		btnBorrar.setBounds(575, 685, 120, 40);
+		btnBorrar.setBounds(532, 685, 150, 40);
 		contentPane.add(btnBorrar);
-		btnAddSala.setBounds(782, 685, 120, 40);
+		btnAddSala.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddSala);
 
 		Header = new JPanel();

@@ -134,19 +134,19 @@ public class GestionAcad extends JFrame {
 				controlador.gestionAcadToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarAcad = new JButton("Modificar a\u00F1o");
-		btnModificarAcad.setBounds(325, 685, 120, 40);
+		btnModificarAcad.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarAcad);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
-		btnAI_actor.setBounds(575, 685, 120, 40);
+		btnAI_actor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_actor);
 
 		btnAddAcad = new JButton(" A\u00F1adir a\u00F1o");
-		btnAddAcad.setBounds(776, 685, 120, 40);
+		btnAddAcad.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddAcad);
 
 		comboBoxSem1 = new JComboBox();

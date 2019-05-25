@@ -141,19 +141,19 @@ public class GestionActores extends JFrame {
 				controlador.gestionActoresToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarActor = new JButton("Modificar actor");
-		btnModificarActor.setBounds(325, 685, 120, 40);
+		btnModificarActor.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActor);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
-		btnAI_actor.setBounds(575, 685, 120, 40);
+		btnAI_actor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_actor);
 
 		btnAddActor = new JButton(" A\u00F1adir actor");
-		btnAddActor.setBounds(782, 685, 120, 40);
+		btnAddActor.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActor);
 
 		txtBuscador = new JTextField();

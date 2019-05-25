@@ -140,7 +140,7 @@ public class GestionAlumnos extends JFrame {
 				controlador.gestionAlumnosToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarAlumno = new JButton("Modificar Alumno");
@@ -151,7 +151,7 @@ public class GestionAlumnos extends JFrame {
 				modAlumno();
 			}
 		});
-		btnModificarAlumno.setBounds(325, 685, 120, 40);
+		btnModificarAlumno.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarAlumno);
 
 		btnAddAlumno = new JButton("A\u00F1adir Alumno");
@@ -179,9 +179,9 @@ public class GestionAlumnos extends JFrame {
 			}
 		});
 
-		btnActivoAlumno.setBounds(575, 685, 120, 40);
+		btnActivoAlumno.setBounds(532, 685, 150, 40);
 		contentPane.add(btnActivoAlumno);
-		btnAddAlumno.setBounds(782, 685, 120, 40);
+		btnAddAlumno.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddAlumno);
 
 		Header = new JPanel();

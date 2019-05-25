@@ -117,7 +117,7 @@ public class VerGrupos extends JFrame {
 				controlador.verGruposToGestion();
 			}
 		});
-		btnVolver.setBounds(440, 685, 120, 40);
+		btnVolver.setBounds(425, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		comboBoxColumna = new JComboBox();

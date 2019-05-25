@@ -160,7 +160,7 @@ public class GestionProfesores extends JFrame {
 				deselecionarFilayBotones();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnAI_profesor = new JButton("Activo/Inactivo");
@@ -169,7 +169,7 @@ public class GestionProfesores extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAI_profesor.setBounds(560, 685, 120, 40);
+		btnAI_profesor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_profesor);
 
 		btnModProfesor = new JButton("Modificar profesor");
@@ -185,7 +185,7 @@ public class GestionProfesores extends JFrame {
 
 			}
 		});
-		btnModProfesor.setBounds(313, 685, 146, 40);
+		btnModProfesor.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModProfesor);
 
 		btnAddProfesor = new JButton("A\u00F1adir profesor");
@@ -195,7 +195,7 @@ public class GestionProfesores extends JFrame {
 				deselecionarFilayBotones();
 			}
 		});
-		btnAddProfesor.setBounds(774, 685, 124, 40);
+		btnAddProfesor.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddProfesor);
 
 		txtBuscador = new JTextField();

@@ -163,11 +163,11 @@ public class InformacionExtra extends JFrame {
 				controlador.infoExtraToHome();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnGuardarCambios = new JButton("Guardar cambios");
-		btnGuardarCambios.setBounds(782, 685, 120, 40);
+		btnGuardarCambios.setBounds(748, 685, 150, 40);
 		contentPane.add(btnGuardarCambios);
 		
 		lblProfesores = new Label("Profesores");

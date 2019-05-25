@@ -112,7 +112,7 @@ public class Perfil extends JFrame {
 				controlador.perfilToHome();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(225, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnConfirmarCambios = new JButton(" Confirmar cambios");
@@ -121,7 +121,7 @@ public class Perfil extends JFrame {
 				controlador.solicitudActualizarUsuario();
 			}
 		});
-		btnConfirmarCambios.setBounds(762, 685, 140, 40);
+		btnConfirmarCambios.setBounds(625, 685, 150, 40);
 		contentPane.add(btnConfirmarCambios);
 
 		txtUsuario = new JTextField();

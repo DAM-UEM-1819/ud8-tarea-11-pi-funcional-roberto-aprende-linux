@@ -120,7 +120,7 @@ public class Informes extends JFrame {
 				controlador.informesToHome();
 			}
 		});
-		btnVolver.setBounds(435, 685, 120, 40);
+		btnVolver.setBounds(425, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		lblProfesores = new Label("Nombre del informe: ");

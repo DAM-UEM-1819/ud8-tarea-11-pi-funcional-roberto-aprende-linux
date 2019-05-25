@@ -155,7 +155,7 @@ public class GestionAsignatura extends JFrame {
 				controlador.gestionAsignaturaToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarAsignatura = new JButton("Modificar asignatura");
@@ -164,15 +164,15 @@ public class GestionAsignatura extends JFrame {
 				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?");
 			}
 		});
-		btnModificarAsignatura.setBounds(325, 685, 135, 40);
+		btnModificarAsignatura.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarAsignatura);
 
 		btnBorrarAsignatura = new JButton("Borrar asignatura");
-		btnBorrarAsignatura.setBounds(575, 685, 120, 40);
+		btnBorrarAsignatura.setBounds(532, 685, 150, 40);
 		contentPane.add(btnBorrarAsignatura);
 
 		btnAddAsignatura = new JButton(" A\u00F1adir asignatura");
-		btnAddAsignatura.setBounds(774, 685, 128, 40);
+		btnAddAsignatura.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddAsignatura);
 
 		txtBuscador = new JTextField();

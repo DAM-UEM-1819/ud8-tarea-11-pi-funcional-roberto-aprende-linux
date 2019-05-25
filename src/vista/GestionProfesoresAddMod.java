@@ -205,11 +205,11 @@ public class GestionProfesoresAddMod extends JFrame {
 
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(214, 685, 120, 40);
 		contentPane.add(btnVolver);
 
 		btnGuardarCambios = new JButton("Guardar cambios");
-		btnGuardarCambios.setBounds(765, 685, 137, 40);
+		btnGuardarCambios.setBounds(636, 685, 137, 40);
 		contentPane.add(btnGuardarCambios);
 
 		lblNumero = new JLabel("Numero");

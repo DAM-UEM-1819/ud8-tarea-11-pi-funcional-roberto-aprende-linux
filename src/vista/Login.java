@@ -108,7 +108,7 @@ public class Login extends JFrame {
 				controlador.loginSolicitud();
 			}
 		});
-		btnLogin.setBounds(380, 572, 271, 58);
+		btnLogin.setBounds(369, 572, 282, 58);
 		contentPane.add(btnLogin);
 
 		FooterPanel = new JPanel();
