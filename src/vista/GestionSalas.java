@@ -58,6 +58,7 @@ public class GestionSalas extends JFrame {
 	private JTextField txtBuscador;
 	private JComboBox comboBoxColumna;
 	private JLabel lblInfo;
+	private JLabel lblLupa;
 
 	public GestionSalas() {
 		setResizable(false);
@@ -270,7 +271,7 @@ public class GestionSalas extends JFrame {
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setColumns(10);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 111, 140, 22);;
 		txtBuscador.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -293,6 +294,11 @@ public class GestionSalas extends JFrame {
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(234, 111, 429, 23);
 		contentPane.add(lblInfo);
+
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 
 	}
 

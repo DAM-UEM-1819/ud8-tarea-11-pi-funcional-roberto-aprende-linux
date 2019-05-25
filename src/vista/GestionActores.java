@@ -57,6 +57,7 @@ public class GestionActores extends JFrame {
 	private JComboBox comboBoxIdioma;
 	private JComboBox comboBoxComplexion;
 	private JCheckBox chckbxActivo;
+	private JLabel lblLupa;
 
 	public GestionActores() {
 		setResizable(false);
@@ -77,7 +78,7 @@ public class GestionActores extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 450);
+		scrollPane.setBounds(98, 145, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaActores = new JTable();
@@ -174,13 +175,13 @@ public class GestionActores extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 111, 140, 22);
 		contentPane.add(txtBuscador);
 
 		lblImportarActores = new JLabel("Importar Actores");
 		lblImportarActores.setIcon(
 				new ImageIcon(GestionActores.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblImportarActores.setBounds(98, 127, 124, 20);
+		lblImportarActores.setBounds(98, 111, 124, 20);
 		contentPane.add(lblImportarActores);
 		lblImportarActores.setVisible(false);
 
@@ -208,6 +209,11 @@ public class GestionActores extends JFrame {
 		chckbxActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxActivo.setBounds(801, 633, 97, 23);
 		contentPane.add(chckbxActivo);
+		
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 	}
 
 	public void setControlador(Controlador controlador) {

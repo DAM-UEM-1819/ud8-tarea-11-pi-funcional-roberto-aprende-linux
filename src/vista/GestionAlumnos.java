@@ -61,6 +61,7 @@ public class GestionAlumnos extends JFrame {
 	private JLabel lblImportarAlumnos;
 	private JTextField txtBuscador;
 	private JLabel lblInfo;
+	private JLabel lblLupa;
 
 	public GestionAlumnos() {
 		setResizable(false);
@@ -110,7 +111,7 @@ public class GestionAlumnos extends JFrame {
 			}
 			
 		});
-		txtExpediente.setBounds(125, 600, 200, 30);
+		txtExpediente.setBounds(129, 611, 200, 30);
 		contentPane.add(txtExpediente);
 		txtExpediente.setColumns(10);
 
@@ -127,7 +128,7 @@ public class GestionAlumnos extends JFrame {
 				habilitarBotones();
 			}
 		});
-		txtNombre.setBounds(407, 600, 200, 30);
+		txtNombre.setBounds(410, 611, 200, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
@@ -234,7 +235,7 @@ public class GestionAlumnos extends JFrame {
 			}
 		});
 		chckbxActivoInactivo.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxActivoInactivo.setBounds(679, 602, 200, 23);
+		chckbxActivoInactivo.setBounds(681, 615, 200, 23);
 		contentPane.add(chckbxActivoInactivo);
 
 		lblImportarAlumnos = new JLabel("Importar Alumnos");
@@ -264,7 +265,7 @@ public class GestionAlumnos extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 111, 140, 22);
 		contentPane.add(txtBuscador);
 
 
@@ -272,6 +273,12 @@ public class GestionAlumnos extends JFrame {
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(234, 111, 429, 23);
 		contentPane.add(lblInfo);
+		
+
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 	}
 
 	public void setControlador(Controlador controlador) {
