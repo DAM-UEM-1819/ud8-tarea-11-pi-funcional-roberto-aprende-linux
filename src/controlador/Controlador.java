@@ -226,6 +226,11 @@ public class Controlador implements IControlador {
 	public void informesToPerfil() {
 		perfil.setVisible(true);
 	}
+	
+	public void solicitudInforme() {
+		modeloConsultas.crearInforme(informes.getModel(), informes.getInforme());
+		
+	}
 
 	// VENTANA INFORMACION EXTRA
 	public void infoExtraToHome() {
@@ -234,6 +239,10 @@ public class Controlador implements IControlador {
 
 	public void infoExtraToPerfil() {
 		perfil.setVisible(true);
+	}
+	
+	public void solicitudDatosInfoExtra() {
+		modeloConsultas.datosInfoExtra(infoExtra.getModelProfesores(), infoExtra.getModelAlumnos());
 	}
 
 	// VENTANA CREAR USUARIO
@@ -491,6 +500,11 @@ public class Controlador implements IControlador {
 
 	public void solicitudDatosExtraHome() {
 		modeloConsultas.getDatosExtraHome(home.getDatosFilaTabla());
+	}
+	
+	public void solicitudGuardarDatos() {
+		modeloConsultas.guardarDatosFilaHome(home.getDatosFilaTabla());
+		
 	}
 
 	// VENTANA CREAR USUARIOS
