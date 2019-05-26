@@ -27,6 +27,7 @@ import vista.GestionActores;
 import vista.GestionAlumnos;
 import vista.GestionAsignatura;
 import vista.GestionProfesores;
+import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
@@ -55,6 +56,7 @@ public class ModeloConsultas {
 	private GestionRegistros gestionRegistros;
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
+	private GestionProfesoresAddMod gestionProfesoresAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -123,6 +125,7 @@ public class ModeloConsultas {
 
 	// SENTENCIAS SELECT SQL COMPROBACION
 	private String selectExisteSala;
+	private String selectExisteProfesor;
 
 	// SENTENCIAS SELECT SQL INFORMES
 	private String informeNumeroHorasTotalesPorActividad;
@@ -142,9 +145,8 @@ public class ModeloConsultas {
 	private String informeListadoProfesoresPorTitulacionActivos;
 	private String infoExtraProfesores;
 	private String infoExtraAlumnos;
-	
-	//SENTENCIAS SELECT SQL INFORMACION EXTRA
-	
+
+	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
 	public ModeloConsultas() {
 		propiedades = new Properties();
@@ -246,6 +248,7 @@ public class ModeloConsultas {
 
 	private void selectComprobacionExiste() {
 		selectExisteSala = propiedades.getProperty("selectExisteSala");
+		selectExisteProfesor = propiedades.getProperty("selectExisteProfesor");
 	}
 
 	private void selectDatosExtra() {
@@ -253,7 +256,6 @@ public class ModeloConsultas {
 		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
 		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
 	}
-	
 
 	// INICIO SETTERS
 
@@ -311,6 +313,10 @@ public class ModeloConsultas {
 
 	public void setGestionProfesores(GestionProfesores gestionProfesores) {
 		this.gestionProfesores = gestionProfesores;
+	}
+
+	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
+		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
 	}
 
 	public void setGestionSalas(GestionSalas gestionSalas) {
@@ -379,8 +385,10 @@ public class ModeloConsultas {
 	 * la misma y compara el hash con el que haya en la BBDD para el usuario
 	 * correspondiente
 	 *
-	 * @param usuario El usuario escrito en el textfield del login
-	 * @param passwd  La contraseña del usuario
+	 * @param usuario
+	 *            El usuario escrito en el textfield del login
+	 * @param passwd
+	 *            La contraseña del usuario
 	 */
 	public void loginConfirmacion(String usuario, String passwd) {
 		// BORRAR, ESTO SIRVE PARA AHORRARNOS TRABAJO, NO DEJARLO EN LA VERSION FINAL
@@ -419,8 +427,10 @@ public class ModeloConsultas {
 	/**
 	 * Este método devuelve el hash de la contraseña de un usuario en específico
 	 *
-	 * @param usuario El usuario a consultar
-	 * @param passwd  La contraseña del usuario
+	 * @param usuario
+	 *            El usuario a consultar
+	 * @param passwd
+	 *            La contraseña del usuario
 	 * @return El hash de la contraseña ubicada en la BBDD
 	 */
 	public String consultarPasswdUsuario(String usuario, String passwd) {
@@ -444,9 +454,12 @@ public class ModeloConsultas {
 	 * base de datos. En caso de que no exista llamará al metodo correspondiente
 	 * para crear el usuario
 	 *
-	 * @param user   El nombre del usuario
-	 * @param passwd La contraseña del usuario
-	 * @param rol    El rol del usuario
+	 * @param user
+	 *            El nombre del usuario
+	 * @param passwd
+	 *            La contraseña del usuario
+	 * @param rol
+	 *            El rol del usuario
 	 */
 	public void crearUsuario(String user, String rol, String email) {
 		String sql = selectPasswdUsuario;
@@ -471,7 +484,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana home
 	 *
-	 * @param tableModel La tabla de la vista Home
+	 * @param tableModel
+	 *            La tabla de la vista Home
 	 */
 	public void getTablaHome(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -527,7 +541,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de usuarios
 	 *
-	 * @param tableModel La tabla de la vista de usuarios
+	 * @param tableModel
+	 *            La tabla de la vista de usuarios
 	 */
 	public void getTablaUsuarios(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -545,7 +560,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de año academico
 	 *
-	 * @param tableModel La tabla de la vista de acad
+	 * @param tableModel
+	 *            La tabla de la vista de acad
 	 */
 	public void getTablaAcad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -563,7 +579,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de actividades
 	 *
-	 * @param tableModel La tabla de la vista de actividad
+	 * @param tableModel
+	 *            La tabla de la vista de actividad
 	 */
 	public void getTablaActividad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -581,7 +598,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de actores
 	 *
-	 * @param tableModel La tabla de la vista de gestion de actores
+	 * @param tableModel
+	 *            La tabla de la vista de gestion de actores
 	 */
 	public void getTablaActores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -599,7 +617,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de alumnos
 	 *
-	 * @param tableModel La tabla de la vista de gestion de alumnos
+	 * @param tableModel
+	 *            La tabla de la vista de gestion de alumnos
 	 */
 	public void getTablaAlumnos(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -617,7 +636,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de asignaturas
 	 *
-	 * @param tableModel La tabla de la vista de gestion de asignaturas
+	 * @param tableModel
+	 *            La tabla de la vista de gestion de asignaturas
 	 */
 	public void getTablaAsignatura(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -635,7 +655,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de profesores
 	 *
-	 * @param tableModel La tabla de la vista de fgestion de profesores
+	 * @param tableModel
+	 *            La tabla de la vista de fgestion de profesores
 	 */
 	public void getTablaProfesores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -653,7 +674,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de registros
 	 *
-	 * @param tableModel La tabla de la vista de gestion de registros
+	 * @param tableModel
+	 *            La tabla de la vista de gestion de registros
 	 */
 	public void getTablaRegistros(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -671,7 +693,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de salas
 	 *
-	 * @param tableModel La tabla de la vista de gestion de salas
+	 * @param tableModel
+	 *            La tabla de la vista de gestion de salas
 	 */
 	public void getTablaSalas(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -712,7 +735,8 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para
 	 *
-	 * @param pstmt La consulta preparada y lista para ejecutarse
+	 * @param pstmt
+	 *            La consulta preparada y lista para ejecutarse
 	 */
 	private void getDatos(PreparedStatement pstmt) {
 		tableModel.setColumnCount(0);
@@ -742,7 +766,8 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para saber si uan sala ya existe o no
 	 *
-	 * @param sala La sala a comprobar
+	 * @param sala
+	 *            La sala a comprobar
 	 */
 	public void comprobarSala(String sala) {
 		existe = false;
@@ -761,15 +786,41 @@ public class ModeloConsultas {
 		}
 	}
 
+	public void comprobarInsertODelete(String profe) {
+		existe = false;
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectExisteProfesor);
+			pstmt.setString(1, profe);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				existe = true;
+				controlador.solicitudProfeMod();
+				respuesta = "Modificacion de profesor";
+				gestionProfesoresAddMod.actualizarInfoConsulta();
+
+			} else {
+				controlador.solicitudProfeAdd();
+				respuesta = "Creacion de nuevo profesor";
+				gestionProfesoresAddMod.actualizarInfoConsulta();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	// BUSCADORES
 
 	/**
 	 * Metodo general que sirve para realizar todas las consultas de búsqueda
 	 *
-	 * @param tableModel La tabla donde se va a mostrar el resultado
-	 * @param palabra    La palabra a buscar
-	 * @param opcion     La opcion que se desea, depende del tipo de la clase donde
-	 *                   te encuetres
+	 * @param tableModel
+	 *            La tabla donde se va a mostrar el resultado
+	 * @param palabra
+	 *            La palabra a buscar
+	 * @param opcion
+	 *            La opcion que se desea, depende del tipo de la clase donde te
+	 *            encuetres
 	 */
 	public void buscador(DefaultTableModel tableModel, String palabra, String opcion) {
 		this.tableModel = tableModel;
@@ -868,8 +919,10 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para crear los informes de la ventana informes
 	 *
-	 * @param informe    El informe a mostrar
-	 * @param tableModel La tabla de la vista
+	 * @param informe
+	 *            El informe a mostrar
+	 * @param tableModel
+	 *            La tabla de la vista
 	 */
 	public void crearInforme(DefaultTableModel tableModel, String informe) {
 		this.tableModel = tableModel;
@@ -936,8 +989,9 @@ public class ModeloConsultas {
 	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
 	 * home
 	 * 
-	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
-	 *                       la fila seleccionada
+	 * @param datosFilaTabla
+	 *            El array de datos que contiene toda la informacion de la fila
+	 *            seleccionada
 	 */
 	public void guardarDatosFilaHome(Object[] datosFilaTabla) {
 		this.datosFilasTabla = datosFilaTabla;
@@ -947,8 +1001,10 @@ public class ModeloConsultas {
 	 * Metodo para mostrar el listado de alumnos y profesores del registro
 	 * seleccionado en la ventana de home
 	 * 
-	 * @param modelProfesores La tabla de profesores
-	 * @param modelAlumnos    La tabla de alumnos
+	 * @param modelProfesores
+	 *            La tabla de profesores
+	 * @param modelAlumnos
+	 *            La tabla de alumnos
 	 */
 	public void datosInfoExtra(DefaultTableModel modelProfesores, DefaultTableModel modelAlumnos) {
 		this.tableModel = tableModel;
@@ -956,7 +1012,7 @@ public class ModeloConsultas {
 		try {
 			pstmt = conexion.prepareStatement(infoExtraProfesores);
 			getDatos(pstmt);
-			
+
 			pstmt = conexion.prepareStatement(infoExtraAlumnos);
 			getDatos(pstmt);
 		} catch (SQLException e) {
