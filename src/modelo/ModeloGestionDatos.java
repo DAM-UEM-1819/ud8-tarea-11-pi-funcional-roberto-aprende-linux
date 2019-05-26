@@ -321,9 +321,11 @@ public class ModeloGestionDatos {
 			ResultSet rs = pstmt.executeQuery();
 			modelo.enviarCorreoGmail(correo, user, passwd);
 			respuesta = "Usuario creado";
-		} catch (Exception e) {
-			respuesta = "Error, algun campo vacio";
+		}catch (SQLIntegrityConstraintViolationException e) {
+			respuesta = "Error, el usuario ya existe";
 			crearUsuario.actualizarInfo();
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -351,14 +353,14 @@ public class ModeloGestionDatos {
 						respuesta = "Usuario modificado correctamente";
 
 					} else {
-						respuesta = "Error, las nuevas contraseñas no coinciden";
+						respuesta = "Error, las nuevas contraseï¿½as no coinciden";
 					}
 
 				} else {
-					respuesta = "Error, contraseña incorrecta";
+					respuesta = "Error, contraseï¿½a incorrecta";
 				}
 			} else {
-				respuesta = "Error, los campos de usuario y email están vacios";
+				respuesta = "Error, los campos de usuario y email estï¿½n vacios";
 			}
 
 		} catch (Exception e) {
