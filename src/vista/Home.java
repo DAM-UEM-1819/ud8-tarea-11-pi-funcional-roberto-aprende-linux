@@ -87,9 +87,9 @@ public class Home extends JFrame {
 	private JTextField txtBuscador;
 	private JLabel lblLupa;
 	private JDateChooser dateChooser;
-	private int dia;
-	private int mes;
-	private int year;
+	private String dia;
+	private String mes;
+	private String year;
 
 	public Home() {
 		setResizable(false);
@@ -293,17 +293,17 @@ public class Home extends JFrame {
 		contentPane.add(lblLupa);
 
 		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd-MMMM-yyyy");
+		dateChooser.setDateFormatString("dd-MM-yyyy");
 		dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent e) {
 				if ("date".equals(e.getPropertyName())) {
-					
+
 					String[] datosFecha = String.valueOf(e.getNewValue()).split(" ");
-					dia = Integer.parseInt(datosFecha[2]);
+					dia = datosFecha[2];
 					mes = numeroMes(datosFecha[1]);
-					year = Integer.parseInt(datosFecha[datosFecha.length - 1]);
+					year = datosFecha[datosFecha.length - 1];
 					actualizarFecha();
-				
+
 				}
 			}
 		});
@@ -370,54 +370,59 @@ public class Home extends JFrame {
 
 	public void fechaActual() {
 		Calendar fecha = Calendar.getInstance();
-		dia = fecha.get(Calendar.DATE);
-		mes = fecha.get(Calendar.MONTH) + 1;
-		year = fecha.get(Calendar.YEAR);
+		dia = String.valueOf(fecha.get(Calendar.DATE));
+		if (fecha.get(Calendar.MONTH) + 1 < 10) {
+			mes = "0" + String.valueOf(fecha.get(Calendar.MONTH) + 1);
+		} else {
+			mes = String.valueOf(fecha.get(Calendar.MONTH) + 1);
+		}
+		
+		year = String.valueOf(fecha.get(Calendar.YEAR));
 	}
-	
+
 	public void actualizarFecha() {
 		lblTitulo.setText(dia + "-" + mes + "-" + year);
 	}
 
-	public int numeroMes(String mes) {
-		int numero = 0;
+	public String numeroMes(String mes) {
+		String numero = "";
 
 		switch (mes.toUpperCase()) {
 		case "JAN":
-			numero = 1;
+			numero = "01";
 			break;
 		case "FEB":
-			numero = 2;
+			numero = "02";
 			break;
 		case "MAR":
-			numero = 3;
+			numero = "03";
 			break;
 		case "APR":
-			numero = 4;
+			numero = "04";
 			break;
 		case "MAY":
-			numero = 5;
+			numero = "05";
 			break;
 		case "JUN":
-			numero = 6;
+			numero = "06";
 			break;
 		case "JUL":
-			numero = 7;
+			numero = "07";
 			break;
 		case "AUG":
-			numero = 8;
+			numero = "08";
 			break;
 		case "SEP":
-			numero = 9;
+			numero = "09";
 			break;
 		case "OCT":
-			numero = 10;
+			numero = "10";
 			break;
 		case "NOV":
-			numero = 11;
+			numero = "11";
 			break;
 		case "DEC":
-			numero = 12;
+			numero = "12";
 			break;
 
 		}

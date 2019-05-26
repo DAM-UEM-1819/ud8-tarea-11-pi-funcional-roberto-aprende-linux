@@ -321,9 +321,11 @@ public class ModeloGestionDatos {
 			ResultSet rs = pstmt.executeQuery();
 			modelo.enviarCorreoGmail(correo, user, passwd);
 			respuesta = "Usuario creado";
-		} catch (Exception e) {
-			respuesta = "Error, algun campo vacio";
+		}catch (SQLIntegrityConstraintViolationException e) {
+			respuesta = "Error, el usuario ya existe";
 			crearUsuario.actualizarInfo();
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
