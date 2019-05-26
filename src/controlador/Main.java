@@ -88,6 +88,7 @@ public class Main {
 		modeloConsultas.setGestionRegistros(gestionRegistros);
 		modeloConsultas.setGestionAsignatura(gestionAsignaturas);
 		modeloConsultas.setGestionProfesores(gestionProfesores);
+		modeloConsultas.setGestionProfesoresAddMod(gestionProfesoresAddMod);
 		modeloConsultas.setGestionSalas(gestionSalas);
 		modeloConsultas.setGestionUsuarios(gestionUsuarios);
 		modeloConsultas.setPerfil(perfil);
@@ -128,6 +129,7 @@ public class Main {
 		gestionAlumnos.setModeloConsultas(modeloConsultas);
 		gestionRegistros.setModeloConsultas(modeloConsultas);
 		gestionAsignaturas.setModeloConsultas(modeloConsultas);
+		gestionProfesoresAddMod.setModeloConsultas(modeloConsultas);
 		gestionProfesores.setModeloConsultas(modeloConsultas);
 		gestionSalas.setModeloConsultas(modeloConsultas);
 		gestionUsuarios.setModeloConsultas(modeloConsultas);

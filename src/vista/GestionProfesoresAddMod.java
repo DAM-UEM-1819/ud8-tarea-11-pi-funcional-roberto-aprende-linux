@@ -100,10 +100,10 @@ public class GestionProfesoresAddMod extends JFrame {
 		contentPane.add(txtNumero);
 		txtNumero.setColumns(10);
 		
-				txtDni = new JTextField();
-				txtDni.setBounds(575, 201, 250, 30);
-				contentPane.add(txtDni);
-				txtDni.setColumns(10);
+		txtDni = new JTextField();
+		txtDni.setBounds(575, 201, 250, 30);
+		contentPane.add(txtDni);
+		txtDni.setColumns(10);
 
 		txtNombre = new JTextField();
 		txtNombre.setBounds(150, 281, 250, 30);
@@ -319,6 +319,15 @@ public class GestionProfesoresAddMod extends JFrame {
 	public String getNombre() {
 		return txtNombre.getText();
 	}
+	
+		public String getApellido1() {
+		return txtApellido1.getText();
+	}
+
+	public String getApellido2() {
+		return txtApellido2.getText();
+	}
+	
 
 	public String getTitulacion() {
 		return txtTitulacion.getText();
@@ -346,6 +355,66 @@ public class GestionProfesoresAddMod extends JFrame {
 
 	public String getEmail2() {
 		return txtEmail2.getText();
+	}
+	
+		public String getAI_profesores() {
+		activo = String.valueOf(estadoCheckBox());
+		return activo;
+	}
+	public void modProfe() {
+		// DefaultTableModel model = (DefaultTableModel) tablaP.getModel();
+		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
+		if (getNumero().equals(txtNumero.getText())) {
+			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
+			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
+			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
+			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
+			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			activo = String.valueOf((modeloGestionDatos.getRellenarDatos()[5]));
+			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
+			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
+			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
+			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
+			
+			if (Integer.parseInt(activo) == 1) {
+				chckbxAI_profesores.setSelected(true);
+			}else {
+				chckbxAI_profesores.setSelected(false);
+			}
+		} else {
+			lblInfo.setText("Error , no puedes modificar el codigo de profesor");
+		}
+
+	}
+	public void addProfe() {
+		// DefaultTableModel model = (DefaultTableModel) tablaP.getModel();
+		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
+			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
+			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
+			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
+			activo = String.valueOf((modeloGestionDatos.getRellenarDatos()[11]));
+			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
+			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
+			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
+			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
+			
+			if (Integer.parseInt(activo) == 1) {
+				chckbxAI_profesores.setSelected(true);
+			}else {
+				chckbxAI_profesores.setSelected(false);
+			}
+		
+			lblInfo.setText("Error , no puedes modificar el codigo de profesor");
+		
+
+	}
+	public void actualizarInfoConsulta() {
+		lblInfo.setText(modeloConsultas.getRespuesta());
 	}
 
 	//
