@@ -48,6 +48,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.Date;
+import com.toedter.calendar.JDateChooser;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import java.beans.VetoableChangeListener;
 
 public class Home extends JFrame {
 
@@ -72,12 +82,14 @@ public class Home extends JFrame {
 	private JButton btnGestionar;
 	private JButton btnInformes;
 	private JLabel lblNewLabel;
-	private JTextField txtCalendario;
 	private JLabel lblDocumentacion;
 	private JLabel lblDocumentacionNumero;
 	private JTextField txtBuscador;
 	private JLabel lblLupa;
-	// private JDateChooser calendario;
+	private JDateChooser dateChooser;
+	private int dia;
+	private int mes;
+	private int year;
 
 	public Home() {
 		setResizable(false);
@@ -128,7 +140,7 @@ public class Home extends JFrame {
 				setVisible(false);
 				controlador.homeToInfoExtra();
 				controlador.solicitudGuardarDatos();
-				
+
 			}
 		});
 		btnInfoExtra.setBounds(284, 685, 170, 40);
@@ -145,15 +157,12 @@ public class Home extends JFrame {
 		contentPane.add(btnGestionar);
 
 		Header = new JPanel();
-		Header.setBackground(new Color(164,44,52));
+		Header.setBackground(new Color(164, 44, 52));
 		Header.setBounds(0, 0, 1000, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
 
-		Calendar fecha = Calendar.getInstance();
-		int dia = fecha.get(Calendar.DATE);
-		int mes = fecha.get(Calendar.MONTH) + 1;
-		int year = fecha.get(Calendar.YEAR);
+		fechaActual();
 		lblTitulo = new JLabel(dia + "-" + mes + "-" + year);
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -268,13 +277,8 @@ public class Home extends JFrame {
 
 		lblNewLabel = new JLabel("Selecionar día:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(35, 111, 84, 22);
+		lblNewLabel.setBounds(491, 111, 84, 22);
 		contentPane.add(lblNewLabel);
-
-		txtCalendario = new JTextField();
-		txtCalendario.setBounds(135, 111, 70, 22);
-		contentPane.add(txtCalendario);
-		txtCalendario.setColumns(10);
 
 		txtBuscador = new JTextField();
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
@@ -282,11 +286,29 @@ public class Home extends JFrame {
 		txtBuscador.setBounds(782, 111, 140, 22);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
-		
+
 		ImageIcon lupa = new ImageIcon("./img/buscar.png");
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(932, 111, 20, 22);
 		contentPane.add(lblLupa);
+
+		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("dd-MMMM-yyyy");
+		dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent e) {
+				if ("date".equals(e.getPropertyName())) {
+					
+					String[] datosFecha = String.valueOf(e.getNewValue()).split(" ");
+					dia = Integer.parseInt(datosFecha[2]);
+					mes = numeroMes(datosFecha[1]);
+					year = Integer.parseInt(datosFecha[datosFecha.length - 1]);
+					actualizarFecha();
+				
+				}
+			}
+		});
+		dateChooser.setBounds(585, 111, 150, 20);
+		contentPane.add(dateChooser);
 
 	}
 
@@ -346,4 +368,60 @@ public class Home extends JFrame {
 
 	}
 
+	public void fechaActual() {
+		Calendar fecha = Calendar.getInstance();
+		dia = fecha.get(Calendar.DATE);
+		mes = fecha.get(Calendar.MONTH) + 1;
+		year = fecha.get(Calendar.YEAR);
+	}
+	
+	public void actualizarFecha() {
+		lblTitulo.setText(dia + "-" + mes + "-" + year);
+	}
+
+	public int numeroMes(String mes) {
+		int numero = 0;
+
+		switch (mes.toUpperCase()) {
+		case "JAN":
+			numero = 1;
+			break;
+		case "FEB":
+			numero = 2;
+			break;
+		case "MAR":
+			numero = 3;
+			break;
+		case "APR":
+			numero = 4;
+			break;
+		case "MAY":
+			numero = 5;
+			break;
+		case "JUN":
+			numero = 6;
+			break;
+		case "JUL":
+			numero = 7;
+			break;
+		case "AUG":
+			numero = 8;
+			break;
+		case "SEP":
+			numero = 9;
+			break;
+		case "OCT":
+			numero = 10;
+			break;
+		case "NOV":
+			numero = 11;
+			break;
+		case "DEC":
+			numero = 12;
+			break;
+
+		}
+
+		return numero;
+	}
 }
