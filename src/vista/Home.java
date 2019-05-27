@@ -277,7 +277,7 @@ public class Home extends JFrame {
 
 		lblNewLabel = new JLabel("Selecionar día:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(491, 111, 84, 22);
+		lblNewLabel.setBounds(465, 111, 110, 22);
 		contentPane.add(lblNewLabel);
 
 		txtBuscador = new JTextField();
