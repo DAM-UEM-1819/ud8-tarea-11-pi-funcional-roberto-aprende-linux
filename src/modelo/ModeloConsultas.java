@@ -787,21 +787,19 @@ public class ModeloConsultas {
 	}
 
 	public void comprobarInsertODelete(String profe) {
-		existe = false;
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectExisteProfesor);
 			pstmt.setString(1, profe);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				existe = true;
 				controlador.solicitudProfeMod();
-				respuesta = "Modificacion de profesor";
+				respuesta = "Profesor modificado";
 				gestionProfesoresAddMod.actualizarInfoConsulta();
 
 			} else {
 				controlador.solicitudProfeAdd();
-				respuesta = "Creacion de nuevo profesor";
+				respuesta = "Profesor creado";
 				gestionProfesoresAddMod.actualizarInfoConsulta();
 			}
 		} catch (Exception e) {

@@ -441,7 +441,7 @@ public class Controlador implements IControlador {
 	
 	
 	public void solicitudProfeAdd() {
-		modeloGestionDatos.CrearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
+		modeloGestionDatos.crearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
 		gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
 		gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
 		gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),

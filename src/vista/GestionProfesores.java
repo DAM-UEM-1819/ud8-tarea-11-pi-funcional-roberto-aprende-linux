@@ -213,6 +213,7 @@ public class GestionProfesores extends JFrame {
 		btnAddProfesor = new JButton("A\u00F1adir profesor");
 		btnAddProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
 				controlador.gestionProfesoresTogestionProsoresAddMod();
 				deselecionarFilayBotones();
 			}
