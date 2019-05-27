@@ -90,6 +90,7 @@ public class Home extends JFrame {
 	private String dia;
 	private String mes;
 	private String year;
+	private boolean estaSeleccionado;
 
 	public Home() {
 		setResizable(false);
@@ -118,7 +119,13 @@ public class Home extends JFrame {
 		tablaRegistros.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlador.solicitudDatosExtraHome();
+				if (tablaRegistros.getSelectedRow() > -1) {
+					estaSeleccionado = true;
+					btnInfoExtra.setEnabled(true);
+				} else {
+					estaSeleccionado = false;
+					btnInfoExtra.setEnabled(false);
+				}
 			}
 		});
 		tablaRegistros.setRowHeight(30);
@@ -135,6 +142,7 @@ public class Home extends JFrame {
 		contentPane.add(btnSalir);
 
 		btnInfoExtra = new JButton("Informaci\u00F3n Extra");
+		btnInfoExtra.setEnabled(false);
 		btnInfoExtra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -330,9 +338,6 @@ public class Home extends JFrame {
 		btnInfoExtra.setBounds(284, 685, 170, 40);
 	}
 
-	public void getTxtCalendario() {
-
-	}
 
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
@@ -347,6 +352,10 @@ public class Home extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaRegistros.getModel();
 
+	}
+	
+	public String getFecha() {
+		return lblTitulo.getText();
 	}
 
 	public Object[] getDatosFilaTabla() {
@@ -365,6 +374,7 @@ public class Home extends JFrame {
 		} else {
 			chckbxActor.setSelected(false);
 		}
+		lblDocumentacionNumero.setText(modeloConsultas.getDocumentacion());
 
 	}
 
@@ -429,4 +439,6 @@ public class Home extends JFrame {
 
 		return numero;
 	}
+	
+	
 }

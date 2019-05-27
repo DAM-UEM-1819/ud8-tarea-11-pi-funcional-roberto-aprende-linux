@@ -520,10 +520,6 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaHome(home.getModel());
 	}
 
-	public void solicitudDatosExtraHome() {
-		modeloConsultas.getDatosExtraHome(home.getDatosFilaTabla());
-	}
-
 	public void solicitudGuardarDatos() {
 		modeloConsultas.guardarDatosFilaHome(home.getDatosFilaTabla());
 

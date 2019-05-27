@@ -82,7 +82,8 @@ public class ModeloConsultas {
 	private String grupo;
 	private String numeroAlumos;
 	private String simulador;
-	private boolean actor;
+	private String actor;
+	private String documentacion;
 	private boolean existe;
 	private Object[] datosUsuario;
 
@@ -362,7 +363,11 @@ public class ModeloConsultas {
 	}
 
 	public boolean tieneActor() {
-		return actor;
+		boolean valor = false;
+		if (actor.equals("1")) {
+			valor = true;
+		}
+		return valor;
 	}
 
 	public boolean getExiste() {
@@ -375,6 +380,10 @@ public class ModeloConsultas {
 
 	public Object[] getDatosUsuario() {
 		return datosUsuario;
+	}
+	
+	public String getDocumentacion() {
+		return documentacion;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -492,6 +501,7 @@ public class ModeloConsultas {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectHome);
+			pstmt.setString(1, home.getFecha());
 			getDatos(pstmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -506,6 +516,15 @@ public class ModeloConsultas {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectDatosExtraHome);
+			//Aqui irian los setString
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				numeroAlumos = rs.getString(1);
+				simulador = rs.getString(2);
+				actor = rs.getString(3);
+				documentacion = rs.getString(4);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
