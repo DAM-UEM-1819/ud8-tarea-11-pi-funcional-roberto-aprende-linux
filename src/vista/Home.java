@@ -17,6 +17,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import controlador.Controlador;
 import modelo.*;
@@ -100,6 +101,7 @@ public class Home extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosHome();
+				btnInfoExtra.setEnabled(false);
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -150,7 +152,6 @@ public class Home extends JFrame {
 				setVisible(false);
 				controlador.homeToInfoExtra();
 				controlador.solicitudGuardarDatos();
-
 			}
 		});
 		btnInfoExtra.setBounds(284, 685, 170, 40);
@@ -291,20 +292,16 @@ public class Home extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				controlador.solicitudBuscador(this);
+			}
+		});
 		txtBuscador.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				txtBuscador.setText("");
-			}
-		});
-		txtBuscador.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (!txtBuscador.getText().equals("")) {
-					controlador.solicitudBuscador(this);
-				} else {
-					controlador.solicitudDatosHome();
-				}
 			}
 		});
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
@@ -461,6 +458,11 @@ public class Home extends JFrame {
 	public String getPalabraBuscador() {
 		// TODO Auto-generated method stub
 		return txtBuscador.getText();
+	}
+	
+	public void filtro(){
+		TableRowSorter trs = modeloConsultas.getFiltro();
+		tablaRegistros.setRowSorter(trs);
 	}
 	
 	

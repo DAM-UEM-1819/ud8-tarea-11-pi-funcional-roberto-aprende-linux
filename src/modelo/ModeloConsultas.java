@@ -16,7 +16,9 @@ import java.util.Properties;
 import java.util.TreeSet;
 
 import javax.naming.spi.DirStateFactory.Result;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import controlador.Controlador;
 import vista.CrearUsuario;
@@ -86,6 +88,7 @@ public class ModeloConsultas {
 	private String documentacion;
 	private boolean existe;
 	private Object[] datosUsuario;
+	private TableRowSorter filtro;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -146,6 +149,7 @@ public class ModeloConsultas {
 	private String informeListadoProfesoresPorTitulacionActivos;
 	private String infoExtraProfesores;
 	private String infoExtraAlumnos;
+	
 
 	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
@@ -384,6 +388,10 @@ public class ModeloConsultas {
 
 	public String getDocumentacion() {
 		return documentacion;
+	}
+	
+	public TableRowSorter getFiltro() {
+		return filtro;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -902,17 +910,6 @@ public class ModeloConsultas {
 				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo); // Cambiar
 				pstmt.setString(1, palabra + "%");
 				break;
-			case "K":
-				pstmt = conexion.prepareStatement(selectBuscadorHome); // Cambiar
-				pstmt.setString(1, home.getFecha());
-				pstmt.setString(2, palabra + "%");
-				pstmt.setString(3, palabra + "%");
-				pstmt.setString(4, palabra + "%");
-				pstmt.setString(5, palabra + "%");
-				pstmt.setString(6, palabra + "%");
-				pstmt.setString(7, palabra + "%");
-				pstmt.setString(8, palabra + "%");
-				break;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -920,6 +917,14 @@ public class ModeloConsultas {
 
 		getDatos(pstmt);
 
+	}
+	
+	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
+		this.tableModel = tableModel;
+		TableRowSorter trs = new TableRowSorter(tableModel);
+		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 0));
+		this.filtro = trs;
+		home.filtro();
 	}
 
 	/**
@@ -1021,4 +1026,6 @@ public class ModeloConsultas {
 		}
 
 	}
+
+
 }
