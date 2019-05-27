@@ -65,6 +65,10 @@ public class GestionAsignatura extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosAsignatura();
+				btnAddAsignatura.setEnabled(false);
+				btnBorrarAsignatura.setEnabled(false);
+				btnModificarAsignatura.setEnabled(false);
+				
 
 			}
 		});
@@ -96,7 +100,7 @@ public class GestionAsignatura extends JFrame {
 				;
 				txtCurso.setText(String.valueOf(tablaAsignaturas.getValueAt(tablaAsignaturas.getSelectedRow(), 3)));
 				;
-
+				habilitarBotones();
 			}
 		});
 		tablaAsignaturas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -105,21 +109,70 @@ public class GestionAsignatura extends JFrame {
 		scrollPane.setViewportView(tablaAsignaturas);
 
 		txtCodigoAsignatura = new JTextField();
+		txtCodigoAsignatura.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+
+			}
+		});
 		txtCodigoAsignatura.setBounds(108, 629, 190, 30);
 		contentPane.add(txtCodigoAsignatura);
 		txtCodigoAsignatura.setColumns(10);
 
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+
+			}
+		});
 		txtNombre.setBounds(308, 630, 190, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtTitulacion = new JTextField();
+		txtTitulacion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+
+			}
+
+		});
 		txtTitulacion.setBounds(508, 630, 190, 30);
 		contentPane.add(txtTitulacion);
 		txtTitulacion.setColumns(10);
 
 		txtCurso = new JTextField();
+		txtCurso.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+
+			}
+		});
 		txtCurso.setBounds(708, 630, 182, 30);
 		contentPane.add(txtCurso);
 		txtCurso.setColumns(10);
@@ -171,15 +224,18 @@ public class GestionAsignatura extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				habilitarBotones();
 				setVisible(false);
-				controlador.gestionAsignaturaToGestion();
 				limpiarTxt();
+				controlador.gestionAsignaturaToGestion();
+
 			}
 		});
 		btnVolver.setBounds(100, 685, 120, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarAsignatura = new JButton("Modificar asignatura");
+		btnModificarAsignatura.setEnabled(false);
 		btnModificarAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.modAsignatura();
@@ -193,6 +249,7 @@ public class GestionAsignatura extends JFrame {
 		contentPane.add(btnModificarAsignatura);
 
 		btnBorrarAsignatura = new JButton("Borrar asignatura");
+		btnBorrarAsignatura.setEnabled(false);
 		btnBorrarAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.solicitudBorrar(this);
@@ -201,18 +258,21 @@ public class GestionAsignatura extends JFrame {
 				} else {
 					JOptionPane.showMessageDialog(null, "Esta asignatura esta siendo utilizada por alguna actividad");
 				}
+				habilitarBotones();
 			}
 		});
 		btnBorrarAsignatura.setBounds(575, 685, 120, 40);
 		contentPane.add(btnBorrarAsignatura);
 
 		btnAddAsignatura = new JButton(" A\u00F1adir asignatura");
+		btnAddAsignatura.setEnabled(false);
 		btnAddAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.crearAsignatura();
 				if (modeloGestionDatos.getSeHaCreado()) {
 					addAsignatura();
 				}
+				habilitarBotones();
 			}
 		});
 		btnAddAsignatura.setBounds(767, 685, 135, 40);
@@ -323,6 +383,33 @@ public class GestionAsignatura extends JFrame {
 			limpiarTxt();
 		} else {
 			lblInfo.setText("Error , no puedes modificar el codigo de la asignatura");
+		}
+
+	}
+
+	public void habilitarBotones() {
+		// btnAlta
+		if (!txtCodigoAsignatura.getText().equals("") && !txtCurso.getText().equals("")
+				&& !txtNombre.getText().equals("") && !txtTitulacion.getText().equals("")) {
+			btnAddAsignatura.setEnabled(true);
+		} else {
+			btnAddAsignatura.setEnabled(false);
+		}
+
+		// btnmodificar
+		if (tablaAsignaturas.getSelectedRowCount() == 1 && !txtCodigoAsignatura.getText().equals("")
+				&& !txtCurso.getText().equals("") && !txtNombre.getText().equals("")
+				&& !txtTitulacion.getText().equals("")) {
+			btnModificarAsignatura.setEnabled(true);
+		} else {
+			btnModificarAsignatura.setEnabled(false);
+		}
+
+		// btnBorrar
+		if (tablaAsignaturas.getSelectedRowCount() == 1 && !txtCodigoAsignatura.getText().equals("")) {
+			btnBorrarAsignatura.setEnabled(true);
+		} else {
+			btnBorrarAsignatura.setEnabled(false);
 		}
 
 	}
