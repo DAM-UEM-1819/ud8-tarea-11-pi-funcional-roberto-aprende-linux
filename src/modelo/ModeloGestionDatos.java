@@ -100,6 +100,7 @@ public class ModeloGestionDatos {
 	private String deleteSala;
 	private String deleteOcupa;
 	private String deleteActuaRegistro;
+	private String deleteAsignatura;
 	private String deleteParticipaRegistro;
 	private String deleteRealizaRegistro;
 	private String deleteOcupaRegistro;
@@ -107,6 +108,7 @@ public class ModeloGestionDatos {
 
 	// Sentincias Update SQL
 	private String updateAlumno;
+	private String updateAsignatura;
 	private String updateSala;
 	private String updateRegistro;
 	private String updateUsuario;
@@ -114,6 +116,7 @@ public class ModeloGestionDatos {
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
 	private String activoInactivoUpdateProfesor;
+	
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -281,6 +284,8 @@ public class ModeloGestionDatos {
 		deleteRealizaRegistro = propiedadesBorrado.getProperty("deleteRealizaRegistro");
 		deleteOcupaRegistro = propiedadesBorrado.getProperty("deleteOcupaRegistro");
 		deleteRegistro = propiedadesBorrado.getProperty("deleteRegistro");
+		//
+		deleteAsignatura = propiedadesBorrado.getProperty("deleteAsignatura");
 	}
 
 	/**
@@ -288,6 +293,7 @@ public class ModeloGestionDatos {
 	 */
 	private void asignacionModificacion() {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
+		updateAsignatura = propiedadesModificacion.getProperty("updateAsignatura");
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
@@ -438,6 +444,34 @@ public class ModeloGestionDatos {
 		}
 
 	}
+	
+	public void crearAsignatura(String codigoAsignatura, String nombre, String titulacion, String curso) {
+		if (!codigoAsignatura.isEmpty() && !nombre.isEmpty() && !titulacion.isEmpty() && !curso.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertAsignatura);
+				pstmt.setString(1, codigoAsignatura);
+				pstmt.setString(2, nombre);
+				pstmt.setString(3, titulacion);
+				pstmt.setString(4, curso);
+				addDatos(pstmt);
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(codigoAsignatura);
+				datosFilastabla.add(nombre);
+				datosFilastabla.add(titulacion);
+				datosFilastabla.add(curso);
+				seHaCreado = true;
+				respuesta = "Asignatura creada";
+				gestionAsignatura.actualizarInfoDatos();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, asignatura ya creada";
+			gestionAsignatura.actualizarInfoDatos();
+		}
+
+	}
 
 	/**
 	 * Metodo para ejecutar las sentencias
@@ -478,6 +512,8 @@ public class ModeloGestionDatos {
 			break;
 		case "D":
 			// sql = deleteAsignatura;
+			seHaBorrado = borrarDatos(deleteAsignatura);
+			
 			break;
 		case "E":
 			seHaBorrado = borrarDatos(deleteOcupa);
@@ -767,7 +803,7 @@ public class ModeloGestionDatos {
 				String.valueOf(datosProfe.add(telefono2));
 				String.valueOf(datosProfe.add(email1));
 				String.valueOf(datosProfe.add(email2));
-			
+
 				for (int i = 0; i < datosProfe.toArray().length; i++) {
 					System.out.println(i + " " + getRellenarDatos()[i]);
 				}
@@ -778,6 +814,35 @@ public class ModeloGestionDatos {
 			seHaCreado = false;
 			respuesta = "Error, estas modificando el numero del profesor";
 		}
+	}
+
+
+
+	public void modificarAsignatura(String codigoAsignatura, String nombre, String titulacion, String curso) {
+		if (!codigoAsignatura.isEmpty() && !nombre.isEmpty() && !titulacion.isEmpty() && !curso.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateAsignatura);
+				pstmt.setString(1, nombre);
+				pstmt.setString(2, titulacion);
+				pstmt.setString(3, curso);
+				pstmt.setString(4, codigoAsignatura);
+				pstmt.executeUpdate();
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(nombre);
+				datosFilastabla.add(titulacion);
+				datosFilastabla.add(curso);
+				seHaCreado = true;
+				respuesta = "Asignatura modificada";
+				gestionAsignatura.actualizarInfoDatos();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, no puedes modificar el codifgo de la asignatura ya creada";
+			gestionAsignatura.actualizarInfoDatos();
+		}
+		
 	}
 
 }

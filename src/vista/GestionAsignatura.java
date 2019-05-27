@@ -57,6 +57,7 @@ public class GestionAsignatura extends JFrame {
 	private JComboBox comboBoxColumna;
 	private JLabel lblImportarActividades;
 	private JLabel lblLupa;
+	private JLabel lblInfo;
 
 	public GestionAsignatura() {
 		setResizable(false);
@@ -64,6 +65,7 @@ public class GestionAsignatura extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosAsignatura();
+
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -81,6 +83,22 @@ public class GestionAsignatura extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaAsignaturas = new JTable();
+		tablaAsignaturas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtCodigoAsignatura
+						.setText(String.valueOf(tablaAsignaturas.getValueAt(tablaAsignaturas.getSelectedRow(), 0)));
+				;
+				txtNombre.setText(String.valueOf(tablaAsignaturas.getValueAt(tablaAsignaturas.getSelectedRow(), 1)));
+				;
+				txtTitulacion
+						.setText(String.valueOf(tablaAsignaturas.getValueAt(tablaAsignaturas.getSelectedRow(), 2)));
+				;
+				txtCurso.setText(String.valueOf(tablaAsignaturas.getValueAt(tablaAsignaturas.getSelectedRow(), 3)));
+				;
+
+			}
+		});
 		tablaAsignaturas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaAsignaturas.setRowHeight(40);
 		tablaAsignaturas.getTableHeader().setReorderingAllowed(false);
@@ -107,7 +125,7 @@ public class GestionAsignatura extends JFrame {
 		txtCurso.setColumns(10);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBackground(new Color(164, 44, 52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -134,11 +152,13 @@ public class GestionAsignatura extends JFrame {
 				setVisible(false);
 				controlador.gestionAsignaturaToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -153,6 +173,7 @@ public class GestionAsignatura extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				controlador.gestionAsignaturaToGestion();
+				limpiarTxt();
 			}
 		});
 		btnVolver.setBounds(100, 685, 120, 40);
@@ -161,18 +182,40 @@ public class GestionAsignatura extends JFrame {
 		btnModificarAsignatura = new JButton("Modificar asignatura");
 		btnModificarAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?");
+				controlador.modAsignatura();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					modAsignatura();
+				}
+
 			}
 		});
 		btnModificarAsignatura.setBounds(325, 685, 135, 40);
 		contentPane.add(btnModificarAsignatura);
 
 		btnBorrarAsignatura = new JButton("Borrar asignatura");
+		btnBorrarAsignatura.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.solicitudBorrar(this);
+				if (modeloGestionDatos.getSeHaBorrado()) {
+					borrado();
+				} else {
+					JOptionPane.showMessageDialog(null, "Esta asignatura esta siendo utilizada por alguna actividad");
+				}
+			}
+		});
 		btnBorrarAsignatura.setBounds(575, 685, 120, 40);
 		contentPane.add(btnBorrarAsignatura);
 
 		btnAddAsignatura = new JButton(" A\u00F1adir asignatura");
-		btnAddAsignatura.setBounds(774, 685, 128, 40);
+		btnAddAsignatura.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.crearAsignatura();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					addAsignatura();
+				}
+			}
+		});
+		btnAddAsignatura.setBounds(767, 685, 135, 40);
 		contentPane.add(btnAddAsignatura);
 
 		txtBuscador = new JTextField();
@@ -198,14 +241,18 @@ public class GestionAsignatura extends JFrame {
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
-
 		lblImportarActividades = new JLabel("Importar Asignaturas");
 		lblImportarActividades.setIcon(
 				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 111, 124, 20);
 		contentPane.add(lblImportarActividades);
 		lblImportarActividades.setVisible(false);
-		
+
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(234, 111, 429, 23);
+		contentPane.add(lblInfo);
+
 		ImageIcon lupa = new ImageIcon("./img/buscar.png");
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(878, 111, 20, 22);
@@ -232,8 +279,64 @@ public class GestionAsignatura extends JFrame {
 	public String getPrimaryKey() {
 		return String.valueOf(tablaAsignaturas.getValueAt(tablaAsignaturas.getSelectedRow(), 0));
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
+
+	public String getCodigoAsignatura() {
+		return txtCodigoAsignatura.getText();
+	}
+
+	public String getNombre() {
+		return txtNombre.getText();
+	}
+
+	public String getTitulacion() {
+		return txtTitulacion.getText();
+	}
+
+	public String getCurso() {
+		return txtCurso.getText();
+	}
+
+	public void addAsignatura() {
+		DefaultTableModel model = (DefaultTableModel) tablaAsignaturas.getModel();
+		model.addRow(modeloGestionDatos.getDatosfilasTabla());
+		limpiarTxt();
+	}
+
+	public void borrado() {
+		DefaultTableModel model = (DefaultTableModel) tablaAsignaturas.getModel();
+		model.removeRow(tablaAsignaturas.getSelectedRow());
+		limpiarTxt();
+	}
+
+	public void modAsignatura() {
+		DefaultTableModel model = (DefaultTableModel) tablaAsignaturas.getModel();
+		if (getCodigoAsignatura().equals(String.valueOf(model.getValueAt(tablaAsignaturas.getSelectedRow(), 0)))) {
+			lblInfo.setText("Sala modificada");
+			model.setValueAt(getCodigoAsignatura(), tablaAsignaturas.getSelectedRow(), 0);
+			model.setValueAt(getNombre(), tablaAsignaturas.getSelectedRow(), 1);
+			model.setValueAt(getTitulacion(), tablaAsignaturas.getSelectedRow(), 2);
+			model.setValueAt(getCurso(), tablaAsignaturas.getSelectedRow(), 3);
+			limpiarTxt();
+		} else {
+			lblInfo.setText("Error , no puedes modificar el codigo de la asignatura");
+		}
+
+	}
+
+	private void limpiarTxt() {
+		txtCodigoAsignatura.setText("");
+		txtNombre.setText("");
+		txtCurso.setText("");
+		txtTitulacion.setText("");
+
+	}
+
+	public void actualizarInfoDatos() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+	}
+
 }
