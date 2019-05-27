@@ -457,6 +457,11 @@ public class Home extends JFrame {
 
 		return numero;
 	}
+
+	public String getPalabraBuscador() {
+		// TODO Auto-generated method stub
+		return txtBuscador.getText();
+	}
 	
 	
 }

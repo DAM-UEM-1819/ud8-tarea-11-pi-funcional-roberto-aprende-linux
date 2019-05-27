@@ -904,13 +904,14 @@ public class ModeloConsultas {
 				break;
 			case "K":
 				pstmt = conexion.prepareStatement(selectBuscadorHome); // Cambiar
-				pstmt.setString(1, palabra + "%");
+				pstmt.setString(1, home.getFecha());
 				pstmt.setString(2, palabra + "%");
 				pstmt.setString(3, palabra + "%");
 				pstmt.setString(4, palabra + "%");
 				pstmt.setString(5, palabra + "%");
 				pstmt.setString(6, palabra + "%");
 				pstmt.setString(7, palabra + "%");
+				pstmt.setString(8, palabra + "%");
 				break;
 			}
 		} catch (Exception e) {

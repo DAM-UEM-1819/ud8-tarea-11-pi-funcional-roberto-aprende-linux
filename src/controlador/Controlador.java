@@ -565,7 +565,7 @@ public class Controlador implements IControlador {
 			modeloConsultas.buscador(verGrupos.getModel(), verGrupos.getPalabraBuscador(), "J");
 			break;
 		case "HOME":
-			modeloConsultas.buscador(verGrupos.getModel(), verGrupos.getPalabraBuscador(), "K");
+			modeloConsultas.buscador(home.getModel(), home.getPalabraBuscador(), "K");
 			break;
 		}
 
