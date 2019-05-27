@@ -213,11 +213,7 @@ public class GestionProfesoresAddMod extends JFrame {
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.solicitudAddOMod();
-				if (modeloGestionDatos.getSeHaCreado()) {
-					modProfe();
-				}else{
-					addProfe();
-				}
+				limpiarTxt();
 			}
 		});
 		btnGuardarCambios.setBounds(765, 685, 137, 40);
@@ -351,60 +347,6 @@ public class GestionProfesoresAddMod extends JFrame {
 	public String getAI_profesores() {
 		activo = String.valueOf(estadoCheckBox());
 		return activo;
-	}
-
-	public void modProfe() {
-		// DefaultTableModel model = (DefaultTableModel) tablaP.getModel();
-		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
-		if (getNumero().equals(txtNumero.getText())) {
-			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
-			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
-			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
-			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
-			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			activo = String.valueOf((modeloGestionDatos.getRellenarDatos()[5]));
-			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
-			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
-			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
-			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
-			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
-			
-			if (Integer.parseInt(activo) == 1) {
-				chckbxAI_profesores.setSelected(true);
-			}else {
-				chckbxAI_profesores.setSelected(false);
-			}
-		} else {
-			lblInfo.setText("Error , no puedes modificar el codigo de profesor");
-		}
-
-	}
-	
-	public void addProfe() {
-		// DefaultTableModel model = (DefaultTableModel) tablaP.getModel();
-		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
-			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
-			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
-			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
-			activo = String.valueOf((modeloGestionDatos.getRellenarDatos()[11]));
-			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
-			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
-			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
-			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
-			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
-			
-			if (Integer.parseInt(activo) == 1) {
-				chckbxAI_profesores.setSelected(true);
-			}else {
-				chckbxAI_profesores.setSelected(false);
-			}
-		
-			lblInfo.setText("Error , no puedes modificar el codigo de profesor");
-		
-
 	}
 
 	public void actualizarInfoConsulta() {
