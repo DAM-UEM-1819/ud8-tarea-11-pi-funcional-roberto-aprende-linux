@@ -52,6 +52,8 @@ import com.toedter.calendar.JDateChooser;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
@@ -289,6 +291,22 @@ public class Home extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosHome();
+				}
+			}
+		});
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setText("Buscador");
 		txtBuscador.setBounds(782, 111, 140, 22);
