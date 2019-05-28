@@ -81,6 +81,7 @@ public class GestionProfesoresAddMod extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				rellenar();
+				limpiarInfo();
 
 			}
 
@@ -230,10 +231,12 @@ public class GestionProfesoresAddMod extends JFrame {
 
 		btnGuardarCambios = new JButton("Guardar cambios");
 		btnGuardarCambios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				limpiarInfo();
 				controlador.solicitudAddOMod();
 				limpiarTxt();
 			}
+
 		});
 		btnGuardarCambios.setBounds(636, 685, 137, 40);
 		contentPane.add(btnGuardarCambios);
@@ -411,5 +414,15 @@ public class GestionProfesoresAddMod extends JFrame {
 		txtEmail1.setText("");
 		txtEmail2.setText("");
 		chckbxAI_profesores.setSelected(false);
+	}
+
+	public void actualizarInfoDatos() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+
+	}
+	
+	private void limpiarInfo() {
+		lblInfo.setText("");
+		
 	}
 }

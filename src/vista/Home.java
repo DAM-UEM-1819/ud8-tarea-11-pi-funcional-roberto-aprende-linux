@@ -17,6 +17,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import controlador.Controlador;
 import modelo.*;
@@ -34,6 +35,7 @@ import java.awt.Cursor;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
@@ -52,6 +54,8 @@ import com.toedter.calendar.JDateChooser;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
@@ -90,6 +94,7 @@ public class Home extends JFrame {
 	private String dia;
 	private String mes;
 	private String year;
+	private boolean estaSeleccionado;
 
 	public Home() {
 		setResizable(false);
@@ -97,6 +102,7 @@ public class Home extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosHome();
+				btnInfoExtra.setEnabled(false);
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -118,7 +124,13 @@ public class Home extends JFrame {
 		tablaRegistros.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlador.solicitudDatosExtraHome();
+				if (tablaRegistros.getSelectedRow() > -1) {
+					estaSeleccionado = true;
+					btnInfoExtra.setEnabled(true);
+				} else {
+					estaSeleccionado = false;
+					btnInfoExtra.setEnabled(false);
+				}
 			}
 		});
 		tablaRegistros.setRowHeight(30);
@@ -135,12 +147,12 @@ public class Home extends JFrame {
 		contentPane.add(btnSalir);
 
 		btnInfoExtra = new JButton("Informaci\u00F3n Extra");
+		btnInfoExtra.setEnabled(false);
 		btnInfoExtra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				controlador.homeToInfoExtra();
 				controlador.solicitudGuardarDatos();
-
 			}
 		});
 		btnInfoExtra.setBounds(284, 685, 170, 40);
@@ -277,10 +289,22 @@ public class Home extends JFrame {
 
 		lblNewLabel = new JLabel("Selecionar día:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(491, 111, 84, 22);
+		lblNewLabel.setBounds(465, 111, 110, 22);
 		contentPane.add(lblNewLabel);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				controlador.solicitudBuscador(this);
+			}
+		});
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setText("Buscador");
 		txtBuscador.setBounds(782, 111, 140, 22);
@@ -303,6 +327,7 @@ public class Home extends JFrame {
 					mes = numeroMes(datosFecha[1]);
 					year = datosFecha[datosFecha.length - 1];
 					actualizarFecha();
+					controlador.solicitudDatosHome();
 
 				}
 			}
@@ -330,9 +355,6 @@ public class Home extends JFrame {
 		btnInfoExtra.setBounds(284, 685, 170, 40);
 	}
 
-	public void getTxtCalendario() {
-
-	}
 
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
@@ -347,6 +369,10 @@ public class Home extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaRegistros.getModel();
 
+	}
+	
+	public String getFecha() {
+		return lblTitulo.getText();
 	}
 
 	public Object[] getDatosFilaTabla() {
@@ -365,6 +391,7 @@ public class Home extends JFrame {
 		} else {
 			chckbxActor.setSelected(false);
 		}
+		lblDocumentacionNumero.setText(modeloConsultas.getDocumentacion());
 
 	}
 
@@ -429,4 +456,16 @@ public class Home extends JFrame {
 
 		return numero;
 	}
+
+	public String getPalabraBuscador() {
+		// TODO Auto-generated method stub
+		return txtBuscador.getText();
+	}
+	
+	public void filtro(){
+		TableRowSorter trs = modeloConsultas.getFiltro();
+		tablaRegistros.setRowSorter(trs);
+	}
+	
+	
 }

@@ -203,13 +203,13 @@ public class Perfil extends JFrame {
 		txtEmail.setBounds(200, 400, 200, 30);
 		contentPane.add(txtEmail);
 
-		btnMostrar = new JButton("Mostrar");
+		btnMostrar = new JButton(new ImageIcon("./img/ver.png"));
 		btnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarPasswd();
 			}
 		});
-		btnMostrar.setBounds(824, 404, 78, 23);
+		btnMostrar.setBounds(810, 400, 30, 30);
 		contentPane.add(btnMostrar);
 
 		pwdActual = new JPasswordField();
@@ -277,11 +277,13 @@ public class Perfil extends JFrame {
 			pwdActual.setEchoChar('●');
 			pwdNueva.setEchoChar('●');
 			pwdConfirmar.setEchoChar('●');
+			btnMostrar.setIcon((new ImageIcon("./img/ver.png")));
 			estaMostrada = false;
 		} else {
 			pwdActual.setEchoChar((char) 0);
 			pwdNueva.setEchoChar((char) 0);
 			pwdConfirmar.setEchoChar((char) 0);
+			btnMostrar.setIcon((new ImageIcon("./img/ocultar.png")));
 			estaMostrada = true;
 		}
 	}
