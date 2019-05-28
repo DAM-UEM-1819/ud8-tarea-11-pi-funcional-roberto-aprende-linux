@@ -87,7 +87,7 @@ public class GestionActores extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaActores = new JTable();
-		tablaActores.setRowHeight(40);
+		tablaActores.setRowHeight(30);
 		tablaActores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaActores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaActores);

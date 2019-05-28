@@ -78,7 +78,7 @@ public class GestionAcad extends JFrame {
 
 		tablaAcad = new JTable();
 		tablaAcad.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaAcad.setRowHeight(40);
+		tablaAcad.setRowHeight(30);
 		tablaAcad.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaAcad);
 
