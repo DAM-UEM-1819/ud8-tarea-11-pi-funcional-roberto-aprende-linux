@@ -258,7 +258,7 @@ ALTER TABLE Actividad
   VALUES(01411, 'SEGURIDAD PACIENTE', 'Medicina', 4);
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
-  VALUES(01401, 'BIOÃ‰TICA', 'Enfermeria', 4);
+  VALUES(01401, 'BIOÉTICA', 'Enfermeria', 4);
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
   VALUES(01402, 'RESPIRATORIO', 'Enfermeria', 4);
