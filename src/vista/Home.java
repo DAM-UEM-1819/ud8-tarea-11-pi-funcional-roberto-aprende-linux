@@ -204,7 +204,7 @@ public class Home extends JFrame {
 				setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
-		lblUemLogo.setBounds(50, 0, 150, 100);
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		Header.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");

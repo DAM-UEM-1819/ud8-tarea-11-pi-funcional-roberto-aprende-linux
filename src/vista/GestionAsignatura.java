@@ -194,7 +194,7 @@ public class GestionAsignatura extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -218,7 +218,7 @@ public class GestionAsignatura extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
