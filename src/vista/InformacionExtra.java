@@ -64,7 +64,7 @@ public class InformacionExtra extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 107);
+		scrollPane.setBounds(98, 168, 800, 105);
 		contentPane.add(scrollPane);
 
 		tablaInfoProfesores = new JTable();

@@ -16,7 +16,9 @@ import java.util.Properties;
 import java.util.TreeSet;
 
 import javax.naming.spi.DirStateFactory.Result;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import controlador.Controlador;
 import vista.CrearUsuario;
@@ -27,6 +29,7 @@ import vista.GestionActores;
 import vista.GestionAlumnos;
 import vista.GestionAsignatura;
 import vista.GestionProfesores;
+import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
@@ -55,6 +58,7 @@ public class ModeloConsultas {
 	private GestionRegistros gestionRegistros;
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
+	private GestionProfesoresAddMod gestionProfesoresAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -80,9 +84,11 @@ public class ModeloConsultas {
 	private String grupo;
 	private String numeroAlumos;
 	private String simulador;
-	private boolean actor;
+	private String actor;
+	private String documentacion;
 	private boolean existe;
 	private Object[] datosUsuario;
+	private TableRowSorter filtro;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -123,6 +129,7 @@ public class ModeloConsultas {
 
 	// SENTENCIAS SELECT SQL COMPROBACION
 	private String selectExisteSala;
+	private String selectExisteProfesor;
 
 	// SENTENCIAS SELECT SQL INFORMES
 	private String informeNumeroHorasTotalesPorActividad;
@@ -143,8 +150,8 @@ public class ModeloConsultas {
 	private String infoExtraProfesores;
 	private String infoExtraAlumnos;
 	
-	//SENTENCIAS SELECT SQL INFORMACION EXTRA
-	
+
+	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
 	public ModeloConsultas() {
 		propiedades = new Properties();
@@ -246,6 +253,7 @@ public class ModeloConsultas {
 
 	private void selectComprobacionExiste() {
 		selectExisteSala = propiedades.getProperty("selectExisteSala");
+		selectExisteProfesor = propiedades.getProperty("selectExisteProfesor");
 	}
 
 	private void selectDatosExtra() {
@@ -253,7 +261,6 @@ public class ModeloConsultas {
 		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
 		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
 	}
-	
 
 	// INICIO SETTERS
 
@@ -313,6 +320,10 @@ public class ModeloConsultas {
 		this.gestionProfesores = gestionProfesores;
 	}
 
+	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
+		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
+	}
+
 	public void setGestionSalas(GestionSalas gestionSalas) {
 		this.gestionSalas = gestionSalas;
 	}
@@ -356,7 +367,11 @@ public class ModeloConsultas {
 	}
 
 	public boolean tieneActor() {
-		return actor;
+		boolean valor = false;
+		if (actor.equals("1")) {
+			valor = true;
+		}
+		return valor;
 	}
 
 	public boolean getExiste() {
@@ -369,6 +384,14 @@ public class ModeloConsultas {
 
 	public Object[] getDatosUsuario() {
 		return datosUsuario;
+	}
+
+	public String getDocumentacion() {
+		return documentacion;
+	}
+	
+	public TableRowSorter getFiltro() {
+		return filtro;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -478,6 +501,7 @@ public class ModeloConsultas {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectHome);
+			pstmt.setString(1, home.getFecha());
 			getDatos(pstmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -492,6 +516,15 @@ public class ModeloConsultas {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectDatosExtraHome);
+			// Aqui irian los setString
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				numeroAlumos = rs.getString(1);
+				simulador = rs.getString(2);
+				actor = rs.getString(3);
+				documentacion = rs.getString(4);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -761,6 +794,27 @@ public class ModeloConsultas {
 		}
 	}
 
+	public void comprobarInsertODelete(String profe) {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectExisteProfesor);
+			pstmt.setString(1, profe);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				controlador.solicitudProfeMod();
+				respuesta = "Profesor modificado";
+				gestionProfesoresAddMod.actualizarInfoConsulta();
+
+			} else {
+				controlador.solicitudProfeAdd();
+				respuesta = "Profesor creado";
+				gestionProfesoresAddMod.actualizarInfoConsulta();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	// BUSCADORES
 
 	/**
@@ -864,6 +918,14 @@ public class ModeloConsultas {
 		getDatos(pstmt);
 
 	}
+	
+	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
+		this.tableModel = tableModel;
+		TableRowSorter trs = new TableRowSorter(tableModel);
+		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 0));
+		this.filtro = trs;
+		home.filtro();
+	}
 
 	/**
 	 * Metodo que sirve para crear los informes de la ventana informes
@@ -956,7 +1018,7 @@ public class ModeloConsultas {
 		try {
 			pstmt = conexion.prepareStatement(infoExtraProfesores);
 			getDatos(pstmt);
-			
+
 			pstmt = conexion.prepareStatement(infoExtraAlumnos);
 			getDatos(pstmt);
 		} catch (SQLException e) {
@@ -964,4 +1026,6 @@ public class ModeloConsultas {
 		}
 
 	}
+
+
 }

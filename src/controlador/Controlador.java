@@ -226,10 +226,10 @@ public class Controlador implements IControlador {
 	public void informesToPerfil() {
 		perfil.setVisible(true);
 	}
-	
+
 	public void solicitudInforme() {
 		modeloConsultas.crearInforme(informes.getModel(), informes.getInforme());
-		
+
 	}
 
 	// VENTANA INFORMACION EXTRA
@@ -240,7 +240,7 @@ public class Controlador implements IControlador {
 	public void infoExtraToPerfil() {
 		perfil.setVisible(true);
 	}
-	
+
 	public void solicitudDatosInfoExtra() {
 		modeloConsultas.datosInfoExtra(infoExtra.getModelProfesores(), infoExtra.getModelAlumnos());
 	}
@@ -424,8 +424,30 @@ public class Controlador implements IControlador {
 
 	public void gestionProfesoresAddModToGestionProfesores() {
 		gestionProfesores.setVisible(true);
-
 	}
+
+	public void solicitudAddOMod() {
+		modeloConsultas.comprobarInsertODelete(gestionProfesoresAddMod.getNumero());
+	}
+
+	public void solicitudProfeMod() {
+				modeloGestionDatos.modificarProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
+				gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
+				gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
+				gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
+				gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
+				gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
+	}
+	
+	
+	public void solicitudProfeAdd() {
+		modeloGestionDatos.crearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
+		gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
+		gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
+		gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
+		gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
+		gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
+}
 
 	// public void solicitusCrearPorfesor() {
 	// modeloGestionDatos.crearProfesor();
@@ -498,13 +520,9 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaHome(home.getModel());
 	}
 
-	public void solicitudDatosExtraHome() {
-		modeloConsultas.getDatosExtraHome(home.getDatosFilaTabla());
-	}
-	
 	public void solicitudGuardarDatos() {
 		modeloConsultas.guardarDatosFilaHome(home.getDatosFilaTabla());
-		
+
 	}
 
 	// VENTANA CREAR USUARIOS
@@ -545,6 +563,9 @@ public class Controlador implements IControlador {
 			break;
 		case "VERGRUPOS":
 			modeloConsultas.buscador(verGrupos.getModel(), verGrupos.getPalabraBuscador(), "J");
+			break;
+		case "HOME":
+			modeloConsultas.buscadorHome(home.getModel(), home.getPalabraBuscador());
 			break;
 		}
 

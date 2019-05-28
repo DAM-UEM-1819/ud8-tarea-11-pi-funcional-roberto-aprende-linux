@@ -1,4 +1,11 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+encoding//doc/sql/Hospital\ Completo\ 08-05-2019\ .sql=UTF-8
+>>>>>>> refs/remotes/origin/Javi
+>>>>>>> refs/remotes/origin/master-test
 encoding//sql/consultas.ini=UTF-8
 encoding//src/controlador/Controlador.java=UTF-8
 encoding//src/modelo/ModeloConsultas.java=UTF-8

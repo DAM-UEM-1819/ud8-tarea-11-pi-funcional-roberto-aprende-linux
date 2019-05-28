@@ -188,7 +188,7 @@ public class VerGrupos extends JFrame {
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
-
+	
 	public void borrarGrupos() {
 		comboBoxColumna.removeAllItems();
 	}
@@ -212,15 +212,6 @@ public class VerGrupos extends JFrame {
 
 	private void contarAlumnos() {
 		lblNumeroAlumnos.setText("Número de alumnos: " + tablaGrupos.getRowCount());
-	}
-
-	// ACABAR DE HACER
-	private void agregarFiltros() {
-		filtros = new LinkedList<RowFilter>();
-		String palabra = comboBoxColumna.getSelectedItem().toString();
-		for (int i = 0; i < tablaGrupos.getColumnCount(); i++) {
-			filtros.add(RowFilter.regexFilter("^" + palabra, i));
-		}
 	}
 
 }
