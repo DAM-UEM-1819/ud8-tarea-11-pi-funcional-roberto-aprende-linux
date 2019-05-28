@@ -2,9 +2,14 @@ eclipse.preferences.version=1
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 encoding//doc/sql/Hospital\ Completo\ 08-05-2019\ .sql=UTF-8
+=======
+encoding//doc/sql/Hospital\ Completo\ 08-05-2019\ .sql=UTF-8
+>>>>>>> refs/remotes/origin/master-test
 >>>>>>> refs/remotes/origin/Javi
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master-test
 encoding//sql/consultas.ini=UTF-8
 encoding//src/controlador/Controlador.java=UTF-8
@@ -16,3 +21,15 @@ encoding//src/vista/Login.java=UTF-8
 encoding//src/vista/Perfil.java=UTF-8
 encoding//src/vista/VerGrupos.java=UTF-8
 encoding/<project>=UTF-8
+=======
+encoding//sql/consultas.ini=UTF-8
+encoding//src/controlador/Controlador.java=UTF-8
+encoding//src/modelo/ModeloConsultas.java=UTF-8
+encoding//src/vista/CrearUsuario.java=UTF-8
+encoding//src/vista/Home.java=UTF-8
+encoding//src/vista/InformacionExtra.java=UTF-8
+encoding//src/vista/Login.java=UTF-8
+encoding//src/vista/Perfil.java=UTF-8
+encoding//src/vista/VerGrupos.java=UTF-8
+encoding/<project>=UTF-8
+>>>>>>> refs/remotes/origin/master-test
