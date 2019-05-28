@@ -138,7 +138,7 @@ public class Login extends JFrame {
 
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInfo.setBounds(0, 104, 1000, 50);
+		lblInfo.setBounds(0, 104, 994, 50);
 		contentPane.add(lblInfo);
 	}
 
