@@ -30,6 +30,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import enums.ActoresComplexion;
+import enums.ActoresEdad;
+import enums.ActoresGenero;
+import enums.ActoresIdioma;
+import enums.ListadoInformes;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 
@@ -205,22 +210,22 @@ public class GestionActores extends JFrame {
 		lblImportarActores.setVisible(false);
 
 		comboBoxEdad = new JComboBox();
-		comboBoxEdad.setModel(new DefaultComboBoxModel(new String[] { "Edad" }));
+		comboBoxEdad.setModel(new DefaultComboBoxModel(ActoresEdad.values()));
 		comboBoxEdad.setBounds(334, 629, 121, 30);
 		contentPane.add(comboBoxEdad);
 
 		comboBoxGenero = new JComboBox();
-		comboBoxGenero.setModel(new DefaultComboBoxModel(new String[] { "G\u00E9nero" }));
+		comboBoxGenero.setModel(new DefaultComboBoxModel(ActoresGenero.values()));
 		comboBoxGenero.setBounds(465, 629, 103, 30);
 		contentPane.add(comboBoxGenero);
 
 		comboBoxIdioma = new JComboBox();
-		comboBoxIdioma.setModel(new DefaultComboBoxModel(new String[] { "Idioma" }));
+		comboBoxIdioma.setModel(new DefaultComboBoxModel(ActoresIdioma.values()));
 		comboBoxIdioma.setBounds(575, 629, 103, 30);
 		contentPane.add(comboBoxIdioma);
 
 		comboBoxComplexion = new JComboBox();
-		comboBoxComplexion.setModel(new DefaultComboBoxModel(new String[] { "Complexi\u00F3n" }));
+		comboBoxComplexion.setModel(new DefaultComboBoxModel(ActoresComplexion.values()));
 		comboBoxComplexion.setBounds(688, 629, 103, 30);
 		contentPane.add(comboBoxComplexion);
 

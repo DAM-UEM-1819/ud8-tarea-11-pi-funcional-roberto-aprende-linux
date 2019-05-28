@@ -1,8 +1,8 @@
 package enums;
 
 public enum ActoresComplexion {
-	Obesa,
 	Normal,
+	Obesa,
 	Delgada
 
 }
