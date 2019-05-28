@@ -394,6 +394,20 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaAsignatura(gestionAsignatura.getModel());
 	}
 
+	public void crearAsignatura() {
+		modeloGestionDatos.crearAsignatura(gestionAsignatura.getCodigoAsignatura(), gestionAsignatura.getNombre(),
+				gestionAsignatura.getTitulacion(), gestionAsignatura.getCurso());
+
+	}
+	
+	public void modAsignatura() {
+		modeloGestionDatos.modificarAsignatura(gestionAsignatura.getCodigoAsignatura(), gestionAsignatura.getNombre(),
+				gestionAsignatura.getTitulacion(), gestionAsignatura.getCurso());
+		
+	}
+	
+	
+
 	// VENTANA GESTION PROFESORES
 	public void gestionProfesoresToGestion() {
 		gestion.setVisible(true);
@@ -431,16 +445,16 @@ public class Controlador implements IControlador {
 	}
 
 	public void solicitudProfeMod() {
-				modeloGestionDatos.modificarProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
+		modeloGestionDatos.modificarProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
 				gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
 				gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
 				gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
 				gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
 				gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
 	}
-	
-	
+
 	public void solicitudProfeAdd() {
+
 		modeloGestionDatos.crearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
 		gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
 		gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
@@ -448,6 +462,7 @@ public class Controlador implements IControlador {
 		gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
 		gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
 }
+
 
 	// public void solicitusCrearPorfesor() {
 	// modeloGestionDatos.crearProfesor();
