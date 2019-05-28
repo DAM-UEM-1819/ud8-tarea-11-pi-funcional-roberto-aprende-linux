@@ -115,7 +115,7 @@ public class GestionSalas extends JFrame {
 				habilitarBotones();
 			}
 		});
-		txtCodigo.setBounds(110, 600, 150, 30);
+		txtCodigo.setBounds(100, 621, 150, 30);
 		contentPane.add(txtCodigo);
 		txtCodigo.setColumns(10);
 
@@ -129,7 +129,7 @@ public class GestionSalas extends JFrame {
 				habilitarBotones();
 			}
 		});
-		txtTipoSala.setBounds(322, 600, 150, 30);
+		txtTipoSala.setBounds(325, 621, 150, 30);
 		contentPane.add(txtTipoSala);
 		txtTipoSala.setColumns(10);
 
@@ -144,7 +144,7 @@ public class GestionSalas extends JFrame {
 			}
 		});
 		txtNumero.setColumns(10);
-		txtNumero.setBounds(735, 600, 150, 30);
+		txtNumero.setBounds(750, 621, 150, 30);
 		contentPane.add(txtNumero);
 
 		btnVolver = new JButton("Volver");
@@ -168,7 +168,7 @@ public class GestionSalas extends JFrame {
 			}
 		});
 		txtCapacidad.setColumns(10);
-		txtCapacidad.setBounds(533, 600, 150, 30);
+		txtCapacidad.setBounds(545, 621, 150, 30);
 		contentPane.add(txtCapacidad);
 		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
@@ -185,7 +185,7 @@ public class GestionSalas extends JFrame {
 				habilitarBotones();
 			}
 		});
-		btnModificarSala.setBounds(316, 685, 150, 40);
+		btnModificarSala.setBounds(325, 685, 150, 40);
 		contentPane.add(btnModificarSala);
 
 		btnAddSala = new JButton("A\u00F1adir Sala");
@@ -213,9 +213,9 @@ public class GestionSalas extends JFrame {
 				habilitarBotones();
 			}
 		});
-		btnBorrar.setBounds(532, 685, 150, 40);
+		btnBorrar.setBounds(545, 685, 150, 40);
 		contentPane.add(btnBorrar);
-		btnAddSala.setBounds(748, 685, 150, 40);
+		btnAddSala.setBounds(750, 685, 150, 40);
 		contentPane.add(btnAddSala);
 
 		Header = new JPanel();

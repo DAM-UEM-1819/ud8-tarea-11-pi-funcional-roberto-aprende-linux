@@ -211,12 +211,12 @@ public class GestionRegistros extends JFrame {
 				}
 			}
 		});
-		btnBorrarRegistro.setBounds(316, 690, 150, 40);
+		btnBorrarRegistro.setBounds(532, 690, 150, 40);
 		contentPane.add(btnBorrarRegistro);
 
 		btnAddRegistro = new JButton("A\u00F1adir Registro");
 
-		btnAddRegistro.setBounds(748, 690, 150, 40);
+		btnAddRegistro.setBounds(750, 690, 150, 40);
 		contentPane.add(btnAddRegistro);
 
 		txtBuscador = new JTextField();
@@ -258,7 +258,7 @@ public class GestionRegistros extends JFrame {
 				}
 			}
 		});
-		btnModificar.setBounds(532, 690, 150, 40);
+		btnModificar.setBounds(316, 690, 150, 40);
 		contentPane.add(btnModificar);
 		
 		lblInfo = new JLabel("");
