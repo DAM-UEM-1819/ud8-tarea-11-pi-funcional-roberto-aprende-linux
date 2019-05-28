@@ -111,7 +111,7 @@ public class GestionAlumnos extends JFrame {
 			}
 			
 		});
-		txtExpediente.setBounds(129, 611, 200, 30);
+		txtExpediente.setBounds(100, 611, 200, 30);
 		contentPane.add(txtExpediente);
 		txtExpediente.setColumns(10);
 
@@ -128,7 +128,7 @@ public class GestionAlumnos extends JFrame {
 				habilitarBotones();
 			}
 		});
-		txtNombre.setBounds(410, 611, 200, 30);
+		txtNombre.setBounds(400, 611, 200, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
@@ -254,7 +254,7 @@ public class GestionAlumnos extends JFrame {
 			}
 		});
 		chckbxActivoInactivo.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxActivoInactivo.setBounds(681, 615, 200, 23);
+		chckbxActivoInactivo.setBounds(700, 611, 200, 30);
 		contentPane.add(chckbxActivoInactivo);
 
 		lblImportarAlumnos = new JLabel("Importar Alumnos");

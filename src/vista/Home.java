@@ -204,7 +204,7 @@ public class Home extends JFrame {
 				setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
-		lblUemLogo.setBounds(50, 0, 150, 100);
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		Header.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -259,7 +259,7 @@ public class Home extends JFrame {
 
 		lblDocumentacion = new JLabel("Documentación:");
 		lblDocumentacion.setHorizontalAlignment(SwingConstants.LEFT);
-		lblDocumentacion.setBounds(0, 375, 100, 125);
+		lblDocumentacion.setBounds(0, 375, 110, 125);
 		infoExtra.add(lblDocumentacion);
 
 		chckbxActor = new JCheckBox("");
@@ -274,7 +274,7 @@ public class Home extends JFrame {
 
 		lblDocumentacionNumero = new JLabel("");
 		lblDocumentacionNumero.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDocumentacionNumero.setBounds(95, 375, 75, 125);
+		lblDocumentacionNumero.setBounds(97, 375, 73, 125);
 		infoExtra.add(lblDocumentacionNumero);
 
 		btnInformes = new JButton("Informes");
