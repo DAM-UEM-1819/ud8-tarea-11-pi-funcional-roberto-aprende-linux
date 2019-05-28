@@ -940,49 +940,49 @@ public class ModeloConsultas {
 
 		try {
 			switch (informe) {
-			case "HORAS_TOTALES_ACTIVIDAD":
+			case "HORAS TOTALES ACTIVIDAD":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesPorActividad);
 				break;
-			case "HORAS_ACTIVIDAD_TITULACION":
+			case "HORAS ACTIVIDAD TITULACION":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacion);
 				break;
-			case "HORAS_ACTIVIDAD_TITULACION_Y_CURSO":
+			case "HORAS ACTIVIDAD TITULACION Y CURSO":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacionYCurso);
 				break;
-			case "HORAS_ACTIVIDAD_TITULACION_Y_ASIGNATURA":
+			case "HORAS ACTIVIDAD TITULACION Y ASIGNATURA":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacionYAsignatura);
 				break;
-			case "HORAS_ACTIVIDAD_PROFESOR":
+			case "HORAS ACTIVIDAD PROFESOR":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorProfesor);
 				break;
-			case "HORAS_ACTIVIDAD_SALA":
+			case "HORAS ACTIVIDAD SALA":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorSala);
 				break;
-			case "HORAS_ACTIVIDAD_TIPO_ACTIVIDAD":
+			case "HORAS ACTIVIDAD TIPO ACTIVIDAD":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorActividad);
 				break;
-			case "HORAS_ACTIVIDAD_MESES":
+			case "HORAS ACTIVIDAD MESES":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorMes);
 				break;
-			case "HORAS_ACTIVIDAD_SEMESTRES":
+			case "HORAS ACTIVIDAD SEMESTRES":
 				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorSemestre);
 				break;
-			case "HORAS_ACTOR_TOTALES_EN_ACAD":
+			case "HORAS ACTOR TOTALES EN ACAD":
 				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesCursoAcademico);
 				break;
-			case "HORAS_ACTOR_TITULACION_Y_MES":
+			case "HORAS ACTOR TITULACION Y MES":
 				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesTitulacionYMes);
 				break;
-			case "HORAS_ACTOR_TITULACION_Y_ACAD":
+			case "HORAS ACTOR TITULACION Y ACAD":
 				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesTitulacionCursoAcademico);
 				break;
-			case "LISTADO_ALUMNOS_SEGUN_ASIGNATURA_Y_GRUPO_ACTIVOS":
+			case "LISTADO ALUMNOS SEGUN ASIGNATURA Y GRUPO ACTIVOS":
 				pstmt = conexion.prepareStatement(informeListadoAlumnosAsignaturaYGrupoActivos);
 				break;
-			case "LISTADO_ALUMNOS_SEGUN_NOMBRE_ACTIVIDAD":
+			case "LISTADO ALUMNOS SEGUN NOMBRE ACTIVIDAD":
 				pstmt = conexion.prepareStatement(informeListadoAlumnosNotasPorNombreActividad);
 				break;
-			case "LISTADO_PROFESORES_SEGUN_TITULACION":
+			case "LISTADO PROFESORES SEGUN TITULACION":
 				pstmt = conexion.prepareStatement(informeListadoProfesoresPorTitulacionActivos);
 				break;
 			}

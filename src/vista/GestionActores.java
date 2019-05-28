@@ -98,7 +98,7 @@ public class GestionActores extends JFrame {
 		txtNombre.setColumns(10);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBackground(new Color(164, 44, 52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -144,11 +144,13 @@ public class GestionActores extends JFrame {
 				setVisible(false);
 				controlador.gestionActoresToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -177,6 +179,11 @@ public class GestionActores extends JFrame {
 		contentPane.add(btnAI_actor);
 
 		btnAddActor = new JButton(" A\u00F1adir actor");
+		btnAddActor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnAddActor.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActor);
 
@@ -233,11 +240,56 @@ public class GestionActores extends JFrame {
 		chckbxActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxActivo.setBounds(801, 633, 97, 23);
 		contentPane.add(chckbxActivo);
-		
+
 		ImageIcon lupa = new ImageIcon("./img/buscar.png");
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(878, 111, 20, 22);
 		contentPane.add(lblLupa);
+	}
+
+	public int getCodigoAct() {
+		int codAct = Integer.valueOf(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0)));
+		return codAct ++;
+	}
+
+	public String getNombre() {
+		return txtNombre.getText();
+	}
+
+	public String getEdad() {
+		return String.valueOf(comboBoxEdad.getSelectedItem());
+	}
+
+	public String getGenero() {
+		return String.valueOf(comboBoxGenero.getSelectedItem());
+	}
+
+	public String getIdioma() {
+		return String.valueOf(comboBoxIdioma.getSelectedItem());
+	}
+
+	public String getComplexion() {
+		return String.valueOf(comboBoxComplexion.getSelectedItem());
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public void setComboBoxEdad(JComboBox comboBoxEdad) {
+		this.comboBoxEdad = comboBoxEdad;
+	}
+
+	public void setComboBoxGenero(JComboBox comboBoxGenero) {
+		this.comboBoxGenero = comboBoxGenero;
+	}
+
+	public void setComboBoxIdioma(JComboBox comboBoxIdioma) {
+		this.comboBoxIdioma = comboBoxIdioma;
+	}
+
+	public void setComboBoxComplexion(JComboBox comboBoxComplexion) {
+		this.comboBoxComplexion = comboBoxComplexion;
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -255,7 +307,7 @@ public class GestionActores extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaActores.getModel();
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
