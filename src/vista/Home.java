@@ -35,6 +35,7 @@ import java.awt.Cursor;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
@@ -326,6 +327,7 @@ public class Home extends JFrame {
 					mes = numeroMes(datosFecha[1]);
 					year = datosFecha[datosFecha.length - 1];
 					actualizarFecha();
+					controlador.solicitudDatosHome();
 
 				}
 			}
