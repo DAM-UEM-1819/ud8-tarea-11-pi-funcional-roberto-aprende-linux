@@ -527,13 +527,13 @@ ALTER TABLE Actividad
   VALUES(26, '02/25/2019', 2, 'Cardiología 3','FAM11');
 
   INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(27, '02/24/2019', 2, 'Cardiología 4','FAM11');
+  VALUES(27, '05/29/2019', 2, 'Cardiología 4','FAM11');
 
   INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(28, '02/25/2019', 2, 'Medicina interna 1','FAM11');
+  VALUES(28, '05/29/2019', 2, 'Medicina interna 1','FAM11');
 
   INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(29, '02/24/2019', 2, 'Medicina interna 2','FAM11');
+  VALUES(29, '05/29/2019', 2, 'Medicina interna 2','FAM11');
 
   INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
   VALUES(30, '02/25/2019', 2, 'Fiebre exantematica','FAM11');
@@ -548,7 +548,7 @@ ALTER TABLE Actividad
   VALUES(33, '02/24/2019',  2, 'ECOGRAFIA','FAM11');
 
   INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(34, '02/25/2019',  2, 'Autoritario','FAM11');
+  VALUES(34, '05/29/2019',  2, 'Autoritario','FAM11');
 
   INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
   VALUES(35, '02/24/2019',  2, 'Seg paciente 2','FAM11');
