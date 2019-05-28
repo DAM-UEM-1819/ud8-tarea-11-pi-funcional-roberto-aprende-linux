@@ -83,7 +83,7 @@ public class GestionAsignatura extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 145, 800, 450);
+		scrollPane.setBounds(100, 145, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaAsignaturas = new JTable();
@@ -121,7 +121,7 @@ public class GestionAsignatura extends JFrame {
 
 			}
 		});
-		txtCodigoAsignatura.setBounds(108, 629, 190, 30);
+		txtCodigoAsignatura.setBounds(100, 630, 150, 30);
 		contentPane.add(txtCodigoAsignatura);
 		txtCodigoAsignatura.setColumns(10);
 
@@ -138,7 +138,7 @@ public class GestionAsignatura extends JFrame {
 
 			}
 		});
-		txtNombre.setBounds(308, 630, 190, 30);
+		txtNombre.setBounds(325, 630, 150, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
@@ -156,7 +156,7 @@ public class GestionAsignatura extends JFrame {
 			}
 
 		});
-		txtTitulacion.setBounds(508, 630, 190, 30);
+		txtTitulacion.setBounds(545, 630, 150, 30);
 		contentPane.add(txtTitulacion);
 		txtTitulacion.setColumns(10);
 
@@ -173,7 +173,7 @@ public class GestionAsignatura extends JFrame {
 
 			}
 		});
-		txtCurso.setBounds(708, 630, 182, 30);
+		txtCurso.setBounds(750, 630, 150, 30);
 		contentPane.add(txtCurso);
 		txtCurso.setColumns(10);
 
