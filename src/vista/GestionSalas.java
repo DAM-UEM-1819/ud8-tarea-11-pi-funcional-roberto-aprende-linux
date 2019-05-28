@@ -152,6 +152,7 @@ public class GestionSalas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				limpiarTxt();
+				habilitarBotones();
 				controlador.gestionSalasToGestion();
 			}
 		});

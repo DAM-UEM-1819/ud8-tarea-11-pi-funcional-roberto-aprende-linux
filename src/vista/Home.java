@@ -17,6 +17,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import controlador.Controlador;
 import modelo.*;
@@ -34,6 +35,7 @@ import java.awt.Cursor;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
@@ -48,6 +50,18 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.Date;
+import com.toedter.calendar.JDateChooser;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import java.beans.VetoableChangeListener;
 
 public class Home extends JFrame {
 
@@ -72,12 +86,15 @@ public class Home extends JFrame {
 	private JButton btnGestionar;
 	private JButton btnInformes;
 	private JLabel lblNewLabel;
-	private JTextField txtCalendario;
 	private JLabel lblDocumentacion;
 	private JLabel lblDocumentacionNumero;
 	private JTextField txtBuscador;
 	private JLabel lblLupa;
-	// private JDateChooser calendario;
+	private JDateChooser dateChooser;
+	private String dia;
+	private String mes;
+	private String year;
+	private boolean estaSeleccionado;
 
 	public Home() {
 		setResizable(false);
@@ -85,6 +102,7 @@ public class Home extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosHome();
+				btnInfoExtra.setEnabled(false);
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -106,7 +124,13 @@ public class Home extends JFrame {
 		tablaRegistros.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlador.solicitudDatosExtraHome();
+				if (tablaRegistros.getSelectedRow() > -1) {
+					estaSeleccionado = true;
+					btnInfoExtra.setEnabled(true);
+				} else {
+					estaSeleccionado = false;
+					btnInfoExtra.setEnabled(false);
+				}
 			}
 		});
 		tablaRegistros.setRowHeight(30);
@@ -123,12 +147,12 @@ public class Home extends JFrame {
 		contentPane.add(btnSalir);
 
 		btnInfoExtra = new JButton("Informaci\u00F3n Extra");
+		btnInfoExtra.setEnabled(false);
 		btnInfoExtra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				controlador.homeToInfoExtra();
 				controlador.solicitudGuardarDatos();
-				
 			}
 		});
 		btnInfoExtra.setBounds(284, 685, 170, 40);
@@ -145,15 +169,12 @@ public class Home extends JFrame {
 		contentPane.add(btnGestionar);
 
 		Header = new JPanel();
-		Header.setBackground(new Color(164,44,52));
+		Header.setBackground(new Color(164, 44, 52));
 		Header.setBounds(0, 0, 1000, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
 
-		Calendar fecha = Calendar.getInstance();
-		int dia = fecha.get(Calendar.DATE);
-		int mes = fecha.get(Calendar.MONTH) + 1;
-		int year = fecha.get(Calendar.YEAR);
+		fechaActual();
 		lblTitulo = new JLabel(dia + "-" + mes + "-" + year);
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -268,25 +289,51 @@ public class Home extends JFrame {
 
 		lblNewLabel = new JLabel("Selecionar día:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(35, 111, 84, 22);
+		lblNewLabel.setBounds(465, 111, 110, 22);
 		contentPane.add(lblNewLabel);
 
-		txtCalendario = new JTextField();
-		txtCalendario.setBounds(135, 111, 70, 22);
-		contentPane.add(txtCalendario);
-		txtCalendario.setColumns(10);
-
 		txtBuscador = new JTextField();
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				controlador.solicitudBuscador(this);
+			}
+		});
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setText("Buscador");
 		txtBuscador.setBounds(782, 111, 140, 22);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
-		
+
 		ImageIcon lupa = new ImageIcon("./img/buscar.png");
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(932, 111, 20, 22);
 		contentPane.add(lblLupa);
+
+		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("dd-MM-yyyy");
+		dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent e) {
+				if ("date".equals(e.getPropertyName())) {
+
+					String[] datosFecha = String.valueOf(e.getNewValue()).split(" ");
+					dia = datosFecha[2];
+					mes = numeroMes(datosFecha[1]);
+					year = datosFecha[datosFecha.length - 1];
+					actualizarFecha();
+					controlador.solicitudDatosHome();
+
+				}
+			}
+		});
+		dateChooser.setBounds(585, 111, 150, 20);
+		contentPane.add(dateChooser);
 
 	}
 
@@ -308,9 +355,6 @@ public class Home extends JFrame {
 		btnInfoExtra.setBounds(284, 685, 170, 40);
 	}
 
-	public void getTxtCalendario() {
-
-	}
 
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
@@ -325,6 +369,10 @@ public class Home extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaRegistros.getModel();
 
+	}
+	
+	public String getFecha() {
+		return lblTitulo.getText();
 	}
 
 	public Object[] getDatosFilaTabla() {
@@ -343,7 +391,81 @@ public class Home extends JFrame {
 		} else {
 			chckbxActor.setSelected(false);
 		}
+		lblDocumentacionNumero.setText(modeloConsultas.getDocumentacion());
 
 	}
 
+	public void fechaActual() {
+		Calendar fecha = Calendar.getInstance();
+		dia = String.valueOf(fecha.get(Calendar.DATE));
+		if (fecha.get(Calendar.MONTH) + 1 < 10) {
+			mes = "0" + String.valueOf(fecha.get(Calendar.MONTH) + 1);
+		} else {
+			mes = String.valueOf(fecha.get(Calendar.MONTH) + 1);
+		}
+		
+		year = String.valueOf(fecha.get(Calendar.YEAR));
+	}
+
+	public void actualizarFecha() {
+		lblTitulo.setText(dia + "-" + mes + "-" + year);
+	}
+
+	public String numeroMes(String mes) {
+		String numero = "";
+
+		switch (mes.toUpperCase()) {
+		case "JAN":
+			numero = "01";
+			break;
+		case "FEB":
+			numero = "02";
+			break;
+		case "MAR":
+			numero = "03";
+			break;
+		case "APR":
+			numero = "04";
+			break;
+		case "MAY":
+			numero = "05";
+			break;
+		case "JUN":
+			numero = "06";
+			break;
+		case "JUL":
+			numero = "07";
+			break;
+		case "AUG":
+			numero = "08";
+			break;
+		case "SEP":
+			numero = "09";
+			break;
+		case "OCT":
+			numero = "10";
+			break;
+		case "NOV":
+			numero = "11";
+			break;
+		case "DEC":
+			numero = "12";
+			break;
+
+		}
+
+		return numero;
+	}
+
+	public String getPalabraBuscador() {
+		// TODO Auto-generated method stub
+		return txtBuscador.getText();
+	}
+	
+	public void filtro(){
+		TableRowSorter trs = modeloConsultas.getFiltro();
+		tablaRegistros.setRowSorter(trs);
+	}
+	
+	
 }
