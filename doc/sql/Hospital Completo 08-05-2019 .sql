@@ -241,10 +241,10 @@ ALTER TABLE Actividad
   VALUES(2224, 'MERCANTIL', '00000001F', 'lourdes@gmail.com', 'lourdes2@gmail.com', 654433891, 114433891, 'LOURDES', 'MARTIN', 'MENDEZ', 'MEDICO');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
-  VALUES(3332, 'LABORAL', '00000002D', 'marta@gmail.com', 'marta2@gmail.com', 774433891, 224433891, 'MARTA', 'LABORDA', 'MARTÃ�N', 'CONSULTOR');
+  VALUES(3332, 'LABORAL', '00000002D', 'marta@gmail.com', 'marta2@gmail.com', 774433891, 224433891, 'MARTA', 'LABORDA', 'MARTÍN', 'CONSULTOR');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
-  VALUES(2324, 'LABORAL', '00000003G', 'maria@gmail.com', 'maria2@gmail.com', 884433891, 334433891, 'MARIA', 'GILSANZ', 'MUÃ‘OZ', 'DESARROLLADOR');
+  VALUES(2324, 'LABORAL', '00000003G', 'maria@gmail.com', 'maria2@gmail.com', 884433891, 334433891, 'MARIA', 'GILSANZ', 'MUÑOZ', 'DESARROLLADOR');
 
   INSERT INTO Profesor(Numero, Relacion_Laboral, DNI, Mail1, Mail2, Tlf1, Tlf2, Nombre, Apellido1, Apellido2, Titulacion)
   VALUES(2325, 'LABORAL', '00000004C', 'santiago@gmail.com', 'santiago2@gmail.com', 994433891, 444433891, 'SANTIAGO', 'SEGURA', 'MARTIN', 'LEGADO');
@@ -276,7 +276,7 @@ ALTER TABLE Actividad
   VALUES(01404, 'UROLOGIA', 'Enfermeria', 3);
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
-  VALUES(01406, 'HEMATOLOGÃ�A', 'Medicina', 2);
+  VALUES(01406, 'HEMATOLOGÍA', 'Medicina', 2);
 
   INSERT INTO Asignatura(Codigo, Nombre, Titulacion, Curso)
   VALUES(01407, 'INFECCIOSAS', 'Medicina', 1);
@@ -312,19 +312,19 @@ ALTER TABLE Actividad
   REM *** 4Âº Actor ***
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MEDIANA EDAD', 'Hombre', 'EspaÃ±ol', 'Juan', 1, 'Obesa');
+  VALUES('MEDIANA EDAD', 'Hombre', 'Español', 'Juan', 1, 'Obesa');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÃ‘OS', 'Mujer', 'InglÃ©s', 'Pepa', 2, 'Normal');
+  VALUES('MAYOR 60 AÑOS', 'Mujer', 'Inglés', 'Pepa', 2, 'Normal');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MEDIANA EDAD', 'Hombre', 'EspaÃ±ol', 'Anastasio', 3, 'Obesa');
+  VALUES('MEDIANA EDAD', 'Hombre', 'Español', 'Anastasio', 3, 'Obesa');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÃ‘OS', 'Mujer', 'InglÃ©s', 'Gertrudis', 4, 'Delgada');
+  VALUES('MAYOR 60 AÑOS', 'Mujer', 'Inglés', 'Gertrudis', 4, 'Delgada');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÃ‘OS', 'Hombre', 'EspaÃ±ol', 'Pepito', 5, 'Normal');
+  VALUES('MAYOR 60 AÑOS', 'Hombre', 'Español', 'Pepito', 5, 'Normal');
 
   REM *** 5Âº Actividad ***
 
