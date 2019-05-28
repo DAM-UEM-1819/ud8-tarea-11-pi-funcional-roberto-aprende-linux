@@ -83,7 +83,26 @@ public class VerGrupos extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -107,7 +126,7 @@ public class VerGrupos extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -117,7 +136,7 @@ public class VerGrupos extends JFrame {
 				controlador.verGruposToGestion();
 			}
 		});
-		btnVolver.setBounds(440, 685, 120, 40);
+		btnVolver.setBounds(425, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		comboBoxColumna = new JComboBox();
@@ -169,7 +188,7 @@ public class VerGrupos extends JFrame {
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas = modeloConsultas;
 	}
-
+	
 	public void borrarGrupos() {
 		comboBoxColumna.removeAllItems();
 	}
@@ -193,15 +212,6 @@ public class VerGrupos extends JFrame {
 
 	private void contarAlumnos() {
 		lblNumeroAlumnos.setText("Número de alumnos: " + tablaGrupos.getRowCount());
-	}
-
-	// ACABAR DE HACER
-	private void agregarFiltros() {
-		filtros = new LinkedList<RowFilter>();
-		String palabra = comboBoxColumna.getSelectedItem().toString();
-		for (int i = 0; i < tablaGrupos.getColumnCount(); i++) {
-			filtros.add(RowFilter.regexFilter("^" + palabra, i));
-		}
 	}
 
 }

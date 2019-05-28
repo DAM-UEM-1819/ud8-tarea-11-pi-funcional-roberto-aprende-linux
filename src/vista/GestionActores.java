@@ -109,7 +109,26 @@ public class GestionActores extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -131,7 +150,7 @@ public class GestionActores extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -141,19 +160,19 @@ public class GestionActores extends JFrame {
 				controlador.gestionActoresToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarActor = new JButton("Modificar actor");
-		btnModificarActor.setBounds(325, 685, 120, 40);
+		btnModificarActor.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActor);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
-		btnAI_actor.setBounds(575, 685, 120, 40);
+		btnAI_actor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_actor);
 
 		btnAddActor = new JButton(" A\u00F1adir actor");
-		btnAddActor.setBounds(782, 685, 120, 40);
+		btnAddActor.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActor);
 
 		txtBuscador = new JTextField();

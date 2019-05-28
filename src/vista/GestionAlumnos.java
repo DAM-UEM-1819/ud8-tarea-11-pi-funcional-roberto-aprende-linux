@@ -140,7 +140,7 @@ public class GestionAlumnos extends JFrame {
 				controlador.gestionAlumnosToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarAlumno = new JButton("Modificar Alumno");
@@ -151,7 +151,7 @@ public class GestionAlumnos extends JFrame {
 				modAlumno();
 			}
 		});
-		btnModificarAlumno.setBounds(325, 685, 120, 40);
+		btnModificarAlumno.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarAlumno);
 
 		btnAddAlumno = new JButton("A\u00F1adir Alumno");
@@ -179,9 +179,9 @@ public class GestionAlumnos extends JFrame {
 			}
 		});
 
-		btnActivoAlumno.setBounds(575, 685, 120, 40);
+		btnActivoAlumno.setBounds(532, 685, 150, 40);
 		contentPane.add(btnActivoAlumno);
-		btnAddAlumno.setBounds(782, 685, 120, 40);
+		btnAddAlumno.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddAlumno);
 
 		Header = new JPanel();
@@ -200,7 +200,26 @@ public class GestionAlumnos extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		Header.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -224,7 +243,7 @@ public class GestionAlumnos extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 
 		Header.add(lblPerfil);
 

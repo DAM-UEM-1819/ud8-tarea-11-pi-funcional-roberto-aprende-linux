@@ -79,7 +79,7 @@ public class Login extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		lblTitulo = new JLabel("Login");
@@ -108,7 +108,7 @@ public class Login extends JFrame {
 				controlador.loginSolicitud();
 			}
 		});
-		btnLogin.setBounds(380, 572, 271, 58);
+		btnLogin.setBounds(369, 572, 282, 58);
 		contentPane.add(btnLogin);
 
 		FooterPanel = new JPanel();

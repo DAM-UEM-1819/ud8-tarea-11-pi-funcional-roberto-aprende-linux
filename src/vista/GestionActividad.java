@@ -146,7 +146,26 @@ public class GestionActividad extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 
@@ -169,7 +188,7 @@ public class GestionActividad extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -179,7 +198,7 @@ public class GestionActividad extends JFrame {
 				controlador.gestionActividadToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarActividad = new JButton("Modificar actividad");
@@ -188,15 +207,15 @@ public class GestionActividad extends JFrame {
 				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?" );
 			}
 		});
-		btnModificarActividad.setBounds(325, 685, 128, 40);
+		btnModificarActividad.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActividad);
 
 		btnBorrarActividad = new JButton("Borrar actividad");
-		btnBorrarActividad.setBounds(575, 685, 120, 40);
+		btnBorrarActividad.setBounds(532, 685, 150, 40);
 		contentPane.add(btnBorrarActividad);
 
 		btnAddActividad = new JButton(" A\u00F1adir actividad");
-		btnAddActividad.setBounds(774, 685, 128, 40);
+		btnAddActividad.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActividad);
 		
 		comboBoxTipoActividad = new JComboBox();

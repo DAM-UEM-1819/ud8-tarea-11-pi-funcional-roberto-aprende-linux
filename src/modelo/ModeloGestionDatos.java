@@ -327,9 +327,11 @@ public class ModeloGestionDatos {
 			ResultSet rs = pstmt.executeQuery();
 			modelo.enviarCorreoGmail(correo, user, passwd);
 			respuesta = "Usuario creado";
-		} catch (Exception e) {
-			respuesta = "Error, algun campo vacio";
+		}catch (SQLIntegrityConstraintViolationException e) {
+			respuesta = "Error, el usuario ya existe";
 			crearUsuario.actualizarInfo();
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -705,6 +707,7 @@ public class ModeloGestionDatos {
 	public void modificarProfesor(String numero, String nombre, String Apellido1, String Apellido2, String titulacion,
 			String dni, String AI_profesores, String relacion_laboral, String telefono1, String telefono2,
 			String email1, String email2) {
+		
 		if (!numero.isEmpty() && !nombre.isEmpty() && !Apellido1.isEmpty() && !Apellido2.isEmpty()
 				&& !titulacion.isEmpty() && !dni.isEmpty() && !AI_profesores.isEmpty() && !relacion_laboral.isEmpty()
 				&& !telefono1.isEmpty() && !telefono2.isEmpty() && !email1.isEmpty() && !email2.isEmpty()) {
@@ -722,29 +725,15 @@ public class ModeloGestionDatos {
 				pstmt.setString(9, telefono2);
 				pstmt.setString(10, email1);
 				pstmt.setString(11, email2);
-				pstmt.setInt(12, Integer.parseInt(numero));
+				pstmt.setString(12, numero);
 				pstmt.executeUpdate();
-				seHaCreado = true;
-				datosProfe.removeAll(datosProfe);
-				String.valueOf(datosProfe.add(nombre));
-				String.valueOf(datosProfe.add(Apellido1));
-				String.valueOf(datosProfe.add(Apellido2));
-				String.valueOf(datosProfe.add(titulacion));
-				String.valueOf(datosProfe.add(dni));
-				String.valueOf(datosProfe.add(AI_profesores));
-				String.valueOf(datosProfe.add(relacion_laboral));
-				String.valueOf(datosProfe.add(telefono1));
-				String.valueOf(datosProfe.add(telefono2));
-				String.valueOf(datosProfe.add(email1));
-				String.valueOf(datosProfe.add(email2));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} else {
-			seHaCreado = false;
 			respuesta = "Error, estas modificando el numero del profesor";
+			gestionProfesoresAddMod.actualizarInfoDatos();
 		}
-
 	}
 
 	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp,
@@ -752,22 +741,22 @@ public class ModeloGestionDatos {
 			String mail2) {
 		datosProfe.removeAll(datosProfe);
 		String.valueOf(datosProfe.add(numGP));
+		String.valueOf(datosProfe.add(dni));
 		String.valueOf(datosProfe.add(nombreProfeGP));
 		String.valueOf(datosProfe.add(ape1gp));
 		String.valueOf(datosProfe.add(ape2gp));
 		String.valueOf(datosProfe.add(titulacion));
-		String.valueOf(datosProfe.add(dni));
-		String.valueOf(datosProfe.add(relacion));
-		String.valueOf(datosProfe.add(tlf1));
-		String.valueOf(datosProfe.add(tlf2));
 		String.valueOf(datosProfe.add(mail1));
 		String.valueOf(datosProfe.add(mail2));
+		String.valueOf(datosProfe.add(tlf1));
+		String.valueOf(datosProfe.add(tlf2));
+		String.valueOf(datosProfe.add(relacion));
 		String.valueOf(datosProfe.add(activo));
 		return datosProfe;
 
 	}
 
-	public void CrearProfesor(String numero, String nombre, String Apellido1, String Apellido2, String titulacion,
+	public void crearProfesor(String numero, String nombre, String Apellido1, String Apellido2, String titulacion,
 			String dni, String AI_profesores, String relacion_laboral, String telefono1, String telefono2,
 			String email1, String email2) {
 		if (!numero.isEmpty() && !nombre.isEmpty() && !Apellido1.isEmpty() && !Apellido2.isEmpty()
@@ -776,7 +765,7 @@ public class ModeloGestionDatos {
 
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(insertProfesor);
-				pstmt.setInt(1, Integer.parseInt(numero));
+				pstmt.setString(1, numero);
 				pstmt.setString(2, nombre);
 				pstmt.setString(3, Apellido1);
 				pstmt.setString(4, Apellido2);
@@ -807,12 +796,12 @@ public class ModeloGestionDatos {
 				for (int i = 0; i < datosProfe.toArray().length; i++) {
 					System.out.println(i + " " + getRellenarDatos()[i]);
 				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} else {
-			seHaCreado = false;
-			respuesta = "Error, estas modificando el numero del profesor";
+			respuesta = "Error, algún campo vacio";
 		}
 	}
 

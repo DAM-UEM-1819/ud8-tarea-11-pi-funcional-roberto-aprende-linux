@@ -81,6 +81,7 @@ public class GestionProfesoresAddMod extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				rellenar();
+				limpiarInfo();
 
 			}
 
@@ -168,7 +169,26 @@ public class GestionProfesoresAddMod extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -192,7 +212,7 @@ public class GestionProfesoresAddMod extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -206,17 +226,19 @@ public class GestionProfesoresAddMod extends JFrame {
 
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(214, 685, 120, 40);
 		contentPane.add(btnVolver);
 
 		btnGuardarCambios = new JButton("Guardar cambios");
 		btnGuardarCambios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				limpiarInfo();
 				controlador.solicitudAddOMod();
 				limpiarTxt();
 			}
+
 		});
-		btnGuardarCambios.setBounds(765, 685, 137, 40);
+		btnGuardarCambios.setBounds(636, 685, 137, 40);
 		contentPane.add(btnGuardarCambios);
 
 		lblNumero = new JLabel("Numero");
@@ -353,26 +375,26 @@ public class GestionProfesoresAddMod extends JFrame {
 		lblInfo.setText(modeloConsultas.getRespuesta());
 	}
 
+	//
 	public void rellenar() {
 		if (modeloGestionDatos.getRellenarDatos().length != 0) {
 			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
-			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
-			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
-			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
-			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
-			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
-			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
-			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
-			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
-			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
+			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
+			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
+			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
+			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
+			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
+			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
+			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
+			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
 			activo = (String.valueOf(modeloGestionDatos.getRellenarDatos()[11]));
 			if (Integer.parseInt(activo) == 1) {
 				chckbxAI_profesores.setSelected(true);
 			}
 		}
 	}
-
 	public int estadoCheckBox() {
 		int resultado = chckbxAI_profesores.isSelected() == true ? 1 : 0;
 		return resultado;
@@ -391,5 +413,15 @@ public class GestionProfesoresAddMod extends JFrame {
 		txtEmail1.setText("");
 		txtEmail2.setText("");
 		chckbxAI_profesores.setSelected(false);
+	}
+
+	public void actualizarInfoDatos() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+
+	}
+	
+	private void limpiarInfo() {
+		lblInfo.setText("");
+		
 	}
 }

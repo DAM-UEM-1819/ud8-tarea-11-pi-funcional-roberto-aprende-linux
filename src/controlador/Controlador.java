@@ -454,13 +454,15 @@ public class Controlador implements IControlador {
 	}
 
 	public void solicitudProfeAdd() {
-		modeloGestionDatos.CrearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
-				gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
-				gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
-				gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
-				gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
-				gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
-	}
+
+		modeloGestionDatos.crearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
+		gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
+		gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
+		gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
+		gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
+		gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
+}
+
 
 	// public void solicitusCrearPorfesor() {
 	// modeloGestionDatos.crearProfesor();
@@ -533,10 +535,6 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaHome(home.getModel());
 	}
 
-	public void solicitudDatosExtraHome() {
-		modeloConsultas.getDatosExtraHome(home.getDatosFilaTabla());
-	}
-
 	public void solicitudGuardarDatos() {
 		modeloConsultas.guardarDatosFilaHome(home.getDatosFilaTabla());
 
@@ -580,6 +578,9 @@ public class Controlador implements IControlador {
 			break;
 		case "VERGRUPOS":
 			modeloConsultas.buscador(verGrupos.getModel(), verGrupos.getPalabraBuscador(), "J");
+			break;
+		case "HOME":
+			modeloConsultas.buscadorHome(home.getModel(), home.getPalabraBuscador());
 			break;
 		}
 

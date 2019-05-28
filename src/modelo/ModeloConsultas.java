@@ -16,7 +16,9 @@ import java.util.Properties;
 import java.util.TreeSet;
 
 import javax.naming.spi.DirStateFactory.Result;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import controlador.Controlador;
 import vista.CrearUsuario;
@@ -82,9 +84,11 @@ public class ModeloConsultas {
 	private String grupo;
 	private String numeroAlumos;
 	private String simulador;
-	private boolean actor;
+	private String actor;
+	private String documentacion;
 	private boolean existe;
 	private Object[] datosUsuario;
+	private TableRowSorter filtro;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -145,6 +149,7 @@ public class ModeloConsultas {
 	private String informeListadoProfesoresPorTitulacionActivos;
 	private String infoExtraProfesores;
 	private String infoExtraAlumnos;
+	
 
 	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
@@ -362,7 +367,11 @@ public class ModeloConsultas {
 	}
 
 	public boolean tieneActor() {
-		return actor;
+		boolean valor = false;
+		if (actor.equals("1")) {
+			valor = true;
+		}
+		return valor;
 	}
 
 	public boolean getExiste() {
@@ -377,6 +386,14 @@ public class ModeloConsultas {
 		return datosUsuario;
 	}
 
+	public String getDocumentacion() {
+		return documentacion;
+	}
+	
+	public TableRowSorter getFiltro() {
+		return filtro;
+	}
+
 	// INICIO METODOS BASE DATOS
 
 	/**
@@ -385,10 +402,8 @@ public class ModeloConsultas {
 	 * la misma y compara el hash con el que haya en la BBDD para el usuario
 	 * correspondiente
 	 *
-	 * @param usuario
-	 *            El usuario escrito en el textfield del login
-	 * @param passwd
-	 *            La contraseña del usuario
+	 * @param usuario El usuario escrito en el textfield del login
+	 * @param passwd  La contraseña del usuario
 	 */
 	public void loginConfirmacion(String usuario, String passwd) {
 		// BORRAR, ESTO SIRVE PARA AHORRARNOS TRABAJO, NO DEJARLO EN LA VERSION FINAL
@@ -427,10 +442,8 @@ public class ModeloConsultas {
 	/**
 	 * Este método devuelve el hash de la contraseña de un usuario en específico
 	 *
-	 * @param usuario
-	 *            El usuario a consultar
-	 * @param passwd
-	 *            La contraseña del usuario
+	 * @param usuario El usuario a consultar
+	 * @param passwd  La contraseña del usuario
 	 * @return El hash de la contraseña ubicada en la BBDD
 	 */
 	public String consultarPasswdUsuario(String usuario, String passwd) {
@@ -454,12 +467,9 @@ public class ModeloConsultas {
 	 * base de datos. En caso de que no exista llamará al metodo correspondiente
 	 * para crear el usuario
 	 *
-	 * @param user
-	 *            El nombre del usuario
-	 * @param passwd
-	 *            La contraseña del usuario
-	 * @param rol
-	 *            El rol del usuario
+	 * @param user   El nombre del usuario
+	 * @param passwd La contraseña del usuario
+	 * @param rol    El rol del usuario
 	 */
 	public void crearUsuario(String user, String rol, String email) {
 		String sql = selectPasswdUsuario;
@@ -484,14 +494,14 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana home
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista Home
+	 * @param tableModel La tabla de la vista Home
 	 */
 	public void getTablaHome(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectHome);
+			pstmt.setString(1, home.getFecha());
 			getDatos(pstmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -506,6 +516,15 @@ public class ModeloConsultas {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectDatosExtraHome);
+			// Aqui irian los setString
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				numeroAlumos = rs.getString(1);
+				simulador = rs.getString(2);
+				actor = rs.getString(3);
+				documentacion = rs.getString(4);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -541,8 +560,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de usuarios
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de usuarios
+	 * @param tableModel La tabla de la vista de usuarios
 	 */
 	public void getTablaUsuarios(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -560,8 +578,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de año academico
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de acad
+	 * @param tableModel La tabla de la vista de acad
 	 */
 	public void getTablaAcad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -579,8 +596,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de actividades
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de actividad
+	 * @param tableModel La tabla de la vista de actividad
 	 */
 	public void getTablaActividad(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -598,8 +614,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de actores
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de gestion de actores
+	 * @param tableModel La tabla de la vista de gestion de actores
 	 */
 	public void getTablaActores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -617,8 +632,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de alumnos
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de gestion de alumnos
+	 * @param tableModel La tabla de la vista de gestion de alumnos
 	 */
 	public void getTablaAlumnos(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -636,8 +650,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de asignaturas
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de gestion de asignaturas
+	 * @param tableModel La tabla de la vista de gestion de asignaturas
 	 */
 	public void getTablaAsignatura(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -655,8 +668,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de profesores
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de fgestion de profesores
+	 * @param tableModel La tabla de la vista de fgestion de profesores
 	 */
 	public void getTablaProfesores(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -674,8 +686,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de registros
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de gestion de registros
+	 * @param tableModel La tabla de la vista de gestion de registros
 	 */
 	public void getTablaRegistros(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -693,8 +704,7 @@ public class ModeloConsultas {
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de salas
 	 *
-	 * @param tableModel
-	 *            La tabla de la vista de gestion de salas
+	 * @param tableModel La tabla de la vista de gestion de salas
 	 */
 	public void getTablaSalas(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -735,8 +745,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para
 	 *
-	 * @param pstmt
-	 *            La consulta preparada y lista para ejecutarse
+	 * @param pstmt La consulta preparada y lista para ejecutarse
 	 */
 	private void getDatos(PreparedStatement pstmt) {
 		tableModel.setColumnCount(0);
@@ -766,8 +775,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para saber si uan sala ya existe o no
 	 *
-	 * @param sala
-	 *            La sala a comprobar
+	 * @param sala La sala a comprobar
 	 */
 	public void comprobarSala(String sala) {
 		existe = false;
@@ -787,21 +795,19 @@ public class ModeloConsultas {
 	}
 
 	public void comprobarInsertODelete(String profe) {
-		existe = false;
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectExisteProfesor);
 			pstmt.setString(1, profe);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				existe = true;
 				controlador.solicitudProfeMod();
-				respuesta = "Modificacion de profesor";
+				respuesta = "Profesor modificado";
 				gestionProfesoresAddMod.actualizarInfoConsulta();
 
 			} else {
 				controlador.solicitudProfeAdd();
-				respuesta = "Creacion de nuevo profesor";
+				respuesta = "Profesor creado";
 				gestionProfesoresAddMod.actualizarInfoConsulta();
 			}
 		} catch (Exception e) {
@@ -814,13 +820,10 @@ public class ModeloConsultas {
 	/**
 	 * Metodo general que sirve para realizar todas las consultas de búsqueda
 	 *
-	 * @param tableModel
-	 *            La tabla donde se va a mostrar el resultado
-	 * @param palabra
-	 *            La palabra a buscar
-	 * @param opcion
-	 *            La opcion que se desea, depende del tipo de la clase donde te
-	 *            encuetres
+	 * @param tableModel La tabla donde se va a mostrar el resultado
+	 * @param palabra    La palabra a buscar
+	 * @param opcion     La opcion que se desea, depende del tipo de la clase donde
+	 *                   te encuetres
 	 */
 	public void buscador(DefaultTableModel tableModel, String palabra, String opcion) {
 		this.tableModel = tableModel;
@@ -915,14 +918,20 @@ public class ModeloConsultas {
 		getDatos(pstmt);
 
 	}
+	
+	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
+		this.tableModel = tableModel;
+		TableRowSorter trs = new TableRowSorter(tableModel);
+		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 0));
+		this.filtro = trs;
+		home.filtro();
+	}
 
 	/**
 	 * Metodo que sirve para crear los informes de la ventana informes
 	 *
-	 * @param informe
-	 *            El informe a mostrar
-	 * @param tableModel
-	 *            La tabla de la vista
+	 * @param informe    El informe a mostrar
+	 * @param tableModel La tabla de la vista
 	 */
 	public void crearInforme(DefaultTableModel tableModel, String informe) {
 		this.tableModel = tableModel;
@@ -989,9 +998,8 @@ public class ModeloConsultas {
 	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
 	 * home
 	 * 
-	 * @param datosFilaTabla
-	 *            El array de datos que contiene toda la informacion de la fila
-	 *            seleccionada
+	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
+	 *                       la fila seleccionada
 	 */
 	public void guardarDatosFilaHome(Object[] datosFilaTabla) {
 		this.datosFilasTabla = datosFilaTabla;
@@ -1001,10 +1009,8 @@ public class ModeloConsultas {
 	 * Metodo para mostrar el listado de alumnos y profesores del registro
 	 * seleccionado en la ventana de home
 	 * 
-	 * @param modelProfesores
-	 *            La tabla de profesores
-	 * @param modelAlumnos
-	 *            La tabla de alumnos
+	 * @param modelProfesores La tabla de profesores
+	 * @param modelAlumnos    La tabla de alumnos
 	 */
 	public void datosInfoExtra(DefaultTableModel modelProfesores, DefaultTableModel modelAlumnos) {
 		this.tableModel = tableModel;
@@ -1020,4 +1026,6 @@ public class ModeloConsultas {
 		}
 
 	}
+
+
 }

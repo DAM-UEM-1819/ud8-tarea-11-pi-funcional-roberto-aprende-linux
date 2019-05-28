@@ -126,7 +126,26 @@ public class GestionProfesores extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -150,7 +169,7 @@ public class GestionProfesores extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -161,7 +180,7 @@ public class GestionProfesores extends JFrame {
 				deselecionarFilayBotones();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnAI_profesor = new JButton("Activo/Inactivo");
@@ -172,7 +191,7 @@ public class GestionProfesores extends JFrame {
 				controlador.solicitudBorrar(this);
 			}
 		});
-		btnAI_profesor.setBounds(560, 685, 120, 40);
+		btnAI_profesor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_profesor);
 
 		btnModProfesor = new JButton("Modificar profesor");
@@ -188,17 +207,18 @@ public class GestionProfesores extends JFrame {
 
 			}
 		});
-		btnModProfesor.setBounds(313, 685, 146, 40);
+		btnModProfesor.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModProfesor);
 
 		btnAddProfesor = new JButton("A\u00F1adir profesor");
 		btnAddProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
 				controlador.gestionProfesoresTogestionProsoresAddMod();
 				deselecionarFilayBotones();
 			}
 		});
-		btnAddProfesor.setBounds(774, 685, 124, 40);
+		btnAddProfesor.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddProfesor);
 
 		txtBuscador = new JTextField();

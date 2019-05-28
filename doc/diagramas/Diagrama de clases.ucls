@@ -1,0 +1,1294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="vista.CrearUsuario" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/CrearUsuario.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="531" width="270" x="1532" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="vista.Perfil" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/Perfil.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="675" width="270" x="1222" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="modelo.ModeloGestionDatos" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/modelo/ModeloGestionDatos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1557" width="592" x="1933" y="-302"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="vista.Home" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/Home.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="675" width="236" x="946" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="vista.InformacionExtra" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/InformacionExtra.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="387" width="236" x="-226" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="vista.GestionActividad" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionActividad.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="585" width="270" x="2118" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="vista.GestionAlumnos" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionAlumnos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="729" width="270" x="2428" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="vista.GestionProfesores" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionProfesores.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="927" width="270" x="3048" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="9" language="java" name="controlador.IControlador" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/controlador/IControlador.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="945" width="211" x="237" y="4183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="10" language="java" name="vista.GestionAsignatura" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionAsignatura.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="531" width="270" x="50" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="controlador.Main" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/controlador/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="113" x="777" y="-302"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="vista.GestionUsuarios" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionUsuarios.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="459" width="270" x="2738" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="vista.GestionActores" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionActores.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="531" width="270" x="360" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="vista.Gestion" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/Gestion.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="405" width="236" x="1842" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="vista.GestionSalas" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionSalas.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="765" width="270" x="3358" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="vista.Login" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/Login.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="441" width="236" x="670" y="7377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="controlador.Controlador" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/controlador/Controlador.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1881" width="334" x="1557" y="2262"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="modelo.ModeloConsultas" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/modelo/ModeloConsultas.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="2169" width="362" x="1583" y="5168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="modelo.Modelo" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/modelo/Modelo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="585" width="270" x="635" y="4183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="vista.Informes" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/Informes.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="369" width="236" x="1050" y="4183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="vista.GestionProfesoresAddMod" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionProfesoresAddMod.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="927" width="270" x="1557" y="1295"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="vista.VerGrupos" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/VerGrupos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="441" width="236" x="1326" y="4183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="vista.GestionRegistros" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionRegistros.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="693" width="270" x="1954" y="4183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="vista.GestionAcad" project="HospitalSimuladoPrivado" 
+    file="/HospitalSimuladoPrivado/src/vista/GestionAcad.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="459" width="270" x="1644" y="4183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="25">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="26" name="controlador"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <bendpoint x="2632" y="1295"/>    
+    <bendpoint x="2632" y="2262"/>    
+    <bendpoint x="2632" y="4183"/>    
+    <bendpoint x="2496" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="29" name="gestion"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <bendpoint x="956" y="1295"/>    
+    <bendpoint x="956" y="2262"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="32" name="informes"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="34">    
+    <bendpoint x="604" y="5168"/>    
+    <bendpoint x="499" y="4183"/>    
+    <bendpoint x="499" y="2262"/>    
+    <bendpoint x="499" y="1295"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="35" name="modeloGestionDatos"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="38" name="modeloConsultas"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <bendpoint x="1984" y="2262"/>    
+    <bendpoint x="1984" y="1295"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="41" name="modeloGestionDatos"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="44" name="verGrupos"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="46">    
+    <bendpoint x="1963" y="1295"/>    
+    <bendpoint x="1963" y="2262"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="47" name="gestionRegistros"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="49">    
+    <bendpoint x="998" y="4183"/>    
+    <bendpoint x="998" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="50" name="perfil"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <bendpoint x="2296" y="4183"/>    
+    <bendpoint x="2296" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="53" name="gestion"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <bendpoint x="2506" y="1295"/>    
+    <bendpoint x="2506" y="2262"/>    
+    <bendpoint x="2506" y="4183"/>    
+    <bendpoint x="2380" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="56" name="crearUsuario"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="59" name="modelo"/>      
+      <multiplicity id="60" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="61">    
+    <bendpoint x="625" y="5168"/>    
+    <bendpoint x="604" y="4183"/>    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="62" name="controlador"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="64">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="65" name="modeloConsultas"/>      
+      <multiplicity id="66" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="67">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="68" name="modeloConsultas"/>      
+      <multiplicity id="69" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <bendpoint x="1019" y="5168"/>    
+    <bendpoint x="1019" y="4183"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="71" name="controlador"/>      
+      <multiplicity id="72" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="73">    
+    <bendpoint x="2338" y="4183"/>    
+    <bendpoint x="2338" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="74" name="gestionActividad"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <bendpoint x="2674" y="5168"/>    
+    <bendpoint x="2716" y="4183"/>    
+    <bendpoint x="2716" y="2262"/>    
+    <bendpoint x="2716" y="1295"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="77" name="modeloGestionDatos"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="79">    
+    <bendpoint x="2443" y="5168"/>    
+    <bendpoint x="2443" y="4183"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="80" name="controlador"/>      
+      <multiplicity id="81" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="82">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="83" name="gestionUsuarios"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="85">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="86" name="gestionActores"/>      
+      <multiplicity id="87" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="88">    
+    <bendpoint x="2653" y="1295"/>    
+    <bendpoint x="2653" y="2262"/>    
+    <bendpoint x="2653" y="4183"/>    
+    <bendpoint x="2569" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="89" name="gestionActividad"/>      
+      <multiplicity id="90" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="92" name="controlador"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="95" name="gestionAsignatura"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="97">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="98" name="controlador"/>      
+      <multiplicity id="99" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="100">    
+    <bendpoint x="143" y="1295"/>    
+    <bendpoint x="143" y="2262"/>    
+    <bendpoint x="143" y="4183"/>    
+    <bendpoint x="499" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="101" name="home"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="104" name="gestionProfesoresAddMod"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <bendpoint x="164" y="4183"/>    
+    <bendpoint x="80" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="107" name="infoExtra"/>      
+      <multiplicity id="108" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="109">    
+    <bendpoint x="2590" y="5168"/>    
+    <bendpoint x="2674" y="4183"/>    
+    <bendpoint x="2674" y="2262"/>    
+    <bendpoint x="2674" y="1295"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="110" name="modeloGestionDatos"/>      
+      <multiplicity id="111" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="112">    
+    <bendpoint x="2842" y="5168"/>    
+    <bendpoint x="2842" y="4183"/>    
+    <bendpoint x="2842" y="2262"/>    
+    <bendpoint x="2842" y="1295"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="113" name="modeloGestionDatos"/>      
+      <multiplicity id="114" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="115">    
+    <bendpoint x="1613" y="4183"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="116" name="controlador"/>      
+      <multiplicity id="117" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="118">    
+    <bendpoint x="38" y="1295"/>    
+    <bendpoint x="38" y="2262"/>    
+    <bendpoint x="38" y="4183"/>    
+    <bendpoint x="38" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="119" name="gestionAsignatura"/>      
+      <multiplicity id="120" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="121">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="122" name="gestionProfesoresAddMod"/>      
+      <multiplicity id="123" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="125" name="gestionAlumnos"/>      
+      <multiplicity id="126" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="128" name="gestionProfesores"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <bendpoint x="541" y="4183"/>    
+    <bendpoint x="520" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="131" name="gestionActores"/>      
+      <multiplicity id="132" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="133">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="134" name="modeloConsultas"/>      
+      <multiplicity id="135" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="136">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="137" name="modeloConsultas"/>      
+      <multiplicity id="138" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <bendpoint x="2821" y="1295"/>    
+    <bendpoint x="2821" y="2262"/>    
+    <bendpoint x="2821" y="4183"/>    
+    <bendpoint x="2821" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="140" name="gestionSalas"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <bendpoint x="1921" y="1295"/>    
+    <bendpoint x="1921" y="2262"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="143" name="gestionAcad"/>      
+      <multiplicity id="144" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <bendpoint x="914" y="1295"/>    
+    <bendpoint x="914" y="2262"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="146" name="modelo"/>      
+      <multiplicity id="147" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="148">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="149" name="modeloConsultas"/>      
+      <multiplicity id="150" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="151">    
+    <bendpoint x="2716" y="5168"/>    
+    <bendpoint x="2611" y="4183"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="152" name="controlador"/>      
+      <multiplicity id="153" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="154">    
+    <bendpoint x="1526" y="1295"/>    
+    <bendpoint x="1526" y="2262"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="155" name="verGrupos"/>      
+      <multiplicity id="156" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="157">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="158" name="gestion"/>      
+      <multiplicity id="159" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="160">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="161" name="modeloConsultas"/>      
+      <multiplicity id="162" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="163">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="164" name="login"/>      
+      <multiplicity id="165" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="166">    
+    <bendpoint x="2317" y="5168"/>    
+    <bendpoint x="2317" y="4183"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="167" name="controlador"/>      
+      <multiplicity id="168" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="169">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="170" name="crearUsuario"/>      
+      <multiplicity id="171" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="172">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="173" name="modeloConsultas"/>      
+      <multiplicity id="174" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="175">    
+    <bendpoint x="956" y="5168"/>    
+    <bendpoint x="956" y="4183"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="176" name="controlador"/>      
+      <multiplicity id="177" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="178">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="179" name="gestionAcad"/>      
+      <multiplicity id="180" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="181">    
+    <bendpoint x="1592" y="4183"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="182" name="modeloConsultas"/>      
+      <multiplicity id="183" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="184">    
+    <bendpoint x="206" y="1295"/>    
+    <bendpoint x="206" y="2262"/>    
+    <bendpoint x="206" y="4183"/>    
+    <bendpoint x="562" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="185" name="perfil"/>      
+      <multiplicity id="186" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="187">    
+    <bendpoint x="935" y="4183"/>    
+    <bendpoint x="935" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="188" name="home"/>      
+      <multiplicity id="189" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="190">    
+    <bendpoint x="583" y="4183"/>    
+    <bendpoint x="583" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="191" name="login"/>      
+      <multiplicity id="192" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="193">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="194" name="modeloConsultas"/>      
+      <multiplicity id="195" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="196">    
+    <bendpoint x="2695" y="1295"/>    
+    <bendpoint x="2695" y="2262"/>    
+    <bendpoint x="2695" y="4183"/>    
+    <bendpoint x="2653" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="197" name="gestionAlumnos"/>      
+      <multiplicity id="198" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="199">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="200" name="verGrupos"/>      
+      <multiplicity id="201" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="202">    
+    <bendpoint x="2758" y="5168"/>    
+    <bendpoint x="2758" y="4183"/>    
+    <bendpoint x="2758" y="2262"/>    
+    <bendpoint x="2758" y="1295"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="203" name="modeloGestionDatos"/>      
+      <multiplicity id="204" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="205">    
+    <bendpoint x="2254" y="4183"/>    
+    <bendpoint x="2254" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="206" name="crearUsuario"/>      
+      <multiplicity id="207" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="208">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="209" name="perfil"/>      
+      <multiplicity id="210" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="211">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="212" name="modeloConsultas"/>      
+      <multiplicity id="213" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="214">    
+    <bendpoint x="2800" y="5168"/>    
+    <bendpoint x="2800" y="4183"/>    
+    <bendpoint x="2800" y="2262"/>    
+    <bendpoint x="2800" y="1295"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="215" name="modeloGestionDatos"/>      
+      <multiplicity id="216" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="217">    
+    <bendpoint x="935" y="2262"/>    
+    <bendpoint x="935" y="1295"/>    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="218" name="modeloGestionDatos"/>      
+      <multiplicity id="219" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="220">    
+    <bendpoint x="80" y="1295"/>    
+    <bendpoint x="80" y="2262"/>    
+    <bendpoint x="80" y="4183"/>    
+    <bendpoint x="101" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="221" name="gestionActores"/>      
+      <multiplicity id="222" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="223">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="224" name="gestionActividad"/>      
+      <multiplicity id="225" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="226">    
+    <bendpoint x="2401" y="5168"/>    
+    <bendpoint x="2548" y="4183"/>    
+    <bendpoint x="2548" y="2262"/>    
+    <bendpoint x="2548" y="1295"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="227" name="modeloGestionDatos"/>      
+      <multiplicity id="228" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="229">    
+    <bendpoint x="2779" y="1295"/>    
+    <bendpoint x="2779" y="2262"/>    
+    <bendpoint x="2779" y="4183"/>    
+    <bendpoint x="2779" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="230" name="gestionProfesores"/>      
+      <multiplicity id="231" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="232">    
+    <bendpoint x="2275" y="5168"/>    
+    <bendpoint x="2275" y="4183"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="233" name="controlador"/>      
+      <multiplicity id="234" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="235">    
+    <bendpoint x="977" y="2262"/>    
+    <bendpoint x="977" y="4183"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="236" name="modeloConsultas"/>      
+      <multiplicity id="237" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="238">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="239" name="informes"/>      
+      <multiplicity id="240" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="241">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="242" name="home"/>      
+      <multiplicity id="243" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="244">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="245" name="modeloConsultas"/>      
+      <multiplicity id="246" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="247">    
+    <bendpoint x="59" y="5168"/>    
+    <bendpoint x="59" y="4183"/>    
+    <bendpoint x="59" y="2262"/>    
+    <bendpoint x="59" y="1295"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="248" name="modeloGestionDatos"/>      
+      <multiplicity id="249" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="250">    
+    <bendpoint x="2359" y="1295"/>    
+    <bendpoint x="2359" y="2262"/>    
+    <bendpoint x="2359" y="4183"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="251" name="modeloConsultas"/>      
+      <multiplicity id="252" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="253">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="254" name="modeloGestionDatos"/>      
+      <multiplicity id="255" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="256">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="257" name="gestionRegistros"/>      
+      <multiplicity id="258" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="259">    
+    <bendpoint x="2517" y="5168"/>    
+    <bendpoint x="2485" y="4183"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="260" name="controlador"/>      
+      <multiplicity id="261" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="262">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="263" name="modeloConsultas"/>      
+      <multiplicity id="264" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="265">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="266" name="gestionRegistros"/>      
+      <multiplicity id="267" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="268">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="269" name="gestionAcad"/>      
+      <multiplicity id="270" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="271">    
+    <bendpoint x="122" y="5168"/>    
+    <bendpoint x="185" y="4183"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="272" name="controlador"/>      
+      <multiplicity id="273" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="274">    
+    <bendpoint x="478" y="4183"/>    
+    <bendpoint x="457" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="275" name="gestionAsignatura"/>      
+      <multiplicity id="276" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="277">    
+    <bendpoint x="2632" y="5168"/>    
+    <bendpoint x="2569" y="4183"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="278" name="controlador"/>      
+      <multiplicity id="279" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="280">    
+    <bendpoint x="2527" y="4183"/>    
+    <bendpoint x="2611" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="281" name="gestionProfesores"/>      
+      <multiplicity id="282" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="283">    
+    <bendpoint x="1857" y="1295"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="284" name="controlador"/>      
+      <multiplicity id="285" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="286">    
+    <bendpoint x="541" y="5168"/>    
+    <bendpoint x="562" y="4183"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="287" name="controlador"/>      
+      <multiplicity id="288" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="289">    
+    <bendpoint x="143" y="5168"/>    
+    <bendpoint x="101" y="4183"/>    
+    <bendpoint x="101" y="2262"/>    
+    <bendpoint x="101" y="1295"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="290" name="modeloGestionDatos"/>      
+      <multiplicity id="291" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="292">    
+    <bendpoint x="122" y="1295"/>    
+    <bendpoint x="122" y="2262"/>    
+    <bendpoint x="122" y="4183"/>    
+    <bendpoint x="164" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="293" name="login"/>      
+      <multiplicity id="294" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="295">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="296" name="modelo"/>      
+      <multiplicity id="297" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="298">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="299" name="modeloConsultas"/>      
+      <multiplicity id="300" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="301">    
+    <bendpoint x="1942" y="2262"/>    
+    <bendpoint x="1942" y="1295"/>    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="302" name="modeloGestionDatos"/>      
+      <multiplicity id="303" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="304">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="305" name="controlador"/>      
+      <multiplicity id="306" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="307">    
+    <bendpoint x="2401" y="4183"/>    
+    <bendpoint x="2401" y="2262"/>    
+    <bendpoint x="2401" y="1295"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="308" name="modeloGestionDatos"/>      
+      <multiplicity id="309" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="310">    
+    <bendpoint x="2737" y="1295"/>    
+    <bendpoint x="2737" y="2262"/>    
+    <bendpoint x="2737" y="4183"/>    
+    <bendpoint x="2737" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="311" name="gestionUsuarios"/>      
+      <multiplicity id="312" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="313">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="314" name="controlador"/>      
+      <multiplicity id="315" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="316">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="317" name="modeloConsultas"/>      
+      <multiplicity id="318" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="319">    
+    <bendpoint x="1878" y="1295"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="320" name="modeloGestionDatos"/>      
+      <multiplicity id="321" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="322">    
+    <bendpoint x="478" y="5168"/>    
+    <bendpoint x="520" y="4183"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="323" name="controlador"/>      
+      <multiplicity id="324" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="325">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="326" name="modeloConsultas"/>      
+      <multiplicity id="327" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="328">    
+    <bendpoint x="2422" y="4183"/>    
+    <bendpoint x="2422" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="329" name="gestionAlumnos"/>      
+      <multiplicity id="330" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="331">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="332" name="modeloConsultas"/>      
+      <multiplicity id="333" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="334">    
+    <bendpoint x="17" y="1295"/>    
+    <bendpoint x="17" y="2262"/>    
+    <bendpoint x="17" y="4183"/>    
+    <bendpoint x="17" y="5168"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="335" name="infoExtra"/>      
+      <multiplicity id="336" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="337">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="338" name="gestionSalas"/>      
+      <multiplicity id="339" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="340">    
+    <bendpoint x="2359" y="5168"/>    
+    <bendpoint x="2380" y="4183"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="341" name="controlador"/>      
+      <multiplicity id="342" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="343">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <association id="344">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="345" name="modeloConsultas"/>      
+      <multiplicity id="346" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="347">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="348" name="infoExtra"/>      
+      <multiplicity id="349" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="350">    
+    <bendpoint x="2590" y="4183"/>    
+    <bendpoint x="2695" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="351" name="gestionSalas"/>      
+      <multiplicity id="352" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="353">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="354" name="modeloConsultas"/>      
+      <multiplicity id="355" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="356">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="357" name="informes"/>      
+      <multiplicity id="358" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="359">    
+    <bendpoint x="2464" y="4183"/>    
+    <bendpoint x="2464" y="5168"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="360" name="gestionUsuarios"/>      
+      <multiplicity id="361" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
