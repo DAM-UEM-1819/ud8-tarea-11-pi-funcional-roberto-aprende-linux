@@ -83,7 +83,7 @@ public class GestionAsignatura extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 145, 800, 450);
+		scrollPane.setBounds(100, 145, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaAsignaturas = new JTable();
@@ -121,7 +121,7 @@ public class GestionAsignatura extends JFrame {
 
 			}
 		});
-		txtCodigoAsignatura.setBounds(108, 629, 190, 30);
+		txtCodigoAsignatura.setBounds(100, 630, 150, 30);
 		contentPane.add(txtCodigoAsignatura);
 		txtCodigoAsignatura.setColumns(10);
 
@@ -138,7 +138,7 @@ public class GestionAsignatura extends JFrame {
 
 			}
 		});
-		txtNombre.setBounds(308, 630, 190, 30);
+		txtNombre.setBounds(325, 630, 150, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
@@ -156,7 +156,7 @@ public class GestionAsignatura extends JFrame {
 			}
 
 		});
-		txtTitulacion.setBounds(508, 630, 190, 30);
+		txtTitulacion.setBounds(545, 630, 150, 30);
 		contentPane.add(txtTitulacion);
 		txtTitulacion.setColumns(10);
 
@@ -173,7 +173,7 @@ public class GestionAsignatura extends JFrame {
 
 			}
 		});
-		txtCurso.setBounds(708, 630, 182, 30);
+		txtCurso.setBounds(750, 630, 150, 30);
 		contentPane.add(txtCurso);
 		txtCurso.setColumns(10);
 
@@ -194,7 +194,7 @@ public class GestionAsignatura extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -218,7 +218,7 @@ public class GestionAsignatura extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -231,10 +231,10 @@ public class GestionAsignatura extends JFrame {
 
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
-		btnModificarAsignatura = new JButton("Modificar asignatura");
+		btnModificarAsignatura = new JButton("Modificar");
 		btnModificarAsignatura.setEnabled(false);
 		btnModificarAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -245,7 +245,7 @@ public class GestionAsignatura extends JFrame {
 
 			}
 		});
-		btnModificarAsignatura.setBounds(325, 685, 135, 40);
+		btnModificarAsignatura.setBounds(325, 685, 150, 40);
 		contentPane.add(btnModificarAsignatura);
 
 		btnBorrarAsignatura = new JButton("Borrar asignatura");
@@ -261,7 +261,7 @@ public class GestionAsignatura extends JFrame {
 				habilitarBotones();
 			}
 		});
-		btnBorrarAsignatura.setBounds(575, 685, 120, 40);
+		btnBorrarAsignatura.setBounds(545, 685, 150, 40);
 		contentPane.add(btnBorrarAsignatura);
 
 		btnAddAsignatura = new JButton(" A\u00F1adir asignatura");
@@ -275,7 +275,7 @@ public class GestionAsignatura extends JFrame {
 				habilitarBotones();
 			}
 		});
-		btnAddAsignatura.setBounds(767, 685, 135, 40);
+		btnAddAsignatura.setBounds(750, 685, 150, 40);
 		contentPane.add(btnAddAsignatura);
 
 		txtBuscador = new JTextField();

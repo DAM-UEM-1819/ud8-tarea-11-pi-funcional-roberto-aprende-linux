@@ -81,7 +81,7 @@ public class GestionRegistros extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 145, 800, 450);
+		scrollPane.setBounds(100, 145, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaRegistros = new JTable();
@@ -103,27 +103,27 @@ public class GestionRegistros extends JFrame {
 		scrollPane.setViewportView(tablaRegistros);
 
 		txtCod_registro = new JTextField();
-		txtCod_registro.setBounds(108, 629, 155, 30);
+		txtCod_registro.setBounds(100, 629, 150, 30);
 		contentPane.add(txtCod_registro);
 		txtCod_registro.setColumns(10);
 
 		txtFecha = new JTextField();
-		txtFecha.setBounds(273, 629, 164, 30);
+		txtFecha.setBounds(262, 629, 150, 30);
 		contentPane.add(txtFecha);
 		txtFecha.setColumns(10);
 
 		txtHora = new JTextField();
-		txtHora.setBounds(447, 629, 146, 30);
+		txtHora.setBounds(424, 629, 150, 30);
 		contentPane.add(txtHora);
 		txtHora.setColumns(10);
 
 		txtHorasProfesor = new JTextField();
-		txtHorasProfesor.setBounds(603, 629, 155, 30);
+		txtHorasProfesor.setBounds(586, 629, 150, 30);
 		contentPane.add(txtHorasProfesor);
 		txtHorasProfesor.setColumns(10);
 
 		txtActividadNombre = new JTextField();
-		txtActividadNombre.setBounds(768, 629, 121, 30);
+		txtActividadNombre.setBounds(750, 629, 150, 30);
 		contentPane.add(txtActividadNombre);
 		txtActividadNombre.setColumns(10);
 
@@ -211,12 +211,12 @@ public class GestionRegistros extends JFrame {
 				}
 			}
 		});
-		btnBorrarRegistro.setBounds(316, 690, 150, 40);
+		btnBorrarRegistro.setBounds(532, 690, 150, 40);
 		contentPane.add(btnBorrarRegistro);
 
 		btnAddRegistro = new JButton("A\u00F1adir Registro");
 
-		btnAddRegistro.setBounds(748, 690, 150, 40);
+		btnAddRegistro.setBounds(750, 690, 150, 40);
 		contentPane.add(btnAddRegistro);
 
 		txtBuscador = new JTextField();
@@ -258,7 +258,7 @@ public class GestionRegistros extends JFrame {
 				}
 			}
 		});
-		btnModificar.setBounds(532, 690, 150, 40);
+		btnModificar.setBounds(316, 690, 150, 40);
 		contentPane.add(btnModificar);
 		
 		lblInfo = new JLabel("");
