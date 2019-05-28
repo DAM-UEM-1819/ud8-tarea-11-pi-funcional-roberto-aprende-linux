@@ -327,7 +327,7 @@ public class GestionSalas extends JFrame {
 	}
 
 	public void modificarSalaAlerta() {
-		JOptionPane.showConfirmDialog(rootPane, "�Desea modificar la sala seleccionada?");
+		JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar la sala selecionada?");
 	}
 
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
@@ -402,7 +402,7 @@ public class GestionSalas extends JFrame {
 
 	public void habilitarBotones() {
 		// btnAlta
-		if (!txtCodigo.getText().equals("") && !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
+		if (!txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
 			btnAddSala.setEnabled(true);
 		} else {
 			btnAddSala.setEnabled(false);

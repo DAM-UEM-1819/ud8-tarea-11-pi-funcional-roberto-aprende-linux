@@ -421,10 +421,10 @@ public class ModeloGestionDatos {
 	 *            Capacidad de la sala
 	 */
 	public void crearSala(String cod, String tipo, String numero, String capacidad) {
-		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
+		if (!tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(insertSala);
-				pstmt.setString(1, cod);
+				pstmt.setString(1, modeloConsultas.getUltimoRegistro());
 				pstmt.setString(2, tipo);
 				pstmt.setString(3, numero);
 				pstmt.setString(4, capacidad);

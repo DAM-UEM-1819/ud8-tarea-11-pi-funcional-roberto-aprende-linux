@@ -89,6 +89,7 @@ public class ModeloConsultas {
 	private boolean existe;
 	private Object[] datosUsuario;
 	private TableRowSorter filtro;
+	private String ultimoRegistro;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -150,6 +151,10 @@ public class ModeloConsultas {
 	private String infoExtraProfesores;
 	private String infoExtraAlumnos;
 	
+	// SENTENCIAS SELECT SQL ULTIMO REGISTRO
+	private String selectUltimoRegistroSala;
+	
+	
 
 	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
@@ -177,6 +182,7 @@ public class ModeloConsultas {
 		selectComprobacionExiste();
 		selectDatosExtra();
 		selectInformes();
+		selectUltimoRegistro();
 	}
 
 	private void selectTablas() {
@@ -260,6 +266,10 @@ public class ModeloConsultas {
 		selectDatosUsuarioPerfil = propiedades.getProperty("selectDatosUsuarioPerfil");
 		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
 		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
+	}
+	
+	private void selectUltimoRegistro() {
+		selectUltimoRegistroSala = propiedades.getProperty("selectUltimoRegistroSala");
 	}
 
 	// INICIO SETTERS
@@ -392,6 +402,10 @@ public class ModeloConsultas {
 	
 	public TableRowSorter getFiltro() {
 		return filtro;
+	}
+	
+	public String getUltimoRegistro() {
+		return ultimoRegistro;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -777,17 +791,15 @@ public class ModeloConsultas {
 	 *
 	 * @param sala La sala a comprobar
 	 */
-	public void comprobarSala(String sala) {
+	public void ultimoRegistroSala(String sala) {
 		existe = false;
 		PreparedStatement pstmt;
 		try {
-			pstmt = conexion.prepareStatement(selectExisteSala);
-			pstmt.setString(1, sala);
+			pstmt = conexion.prepareStatement(selectUltimoRegistroSala);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				existe = true;
-				respuesta = "Error, la sala ya existe";
-				gestionSalas.actualizarInfoConsulta();
+				ultimoRegistro = rs.getString(1);
+				ultimoRegistro = String.valueOf(Integer.parseInt(ultimoRegistro) + 1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
