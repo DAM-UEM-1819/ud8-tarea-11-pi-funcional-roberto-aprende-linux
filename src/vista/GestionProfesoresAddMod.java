@@ -379,23 +379,22 @@ public class GestionProfesoresAddMod extends JFrame {
 	public void rellenar() {
 		if (modeloGestionDatos.getRellenarDatos().length != 0) {
 			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
-			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
-			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
-			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
-			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
-			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
-			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
-			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
-			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
-			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
+			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
+			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
+			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
+			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
+			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
+			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
+			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
+			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
 			activo = (String.valueOf(modeloGestionDatos.getRellenarDatos()[11]));
 			if (Integer.parseInt(activo) == 1) {
 				chckbxAI_profesores.setSelected(true);
 			}
 		}
 	}
-
 	public int estadoCheckBox() {
 		int resultado = chckbxAI_profesores.isSelected() == true ? 1 : 0;
 		return resultado;
