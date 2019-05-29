@@ -104,7 +104,7 @@ public class GestionAsignatura extends JFrame {
 			}
 		});
 		tablaAsignaturas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaAsignaturas.setRowHeight(40);
+		tablaAsignaturas.setRowHeight(30);
 		tablaAsignaturas.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaAsignaturas);
 

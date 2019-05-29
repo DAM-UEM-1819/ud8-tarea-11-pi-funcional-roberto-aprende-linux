@@ -105,7 +105,7 @@ public class GestionProfesores extends JFrame {
 		});
 
 		tablaProfesores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaProfesores.setRowHeight(40);
+		tablaProfesores.setRowHeight(30);
 		tablaProfesores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaProfesores);
 
