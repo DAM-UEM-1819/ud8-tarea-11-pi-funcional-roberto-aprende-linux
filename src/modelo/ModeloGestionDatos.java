@@ -420,7 +420,7 @@ public class ModeloGestionDatos {
 	 * @param capacidad
 	 *            Capacidad de la sala
 	 */
-	public void crearSala(String cod, String tipo, String numero, String capacidad) {
+	public void crearSala(String tipo, String numero, String capacidad) {
 		if (!tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(insertSala);
@@ -430,7 +430,6 @@ public class ModeloGestionDatos {
 				pstmt.setString(4, capacidad);
 				addDatos(pstmt);
 				datosFilastabla.removeAll(datosFilastabla);
-				datosFilastabla.add(cod);
 				datosFilastabla.add(tipo);
 				datosFilastabla.add(numero);
 				datosFilastabla.add(capacidad);
@@ -656,16 +655,15 @@ public class ModeloGestionDatos {
 	 * @param capacidad
 	 *            La capacidad de la sala
 	 */
-	public void modificarSala(String cod, String tipo, String numero, String capacidad) {
-		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
+	public void modificarSala(String tipo, String numero, String capacidad) {
+		if (!tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(updateSala);
 				pstmt.setString(1, tipo);
 				pstmt.setString(2, capacidad);
 				pstmt.setString(3, numero);
-				pstmt.setString(4, cod);
-				addDatos(pstmt);
-
+				pstmt.setString(4, modeloConsultas.getCodigoRegistro());
+				pstmt.executeUpdate();
 				seHaCreado = true;
 				respuesta = "Has modificado sala";
 			} catch (Exception e) {

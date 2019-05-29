@@ -41,7 +41,6 @@ public class GestionSalas extends JFrame {
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaSalas;
-	private JTextField txtCodigo;
 	private JTextField txtTipoSala;
 	private JButton btnVolver;
 	private JButton btnModificarSala;
@@ -59,6 +58,7 @@ public class GestionSalas extends JFrame {
 	private JComboBox comboBoxColumna;
 	private JLabel lblInfo;
 	private JLabel lblLupa;
+	private String tipoSalaReal;
 
 	public GestionSalas() {
 		setResizable(false);
@@ -88,13 +88,12 @@ public class GestionSalas extends JFrame {
 		tablaSalas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				txtCodigo.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0)));
+				tipoSalaReal = String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0));
+				txtTipoSala.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0)));
 				;
-				txtTipoSala.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 1)));
+				txtCapacidad.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 1)));
 				;
-				txtCapacidad.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 2)));
-				;
-				txtNumero.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 3)));
+				txtNumero.setText(String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 2)));
 				;
 				habilitarBotones();
 			}
@@ -103,21 +102,6 @@ public class GestionSalas extends JFrame {
 		tablaSalas.setRowHeight(30);
 		tablaSalas.getTableHeader().setReorderingAllowed(false);
 		scrollPaneRegistros.setViewportView(tablaSalas);
-
-		txtCodigo = new JTextField();
-		txtCodigo.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				habilitarBotones();
-			}
-			@Override
-			public void keyTyped(KeyEvent e) {
-				habilitarBotones();
-			}
-		});
-		txtCodigo.setBounds(100, 621, 150, 30);
-		contentPane.add(txtCodigo);
-		txtCodigo.setColumns(10);
 
 		txtTipoSala = new JTextField();
 		txtTipoSala.addKeyListener(new KeyAdapter() {
@@ -129,7 +113,7 @@ public class GestionSalas extends JFrame {
 				habilitarBotones();
 			}
 		});
-		txtTipoSala.setBounds(325, 621, 150, 30);
+		txtTipoSala.setBounds(100, 621, 150, 30);
 		contentPane.add(txtTipoSala);
 		txtTipoSala.setColumns(10);
 
@@ -168,7 +152,7 @@ public class GestionSalas extends JFrame {
 			}
 		});
 		txtCapacidad.setColumns(10);
-		txtCapacidad.setBounds(545, 621, 150, 30);
+		txtCapacidad.setBounds(425, 621, 150, 30);
 		contentPane.add(txtCapacidad);
 		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
@@ -346,10 +330,6 @@ public class GestionSalas extends JFrame {
 		return String.valueOf(tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0));
 	}
 
-	public String getCodigo() {
-		return txtCodigo.getText();
-	}
-
 	public String getTipoSala() {
 		return txtTipoSala.getText();
 	}
@@ -361,6 +341,10 @@ public class GestionSalas extends JFrame {
 	public String getCapacidad() {
 		return txtCapacidad.getText();
 	}
+	
+	public String getTipoSalaReal() {
+		return tipoSalaReal;
+	}
 
 	public void addSala() {
 		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
@@ -369,7 +353,6 @@ public class GestionSalas extends JFrame {
 	}
 
 	private void limpiarTxt() {
-		txtCodigo.setText("");
 		txtTipoSala.setText("");
 		txtNumero.setText("");
 		txtCapacidad.setText("");
@@ -386,17 +369,12 @@ public class GestionSalas extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tablaSalas.getModel();
 		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
 
-		if (getCodigo().equals(String.valueOf(model.getValueAt(tablaSalas.getSelectedRow(), 0)))) {
 			lblInfo.setText("Sala modificada");
-			model.setValueAt(getCodigo(), tablaSalas.getSelectedRow(), 0);
-			model.setValueAt(getTipoSala(), tablaSalas.getSelectedRow(), 1);
-			model.setValueAt(getCapacidad(), tablaSalas.getSelectedRow(), 2);
-			model.setValueAt(getNumero(), tablaSalas.getSelectedRow(), 3);
+			model.setValueAt(getTipoSala(), tablaSalas.getSelectedRow(), 0);
+			model.setValueAt(getCapacidad(), tablaSalas.getSelectedRow(), 1);
+			model.setValueAt(getNumero(), tablaSalas.getSelectedRow(), 2);
 			limpiarTxt();
 
-		} else {
-			lblInfo.setText("Error , no puedes modificar el codigo de la sala");
-		}
 
 	}
 
@@ -409,15 +387,14 @@ public class GestionSalas extends JFrame {
 		}
 
 		// btnmodificar
-		if (tablaSalas.getSelectedRowCount() == 1 && !txtCodigo.getText().equals("") && !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
+		if (tablaSalas.getSelectedRowCount() == 1 && !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
 			btnModificarSala.setEnabled(true);
 		} else {
 			btnModificarSala.setEnabled(false);
 		}
 
 		// btnBorrar
-		if (tablaSalas.getSelectedRowCount() == 1 && !txtCodigo.getText().equals("")
-				&& !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
+		if (tablaSalas.getSelectedRowCount() == 1 && !txtTipoSala.getText().equals("") && !txtNumero.getText().equals("")) {
 			btnBorrar.setEnabled(true);
 		} else {
 			btnBorrar.setEnabled(false);

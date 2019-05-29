@@ -482,13 +482,15 @@ public class Controlador implements IControlador {
 	}
 
 	public void solicitudCrearSala() {
-		modeloConsultas.ultimoRegistroSala(gestionSalas.getCodigo());
-		modeloGestionDatos.crearSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(),
+		modeloConsultas.ultimoRegistroSala();
+		modeloGestionDatos.crearSala(gestionSalas.getTipoSala(), gestionSalas.getNumero(),
 				gestionSalas.getCapacidad());
 	}
 
 	public void solicutudModificarSala() {
-		modeloGestionDatos.modificarSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(),
+		modeloConsultas.extraerCodigoSala(gestionSalas.getTipoSalaReal(), gestionSalas.getNumero(),
+				gestionSalas.getCapacidad());
+		modeloGestionDatos.modificarSala(gestionSalas.getTipoSala(), gestionSalas.getNumero(),
 				gestionSalas.getCapacidad());
 
 	}
