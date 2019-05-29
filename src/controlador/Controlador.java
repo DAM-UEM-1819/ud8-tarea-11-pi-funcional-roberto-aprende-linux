@@ -309,6 +309,13 @@ public class Controlador implements IControlador {
 	public void solicitudDatosActores() {
 		modeloConsultas.getTablaActores(gestionActores.getModel());
 	}
+	
+
+	public void solicitudAddActor() {
+		modeloConsultas.ultimoCodActor();
+		modeloGestionDatos.crearActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
+		
+	}
 
 	// VENTANA GESTION ALUMNOS
 	public void gestionAlumnosToGestion() {

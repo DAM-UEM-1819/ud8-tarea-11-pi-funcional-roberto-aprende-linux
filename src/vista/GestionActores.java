@@ -63,6 +63,7 @@ public class GestionActores extends JFrame {
 	private JComboBox comboBoxComplexion;
 	private JCheckBox chckbxActivo;
 	private JLabel lblLupa;
+	private JLabel lblInfo;
 
 	public GestionActores() {
 		setResizable(false);
@@ -181,7 +182,10 @@ public class GestionActores extends JFrame {
 		btnAddActor = new JButton(" A\u00F1adir actor");
 		btnAddActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				controlador.solicitudAddActor();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					addActor();
+				}
 			}
 		});
 		btnAddActor.setBounds(748, 685, 150, 40);
@@ -245,6 +249,11 @@ public class GestionActores extends JFrame {
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(878, 111, 20, 22);
 		contentPane.add(lblLupa);
+		
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(0, 111, 1000, 22);
+		contentPane.add(lblInfo);
 	}
 
 	public int getCodigoAct() {
@@ -270,6 +279,16 @@ public class GestionActores extends JFrame {
 
 	public String getComplexion() {
 		return String.valueOf(comboBoxComplexion.getSelectedItem());
+	}
+	
+	public String getActivo() {
+		String resultado = "";
+		if (chckbxActivo.isSelected()) {
+			resultado = "1";
+		} else {
+			resultado = "0";
+		}
+		return resultado;
 	}
 
 	public void setTxtNombre(JTextField txtNombre) {
@@ -310,5 +329,21 @@ public class GestionActores extends JFrame {
 
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+	
+	public void actualizarInfo() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+	}
+	
+	public void addActor() {
+		DefaultTableModel model = (DefaultTableModel) tablaActores.getModel();
+		model.addRow(modeloGestionDatos.getDatosfilasTabla());
+		limpiarTxt();
+	}
+
+	private void limpiarTxt() {
+		txtNombre.setText("");
+		chckbxActivo.setSelected(false);
+		
 	}
 }

@@ -154,9 +154,11 @@ public class ModeloConsultas {
 	
 	// SENTENCIAS SELECT SQL ULTIMO REGISTRO
 	private String selectUltimoRegistroSala;
+	private String selectUltimoRegistroActor;
 	
 	// SENTENCIAS SELECT SQL EXTRAER CODIGO
 	private String selectExtraerCodSala;
+	
 	
 	
 	
@@ -277,6 +279,7 @@ public class ModeloConsultas {
 	
 	private void selectUltimoRegistro() {
 		selectUltimoRegistroSala = propiedades.getProperty("selectUltimoRegistroSala");
+		selectUltimoRegistroActor = propiedades.getProperty("selectUltimoRegistroActor");
 	}
 	
 	private void selectExtraerCodigo() {
@@ -807,7 +810,6 @@ public class ModeloConsultas {
 	 * @param sala La sala a comprobar
 	 */
 	public void ultimoRegistroSala() {
-		existe = false;
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectUltimoRegistroSala);
@@ -819,6 +821,21 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void ultimoCodActor() {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectUltimoRegistroActor);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				ultimoRegistro = rs.getString(1);
+				ultimoRegistro = String.valueOf(Integer.parseInt(ultimoRegistro) + 1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void extraerCodigoSala(String nombre, String numero, String capacidad) {
@@ -1070,6 +1087,8 @@ public class ModeloConsultas {
 		}
 
 	}
+
+
 
 
 
