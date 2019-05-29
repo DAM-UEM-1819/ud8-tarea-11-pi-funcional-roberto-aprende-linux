@@ -316,6 +316,12 @@ public class Controlador implements IControlador {
 		modeloGestionDatos.crearActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
 		
 	}
+	
+
+	/*public void solicitudBorrarActor() {
+		modeloConsultas
+		
+	}*/
 
 	// VENTANA GESTION ALUMNOS
 	public void gestionAlumnosToGestion() {
@@ -594,5 +600,6 @@ public class Controlador implements IControlador {
 		}
 
 	}
+
 
 }
