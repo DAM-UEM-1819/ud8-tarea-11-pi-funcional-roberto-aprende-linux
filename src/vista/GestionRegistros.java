@@ -218,6 +218,12 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(btnBorrarRegistro);
 
 		btnAddRegistro = new JButton("A\u00F1adir Registro");
+		btnAddRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				controlador.gestionRegistrosToGestionRegistrosAddMod();
+			}
+		});
 
 		btnAddRegistro.setBounds(750, 690, 150, 40);
 		contentPane.add(btnAddRegistro);

@@ -124,7 +124,7 @@ public class Controlador implements IControlador {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	
+
 	public void setGestionRegistrosAddMod(GestionRegistrosAddMod gestionRegistrosAddMod) {
 		this.gestionRegistrosAddMod = gestionRegistrosAddMod;
 	}
@@ -236,7 +236,7 @@ public class Controlador implements IControlador {
 		modeloConsultas.crearInforme(informes.getModel(), informes.getInforme());
 
 	}
-	
+
 	public void exportar() {
 		modelo.generarExcel(informes.getModel(), informes.getRuta());
 	}
@@ -318,19 +318,19 @@ public class Controlador implements IControlador {
 	public void solicitudDatosActores() {
 		modeloConsultas.getTablaActores(gestionActores.getModel());
 	}
-	
 
 	public void solicitudAddActor() {
 		modeloConsultas.ultimoCodActor();
-		modeloGestionDatos.crearActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
-		
-	}
-	
+		modeloGestionDatos.crearActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(),
+				gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
 
-	/*public void solicitudBorrarActor() {
-		modeloConsultas
-		
-	}*/
+	}
+
+	/*
+	 * public void solicitudBorrarActor() { modeloConsultas
+	 * 
+	 * }
+	 */
 
 	// VENTANA GESTION ALUMNOS
 	public void gestionAlumnosToGestion() {
@@ -403,6 +403,16 @@ public class Controlador implements IControlador {
 				gestionRegistros.getHora(), gestionRegistros.getHorasProfesor(), gestionRegistros.getActividadNombre());
 	}
 
+	public void gestionRegistrosToGestionRegistrosAddMod() {
+		gestionRegistrosAddMod.setVisible(true);
+
+	}
+
+	// VENTANA GESTION REGISTROS ADD MOD
+	public void gestionRegistrosAddModToGestionRegistros() {
+		gestionRegistros.setVisible(true);
+	}
+
 	// VENTANA GESTION ASIGNATURA
 	public void gestionAsignaturaToGestion() {
 		gestion.setVisible(true);
@@ -421,14 +431,12 @@ public class Controlador implements IControlador {
 				gestionAsignatura.getTitulacion(), gestionAsignatura.getCurso());
 
 	}
-	
+
 	public void modAsignatura() {
 		modeloGestionDatos.modificarAsignatura(gestionAsignatura.getCodigoAsignatura(), gestionAsignatura.getNombre(),
 				gestionAsignatura.getTitulacion(), gestionAsignatura.getCurso());
-		
+
 	}
-	
-	
 
 	// VENTANA GESTION PROFESORES
 	public void gestionProfesoresToGestion() {
@@ -478,13 +486,12 @@ public class Controlador implements IControlador {
 	public void solicitudProfeAdd() {
 
 		modeloGestionDatos.crearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
-		gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
-		gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
-		gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
-		gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
-		gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
-}
-
+				gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
+				gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
+				gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
+				gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
+				gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
+	}
 
 	// public void solicitusCrearPorfesor() {
 	// modeloGestionDatos.crearProfesor();
@@ -505,8 +512,7 @@ public class Controlador implements IControlador {
 
 	public void solicitudCrearSala() {
 		modeloConsultas.ultimoRegistroSala();
-		modeloGestionDatos.crearSala(gestionSalas.getTipoSala(), gestionSalas.getNumero(),
-				gestionSalas.getCapacidad());
+		modeloGestionDatos.crearSala(gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
 	}
 
 	public void solicutudModificarSala() {
@@ -609,8 +615,5 @@ public class Controlador implements IControlador {
 		}
 
 	}
-
-
-
 
 }

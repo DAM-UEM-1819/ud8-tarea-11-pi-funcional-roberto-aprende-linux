@@ -41,10 +41,10 @@ public class GestionRegistrosAddMod extends JFrame {
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
-	private JTextField txtNumero;
-	private JTextField txtNombre;
-	private JTextField txtTitulacion;
-	private JTextField txtDni;
+	private JTextField txtFecha;
+	private JTextField txtHorasProfesor;
+	private JTextField txtCodActor;
+	private JTextField txtHora;
 	private JTextField txtRelacion_laboral;
 	private JTextField txtTelefono1;
 	private JPanel HeaderPanel;
@@ -54,23 +54,23 @@ public class GestionRegistrosAddMod extends JFrame {
 	private JButton btnVolver;
 	private JButton btnGuardarCambios;
 	private JTextField txtTelefono2;
-	private JTextField txtEmail1;
-	private JTextField txtEmail2;
+	private JTextField txtProfesor;
+	private JTextField txtCodSala;
 	private JCheckBox chckbxAI_profesores;
 	private JComboBox comboBoxColumna;
-	private JLabel lblNombre;
-	private JTextField txtApellido1;
+	private JLabel lblHorasProfesor;
+	private JTextField txtActividad;
 	private JLabel lblRelacionLaboral;
 	private JLabel lblTlfn1;
 	private JLabel lblTlfn2;
-	private JLabel lblEmail1;
-	private JLabel lblEmail2;
-	private JLabel lblDni;
-	private JLabel lblNumero;
-	private JLabel lblApellido1;
+	private JLabel lblProfesor;
+	private JLabel lblCodSala;
+	private JLabel lblHora;
+	private JLabel lblFecha;
+	private JLabel lblActividad;
 	private JLabel lblTitulacion;
-	private JTextField txtApellido2;
-	private JLabel lblApellido2;
+	private JTextField txtCodGrupo;
+	private JLabel lblGrupo;
 	private String activo;
 	private JLabel lblInfo;
 
@@ -96,46 +96,46 @@ public class GestionRegistrosAddMod extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		txtNumero = new JTextField();
+		txtFecha = new JTextField();
 
-		txtNumero.setBounds(150, 201, 247, 30);
-		contentPane.add(txtNumero);
-		txtNumero.setColumns(10);
+		txtFecha.setBounds(150, 201, 247, 30);
+		contentPane.add(txtFecha);
+		txtFecha.setColumns(10);
 
-		txtDni = new JTextField();
-		txtDni.setBounds(575, 201, 250, 30);
-		contentPane.add(txtDni);
-		txtDni.setColumns(10);
+		txtHora = new JTextField();
+		txtHora.setBounds(575, 201, 250, 30);
+		contentPane.add(txtHora);
+		txtHora.setColumns(10);
 
-		txtNombre = new JTextField();
-		txtNombre.setBounds(150, 281, 250, 30);
-		contentPane.add(txtNombre);
-		txtNombre.setColumns(10);
+		txtHorasProfesor = new JTextField();
+		txtHorasProfesor.setBounds(150, 281, 250, 30);
+		contentPane.add(txtHorasProfesor);
+		txtHorasProfesor.setColumns(10);
 
-		txtApellido1 = new JTextField();
-		txtApellido1.setBounds(575, 281, 250, 30);
-		contentPane.add(txtApellido1);
-		txtApellido1.setColumns(10);
+		txtActividad = new JTextField();
+		txtActividad.setBounds(575, 281, 250, 30);
+		contentPane.add(txtActividad);
+		txtActividad.setColumns(10);
 
-		txtApellido2 = new JTextField();
-		txtApellido2.setColumns(10);
-		txtApellido2.setBounds(150, 361, 250, 30);
-		contentPane.add(txtApellido2);
+		txtCodGrupo = new JTextField();
+		txtCodGrupo.setColumns(10);
+		txtCodGrupo.setBounds(150, 361, 250, 30);
+		contentPane.add(txtCodGrupo);
 
-		txtTitulacion = new JTextField();
-		txtTitulacion.setBounds(575, 361, 247, 30);
-		contentPane.add(txtTitulacion);
-		txtTitulacion.setColumns(10);
+		txtCodActor = new JTextField();
+		txtCodActor.setBounds(575, 361, 247, 30);
+		contentPane.add(txtCodActor);
+		txtCodActor.setColumns(10);
 
-		txtEmail1 = new JTextField();
-		txtEmail1.setColumns(10);
-		txtEmail1.setBounds(150, 440, 247, 30);
-		contentPane.add(txtEmail1);
+		txtProfesor = new JTextField();
+		txtProfesor.setColumns(10);
+		txtProfesor.setBounds(150, 440, 247, 30);
+		contentPane.add(txtProfesor);
 
-		txtEmail2 = new JTextField();
-		txtEmail2.setColumns(10);
-		txtEmail2.setBounds(575, 440, 247, 30);
-		contentPane.add(txtEmail2);
+		txtCodSala = new JTextField();
+		txtCodSala.setColumns(10);
+		txtCodSala.setBounds(575, 440, 247, 30);
+		contentPane.add(txtCodSala);
 
 		txtTelefono1 = new JTextField();
 		txtTelefono1.setColumns(10);
@@ -158,7 +158,7 @@ public class GestionRegistrosAddMod extends JFrame {
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
-		lblTitulo = new JLabel("Profesores");
+		lblTitulo = new JLabel("Registros");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
@@ -222,7 +222,7 @@ public class GestionRegistrosAddMod extends JFrame {
 					limpiarTxt();
 				}
 				setVisible(false);
-				controlador.gestionProfesoresAddModToGestionProfesores();
+				controlador.gestionRegistrosAddModToGestionRegistros();
 
 			}
 		});
@@ -241,45 +241,45 @@ public class GestionRegistrosAddMod extends JFrame {
 		btnGuardarCambios.setBounds(636, 685, 137, 40);
 		contentPane.add(btnGuardarCambios);
 
-		lblNumero = new JLabel("Numero");
-		lblNumero.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumero.setBounds(150, 177, 250, 20);
-		contentPane.add(lblNumero);
+		lblFecha = new JLabel("Fecha");
+		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFecha.setBounds(150, 177, 250, 20);
+		contentPane.add(lblFecha);
 
-		lblDni = new JLabel("D.N.I");
-		lblDni.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDni.setBounds(575, 177, 250, 20);
-		contentPane.add(lblDni);
+		lblHora = new JLabel("Hora");
+		lblHora.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHora.setBounds(575, 177, 250, 20);
+		contentPane.add(lblHora);
 
-		lblNombre = new JLabel("Nombre");
-		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombre.setBounds(150, 257, 250, 20);
-		contentPane.add(lblNombre);
+		lblHorasProfesor = new JLabel("Horas de profesor");
+		lblHorasProfesor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHorasProfesor.setBounds(150, 257, 250, 20);
+		contentPane.add(lblHorasProfesor);
 
-		lblApellido1 = new JLabel("Apellido 1");
-		lblApellido1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblApellido1.setBounds(575, 257, 250, 20);
-		contentPane.add(lblApellido1);
+		lblActividad = new JLabel("Actividad");
+		lblActividad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActividad.setBounds(575, 257, 250, 20);
+		contentPane.add(lblActividad);
 
-		lblApellido2 = new JLabel("Apellido 2");
-		lblApellido2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblApellido2.setBounds(150, 336, 250, 20);
-		contentPane.add(lblApellido2);
+		lblGrupo = new JLabel("Código de grupo");
+		lblGrupo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGrupo.setBounds(150, 336, 250, 20);
+		contentPane.add(lblGrupo);
 
-		lblTitulacion = new JLabel("Titulacion");
+		lblTitulacion = new JLabel("Código de actor");
 		lblTitulacion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulacion.setBounds(575, 336, 250, 20);
 		contentPane.add(lblTitulacion);
 
-		lblEmail1 = new JLabel("Email 1");
-		lblEmail1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail1.setBounds(150, 416, 250, 20);
-		contentPane.add(lblEmail1);
+		lblProfesor = new JLabel("Código de profesor");
+		lblProfesor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProfesor.setBounds(150, 416, 250, 20);
+		contentPane.add(lblProfesor);
 
-		lblEmail2 = new JLabel("Email 2");
-		lblEmail2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail2.setBounds(575, 416, 250, 20);
-		contentPane.add(lblEmail2);
+		lblCodSala = new JLabel("Código de sala");
+		lblCodSala.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodSala.setBounds(575, 416, 250, 20);
+		contentPane.add(lblCodSala);
 
 		lblTlfn1 = new JLabel("Telefono 1");
 		lblTlfn1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -323,27 +323,27 @@ public class GestionRegistrosAddMod extends JFrame {
 	// Getters
 
 	public String getNumero() {
-		return txtNumero.getText();
+		return txtFecha.getText();
 	}
 
 	public String getNombre() {
-		return txtNombre.getText();
+		return txtHorasProfesor.getText();
 	}
 
 	public String getApellido1() {
-		return txtApellido1.getText();
+		return txtActividad.getText();
 	}
 
 	public String getApellido2() {
-		return txtApellido2.getText();
+		return txtCodGrupo.getText();
 	}
 
 	public String getTitulacion() {
-		return txtTitulacion.getText();
+		return txtCodActor.getText();
 	}
 
 	public String getDni() {
-		return txtDni.getText();
+		return txtHora.getText();
 	}
 
 	public String getRelacion_laboral() {
@@ -359,11 +359,11 @@ public class GestionRegistrosAddMod extends JFrame {
 	}
 
 	public String getEmail1() {
-		return txtEmail1.getText();
+		return txtProfesor.getText();
 	}
 
 	public String getEmail2() {
-		return txtEmail2.getText();
+		return txtCodSala.getText();
 	}
 
 	public String getAI_profesores() {
@@ -378,14 +378,14 @@ public class GestionRegistrosAddMod extends JFrame {
 	//
 	public void rellenar() {
 		if (modeloGestionDatos.getRellenarDatos().length != 0) {
-			txtNumero.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
-			txtDni.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
-			txtNombre.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
-			txtApellido1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
-			txtApellido2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			txtTitulacion.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
-			txtEmail1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
-			txtEmail2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtFecha.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
+			txtHora.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
+			txtHorasProfesor.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
+			txtActividad.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
+			txtCodGrupo.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
+			txtCodActor.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
+			txtProfesor.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
+			txtCodSala.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
 			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
 			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
 			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
@@ -401,17 +401,17 @@ public class GestionRegistrosAddMod extends JFrame {
 	}
 
 	public void limpiarTxt() {
-		txtNumero.setText("");
-		txtNombre.setText("");
-		txtApellido1.setText("");
-		txtApellido2.setText("");
-		txtTitulacion.setText("");
-		txtDni.setText("");
+		txtFecha.setText("");
+		txtHorasProfesor.setText("");
+		txtActividad.setText("");
+		txtCodGrupo.setText("");
+		txtCodActor.setText("");
+		txtHora.setText("");
 		txtRelacion_laboral.setText("");
 		txtTelefono1.setText("");
 		txtTelefono2.setText("");
-		txtEmail1.setText("");
-		txtEmail2.setText("");
+		txtProfesor.setText("");
+		txtCodSala.setText("");
 		chckbxAI_profesores.setSelected(false);
 	}
 
