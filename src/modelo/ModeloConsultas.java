@@ -33,6 +33,7 @@ import vista.GestionAsignatura;
 import vista.GestionProfesores;
 import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
+import vista.GestionRegistrosAddMod;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
 import vista.Home;
@@ -61,6 +62,7 @@ public class ModeloConsultas {
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
 	private GestionProfesoresAddMod gestionProfesoresAddMod;
+	private GestionRegistrosAddMod gestionRegistrosAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -95,13 +97,16 @@ public class ModeloConsultas {
 	private String codigoRegistro;
 	private Object[] todosInformes;
 	private ArrayList<String[][]> todosInformesConDatos;
+	private String codigoRegistroHome;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
 
 	// Sentencias Select SQL TABLAS
 	private String selectHome;
-	private String selectDatosExtraHome;
+	private String selectDatosExtraHomeAlumnos;
+	private String selectDatosExtraHomeSimuladorYDoc;
+	private String selectDatosExtraHomeActor;
 	private String selectTodosUsuarios;
 	private String selectTodosRegistros;
 	private String selectTodosAlumnos;
@@ -201,7 +206,9 @@ public class ModeloConsultas {
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
 
 		selectHome = propiedades.getProperty("selectHome");
-		selectDatosExtraHome = propiedades.getProperty("selectDatosExtraHome");
+		selectDatosExtraHomeAlumnos = propiedades.getProperty("selectDatosExtraHomeAlumnos");
+		selectDatosExtraHomeSimuladorYDoc = propiedades.getProperty("selectDatosExtraHomeSimuladorYDoc");
+		selectDatosExtraHomeActor = propiedades.getProperty("selectDatosExtraHomeActor");
 		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
 		selectTodosRegistros = propiedades.getProperty("selectTodosRegistros");
 		selectTodosAlumnos = propiedades.getProperty("selectTodosAlumnos");
@@ -370,6 +377,10 @@ public class ModeloConsultas {
 	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
 		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
 	}
+	
+	public void setGestionRegistrosAddMod(GestionRegistrosAddMod gestionRegistrosAddMod) {
+		this.gestionRegistrosAddMod = gestionRegistrosAddMod;
+	}
 
 	public void setGestionSalas(GestionSalas gestionSalas) {
 		this.gestionSalas = gestionSalas;
@@ -415,7 +426,7 @@ public class ModeloConsultas {
 
 	public boolean tieneActor() {
 		boolean valor = false;
-		if (actor.equals("1")) {
+		if (!actor.equals("")) {
 			valor = true;
 		}
 		return valor;
@@ -448,11 +459,11 @@ public class ModeloConsultas {
 	public String getCodigoRegistro() {
 		return codigoRegistro;
 	}
-	
+
 	public ArrayList<String[][]> getTodosInformesConDatos() {
 		return todosInformesConDatos;
 	}
-	
+
 	public Object[] getTodosInformes() {
 		return todosInformes;
 	}
@@ -575,19 +586,33 @@ public class ModeloConsultas {
 
 	// TERMINAR
 
-	public void getDatosExtraHome(Object[] datos) {
+	public void getDatosExtraHome(String cod) {
 		PreparedStatement pstmt;
+		ResultSet rs;
 		try {
-			pstmt = conexion.prepareStatement(selectDatosExtraHome);
-			// Aqui irian los setString
-			ResultSet rs = pstmt.executeQuery();
-
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeAlumnos);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				numeroAlumos = rs.getString(1);
-				simulador = rs.getString(2);
-				actor = rs.getString(3);
-				documentacion = rs.getString(4);
 			}
+			
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeSimuladorYDoc);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				documentacion = rs.getString(1);
+				simulador = rs.getString(2);
+			}
+			
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeActor);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				actor = rs.getString(1);
+			}
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1037,7 +1062,7 @@ public class ModeloConsultas {
 	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
 		this.tableModel = tableModel;
 		TableRowSorter trs = new TableRowSorter(tableModel);
-		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 0));
+		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 1));
 		this.filtro = trs;
 		home.filtro();
 	}
@@ -1142,81 +1167,4 @@ public class ModeloConsultas {
 
 	}
 
-	// EN FASE DE IMPLEMENTACION
-	public void resultadoTodosInformes() {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ResultSetMetaData metadatos = null;
-		todosInformesConDatos = new ArrayList<String[][]>(); // 15 por el numero de selects que hay
-		String[][] datosInforme = null;
-
-		int contador = 1;
-		int ultimoRegistro = 0;
-		int numCol = 0;
-		
-		String[] cabeceras = null;
- 
-		for (int i = 0; i < todosInformes.length; i++) {
-
-			try {
-				// EJECUTAMOS LA CONSULTA PARA SABER EL NUMERO DE REGISTROS QUE HAY
-				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
-				rs = pstmt.executeQuery();
-				metadatos = rs.getMetaData();
-				
-				while (rs.next()) {
-					ultimoRegistro++;
-				}
-				
-				cabeceras = new String[numCol];
-				
-				for (int j = 0; j < numCol; j++) {
-					cabeceras[0] = metadatos.getColumnName(i);
-				}
-				
-				numCol = metadatos.getColumnCount();
-				datosInforme = new String[ultimoRegistro + 1][numCol];
-
-				// REPETIMOS LA SELECT PARA VOLVER A POSICIONAR EL CURSOR EN LA PRIMERA POSICION
-				// YA QUE NO SE PUEDE CON RS.FIRST
-				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-
-					for (int j = 1; j < numCol; j++) {
-						datosInforme[contador][j] = rs.getString(j + 1);
-					}
-
-					
-					contador++;
-				}
-				
-				for (int j = 0; j < cabeceras.length; j++) {
-					datosInforme[0][j] = cabeceras[j];
-				}
-				todosInformesConDatos.add(datosInforme);
-				
-				ultimoRegistro = 0;
-				contador = 1;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}
-		
-		for (String[][] strings : todosInformesConDatos) {
-			for (int row = 0; row < strings.length; row++) {
-				for (int col = 0; col < strings[row].length; col++) {
-					System.out.println(strings[row][col]);
-				}
-			}
-		}
-		
-		modelo.generarExcel();
-			
-		}
-		
-	}
-
-
+}
