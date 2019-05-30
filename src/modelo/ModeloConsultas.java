@@ -33,6 +33,7 @@ import vista.GestionAsignatura;
 import vista.GestionProfesores;
 import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
+import vista.GestionRegistrosAddMod;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
 import vista.Home;
@@ -61,6 +62,7 @@ public class ModeloConsultas {
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
 	private GestionProfesoresAddMod gestionProfesoresAddMod;
+	private GestionRegistrosAddMod gestionRegistrosAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -367,6 +369,10 @@ public class ModeloConsultas {
 
 	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
 		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
+	}
+	
+	public void setGestionRegistrosAddMod(GestionRegistrosAddMod gestionRegistrosAddMod) {
+		this.gestionRegistrosAddMod = gestionRegistrosAddMod;
 	}
 
 	public void setGestionSalas(GestionSalas gestionSalas) {
