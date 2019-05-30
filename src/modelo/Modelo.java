@@ -261,6 +261,7 @@ public class Modelo {
 			excel = Workbook.createWorkbook(new File(RUTA));
 
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -268,7 +269,7 @@ public class Modelo {
 		for (String[][] strings : informes) {
 
 			// CREAMOS LA HOJA DE EXCEL
-			WritableSheet hojaExcel = excel.createSheet("Hoja " + contador, 0);
+			WritableSheet hojaExcel = excel.createSheet("Hoja " + contador, contador);
 			contador++;
 
 			for (int row = 0; row < strings.length; row++) {

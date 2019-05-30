@@ -1146,7 +1146,7 @@ public class ModeloConsultas {
 				cabeceras = new String[numCol];
 				
 				for (int j = 0; j < numCol; j++) {
-					cabeceras[0] = metadatos.getColumnName(i + 1);
+					cabeceras[0] = metadatos.getColumnName(i);
 				}
 				
 				numCol = metadatos.getColumnCount();
