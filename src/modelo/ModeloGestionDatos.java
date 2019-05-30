@@ -95,11 +95,12 @@ public class ModeloGestionDatos {
 	private String insertOcupa;
 
 	// Sentencias Delete SQL
-//	private String deleteAlumno;
+	// private String deleteAlumno;
 	private String deleteUsuario;
 	private String deleteSala;
 	private String deleteOcupa;
 	private String deleteActuaRegistro;
+	private String deleteAsignatura;
 	private String deleteParticipaRegistro;
 	private String deleteRealizaRegistro;
 	private String deleteOcupaRegistro;
@@ -107,11 +108,15 @@ public class ModeloGestionDatos {
 
 	// Sentincias Update SQL
 	private String updateAlumno;
+	private String updateAsignatura;
 	private String updateSala;
 	private String updateRegistro;
 	private String updateUsuario;
+	private String updateProfesor;
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
+	private String activoInactivoUpdateProfesor;
+
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -198,7 +203,6 @@ public class ModeloGestionDatos {
 
 	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
 		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
-
 	}
 
 	public void setGestionProfesores(GestionProfesores gestionProfesores) {
@@ -221,6 +225,7 @@ public class ModeloGestionDatos {
 	public boolean getSeHaBorrado() {
 		return seHaBorrado;
 	}
+
 	public boolean getSeHaCambiadoEstado() {
 		return seHaCambiadoEstado;
 	}
@@ -229,11 +234,15 @@ public class ModeloGestionDatos {
 		return seHaCreado;
 	}
 
+	public boolean getVaciarDatos() {
+		return datosProfe.removeAll(datosProfe);
+	}
+
 	public Object[] getDatosfilasTabla() {
 		return datosFilastabla.toArray();
 
 	}
-	
+
 	public Object[] getRellenarDatos() {
 		return datosProfe.toArray();
 	}
@@ -265,7 +274,7 @@ public class ModeloGestionDatos {
 	 * Metodo para asignar las sentencias de borrado a los atributos
 	 */
 	private void asignacionBorrado() {
-//		deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
+		// deleteAlumno = propiedadesBorrado.getProperty("deleteAlumno");
 		deleteUsuario = propiedadesBorrado.getProperty("deleteUsuario");
 		deleteSala = propiedadesBorrado.getProperty("deleteSala");
 		deleteOcupa = propiedadesBorrado.getProperty("deleteOcupa");
@@ -275,6 +284,8 @@ public class ModeloGestionDatos {
 		deleteRealizaRegistro = propiedadesBorrado.getProperty("deleteRealizaRegistro");
 		deleteOcupaRegistro = propiedadesBorrado.getProperty("deleteOcupaRegistro");
 		deleteRegistro = propiedadesBorrado.getProperty("deleteRegistro");
+		//
+		deleteAsignatura = propiedadesBorrado.getProperty("deleteAsignatura");
 	}
 
 	/**
@@ -282,18 +293,26 @@ public class ModeloGestionDatos {
 	 */
 	private void asignacionModificacion() {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
+		updateAsignatura = propiedadesModificacion.getProperty("updateAsignatura");
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
+		updateProfesor = propiedadesModificacion.getProperty("updateProfesor");
+		//
+		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
+		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
 
 	}
 
 	/**
 	 * Metodo para crear un usuario en la BBDD
 	 *
-	 * @param user   El usuario a crear
-	 * @param passwd La contraseÃ±a del usuario
-	 * @param rol    El rol del usuario
+	 * @param user
+	 *            El usuario a crear
+	 * @param passwd
+	 *            La contraseÃ±a del usuario
+	 * @param rol
+	 *            El rol del usuario
 	 * @return Un String con el estado del metodo (si se ha creado o no)
 	 */
 	public String crearUsuario(String user, String rol, String correo) {
@@ -308,9 +327,11 @@ public class ModeloGestionDatos {
 			ResultSet rs = pstmt.executeQuery();
 			modelo.enviarCorreoGmail(correo, user, passwd);
 			respuesta = "Usuario creado";
-		} catch (Exception e) {
-			respuesta = "Error, algun campo vacio";
+		}catch (SQLIntegrityConstraintViolationException e) {
+			respuesta = "Error, el usuario ya existe";
 			crearUsuario.actualizarInfo();
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -338,14 +359,14 @@ public class ModeloGestionDatos {
 						respuesta = "Usuario modificado correctamente";
 
 					} else {
-						respuesta = "Error, las nuevas contraseñas no coinciden";
+						respuesta = "Error, las nuevas contraseï¿½as no coinciden";
 					}
 
 				} else {
-					respuesta = "Error, contraseña incorrecta";
+					respuesta = "Error, contraseï¿½a incorrecta";
 				}
 			} else {
-				respuesta = "Error, los campos de usuario y email están vacios";
+				respuesta = "Error, los campos de usuario y email estï¿½n vacios";
 			}
 
 		} catch (Exception e) {
@@ -360,8 +381,10 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear un alumno en la BBDD
 	 *
-	 * @param exp    El expediente del alumno
-	 * @param nombre El nombre del alumno
+	 * @param exp
+	 *            El expediente del alumno
+	 * @param nombre
+	 *            El nombre del alumno
 	 */
 	public void crearAlumno(String exp, String nombre) {
 		if (!exp.isEmpty() && !nombre.isEmpty()) {
@@ -388,22 +411,25 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear una sala en la BBDD
 	 *
-	 * @param cod       Codigo de la sala
-	 * @param tipo      Tipo de sala
-	 * @param numero    Numero de la sala
-	 * @param capacidad Capacidad de la sala
+	 * @param cod
+	 *            Codigo de la sala
+	 * @param tipo
+	 *            Tipo de sala
+	 * @param numero
+	 *            Numero de la sala
+	 * @param capacidad
+	 *            Capacidad de la sala
 	 */
-	public void crearSala(String cod, String tipo, String numero, String capacidad) {
-		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
+	public void crearSala(String tipo, String numero, String capacidad) {
+		if (!tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(insertSala);
-				pstmt.setString(1, cod);
+				pstmt.setString(1, modeloConsultas.getUltimoRegistro());
 				pstmt.setString(2, tipo);
 				pstmt.setString(3, numero);
 				pstmt.setString(4, capacidad);
 				addDatos(pstmt);
 				datosFilastabla.removeAll(datosFilastabla);
-				datosFilastabla.add(cod);
 				datosFilastabla.add(tipo);
 				datosFilastabla.add(numero);
 				datosFilastabla.add(capacidad);
@@ -420,10 +446,39 @@ public class ModeloGestionDatos {
 
 	}
 
+	public void crearAsignatura(String codigoAsignatura, String nombre, String titulacion, String curso) {
+		if (!codigoAsignatura.isEmpty() && !nombre.isEmpty() && !titulacion.isEmpty() && !curso.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertAsignatura);
+				pstmt.setString(1, codigoAsignatura);
+				pstmt.setString(2, nombre);
+				pstmt.setString(3, titulacion);
+				pstmt.setString(4, curso);
+				addDatos(pstmt);
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(codigoAsignatura);
+				datosFilastabla.add(nombre);
+				datosFilastabla.add(titulacion);
+				datosFilastabla.add(curso);
+				seHaCreado = true;
+				respuesta = "Asignatura creada";
+				gestionAsignatura.actualizarInfoDatos();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, asignatura ya creada";
+			gestionAsignatura.actualizarInfoDatos();
+		}
+
+	}
+
 	/**
 	 * Metodo para ejecutar las sentencias
 	 *
-	 * @param pstmt La sentencia con los interrogantes puestos
+	 * @param pstmt
+	 *            La sentencia con los interrogantes puestos
 	 */
 	private void addDatos(PreparedStatement pstmt) {
 		try {
@@ -437,8 +492,10 @@ public class ModeloGestionDatos {
 	 * Metodo para borrar datos de una tabla en funcion de la tabla a la que se haga
 	 * referencia
 	 *
-	 * @param clave  La clave de la fila a borrar
-	 * @param opcion El tipo de tabla al que se hace referencia
+	 * @param clave
+	 *            La clave de la fila a borrar
+	 * @param opcion
+	 *            El tipo de tabla al que se hace referencia
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
 	public boolean opcionesBorrarDatos(String clave, String opcion) {
@@ -456,6 +513,8 @@ public class ModeloGestionDatos {
 			break;
 		case "D":
 			// sql = deleteAsignatura;
+			seHaBorrado = borrarDatos(deleteAsignatura);
+
 			break;
 		case "E":
 			seHaBorrado = borrarDatos(deleteOcupa);
@@ -474,15 +533,14 @@ public class ModeloGestionDatos {
 		return seHaBorrado;
 
 	}
-	
-	
-	public boolean opcionesActivoDatos(int activo ,String clave, String opcion) {
+
+	public boolean opcionesActivoDatos(int activo, String clave, String opcion) {
 		this.clave = clave;
 		this.activo = activo;
 		seHaCambiadoEstado = false;
 		switch (opcion) {
 		case "A":
-			seHaCambiadoEstado = ActivoDatos(updateAlumno);
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateAlumno);
 			break;
 		case "B":
 
@@ -494,11 +552,16 @@ public class ModeloGestionDatos {
 			// sql = deleteAsignatura;
 			break;
 		case "E":
-			
+
 			break;
 		case "F":
 			// sql = deleteRegistros;
-		
+
+			break;
+		case "G":
+			// sql = activoProfesor ;
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateProfesor);
+
 			break;
 		}
 
@@ -509,7 +572,8 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para borrar los datos
 	 *
-	 * @param sql La sentencia de borrado
+	 * @param sql
+	 *            La sentencia de borrado
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
 	private boolean borrarDatos(String sql) {
@@ -525,7 +589,16 @@ public class ModeloGestionDatos {
 		}
 		return seHaBorrado;
 	}
-	
+
+	/**
+	 *
+	 * Metodo que se utiliza para poner un dato activo o inactivo
+	 *
+	 * @param sql
+	 *            sentencia del update activo/inactivo
+	 * @return booleano que indica si la sentnecia se realiza con exito
+	 */
+
 	private boolean ActivoDatos(String sql) {
 		seHaCambiadoEstado = false;
 		try {
@@ -539,16 +612,16 @@ public class ModeloGestionDatos {
 		}
 		return seHaCambiadoEstado;
 	}
-	
-
-	
 
 	/**
 	 * Metodo para modificar los datos de un alumno
 	 *
-	 * @param exp    El expediente del alumno
-	 * @param nombre El nombre del alumno
-	 * @param activo El estado del alumno
+	 * @param exp
+	 *            El expediente del alumno
+	 * @param nombre
+	 *            El nombre del alumno
+	 * @param activo
+	 *            El estado del alumno
 	 */
 	public void modificarAlumno(String exp, String nombre, int activo) {
 		String sql = updateAlumno;
@@ -569,29 +642,30 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 	}
-	
-	
 
 	/**
 	 * Metodo para modificar los datos de una sala
 	 *
-	 * @param cod       Codigo de la sala
-	 * @param tipo      El tipo de sala
-	 * @param numero    El numero de la sala
-	 * @param capacidad La capacidad de la sala
+	 * @param cod
+	 *            Codigo de la sala
+	 * @param tipo
+	 *            El tipo de sala
+	 * @param numero
+	 *            El numero de la sala
+	 * @param capacidad
+	 *            La capacidad de la sala
 	 */
-	public void modificarSala(String cod, String tipo, String numero, String capacidad) {
-		if (!cod.isEmpty() && !tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
+	public void modificarSala(String tipo, String numero, String capacidad) {
+		if (!tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(updateSala);
 				pstmt.setString(1, tipo);
 				pstmt.setString(2, capacidad);
 				pstmt.setString(3, numero);
-				pstmt.setString(4, cod);
-				addDatos(pstmt);
-
+				pstmt.setString(4, modeloConsultas.getCodigoRegistro());
+				pstmt.executeUpdate();
 				seHaCreado = true;
-respuesta = "Has modificado sala";
+				respuesta = "Has modificado sala";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -604,7 +678,6 @@ respuesta = "Has modificado sala";
 
 	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor,
 			String actividadNombre) {
-		// TODO Auto-generated method stub
 		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty()
 				&& !actividadNombre.isEmpty()) {
 			try {
@@ -624,33 +697,175 @@ respuesta = "Has modificado sala";
 		} else {
 			seHaCreado = false;
 			respuesta = "Error, estas modificando el codigo de registro";
-//			gestionRegistros.actualizarInfoDatos();
+			// gestionRegistros.actualizarInfoDatos();
 		}
 
 	}
 
-	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp, String titulacion,
-			String dni, String activo, String relacion, String tlf1, String tlf2, String mail1, String mail2) {
+	public void modificarProfesor(String numero, String nombre, String Apellido1, String Apellido2, String titulacion,
+			String dni, String AI_profesores, String relacion_laboral, String telefono1, String telefono2,
+			String email1, String email2) {
+
+		if (!numero.isEmpty() && !nombre.isEmpty() && !Apellido1.isEmpty() && !Apellido2.isEmpty()
+				&& !titulacion.isEmpty() && !dni.isEmpty() && !AI_profesores.isEmpty() && !relacion_laboral.isEmpty()
+				&& !telefono1.isEmpty() && !telefono2.isEmpty() && !email1.isEmpty() && !email2.isEmpty()) {
+
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateProfesor);
+				pstmt.setString(1, nombre);
+				pstmt.setString(2, Apellido1);
+				pstmt.setString(3, Apellido2);
+				pstmt.setString(4, titulacion);
+				pstmt.setString(5, dni);
+				pstmt.setString(6, AI_profesores);
+				pstmt.setString(7, relacion_laboral);
+				pstmt.setString(8, telefono1);
+				pstmt.setString(9, telefono2);
+				pstmt.setString(10, email1);
+				pstmt.setString(11, email2);
+				pstmt.setString(12, numero);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			respuesta = "Error, estas modificando el numero del profesor";
+			gestionProfesoresAddMod.actualizarInfoDatos();
+		}
+	}
+
+	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp,
+			String titulacion, String dni, String activo, String relacion, String tlf1, String tlf2, String mail1,
+			String mail2) {
 		datosProfe.removeAll(datosProfe);
 		String.valueOf(datosProfe.add(numGP));
+		String.valueOf(datosProfe.add(dni));
 		String.valueOf(datosProfe.add(nombreProfeGP));
 		String.valueOf(datosProfe.add(ape1gp));
-//		String.valueOf(datosProfe.add(ape2gp));
+		String.valueOf(datosProfe.add(ape2gp));
 		String.valueOf(datosProfe.add(titulacion));
-		String.valueOf(datosProfe.add(dni));
-		String.valueOf(datosProfe.add(relacion));
-		String.valueOf(datosProfe.add(tlf1));
-		String.valueOf(datosProfe.add(tlf2));
 		String.valueOf(datosProfe.add(mail1));
 		String.valueOf(datosProfe.add(mail2));
-		
-		
+		String.valueOf(datosProfe.add(tlf1));
+		String.valueOf(datosProfe.add(tlf2));
+		String.valueOf(datosProfe.add(relacion));
+		String.valueOf(datosProfe.add(activo));
 		return datosProfe;
 
 	}
 
+	public void crearProfesor(String numero, String nombre, String Apellido1, String Apellido2, String titulacion,
+			String dni, String AI_profesores, String relacion_laboral, String telefono1, String telefono2,
+			String email1, String email2) {
+		if (!numero.isEmpty() && !nombre.isEmpty() && !Apellido1.isEmpty() && !Apellido2.isEmpty()
+				&& !titulacion.isEmpty() && !dni.isEmpty() && !AI_profesores.isEmpty() && !relacion_laboral.isEmpty()
+				&& !telefono1.isEmpty() && !telefono2.isEmpty() && !email1.isEmpty() && !email2.isEmpty()) {
+
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertProfesor);
+				pstmt.setString(1, numero);
+				pstmt.setString(2, nombre);
+				pstmt.setString(3, Apellido1);
+				pstmt.setString(4, Apellido2);
+				pstmt.setString(5, titulacion);
+				pstmt.setString(6, dni);
+				pstmt.setString(7, AI_profesores);
+				pstmt.setString(8, relacion_laboral);
+				pstmt.setString(9, telefono1);
+				pstmt.setString(10, telefono2);
+				pstmt.setString(11, email1);
+				pstmt.setString(12, email2);
+				addDatos(pstmt);
+				seHaCreado = true;
+				datosProfe.removeAll(datosProfe);
+				String.valueOf(datosProfe.add(numero));
+				String.valueOf(datosProfe.add(nombre));
+				String.valueOf(datosProfe.add(Apellido1));
+				String.valueOf(datosProfe.add(Apellido2));
+				String.valueOf(datosProfe.add(titulacion));
+				String.valueOf(datosProfe.add(dni));
+				String.valueOf(datosProfe.add(AI_profesores));
+				String.valueOf(datosProfe.add(relacion_laboral));
+				String.valueOf(datosProfe.add(telefono1));
+				String.valueOf(datosProfe.add(telefono2));
+				String.valueOf(datosProfe.add(email1));
+				String.valueOf(datosProfe.add(email2));
+
+				for (int i = 0; i < datosProfe.toArray().length; i++) {
+					System.out.println(i + " " + getRellenarDatos()[i]);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			respuesta = "Error, algÃºn campo vacio";
+		}
+	}
 
 
-	
+
+	public void modificarAsignatura(String codigoAsignatura, String nombre, String titulacion, String curso) {
+		if (!codigoAsignatura.isEmpty() && !nombre.isEmpty() && !titulacion.isEmpty() && !curso.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateAsignatura);
+				pstmt.setString(1, nombre);
+				pstmt.setString(2, titulacion);
+				pstmt.setString(3, curso);
+				pstmt.setString(4, codigoAsignatura);
+				pstmt.executeUpdate();
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(nombre);
+				datosFilastabla.add(titulacion);
+				datosFilastabla.add(curso);
+				seHaCreado = true;
+				respuesta = "Asignatura modificada";
+				gestionAsignatura.actualizarInfoDatos();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, no puedes modificar el codifgo de la asignatura ya creada";
+			gestionAsignatura.actualizarInfoDatos();
+		}
+
+	}
+
+	public void crearActor(String nombre, String edad, String genero, String idioma, String complexion,
+			String activo2) {
+		if (!nombre.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertActor);
+				pstmt.setString(1, modeloConsultas.getUltimoRegistro());
+				pstmt.setString(2, nombre);
+				pstmt.setString(3, edad);
+				pstmt.setString(4, genero);
+				pstmt.setString(5, idioma);
+				pstmt.setString(6, complexion);
+				pstmt.setString(7, activo2);
+
+				addDatos(pstmt);
+
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(nombre);
+				datosFilastabla.add(edad);
+				datosFilastabla.add(genero);
+				datosFilastabla.add(idioma);
+				datosFilastabla.add(complexion);
+				datosFilastabla.add(activo2);
+				
+				respuesta = "Actor creado";
+				seHaCreado = true;
+			} catch (Exception e) {
+				seHaCreado = false;
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, nombre vacio";
+		}
+		gestionAlumnos.actualizarInfo();
+	}
 
 }

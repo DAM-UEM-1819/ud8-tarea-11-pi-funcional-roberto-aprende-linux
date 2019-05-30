@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -56,6 +57,7 @@ public class GestionRegistros extends JFrame {
 	private JLabel lblImportarActividades;
 	private JButton btnModificar;
 	private JLabel lblInfo;
+	private JLabel lblLupa;
 
 	/**
 	 * Create the frame.
@@ -80,7 +82,7 @@ public class GestionRegistros extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 450);
+		scrollPane.setBounds(100, 145, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaRegistros = new JTable();
@@ -102,39 +104,39 @@ public class GestionRegistros extends JFrame {
 		scrollPane.setViewportView(tablaRegistros);
 
 		txtCod_registro = new JTextField();
-		txtCod_registro.setBounds(108, 629, 155, 30);
+		txtCod_registro.setBounds(100, 629, 150, 30);
 		contentPane.add(txtCod_registro);
 		txtCod_registro.setColumns(10);
 
 		txtFecha = new JTextField();
-		txtFecha.setBounds(273, 629, 164, 30);
+		txtFecha.setBounds(262, 629, 150, 30);
 		contentPane.add(txtFecha);
 		txtFecha.setColumns(10);
 
 		txtHora = new JTextField();
-		txtHora.setBounds(447, 629, 146, 30);
+		txtHora.setBounds(424, 629, 150, 30);
 		contentPane.add(txtHora);
 		txtHora.setColumns(10);
 
 		txtHorasProfesor = new JTextField();
-		txtHorasProfesor.setBounds(603, 629, 155, 30);
+		txtHorasProfesor.setBounds(586, 629, 150, 30);
 		contentPane.add(txtHorasProfesor);
 		txtHorasProfesor.setColumns(10);
 
 		txtActividadNombre = new JTextField();
-		txtActividadNombre.setBounds(768, 629, 121, 30);
+		txtActividadNombre.setBounds(750, 629, 150, 30);
 		contentPane.add(txtActividadNombre);
 		txtActividadNombre.setColumns(10);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Registros");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 202, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -143,7 +145,26 @@ public class GestionRegistros extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -168,7 +189,7 @@ public class GestionRegistros extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -178,25 +199,27 @@ public class GestionRegistros extends JFrame {
 				controlador.gestionRegistrosToGestion();
 			}
 		});
-		btnVolver.setBounds(96, 690, 120, 40);
+		btnVolver.setBounds(100, 690, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnBorrarRegistro = new JButton("Borrar Registro");
 		btnBorrarRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controlador.solicitudBorrar(this);
+				if (confirmacionBorrar() == 0) {
+					controlador.solicitudBorrar(this);
 
-				if (modeloGestionDatos.getSeHaBorrado()) {
-					borrado();
+					if (modeloGestionDatos.getSeHaBorrado()) {
+						borrado();
+					}
 				}
 			}
 		});
-		btnBorrarRegistro.setBounds(273, 690, 120, 40);
+		btnBorrarRegistro.setBounds(532, 690, 150, 40);
 		contentPane.add(btnBorrarRegistro);
 
 		btnAddRegistro = new JButton("A\u00F1adir Registro");
 
-		btnAddRegistro.setBounds(778, 690, 120, 40);
+		btnAddRegistro.setBounds(750, 690, 150, 40);
 		contentPane.add(btnAddRegistro);
 
 		txtBuscador = new JTextField();
@@ -218,14 +241,14 @@ public class GestionRegistros extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 111, 140, 22);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
 		lblImportarActividades = new JLabel("Importar Registros");
 		lblImportarActividades.setIcon(
 				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblImportarActividades.setBounds(98, 127, 124, 20);
+		lblImportarActividades.setBounds(98, 111, 124, 20);
 		contentPane.add(lblImportarActividades);
 		lblImportarActividades.setVisible(false);
 
@@ -238,13 +261,19 @@ public class GestionRegistros extends JFrame {
 				}
 			}
 		});
-		btnModificar.setBounds(505, 690, 120, 40);
+		btnModificar.setBounds(316, 690, 150, 40);
 		contentPane.add(btnModificar);
 		
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(234, 111, 429, 23);
 		contentPane.add(lblInfo);
+		
+
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 	}
 
 	// Setter
@@ -333,5 +362,15 @@ public class GestionRegistros extends JFrame {
 	
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+	
+	public int confirmacionBorrar() {
+		int confirmacion = 1;
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea borrar el registro seleccionado?");
+		if (JOptionPane.YES_OPTION== valorRetorno) {
+			confirmacion = 0;
+		}
+		
+		return confirmacion;
 	}
 }

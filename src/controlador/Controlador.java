@@ -16,7 +16,7 @@ public class Controlador implements IControlador {
 	private Home home;
 	private Gestion gestion;
 	private Informes informes;
-//	private Ocupaciones ocupaciones;
+	// private Ocupaciones ocupaciones;
 	private InformacionExtra infoExtra;
 	private CrearUsuario crearUsuario;
 	private GestionUsuarios gestionUsuarios;
@@ -52,9 +52,9 @@ public class Controlador implements IControlador {
 		this.informes = informes;
 	}
 
-//		public void setOcupaciones(Ocupaciones ocupaciones) {
-//			this.ocupaciones = ocupaciones;
-//		}
+	// public void setOcupaciones(Ocupaciones ocupaciones) {
+	// this.ocupaciones = ocupaciones;
+	// }
 
 	public void setInfoExtra(InformacionExtra infoExtra) {
 		this.infoExtra = infoExtra;
@@ -155,7 +155,7 @@ public class Controlador implements IControlador {
 
 	public void homeToOcupaciones() {
 		home.setVisible(false);
-//		ocupaciones.setVisible(true);
+		// ocupaciones.setVisible(true);
 	}
 
 	public void homeToPerfil() {
@@ -165,7 +165,7 @@ public class Controlador implements IControlador {
 
 	// VENTANA OCUPACIONES
 	public void ocupacionesToHome() {
-//		ocupaciones.setVisible(false);
+		// ocupaciones.setVisible(false);
 		home.setVisible(true);
 	}
 
@@ -227,6 +227,16 @@ public class Controlador implements IControlador {
 		perfil.setVisible(true);
 	}
 
+	public void solicitudInforme() {
+		modeloConsultas.crearInforme(informes.getModel(), informes.getInforme());
+
+	}
+	
+	public void solicitudDescargarInforme() {
+		modeloConsultas.resultadoTodosInformes();
+		
+	}
+
 	// VENTANA INFORMACION EXTRA
 	public void infoExtraToHome() {
 		home.setVisible(true);
@@ -234,6 +244,10 @@ public class Controlador implements IControlador {
 
 	public void infoExtraToPerfil() {
 		perfil.setVisible(true);
+	}
+
+	public void solicitudDatosInfoExtra() {
+		modeloConsultas.datosInfoExtra(infoExtra.getModelProfesores(), infoExtra.getModelAlumnos());
 	}
 
 	// VENTANA CREAR USUARIO
@@ -260,10 +274,6 @@ public class Controlador implements IControlador {
 
 	public void solicitudDatosUsuarios() {
 		modeloConsultas.getTablaUsuarios(gestionUsuarios.getModel());
-	}
-
-	public void solicitudBuscadorUsuario() {
-		modeloConsultas.buscadorUsuarios(gestionUsuarios.getModel(), gestionUsuarios.getPalabraBuscador());
 	}
 
 	// VENTANA GESTION ACAD
@@ -304,6 +314,19 @@ public class Controlador implements IControlador {
 	public void solicitudDatosActores() {
 		modeloConsultas.getTablaActores(gestionActores.getModel());
 	}
+	
+
+	public void solicitudAddActor() {
+		modeloConsultas.ultimoCodActor();
+		modeloGestionDatos.crearActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
+		
+	}
+	
+
+	/*public void solicitudBorrarActor() {
+		modeloConsultas
+		
+	}*/
 
 	// VENTANA GESTION ALUMNOS
 	public void gestionAlumnosToGestion() {
@@ -324,7 +347,7 @@ public class Controlador implements IControlador {
 
 	public void solicitudBorrar(Object obj) {
 		String clase = obj.getClass().toString();
-		String opcion = clase.substring(12, clase.length() - 2).toUpperCase();
+		String opcion = clase.substring(12, clase.indexOf("$")).toUpperCase();
 		switch (opcion) {
 		case "GESTIONALUMNOS":
 			modeloGestionDatos.opcionesActivoDatos(gestionAlumnos.estadoCheckBox(), gestionAlumnos.getPrimaryKey(),
@@ -339,11 +362,15 @@ public class Controlador implements IControlador {
 		case "GESTIONASIGNATURA":
 			modeloGestionDatos.opcionesBorrarDatos(gestionAsignatura.getPrimaryKey(), "D");
 			break;
-		case "GESTIONSALAS$":
+		case "GESTIONSALAS":
 			modeloGestionDatos.opcionesBorrarDatos(gestionSalas.getPrimaryKey(), "E");
 			break;
 		case "GESTIONREGISTROS":
 			modeloGestionDatos.opcionesBorrarDatos(gestionRegistros.getPrimaryKey(), "F");
+			break;
+		case "GESTIONPROFESORES":
+			modeloGestionDatos.opcionesActivoDatos(Integer.parseInt(gestionProfesores.getActivo()),
+					gestionProfesores.getPrimaryKey(), "G");
 			break;
 		}
 
@@ -352,10 +379,6 @@ public class Controlador implements IControlador {
 	public void solicitudModificarAlumno() {
 		modeloGestionDatos.modificarAlumno(gestionAlumnos.getExp(), gestionAlumnos.getNombre(),
 				gestionAlumnos.estadoCheckBox());
-	}
-
-	public void solicitudBuscadorAlumno() {
-		modeloConsultas.buscadorAlumnos(gestionAlumnos.getModel(), gestionAlumnos.getPalabraBuscador());
 	}
 
 	// VENTANA GESTION REGISTROS
@@ -389,6 +412,20 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaAsignatura(gestionAsignatura.getModel());
 	}
 
+	public void crearAsignatura() {
+		modeloGestionDatos.crearAsignatura(gestionAsignatura.getCodigoAsignatura(), gestionAsignatura.getNombre(),
+				gestionAsignatura.getTitulacion(), gestionAsignatura.getCurso());
+
+	}
+	
+	public void modAsignatura() {
+		modeloGestionDatos.modificarAsignatura(gestionAsignatura.getCodigoAsignatura(), gestionAsignatura.getNombre(),
+				gestionAsignatura.getTitulacion(), gestionAsignatura.getCurso());
+		
+	}
+	
+	
+
 	// VENTANA GESTION PROFESORES
 	public void gestionProfesoresToGestion() {
 		gestion.setVisible(true);
@@ -410,20 +447,44 @@ public class Controlador implements IControlador {
 	public void solicitudCamposDeTextoProfe() {
 		modeloGestionDatos.rellenarCamposProfe(gestionProfesores.getNumGP(), gestionProfesores.getNombreProfeGP(),
 				gestionProfesores.getApe1GP(), gestionProfesores.getApe2GP(), gestionProfesores.getTitulacion(),
-				gestionProfesores.getDni(),gestionProfesores.getActivo(), gestionProfesores.getRelacion(), gestionProfesores.getTlfn1(),
-				gestionProfesores.getTlfn2(), gestionProfesores.getEmail1(), gestionProfesores.getEmail2());
+				gestionProfesores.getDni(), gestionProfesores.getActivo(), gestionProfesores.getRelacion(),
+				gestionProfesores.getTlfn1(), gestionProfesores.getTlfn2(), gestionProfesores.getEmail1(),
+				gestionProfesores.getEmail2());
 	}
 
 	// VENTANA GESTION PROFESORESADDMOD
 
 	public void gestionProfesoresAddModToGestionProfesores() {
 		gestionProfesores.setVisible(true);
-
 	}
 
-//	public void solicitusCrearPorfesor() {
-//		modeloGestionDatos.crearProfesor();
-//	}
+	public void solicitudAddOMod() {
+		modeloConsultas.comprobarInsertODelete(gestionProfesoresAddMod.getNumero());
+	}
+
+	public void solicitudProfeMod() {
+		modeloGestionDatos.modificarProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
+				gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
+				gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
+				gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
+				gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
+				gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
+	}
+
+	public void solicitudProfeAdd() {
+
+		modeloGestionDatos.crearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
+		gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
+		gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
+		gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
+		gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
+		gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
+}
+
+
+	// public void solicitusCrearPorfesor() {
+	// modeloGestionDatos.crearProfesor();
+	// }
 
 	// VENTANA GESTION SALAS
 	public void gestionSalasToGestion() {
@@ -439,19 +500,17 @@ public class Controlador implements IControlador {
 	}
 
 	public void solicitudCrearSala() {
-		modeloConsultas.comprobarSala(gestionSalas.getCodigo());
-		modeloGestionDatos.crearSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(),
+		modeloConsultas.ultimoRegistroSala();
+		modeloGestionDatos.crearSala(gestionSalas.getTipoSala(), gestionSalas.getNumero(),
 				gestionSalas.getCapacidad());
 	}
 
 	public void solicutudModificarSala() {
-		modeloGestionDatos.modificarSala(gestionSalas.getCodigo(), gestionSalas.getTipoSala(), gestionSalas.getNumero(),
+		modeloConsultas.extraerCodigoSala(gestionSalas.getTipoSalaReal(), gestionSalas.getNumero(),
+				gestionSalas.getCapacidad());
+		modeloGestionDatos.modificarSala(gestionSalas.getTipoSala(), gestionSalas.getNumero(),
 				gestionSalas.getCapacidad());
 
-	}
-
-	public void solicitudBuscadorSala() {
-		modeloConsultas.buscadorSalas(gestionSalas.getModel(), gestionSalas.getPalabraBuscador());
 	}
 
 	// VENTANA GESTION GRUPOS
@@ -465,10 +524,6 @@ public class Controlador implements IControlador {
 
 	public void solicitudListadoGrupos() {
 		modeloConsultas.listadoGrupos();
-	}
-
-	public void solicitudListadoAlumnosPorGrupo() {
-		modeloConsultas.getListadoAlumnosPorGrupo(verGrupos.getModel(), verGrupos.getGrupoComboBox());
 	}
 
 	// VENTANA PERFIL
@@ -500,8 +555,9 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaHome(home.getModel());
 	}
 
-	public void solicitudDatosExtraHome() {
-		modeloConsultas.getDatosExtraHome(home.getDatosFilaTabla());
+	public void solicitudGuardarDatos() {
+		modeloConsultas.guardarDatosFilaHome(home.getDatosFilaTabla());
+
 	}
 
 	// VENTANA CREAR USUARIOS
@@ -543,8 +599,14 @@ public class Controlador implements IControlador {
 		case "VERGRUPOS":
 			modeloConsultas.buscador(verGrupos.getModel(), verGrupos.getPalabraBuscador(), "J");
 			break;
+		case "HOME":
+			modeloConsultas.buscadorHome(home.getModel(), home.getPalabraBuscador());
+			break;
 		}
 
 	}
+
+
+
 
 }

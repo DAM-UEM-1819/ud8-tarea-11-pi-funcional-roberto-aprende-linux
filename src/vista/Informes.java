@@ -32,17 +32,18 @@ public class Informes extends JFrame {
 	private Controlador controlador;
 	private ModeloConsultas modeloConsultas;
 	private JPanel contentPane;
-	private JTable tablaInfoProfesores;
+	private JTable tablaInformes;
 	private JPanel HeaderPanel;
 	private JScrollPane scrollPane;
 	private JLabel lblTitulo;
 	private JLabel lblUemLogo;
 	private JLabel lblPerfil;
 	private JButton btnVolver;
-	private Label lblProfesores;
+	private JLabel lblDescargar;
 	private JTable TablaInfoAlumnos;
 	private JScrollPane scrollPane_2;
 	private JComboBox comboBoxInformes;
+	private JLabel lblDescargarInforme;
 
 	public Informes() {
 		setResizable(false);
@@ -60,30 +61,26 @@ public class Informes extends JFrame {
 		scrollPane.setBounds(98, 168, 800, 473);
 		contentPane.add(scrollPane);
 
-		tablaInfoProfesores = new JTable();
-		tablaInfoProfesores.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Medicina", "431"},
-				{null, null},
-			},
-			new String[] {
-				"Titulaci�n", "Horas totales"
-			}
+		tablaInformes = new JTable();
+		tablaInformes.setModel(new DefaultTableModel(
+			new Object[][] {},
+			new String[] {}
 		));
-		tablaInfoProfesores.setRowHeight(40);
-		scrollPane.setViewportView(tablaInfoProfesores);
+		tablaInformes.setRowHeight(40);
+		tablaInformes.getTableHeader().setReorderingAllowed(false);
+		scrollPane.setViewportView(tablaInformes);
 		//
 
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Informes");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(278, 11, 404, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -92,7 +89,26 @@ public class Informes extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 		
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -114,7 +130,7 @@ public class Informes extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -124,18 +140,44 @@ public class Informes extends JFrame {
 				controlador.informesToHome();
 			}
 		});
-		btnVolver.setBounds(435, 685, 120, 40);
+		btnVolver.setBounds(425, 685, 150, 40);
 		contentPane.add(btnVolver);
-
-		lblProfesores = new Label("Nombre del informe: ");
-		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(98, 140, 163, 22);
-		contentPane.add(lblProfesores);
+		
+		ImageIcon descargar = new ImageIcon("./img/descargar.png");
+		lblDescargar = new JLabel(descargar);
+		lblDescargar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				controlador.solicitudDescargarInforme();
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblDescargar.setFont(new Font("Dialog", Font.PLAIN, 18));
+		lblDescargar.setBounds(98, 129, 20, 22);
+		
+		contentPane.add(lblDescargar);
 		
 		comboBoxInformes = new JComboBox();
+		comboBoxInformes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.solicitudInforme();
+			}
+		});
 		comboBoxInformes.setModel(new DefaultComboBoxModel(ListadoInformes.values()));
-		comboBoxInformes.setBounds(594, 129, 301, 33);
+		comboBoxInformes.setBounds(504, 123, 394, 33);
 		contentPane.add(comboBoxInformes);
+		
+		lblDescargarInforme = new JLabel("Descargar Informe");
+		lblDescargarInforme.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDescargarInforme.setBounds(128, 124, 366, 33);
+		contentPane.add(lblDescargarInforme);
 	}
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
@@ -143,5 +185,13 @@ public class Informes extends JFrame {
 	
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
 		this.modeloConsultas= modeloConsultas;
+	}
+	
+	public String getInforme() {
+		return String.valueOf(comboBoxInformes.getSelectedItem());
+	}
+	
+	public DefaultTableModel getModel() {
+		return (DefaultTableModel) tablaInformes.getModel();
 	}
 }

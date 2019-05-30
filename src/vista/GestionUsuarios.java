@@ -50,6 +50,7 @@ public class GestionUsuarios extends JFrame {
 	private JScrollPane scrollPaneRegistros;
 	private JLabel lblImportarUsuario;
 	private JTextField txtBuscador;
+	private JLabel lblNewLabel;
 
 	public GestionUsuarios() {
 		setResizable(false);
@@ -93,7 +94,7 @@ public class GestionUsuarios extends JFrame {
 				controlador.gestionUsuariosToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnBorrarUsr = new JButton("Borrar Usuario");
@@ -107,7 +108,7 @@ public class GestionUsuarios extends JFrame {
 				}
 			}
 		});
-		btnBorrarUsr.setBounds(440, 685, 120, 40);
+		btnBorrarUsr.setBounds(425, 685, 150, 40);
 		contentPane.add(btnBorrarUsr);
 
 		btnAddUsuario = new JButton("A\u00F1adir Usuario");
@@ -117,26 +118,45 @@ public class GestionUsuarios extends JFrame {
 				controlador.gestionUsuariosToCrearUsuario();
 			}
 		});
-		btnAddUsuario.setBounds(782, 685, 120, 40);
+		btnAddUsuario.setBounds(750, 685, 150, 40);
 		contentPane.add(btnAddUsuario);
 
 		Header = new JPanel();
-		Header.setBackground(new Color(165, 42, 42));
-		Header.setBounds(0, 0, 984, 100);
+		Header.setBackground(new Color(164,44,52));
+		Header.setBounds(0, 0, 1000, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
 
 		lblTitulo = new JLabel("Usuarios");
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(250, 0, 500, 100);
+		lblTitulo.setBounds(0, 0, 1010, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblTitulo);
 
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		Header.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -160,7 +180,7 @@ public class GestionUsuarios extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		Header.add(lblPerfil);
 
 		txtBuscador = new JTextField();
@@ -182,7 +202,7 @@ public class GestionUsuarios extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(726, 112, 140, 22);
 		contentPane.add(txtBuscador);
 
 		lblImportarUsuario = new JLabel("Importar Usuarios");
@@ -190,6 +210,11 @@ public class GestionUsuarios extends JFrame {
 				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarUsuario.setBounds(100, 114, 124, 20);
 		contentPane.add(lblImportarUsuario);
+		
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblNewLabel = new JLabel(lupa);
+		lblNewLabel.setBounds(880, 111, 20, 22);
+		contentPane.add(lblNewLabel);
 		lblImportarUsuario.setVisible(false);
 	}
 

@@ -82,27 +82,47 @@ public class Perfil extends JFrame {
 		contentPane.setLayout(null);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Perfil");
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(250, 0, 500, 100);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
+		
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
 		lblPerfil = new JLabel(perfilIcon);
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -112,7 +132,7 @@ public class Perfil extends JFrame {
 				controlador.perfilToHome();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(225, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnConfirmarCambios = new JButton(" Confirmar cambios");
@@ -121,7 +141,7 @@ public class Perfil extends JFrame {
 				controlador.solicitudActualizarUsuario();
 			}
 		});
-		btnConfirmarCambios.setBounds(762, 685, 140, 40);
+		btnConfirmarCambios.setBounds(625, 685, 150, 40);
 		contentPane.add(btnConfirmarCambios);
 
 		txtUsuario = new JTextField();
@@ -183,13 +203,13 @@ public class Perfil extends JFrame {
 		txtEmail.setBounds(200, 400, 200, 30);
 		contentPane.add(txtEmail);
 
-		btnMostrar = new JButton("Mostrar");
+		btnMostrar = new JButton(new ImageIcon("./img/ver.png"));
 		btnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarPasswd();
 			}
 		});
-		btnMostrar.setBounds(824, 404, 78, 23);
+		btnMostrar.setBounds(810, 400, 30, 30);
 		contentPane.add(btnMostrar);
 
 		pwdActual = new JPasswordField();
@@ -257,11 +277,13 @@ public class Perfil extends JFrame {
 			pwdActual.setEchoChar('●');
 			pwdNueva.setEchoChar('●');
 			pwdConfirmar.setEchoChar('●');
+			btnMostrar.setIcon((new ImageIcon("./img/ver.png")));
 			estaMostrada = false;
 		} else {
 			pwdActual.setEchoChar((char) 0);
 			pwdNueva.setEchoChar((char) 0);
 			pwdConfirmar.setEchoChar((char) 0);
+			btnMostrar.setIcon((new ImageIcon("./img/ocultar.png")));
 			estaMostrada = true;
 		}
 	}

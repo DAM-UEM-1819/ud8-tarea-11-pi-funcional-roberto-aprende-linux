@@ -12,11 +12,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeSet;
 
 import javax.naming.spi.DirStateFactory.Result;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import controlador.Controlador;
 import vista.CrearUsuario;
@@ -27,6 +31,7 @@ import vista.GestionActores;
 import vista.GestionAlumnos;
 import vista.GestionAsignatura;
 import vista.GestionProfesores;
+import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
@@ -55,6 +60,7 @@ public class ModeloConsultas {
 	private GestionRegistros gestionRegistros;
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
+	private GestionProfesoresAddMod gestionProfesoresAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -80,9 +86,15 @@ public class ModeloConsultas {
 	private String grupo;
 	private String numeroAlumos;
 	private String simulador;
-	private boolean actor;
+	private String actor;
+	private String documentacion;
 	private boolean existe;
 	private Object[] datosUsuario;
+	private TableRowSorter filtro;
+	private String ultimoRegistro;
+	private String codigoRegistro;
+	private Object[] todosInformes;
+	private ArrayList<String[][]> todosInformesConDatos;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -100,6 +112,7 @@ public class ModeloConsultas {
 	private String selectTodasSalas;
 	private String selectTodosAcad;
 
+	// SENTENCIAS SELECT SQL PARA DATOS INTERNOS
 	private String selectTodosCodigoGrupo;
 
 	// Sentencias Select SQL LISTADOS
@@ -122,6 +135,35 @@ public class ModeloConsultas {
 
 	// SENTENCIAS SELECT SQL COMPROBACION
 	private String selectExisteSala;
+	private String selectExisteProfesor;
+
+	// SENTENCIAS SELECT SQL INFORMES
+	private String informeNumeroHorasTotalesPorActividad;
+	private String informeNumeroHorasTotalesActividadPorTitulacion;
+	private String informeNumeroHorasTotalesActividadPorTitulacionYCurso;
+	private String informeNumeroHorasTotalesActividadPorTitulacionYAsignatura;
+	private String informeNumeroHorasTotalesActividadPorProfesor;
+	private String informeNumeroHorasTotalesActividadPorSala;
+	private String informeNumeroHorasTotalesActividadPorActividad;
+	private String informeNumeroHorasTotalesActividadPorSemestre;
+	private String informeNumeroHorasTotalesActividadPorMes;
+	private String informeNumeroHorasActorTotalesCursoAcademico;
+	private String informeNumeroHorasActorTotalesTitulacionYMes;
+	private String informeNumeroHorasActorTotalesTitulacionCursoAcademico;
+	private String informeListadoAlumnosAsignaturaYGrupoActivos;
+	private String informeListadoAlumnosNotasPorNombreActividad;
+	private String informeListadoProfesoresPorTitulacionActivos;
+	private String infoExtraProfesores;
+	private String infoExtraAlumnos;
+
+	// SENTENCIAS SELECT SQL ULTIMO REGISTRO
+	private String selectUltimoRegistroSala;
+	private String selectUltimoRegistroActor;
+
+	// SENTENCIAS SELECT SQL EXTRAER CODIGO
+	private String selectExtraerCodSala;
+
+	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
 	public ModeloConsultas() {
 		propiedades = new Properties();
@@ -141,21 +183,22 @@ public class ModeloConsultas {
 			e1.printStackTrace();
 		}
 
-		// Asignamos select de login usuario
-		// Asignamos select de tablas
+		// ASIGNACIÓN DE LAS CONSULTAS
 		selectTablas();
-		// Asignamos select de listado
-		// Asignamos las Select SQL BUSCADOR
 		selectBuscador();
-
 		selectComprobacionExiste();
 		selectDatosExtra();
+		selectInformes();
+		selectUltimoRegistro();
+		selectExtraerCodigo();
+		addInformesToTodosInformes();
+
 	}
 
 	private void selectTablas() {
 		// select login
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
-		//
+
 		selectHome = propiedades.getProperty("selectHome");
 		selectDatosExtraHome = propiedades.getProperty("selectDatosExtraHome");
 		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
@@ -174,7 +217,6 @@ public class ModeloConsultas {
 		selectTodosCodigoGrupo = propiedades.getProperty("selectTodosCodigoGrupo");
 		selectListadoAlumnosPorGrupo = propiedades.getProperty("selectListadoAlumnosPorGrupo");
 
-		//
 		selectBuscadorHome = propiedades.getProperty("selectBuscadorHome");
 		selectBuscadorUsuarios = propiedades.getProperty("selectBuscadorUsuarios");
 		selectBuscadorRegistros = propiedades.getProperty("selectBuscadorRegistros");
@@ -187,12 +229,82 @@ public class ModeloConsultas {
 		selectBuscadorAcad = propiedades.getProperty("selectBuscadorAcad");
 	}
 
+	private void selectInformes() {
+		// NÚMERO DE HORAS DE ACTIVIDAD
+		informeNumeroHorasTotalesPorActividad = propiedades.getProperty("informeNumeroHorasTotalesPorActividad");
+		informeNumeroHorasTotalesActividadPorTitulacion = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacion");
+		informeNumeroHorasTotalesActividadPorTitulacionYCurso = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYCurso");
+		informeNumeroHorasTotalesActividadPorTitulacionYAsignatura = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorTitulacionYAsignatura");
+		informeNumeroHorasTotalesActividadPorProfesor = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorProfesor");
+		informeNumeroHorasTotalesActividadPorSala = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorSala");
+		informeNumeroHorasTotalesActividadPorActividad = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorActividad");
+		informeNumeroHorasTotalesActividadPorSemestre = propiedades
+				.getProperty("informeNumeroHorasTotalesActividadPorSemestre");
+		informeNumeroHorasTotalesActividadPorMes = propiedades.getProperty("informeNumeroHorasTotalesActividadPorMes");
+
+		// NÚMERO DE HORAS DE ACTOR
+		informeNumeroHorasActorTotalesCursoAcademico = propiedades
+				.getProperty("informeNumeroHorasActorTotalesCursoAcademico");
+		informeNumeroHorasActorTotalesTitulacionYMes = propiedades
+				.getProperty("informeNumeroHorasActorTotalesTitulacionYMes");
+		informeNumeroHorasActorTotalesTitulacionCursoAcademico = propiedades
+				.getProperty("informeNumeroHorasActorTotalesTitulacionCursoAcademico");
+
+		// LISTADO DE ALUMNOS
+		informeListadoAlumnosAsignaturaYGrupoActivos = propiedades
+				.getProperty("informeListadoAlumnosAsignaturaYGrupoActivos");
+		informeListadoAlumnosNotasPorNombreActividad = propiedades
+				.getProperty("informeListadoAlumnosNotasPorNombreActividad");
+
+		// LISTADO DE PROFESORES
+		informeListadoProfesoresPorTitulacionActivos = propiedades
+				.getProperty("informeListadoProfesoresPorTitulacionActivos");
+	}
+
 	private void selectComprobacionExiste() {
 		selectExisteSala = propiedades.getProperty("selectExisteSala");
+		selectExisteProfesor = propiedades.getProperty("selectExisteProfesor");
 	}
 
 	private void selectDatosExtra() {
 		selectDatosUsuarioPerfil = propiedades.getProperty("selectDatosUsuarioPerfil");
+		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
+		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
+	}
+
+	private void selectUltimoRegistro() {
+		selectUltimoRegistroSala = propiedades.getProperty("selectUltimoRegistroSala");
+		selectUltimoRegistroActor = propiedades.getProperty("selectUltimoRegistroActor");
+	}
+
+	private void selectExtraerCodigo() {
+		selectExtraerCodSala = propiedades.getProperty("selectExtraerCodSala");
+	}
+
+	private void addInformesToTodosInformes() {
+		todosInformes = new Object[15];
+
+		todosInformes[0] = informeNumeroHorasTotalesPorActividad;
+		todosInformes[1] = informeNumeroHorasTotalesActividadPorTitulacion;
+		todosInformes[2] = informeNumeroHorasTotalesActividadPorTitulacionYCurso;
+		todosInformes[3] = informeNumeroHorasTotalesActividadPorTitulacionYAsignatura;
+		todosInformes[4] = informeNumeroHorasTotalesActividadPorProfesor;
+		todosInformes[5] = informeNumeroHorasTotalesActividadPorSala;
+		todosInformes[6] = informeNumeroHorasTotalesActividadPorActividad;
+		todosInformes[7] = informeNumeroHorasTotalesActividadPorSemestre;
+		todosInformes[8] = informeNumeroHorasTotalesActividadPorMes;
+		todosInformes[9] = informeNumeroHorasActorTotalesCursoAcademico;
+		todosInformes[10] = informeNumeroHorasActorTotalesTitulacionYMes;
+		todosInformes[11] = informeNumeroHorasActorTotalesTitulacionCursoAcademico;
+		todosInformes[12] = informeListadoAlumnosAsignaturaYGrupoActivos;
+		todosInformes[13] = informeListadoAlumnosNotasPorNombreActividad;
+		todosInformes[14] = informeListadoProfesoresPorTitulacionActivos;
 	}
 
 	// INICIO SETTERS
@@ -253,6 +365,10 @@ public class ModeloConsultas {
 		this.gestionProfesores = gestionProfesores;
 	}
 
+	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
+		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
+	}
+
 	public void setGestionSalas(GestionSalas gestionSalas) {
 		this.gestionSalas = gestionSalas;
 	}
@@ -296,7 +412,11 @@ public class ModeloConsultas {
 	}
 
 	public boolean tieneActor() {
-		return actor;
+		boolean valor = false;
+		if (actor.equals("1")) {
+			valor = true;
+		}
+		return valor;
 	}
 
 	public boolean getExiste() {
@@ -311,6 +431,30 @@ public class ModeloConsultas {
 		return datosUsuario;
 	}
 
+	public String getDocumentacion() {
+		return documentacion;
+	}
+
+	public TableRowSorter getFiltro() {
+		return filtro;
+	}
+
+	public String getUltimoRegistro() {
+		return ultimoRegistro;
+	}
+
+	public String getCodigoRegistro() {
+		return codigoRegistro;
+	}
+	
+	public ArrayList<String[][]> getTodosInformesConDatos() {
+		return todosInformesConDatos;
+	}
+	
+	public Object[] getTodosInformes() {
+		return todosInformes;
+	}
+
 	// INICIO METODOS BASE DATOS
 
 	/**
@@ -318,7 +462,7 @@ public class ModeloConsultas {
 	 * dados con los datos de la BBDD. Para comparar la contraseña genera un MD5 de
 	 * la misma y compara el hash con el que haya en la BBDD para el usuario
 	 * correspondiente
-	 * 
+	 *
 	 * @param usuario El usuario escrito en el textfield del login
 	 * @param passwd  La contraseña del usuario
 	 */
@@ -346,7 +490,7 @@ public class ModeloConsultas {
 				}
 				nombreUsuario = usuario;
 			} else {
-				respuesta = "Ususario o contrase�a incorrectos";
+				respuesta = "Ususario o contraseña incorrectos";
 				login.actualizarInfo();
 			}
 
@@ -358,7 +502,7 @@ public class ModeloConsultas {
 
 	/**
 	 * Este método devuelve el hash de la contraseña de un usuario en específico
-	 * 
+	 *
 	 * @param usuario El usuario a consultar
 	 * @param passwd  La contraseña del usuario
 	 * @return El hash de la contraseña ubicada en la BBDD
@@ -383,7 +527,7 @@ public class ModeloConsultas {
 	 * Este método consulta si el usuario que se quiere añadir ya existe o no en la
 	 * base de datos. En caso de que no exista llamará al metodo correspondiente
 	 * para crear el usuario
-	 * 
+	 *
 	 * @param user   El nombre del usuario
 	 * @param passwd La contraseña del usuario
 	 * @param rol    El rol del usuario
@@ -410,7 +554,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana home
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista Home
 	 */
 	public void getTablaHome(DefaultTableModel tableModel) {
@@ -418,6 +562,7 @@ public class ModeloConsultas {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectHome);
+			pstmt.setString(1, home.getFecha());
 			getDatos(pstmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -432,6 +577,15 @@ public class ModeloConsultas {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectDatosExtraHome);
+			// Aqui irian los setString
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				numeroAlumos = rs.getString(1);
+				simulador = rs.getString(2);
+				actor = rs.getString(3);
+				documentacion = rs.getString(4);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -466,7 +620,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de usuarios
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de usuarios
 	 */
 	public void getTablaUsuarios(DefaultTableModel tableModel) {
@@ -484,7 +638,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de año academico
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de acad
 	 */
 	public void getTablaAcad(DefaultTableModel tableModel) {
@@ -502,7 +656,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de actividades
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de actividad
 	 */
 	public void getTablaActividad(DefaultTableModel tableModel) {
@@ -520,7 +674,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de actores
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de actores
 	 */
 	public void getTablaActores(DefaultTableModel tableModel) {
@@ -538,7 +692,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de alumnos
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de alumnos
 	 */
 	public void getTablaAlumnos(DefaultTableModel tableModel) {
@@ -556,7 +710,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de asignaturas
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de asignaturas
 	 */
 	public void getTablaAsignatura(DefaultTableModel tableModel) {
@@ -574,7 +728,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de profesores
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de fgestion de profesores
 	 */
 	public void getTablaProfesores(DefaultTableModel tableModel) {
@@ -592,7 +746,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de registros
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de registros
 	 */
 	public void getTablaRegistros(DefaultTableModel tableModel) {
@@ -610,7 +764,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para preparar la consulta que se va a realizar para la
 	 * ventana de gestion de salas
-	 * 
+	 *
 	 * @param tableModel La tabla de la vista de gestion de salas
 	 */
 	public void getTablaSalas(DefaultTableModel tableModel) {
@@ -650,31 +804,8 @@ public class ModeloConsultas {
 	}
 
 	/**
-	 * Metodo que sirve para sacar los alumnos que hay en un determinado grupo
-	 * especificado en el segundo de los parametros
-	 * 
-	 * @param tableModel La tabla de la vista de ver grupo
-	 * @param grupo      El grupo por el que se va a filtrar
-	 */
-	public void getListadoAlumnosPorGrupo(DefaultTableModel tableModel, String grupo) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		try {
-			pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo);
-			pstmt.setString(1, "%" + grupo.toUpperCase() + "%");
-			getDatos(pstmt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		verGrupos.contarAlumnos();
-
-	}
-
-	/**
 	 * Metodo que sirve para
-	 * 
+	 *
 	 * @param pstmt La consulta preparada y lista para ejecutarse
 	 */
 	private void getDatos(PreparedStatement pstmt) {
@@ -704,19 +835,70 @@ public class ModeloConsultas {
 
 	/**
 	 * Metodo que sirve para saber si uan sala ya existe o no
+	 *
 	 * @param sala La sala a comprobar
 	 */
-	public void comprobarSala(String sala) {
-		existe = false;
+	public void ultimoRegistroSala() {
 		PreparedStatement pstmt;
 		try {
-			pstmt = conexion.prepareStatement(selectExisteSala);
-			pstmt.setString(1, sala);
+			pstmt = conexion.prepareStatement(selectUltimoRegistroSala);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				existe = true;
-				respuesta = "Error, la sala ya existe";
-				gestionSalas.actualizarInfoConsulta();
+				ultimoRegistro = rs.getString(1);
+				ultimoRegistro = String.valueOf(Integer.parseInt(ultimoRegistro) + 1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void ultimoCodActor() {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectUltimoRegistroActor);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				ultimoRegistro = rs.getString(1);
+				ultimoRegistro = String.valueOf(Integer.parseInt(ultimoRegistro) + 1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void extraerCodigoSala(String nombre, String numero, String capacidad) {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectExtraerCodSala);
+			pstmt.setString(1, nombre);
+			pstmt.setString(2, capacidad);
+			pstmt.setString(3, numero);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				codigoRegistro = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void comprobarInsertODelete(String profe) {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectExisteProfesor);
+			pstmt.setString(1, profe);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				controlador.solicitudProfeMod();
+				respuesta = "Profesor modificado";
+				gestionProfesoresAddMod.actualizarInfoConsulta();
+
+			} else {
+				controlador.solicitudProfeAdd();
+				respuesta = "Profesor creado";
+				gestionProfesoresAddMod.actualizarInfoConsulta();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -724,73 +906,14 @@ public class ModeloConsultas {
 	}
 
 	// BUSCADORES
-	
-	/**
-	 * Metodo que sirve para preparar la consulta del buscador en la ventana de ususarios
-	 * @param tableModel	La tabla de la vista de usuarios	
-	 * @param palabra		La palabra a buscar
-	 */
-	public void buscadorUsuarios(DefaultTableModel tableModel, String palabra) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		try {
-			pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
-			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
-			getDatos(pstmt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Metodo que sirve para preparar la consulta del buscador en la ventana de salas
-	 * @param tableModel	La tabla de la vista de salas	
-	 * @param palabra		La palabra a buscar
-	 */
-	public void buscadorSalas(DefaultTableModel tableModel, String palabra) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		try {
-			pstmt = conexion.prepareStatement(selectBuscadorSalas);
-			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
-			getDatos(pstmt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Metodo que sirve para preparar la consulta del buscador en la ventana de alumnos
-	 * @param tableModel	La tabla de la vista de alumnos	
-	 * @param palabra		La palabra a buscar
-	 */
-	public void buscadorAlumnos(DefaultTableModel tableModel, String palabra) {
-		this.tableModel = tableModel;
-		PreparedStatement pstmt;
-		try {
-			pstmt = conexion.prepareStatement(selectBuscadorSalas);
-			pstmt.setString(1, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(2, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(3, "%" + palabra.toUpperCase() + "%");
-			pstmt.setString(4, "%" + palabra.toUpperCase() + "%");
-			getDatos(pstmt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+
 	/**
 	 * Metodo general que sirve para realizar todas las consultas de búsqueda
-	 * @param tableModel	La tabla donde se va a mostrar el resultado
-	 * @param palabra		La palabra a buscar
-	 * @param opcion		La opcion que se desea, depende del tipo de la clase donde te encuetres
+	 *
+	 * @param tableModel La tabla donde se va a mostrar el resultado
+	 * @param palabra    La palabra a buscar
+	 * @param opcion     La opcion que se desea, depende del tipo de la clase donde
+	 *                   te encuetres
 	 */
 	public void buscador(DefaultTableModel tableModel, String palabra, String opcion) {
 		this.tableModel = tableModel;
@@ -801,75 +924,81 @@ public class ModeloConsultas {
 			switch (opcion) {
 			case "A":
 				pstmt = conexion.prepareStatement(selectBuscadorAlumnos);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
 				break;
 			case "B":
 				pstmt = conexion.prepareStatement(selectBuscadorUsuarios);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
 				break;
 			case "C":
 				pstmt = conexion.prepareStatement(selectBuscadorActividades);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
-				pstmt.setString(5, "%" + palabra + "%");
-				pstmt.setString(6, "%" + palabra + "%");
-				pstmt.setString(7, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
 				break;
 			case "D":
 				pstmt = conexion.prepareStatement(selectBuscadorAsignatura);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
 				break;
 			case "E":
 				pstmt = conexion.prepareStatement(selectBuscadorSalas);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
 				break;
 			case "F":
 				pstmt = conexion.prepareStatement(selectBuscadorProfesores);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
-				pstmt.setString(5, "%" + palabra + "%");
-				pstmt.setString(6, "%" + palabra + "%");
-				pstmt.setString(7, "%" + palabra + "%");
-				pstmt.setString(8, "%" + palabra + "%");
-				pstmt.setString(9, "%" + palabra + "%");
-				pstmt.setString(10, "%" + palabra + "%");
-				pstmt.setString(11, "%" + palabra + "%");
-				pstmt.setString(12, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
+				pstmt.setString(8, palabra + "%");
+				pstmt.setString(9, palabra + "%");
+				pstmt.setString(10, palabra + "%");
+				pstmt.setString(11, palabra + "%");
+				pstmt.setString(12, palabra + "%");
 				break;
 			case "G":
 				pstmt = conexion.prepareStatement(selectBuscadorAcad);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
 				break;
 			case "H":
 				pstmt = conexion.prepareStatement(selectBuscadorActores);
-				pstmt.setString(1, "%" + palabra + "%");
-				pstmt.setString(2, "%" + palabra + "%");
-				pstmt.setString(3, "%" + palabra + "%");
-				pstmt.setString(4, "%" + palabra + "%");
-				pstmt.setString(5, "%" + palabra + "%");
-				pstmt.setString(6, "%" + palabra + "%");
-				pstmt.setString(7, "%" + palabra + "%");
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
+				pstmt.setString(7, palabra + "%");
 				break;
 			case "I":
-				// sql = deleteAsignatura;
+				pstmt = conexion.prepareStatement(selectBuscadorRegistros);
+				pstmt.setString(1, palabra + "%");
+				pstmt.setString(2, palabra + "%");
+				pstmt.setString(3, palabra + "%");
+				pstmt.setString(4, palabra + "%");
+				pstmt.setString(5, palabra + "%");
 				break;
 			case "J":
-				// sql = deleteAsignatura;
+				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo); // Cambiar
+				pstmt.setString(1, palabra + "%");
 				break;
 			}
 		} catch (Exception e) {
@@ -879,4 +1008,190 @@ public class ModeloConsultas {
 		getDatos(pstmt);
 
 	}
-}
+
+	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
+		this.tableModel = tableModel;
+		TableRowSorter trs = new TableRowSorter(tableModel);
+		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 0));
+		this.filtro = trs;
+		home.filtro();
+	}
+
+	/**
+	 * Metodo que sirve para crear los informes de la ventana informes
+	 *
+	 * @param informe    El informe a mostrar
+	 * @param tableModel La tabla de la vista
+	 */
+	public void crearInforme(DefaultTableModel tableModel, String informe) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt = null;
+		informe = informe.toUpperCase();
+
+		try {
+			switch (informe) {
+			case "HORAS TOTALES ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesPorActividad);
+				break;
+			case "HORAS ACTIVIDAD TITULACION":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacion);
+				break;
+			case "HORAS ACTIVIDAD TITULACION Y CURSO":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacionYCurso);
+				break;
+			case "HORAS ACTIVIDAD TITULACION Y ASIGNATURA":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorTitulacionYAsignatura);
+				break;
+			case "HORAS ACTIVIDAD PROFESOR":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorProfesor);
+				break;
+			case "HORAS ACTIVIDAD SALA":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorSala);
+				break;
+			case "HORAS ACTIVIDAD TIPO ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorActividad);
+				break;
+			case "HORAS ACTIVIDAD MESES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorMes);
+				break;
+			case "HORAS ACTIVIDAD SEMESTRES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasTotalesActividadPorSemestre);
+				break;
+			case "HORAS ACTOR TOTALES EN ACAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesCursoAcademico);
+				break;
+			case "HORAS ACTOR TITULACION Y MES":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesTitulacionYMes);
+				break;
+			case "HORAS ACTOR TITULACION Y ACAD":
+				pstmt = conexion.prepareStatement(informeNumeroHorasActorTotalesTitulacionCursoAcademico);
+				break;
+			case "LISTADO ALUMNOS SEGUN ASIGNATURA Y GRUPO ACTIVOS":
+				pstmt = conexion.prepareStatement(informeListadoAlumnosAsignaturaYGrupoActivos);
+				break;
+			case "LISTADO ALUMNOS SEGUN NOMBRE ACTIVIDAD":
+				pstmt = conexion.prepareStatement(informeListadoAlumnosNotasPorNombreActividad);
+				break;
+			case "LISTADO PROFESORES SEGUN TITULACION":
+				pstmt = conexion.prepareStatement(informeListadoProfesoresPorTitulacionActivos);
+				break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		getDatos(pstmt);
+
+	}
+
+	/**
+	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
+	 * home
+	 *
+	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
+	 *                       la fila seleccionada
+	 */
+	public void guardarDatosFilaHome(Object[] datosFilaTabla) {
+		this.datosFilasTabla = datosFilaTabla;
+	}
+
+	/**
+	 * Metodo para mostrar el listado de alumnos y profesores del registro
+	 * seleccionado en la ventana de home
+	 *
+	 * @param modelProfesores La tabla de profesores
+	 * @param modelAlumnos    La tabla de alumnos
+	 */
+	public void datosInfoExtra(DefaultTableModel modelProfesores, DefaultTableModel modelAlumnos) {
+		this.tableModel = tableModel;
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conexion.prepareStatement(infoExtraProfesores);
+			getDatos(pstmt);
+
+			pstmt = conexion.prepareStatement(infoExtraAlumnos);
+			getDatos(pstmt);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// EN FASE DE IMPLEMENTACION
+	public void resultadoTodosInformes() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ResultSetMetaData metadatos = null;
+		todosInformesConDatos = new ArrayList<String[][]>(); // 15 por el numero de selects que hay
+		String[][] datosInforme = null;
+
+		int contador = 1;
+		int ultimoRegistro = 0;
+		int numCol = 0;
+		
+		String[] cabeceras = null;
+ 
+		for (int i = 0; i < todosInformes.length; i++) {
+
+			try {
+				// EJECUTAMOS LA CONSULTA PARA SABER EL NUMERO DE REGISTROS QUE HAY
+				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
+				rs = pstmt.executeQuery();
+				metadatos = rs.getMetaData();
+				
+				while (rs.next()) {
+					ultimoRegistro++;
+				}
+				
+				cabeceras = new String[numCol];
+				
+				for (int j = 0; j < numCol; j++) {
+					cabeceras[0] = metadatos.getColumnName(i);
+				}
+				
+				numCol = metadatos.getColumnCount();
+				datosInforme = new String[ultimoRegistro + 1][numCol];
+
+				// REPETIMOS LA SELECT PARA VOLVER A POSICIONAR EL CURSOR EN LA PRIMERA POSICION
+				// YA QUE NO SE PUEDE CON RS.FIRST
+				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+
+					for (int j = 1; j < numCol; j++) {
+						datosInforme[contador][j] = rs.getString(j + 1);
+					}
+
+					
+					contador++;
+				}
+				
+				for (int j = 0; j < cabeceras.length; j++) {
+					datosInforme[0][j] = cabeceras[j];
+				}
+				todosInformesConDatos.add(datosInforme);
+				
+				ultimoRegistro = 0;
+				contador = 1;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		for (String[][] strings : todosInformesConDatos) {
+			for (int row = 0; row < strings.length; row++) {
+				for (int col = 0; col < strings[row].length; col++) {
+					System.out.println(strings[row][col]);
+				}
+			}
+		}
+		
+		modelo.generarExcel();
+			
+		}
+		
+	}
+
+

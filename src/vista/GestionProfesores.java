@@ -55,7 +55,7 @@ public class GestionProfesores extends JFrame {
 	private JLabel lblPerfil;
 	private JButton btnVolver;
 	private JButton btnAI_profesor;
-	private JButton btnAddProfesor;
+	private JButton btnModProfesor;
 	private JLabel lblImportarActividades;
 	private JComboBox comboBoxColumna;
 	private JTextField txtBuscador;
@@ -64,6 +64,9 @@ public class GestionProfesores extends JFrame {
 	private String ape1;
 	private String ape2;
 	private String nombreSeparado[];
+	private JButton btnAddProfesor;
+	private JLabel lblLupa;
+	private JLabel lblInfo;
 
 	public GestionProfesores() {
 		addWindowListener(new WindowAdapter() {
@@ -83,25 +86,38 @@ public class GestionProfesores extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 450);
+		scrollPane.setBounds(98, 145, 800, 500);
 		contentPane.add(scrollPane);
 
 		tablaProfesores = new JTable();
+		tablaProfesores.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				if (!tablaProfesores.isRowSelected(tablaProfesores.getSelectedRowCount())) {
+					btnModProfesor.setEnabled(true);
+					btnAI_profesor.setEnabled(true);
+				}
+				// tablaProfesores.isRowSelected(tablaProfesores.getSelectedRowCount()-1);
+				// btnModProfesor.setEnabled(false);
+
+			}
+		});
 
 		tablaProfesores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaProfesores.setRowHeight(40);
+		tablaProfesores.setRowHeight(30);
 		tablaProfesores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaProfesores);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164, 44, 52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Profesores");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 266, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -110,7 +126,26 @@ public class GestionProfesores extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -134,7 +169,7 @@ public class GestionProfesores extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -142,50 +177,89 @@ public class GestionProfesores extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				controlador.gestionProfesoresToGestion();
+				deselecionarFilayBotones();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnAI_profesor = new JButton("Activo/Inactivo");
+		btnAI_profesor.setEnabled(false);
 		btnAI_profesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				activoProfesor();
+				controlador.solicitudBorrar(this);
 			}
 		});
-		btnAI_profesor.setBounds(436, 685, 120, 40);
+		btnAI_profesor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_profesor);
 
-		btnAddProfesor = new JButton(" A\u00F1adir y modificar");
-		btnAddProfesor.addActionListener(new ActionListener() {
+		btnModProfesor = new JButton("Modificar profesor");
+		btnModProfesor.setEnabled(false);
+		btnModProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				
-				if (tablaProfesores.getSelectedRowCount()> 0) {
+				if (tablaProfesores.getSelectedRowCount() > 0) {
 					controlador.solicitudCamposDeTextoProfe();
+					controlador.gestionProfesoresTogestionProsoresAddMod();
+					deselecionarFilayBotones();
 				}
-				
-				controlador.gestionProfesoresTogestionProsoresAddMod();
-			
-				
 
 			}
 		});
-		btnAddProfesor.setBounds(752, 685, 146, 40);
+		btnModProfesor.setBounds(316, 685, 150, 40);
+		contentPane.add(btnModProfesor);
+
+		btnAddProfesor = new JButton("A\u00F1adir profesor");
+		btnAddProfesor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+				controlador.gestionProfesoresTogestionProsoresAddMod();
+				deselecionarFilayBotones();
+			}
+		});
+		btnAddProfesor.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddProfesor);
 
 		txtBuscador = new JTextField();
+		txtBuscador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtBuscador.setText("");
+			}
+		});
+		txtBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (!txtBuscador.getText().equals("")) {
+					controlador.solicitudBuscador(this);
+				} else {
+					controlador.solicitudDatosUsuarios();
+				}
+			}
+		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(812, 132, 86, 20);
+		txtBuscador.setBounds(728, 111, 140, 22);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 
 		lblImportarActividades = new JLabel("Importar Profesores");
 		lblImportarActividades.setIcon(
 				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblImportarActividades.setBounds(98, 127, 124, 20);
+		lblImportarActividades.setBounds(98, 111, 124, 20);
 		contentPane.add(lblImportarActividades);
 		lblImportarActividades.setVisible(false);
+		
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(0, 110, 1000, 30);
+		contentPane.add(lblInfo);
+
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 	}
 	// Setters
 
@@ -203,7 +277,7 @@ public class GestionProfesores extends JFrame {
 
 	// Getters
 	public String getNumGP() {
-		 num = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
+		num = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
 		return num;
 
 	}
@@ -211,23 +285,26 @@ public class GestionProfesores extends JFrame {
 	public void getNombreGP() {
 		String nombreYapellidos = String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 1));
 		nombreSeparado = nombreYapellidos.split(" ");
-		this.nombre = nombreSeparado[0];
-		this.ape1 = nombreSeparado[1];
+		this.nombre = nombreSeparado[0].trim();
+		this.ape1 = nombreSeparado[1].trim();
 		this.ape2 = nombreSeparado[2];
 
 	}
 
 	public String getNombreProfeGP() {
 		getNombreGP();
-		return nombre;
+
+		return nombre.trim();
 	}
 
 	public String getApe1GP() {
-		return ape1;
+
+		return ape1.trim();
 	}
 
 	public String getApe2GP() {
-		return ape2;
+
+		return ape2.trim();
 	}
 
 	public String getTitulacion() {
@@ -237,8 +314,6 @@ public class GestionProfesores extends JFrame {
 	public String getDni() {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 3));
 	}
-	
-	
 
 	public String getActivo() {
 		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 4));
@@ -269,10 +344,35 @@ public class GestionProfesores extends JFrame {
 	}
 
 	public String getPalabraBuscador() {
-		// TODO Auto-generated method stub
-		return null;
+		return txtBuscador.getText();
 	}
-	
-	
 
+	public String getPrimaryKey() {
+		return String.valueOf(tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(), 0));
+	}
+
+	//
+
+	public void activoProfesor() {
+		DefaultTableModel model = (DefaultTableModel) tablaProfesores.getModel();
+		if (getNumGP().equals(String.valueOf(model.getValueAt(tablaProfesores.getSelectedRow(), 0)))) {
+			 lblInfo.setText("Se ha cambiado estado del profesor");
+			model.setValueAt(getNumGP(), tablaProfesores.getSelectedRow(), 0);
+			if (getActivo().equals("0")) {
+				model.setValueAt("1", tablaProfesores.getSelectedRow(), 4);
+			} else {
+				model.setValueAt("0", tablaProfesores.getSelectedRow(), 4);
+			}
+		} else {
+			lblInfo.setText("No se ha cambiado estado del profesor");
+		}
+
+	}
+
+	public void deselecionarFilayBotones() {
+		tablaProfesores.isRowSelected(tablaProfesores.getSelectedRowCount() - 1);
+		btnModProfesor.setEnabled(false);
+		btnAI_profesor.setEnabled(false);
+		lblInfo.setText("");
+	}
 }

@@ -61,6 +61,7 @@ public class GestionAlumnos extends JFrame {
 	private JLabel lblImportarAlumnos;
 	private JTextField txtBuscador;
 	private JLabel lblInfo;
+	private JLabel lblLupa;
 
 	public GestionAlumnos() {
 		setResizable(false);
@@ -110,7 +111,7 @@ public class GestionAlumnos extends JFrame {
 			}
 			
 		});
-		txtExpediente.setBounds(125, 600, 200, 30);
+		txtExpediente.setBounds(100, 611, 200, 30);
 		contentPane.add(txtExpediente);
 		txtExpediente.setColumns(10);
 
@@ -127,7 +128,7 @@ public class GestionAlumnos extends JFrame {
 				habilitarBotones();
 			}
 		});
-		txtNombre.setBounds(407, 600, 200, 30);
+		txtNombre.setBounds(400, 611, 200, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
@@ -139,7 +140,7 @@ public class GestionAlumnos extends JFrame {
 				controlador.gestionAlumnosToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarAlumno = new JButton("Modificar Alumno");
@@ -150,7 +151,7 @@ public class GestionAlumnos extends JFrame {
 				modAlumno();
 			}
 		});
-		btnModificarAlumno.setBounds(325, 685, 120, 40);
+		btnModificarAlumno.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarAlumno);
 
 		btnAddAlumno = new JButton("A\u00F1adir Alumno");
@@ -178,28 +179,47 @@ public class GestionAlumnos extends JFrame {
 			}
 		});
 
-		btnActivoAlumno.setBounds(575, 685, 120, 40);
+		btnActivoAlumno.setBounds(532, 685, 150, 40);
 		contentPane.add(btnActivoAlumno);
-		btnAddAlumno.setBounds(782, 685, 120, 40);
+		btnAddAlumno.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddAlumno);
 
 		Header = new JPanel();
-		Header.setBackground(new Color(165, 42, 42));
-		Header.setBounds(0, 0, 984, 100);
+		Header.setBackground(new Color(164,44,52));
+		Header.setBounds(0, 0, 1000, 100);
 		contentPane.add(Header);
 		Header.setLayout(null);
 
 		lblAlumnos = new JLabel("Alumnos");
 		lblAlumnos.setForeground(new Color(255, 255, 255));
 		lblAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlumnos.setBounds(250, 0, 500, 100);
+		lblAlumnos.setBounds(0, 0, 1000, 100);
 		lblAlumnos.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		Header.add(lblAlumnos);
 
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		Header.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -223,7 +243,7 @@ public class GestionAlumnos extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 
 		Header.add(lblPerfil);
 
@@ -234,7 +254,7 @@ public class GestionAlumnos extends JFrame {
 			}
 		});
 		chckbxActivoInactivo.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxActivoInactivo.setBounds(679, 602, 200, 23);
+		chckbxActivoInactivo.setBounds(700, 611, 200, 30);
 		contentPane.add(chckbxActivoInactivo);
 
 		lblImportarAlumnos = new JLabel("Importar Alumnos");
@@ -264,7 +284,7 @@ public class GestionAlumnos extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 111, 140, 22);
 		contentPane.add(txtBuscador);
 
 
@@ -272,6 +292,12 @@ public class GestionAlumnos extends JFrame {
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(234, 111, 429, 23);
 		contentPane.add(lblInfo);
+		
+
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -397,7 +423,5 @@ public class GestionAlumnos extends JFrame {
 		} else {
 			btnActivoAlumno.setEnabled(false);
 		}
-
 	}
-
 }

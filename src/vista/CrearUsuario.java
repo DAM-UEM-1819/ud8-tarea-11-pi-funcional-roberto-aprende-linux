@@ -62,22 +62,41 @@ public class CrearUsuario extends JFrame {
 		contentPane.setLayout(null);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Crear usuario");
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(250, 0, 500, 100);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -102,7 +121,7 @@ public class CrearUsuario extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -120,8 +139,6 @@ public class CrearUsuario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (comprobaciones()) {
 					controlador.solicitudCrearUsuario();
-				} else {
-
 				}
 			}
 		});
@@ -196,7 +213,7 @@ public class CrearUsuario extends JFrame {
 	}
 
 	public String getNombreUsuario() {
-		return txtUsuario.getText();
+		return txtUsuario.getText().trim();
 	}
 
 	public String getRol() {
@@ -212,14 +229,14 @@ public class CrearUsuario extends JFrame {
 	}
 
 	public String getEmail() {
-		return txtCorreo.getText();
+		return txtCorreo.getText().trim();
 	}
 
 	public boolean comprobaciones() {
 		boolean todoCorrecto = false;
-		String user = txtUsuario.getText();
-		String correo = txtCorreo.getText();
-		String correoComprobacion = txtCorreoComprobacion.getText();
+		String user = txtUsuario.getText().trim();
+		String correo = txtCorreo.getText().trim();
+		String correoComprobacion = txtCorreoComprobacion.getText().trim();
 		if (!user.equals("") && !correo.equals("") && !correoComprobacion.equals("")) {
 			if (correo.contains("@") && correo.contains(".") && !correo.contains(" ")) {
 				if (correo.equals(correoComprobacion)) {
@@ -229,7 +246,7 @@ public class CrearUsuario extends JFrame {
 				}
 
 			} else {
-				actualizarInfoVista("Error, el email tiene que tener un @, un . y no puede contener espacios");
+				actualizarInfoVista("Error, el email tiene que tener un @, un .");
 			}
 
 		} else {

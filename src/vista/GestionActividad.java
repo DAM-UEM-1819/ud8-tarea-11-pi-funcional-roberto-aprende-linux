@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -59,6 +60,7 @@ public class GestionActividad extends JFrame {
 	private JTextField txtBuscador;
 	private JComboBox comboBoxColumna;
 	private JLabel lblImportarActividades;
+	private JLabel lblLupa;
 
 
 
@@ -82,7 +84,7 @@ public class GestionActividad extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 450);
+		scrollPane.setBounds(98, 145, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaActividad = new JTable();
@@ -129,8 +131,8 @@ public class GestionActividad extends JFrame {
 
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
@@ -145,7 +147,26 @@ public class GestionActividad extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 
@@ -168,7 +189,7 @@ public class GestionActividad extends JFrame {
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -178,7 +199,7 @@ public class GestionActividad extends JFrame {
 				controlador.gestionActividadToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarActividad = new JButton("Modificar actividad");
@@ -187,15 +208,22 @@ public class GestionActividad extends JFrame {
 				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?" );
 			}
 		});
-		btnModificarActividad.setBounds(325, 685, 128, 40);
+		btnModificarActividad.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActividad);
 
 		btnBorrarActividad = new JButton("Borrar actividad");
-		btnBorrarActividad.setBounds(575, 685, 120, 40);
+		btnBorrarActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (confirmacionBorrar() == 0) {
+					
+				}
+			}
+		});
+		btnBorrarActividad.setBounds(532, 685, 150, 40);
 		contentPane.add(btnBorrarActividad);
 
 		btnAddActividad = new JButton(" A\u00F1adir actividad");
-		btnAddActividad.setBounds(774, 685, 128, 40);
+		btnAddActividad.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActividad);
 		
 		comboBoxTipoActividad = new JComboBox();
@@ -227,15 +255,20 @@ public class GestionActividad extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 112, 140, 22);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
 		
 		
 		lblImportarActividades = new JLabel("Importar Actividades");
 		lblImportarActividades.setIcon(new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblImportarActividades.setBounds(98, 127, 124, 20);
+		lblImportarActividades.setBounds(98, 111, 124, 20);
 		contentPane.add(lblImportarActividades);
+		
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
 		lblImportarActividades.setVisible(false);
 	
 	}
@@ -265,5 +298,15 @@ public class GestionActividad extends JFrame {
 	
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+	
+	public int confirmacionBorrar() {
+		int confirmacion = 1;
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea borrar el registro seleccionado?");
+		if (JOptionPane.YES_OPTION== valorRetorno) {
+			confirmacion = 0;
+		}
+		
+		return confirmacion;
 	}
 }

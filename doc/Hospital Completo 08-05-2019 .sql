@@ -137,7 +137,7 @@ ALTER TABLE realiza ADD CONSTRAINT realiza_pk PRIMARY KEY ( registro_cod_registr
 CREATE TABLE registro (
     cod_registro       NUMBER(5) NOT NULL,
     fecha              DATE NOT NULL,
-    hora               VARCHAR2(5) NOT NULL,
+   	hora               TIMESTAMP DEFAULT SYSTIMESTAMP,
     horas_profesor     NUMBER(2) NOT NULL,
     actividad_nombre   VARCHAR2(40) NOT NULL,
     cod_grupo          VARCHAR2(5) NOT  NULL
@@ -335,22 +335,22 @@ ALTER TABLE Actividad
   VALUES('Seg paciente 1', 'Taller de habilidades', 2, 2, 01411, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('BioÃ©tica 1 LET/Rechazo al tto', 'Escenario Complejo', 3, 2, 01401, 'ISTAN', '18/19', 'consulta');
+  VALUES('Bioética 1 LET/Rechazo al tto', 'Escenario Complejo', 3, 2, 01401, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('BioÃ©tica 2 Ãºltima cama', 'Taller de habilidades', 4, 2, 01402, '', '18/19', 'consulta');
+  VALUES('Bioética 2 última cama', 'Taller de habilidades', 4, 2, 01402, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('EPOC-Neumonia', 'Escenario Complejo', 5, 2, 01405, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('Asma-Ca PulmÃ³n', 'Taller de habilidades', 6, 2, 01409, '', '18/19', 'consulta');
+  VALUES('Asma-Ca Pulmón', 'Taller de habilidades', 6, 2, 01409, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('NefrologÃ­a FRA', 'Escenario Complejo', 7, 2, 01403, '', '18/19', 'consulta');
+  VALUES('Nefrología FRA', 'Escenario Complejo', 7, 2, 01403, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('NefrologÃ­a S NEFRÃ�TICO', 'Taller de habilidades', 8, 2, 01404, '', '18/19', 'consulta');
+  VALUES('Nefrología S NEFRÍTICO', 'Taller de habilidades', 8, 2, 01404, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('VIA PERIFERICA', 'Escenario Complejo', 9, 2, 01406, '', '18/19', 'consulta');
@@ -365,10 +365,10 @@ ALTER TABLE Actividad
   VALUES('Expl abd RX', 'Taller de habilidades', 12, 2, 01410, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('UrologÃ­a', 'Escenario Complejo', 13, 2, 01412, '', '18/19', 'consulta');
+  VALUES('Urología', 'Escenario Complejo', 13, 2, 01412, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('Taller UrologÃ­a sv', 'Taller de habilidades', 14, 2, 01411, '', '18/19', 'consulta');
+  VALUES('Taller Urología sv', 'Taller de habilidades', 14, 2, 01411, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Digestivo 1', 'HDA/Cirrosis', 15, 2, 01408,'', '18/19', 'consulta');
@@ -383,7 +383,7 @@ ALTER TABLE Actividad
   VALUES('TORACOCENTESIS', 'Taller de habilidades', 18, 2, 01409, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('HematologÃ­a 1', 'Escenario Complejo', 19, 2, 01403, '', '18/19', 'consulta');
+  VALUES('Hematología 1', 'Escenario Complejo', 19, 2, 01403, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Pielonefritis', 'Taller de habilidades', 20, 2, 01404, '', '18/19', 'consulta');
@@ -398,16 +398,16 @@ ALTER TABLE Actividad
   VALUES('Hipertiroidismo', 'Escenario Complejo', 23, 2, 01408, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('CardiologÃ­a 1', 'Taller de habilidades', 24, 2, 01410, 'ISTAN', '18/19', 'consulta');
+  VALUES('Cardiología 1', 'Taller de habilidades', 24, 2, 01410, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('CardiologÃ­a 2', 'Escenario Complejo', 25, 2, 01412, 'ISTAN', '18/19', 'consulta');
+  VALUES('Cardiología 2', 'Escenario Complejo', 25, 2, 01412, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('CardiologÃ­a 3', 'Taller de habilidades', 26, 2, 01411, 'ISTAN', '18/19', 'consulta');
+  VALUES('Cardiología 3', 'Taller de habilidades', 26, 2, 01411, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('CardiologÃ­a 4', 'Escenario Complejo', 27, 2, 01401, 'IOT', '18/19', 'consulta');
+  VALUES('Cardiología 4', 'Escenario Complejo', 27, 2, 01401, 'IOT', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Medicina interna 1', 'Taller de habilidades', 28, 2, 01402, 'OTRO', '18/19', 'consulta');
@@ -434,10 +434,10 @@ ALTER TABLE Actividad
   VALUES('Seg paciente 2', 'Escenario Complejo', 35, 2, 01408, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('BioÃ©tica 3', 'Taller de habilidades', 36, 2, 01410, 'ISTAN', '18/19', 'consulta');
+  VALUES('Bioética 3', 'Taller de habilidades', 36, 2, 01410, 'ISTAN', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
-  VALUES('BioÃ©tica 4', 'Escenario Complejo', 37, 2, 01412, '', '18/19', 'consulta');
+  VALUES('Bioética 4', 'Escenario Complejo', 37, 2, 01412, '', '18/19', 'consulta');
 
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('Viajero', 'Taller de habilidades', 38, 2, 01411, 'ISTAN', '18/19', 'consulta');
@@ -445,124 +445,125 @@ ALTER TABLE Actividad
   INSERT INTO Actividad(Nombre, Tipo_Actividad, Documentacion_Tecnica, Horas_Actividad, asignatura_Codigo, Simulador, acad, tipo_sala)
   VALUES('VIH/TBC', 'Escenario Complejo', 39, 2, 01411, '', '18/19', 'consulta');
 
+
   REM *** 6Âº Registro ***
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(1,'02/24/2019', '18:30', 2, 'Demandante / desagradecido','MEM11');
+   INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(1,'02/24/2019', 2, 'Demandante / desagradecido','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(2,'02/25/2019', '19:30', 2, 'Seg paciente 1','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(2,'02/25/2019', 2, 'Seg paciente 1','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(3,'02/24/2019', '20:30', 2, 'BioÃ©tica 1 LET/Rechazo al tto','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(3,'02/24/2019', 2, 'Bioética 1 LET/Rechazo al tto','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(4,'02/25/2019', '21:30', 2, 'BioÃ©tica 2 Ãºltima cama','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(4,'02/25/2019', 2, 'Bioética 2 última cama','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(5,'02/24/2019', '22:30', 2, 'EPOC-Neumonia','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(5,'02/24/2019', 2, 'EPOC-Neumonia','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(6,'02/25/2019', '23:30', 2, 'Asma-Ca PulmÃ³n','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(6,'02/25/2019', 2, 'Asma-Ca Pulmón','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(7,'02/24/2019', '0:30', 2, 'NefrologÃ­a FRA','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(7,'02/24/2019',  2, 'Nefrología FRA','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(8,'02/25/2019', '1:30', 2, 'NefrologÃ­a S NEFRÃ�TICO','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(8,'02/25/2019',  2, 'Nefrología S NEFRÍTICO','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(9,'02/24/2019', '2:30', 2, 'VIA PERIFERICA','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(9,'02/24/2019',  2, 'VIA PERIFERICA','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(10,'02/25/2019', '3:30', 2, 'VIA CENTRAL','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(10,'02/25/2019',  2, 'VIA CENTRAL','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(11,'02/24/2019', '4:30', 2, 'Expl abdominal','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(11,'02/24/2019',  2, 'Expl abdominal','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(12, '02/25/2019', '5:30', 2, 'Expl abd RX','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(12, '02/25/2019',  2, 'Expl abd RX','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(13, '02/24/2019', '6:30', 2, 'UrologÃ­a','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(13, '02/24/2019',  2, 'Urología','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(14,'02/25/2019', '7:30', 2, 'Taller UrologÃ­a sv','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(14,'02/25/2019',  2, 'Taller Urología sv','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(15,'02/24/2019', '8:30', 2, 'Digestivo 1','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(15,'02/24/2019',  2, 'Digestivo 1','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(16,'02/25/2019', '9:30', 2, 'Digestivo 2','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(16,'02/25/2019',  2, 'Digestivo 2','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(17,'02/24/2019', '10:30', 2, 'VIA AEREA','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(17,'02/24/2019', 2, 'VIA AEREA','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(18,'02/25/2019', '11:30', 2, 'TORACOCENTESIS','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(18,'02/25/2019', 2, 'TORACOCENTESIS','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(19, '02/24/2019', '12:30', 2, 'HematologÃ­a 1','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(19, '02/24/2019', 2, 'Hematología 1','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(20,'02/25/2019', '13:30', 2, 'Pielonefritis','MEM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(20,'02/25/2019', 2, 'Pielonefritis','MEM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(21,'02/24/2019', '14:30', 2, 'Neumonia','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(21,'02/24/2019', 2, 'Neumonia','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(22,'02/25/2019', '15:30', 2, 'Diabetes','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(22,'02/25/2019', 2, 'Diabetes','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(23,'02/24/2019', '16:30', 2, 'Hipertiroidismo','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(23,'02/24/2019', 2, 'Hipertiroidismo','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(24,'02/25/2019', '17:30', 2, 'CardiologÃ­a 1','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(24,'02/25/2019', 2, 'Cardiología 1','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(25, '02/24/2019', '18:30', 2, 'CardiologÃ­a 2','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(25, '02/24/2019', 2, 'Cardiología 2','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(26, '02/25/2019', '19:30', 2, 'CardiologÃ­a 3','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(26, '02/25/2019', 2, 'Cardiología 3','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(27, '02/24/2019', '20:30', 2, 'CardiologÃ­a 4','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(27, '02/24/2019', 2, 'Cardiología 4','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(28, '02/25/2019', '21:30', 2, 'Medicina interna 1','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(28, '02/25/2019', 2, 'Medicina interna 1','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(29, '02/24/2019', '22:30', 2, 'Medicina interna 2','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(29, '02/24/2019', 2, 'Medicina interna 2','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(30, '02/25/2019', '23:30', 2, 'Fiebre exantematica','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(30, '02/25/2019', 2, 'Fiebre exantematica','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(31, '02/24/2019', '0:30', 2, 'Meningitis','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(31, '02/24/2019',  2, 'Meningitis','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(32, '02/25/2019', '1:30', 2, 'SUTURAS','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(32, '02/25/2019',  2, 'SUTURAS','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(33, '02/24/2019', '2:30', 2, 'ECOGRAFIA','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(33, '02/24/2019',  2, 'ECOGRAFIA','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(34, '02/25/2019', '3:30', 2, 'Autoritario','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(34, '02/25/2019',  2, 'Autoritario','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(35, '02/24/2019', '4:30', 2, 'Seg paciente 2','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(35, '02/24/2019',  2, 'Seg paciente 2','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(36, '02/25/2019', '5:30', 2, 'BioÃ©tica 3','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(36, '02/25/2019',  2, 'Bioética 3','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(37, '02/24/2019', '6:30', 2, 'BioÃ©tica 4','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(37, '02/24/2019',  2, 'Bioética 4','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(38, '02/25/2019', '7:30', 2, 'Viajero','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(38, '02/25/2019',  2, 'Viajero','FAM11');
 
-  INSERT INTO Registro(COD_REGISTRO, FECHA, HORA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
-  VALUES(39, '02/24/2019', '8:30', 2, 'VIH/TBC','FAM11');
+  INSERT INTO Registro(COD_REGISTRO, FECHA, HORAS_PROFESOR, ACTIVIDAD_NOMBRE, cod_grupo)
+  VALUES(39, '02/24/2019',  2, 'VIH/TBC','FAM11');
 
   REM *** 8Âº SALA ***
 
@@ -859,6 +860,9 @@ ALTER TABLE Actividad
   REM *** 12Âº Participa ***
 
   INSERT INTO Participa(ALUMNO_EXP, REGISTRO_COD_REGISTRO, NOTA_ALUMNOS)
+  VALUES(1, 1, 0);
+
+    INSERT INTO Participa(ALUMNO_EXP, REGISTRO_COD_REGISTRO, NOTA_ALUMNOS)
   VALUES(1, 1, 0);
 
   INSERT INTO Participa(ALUMNO_EXP, REGISTRO_COD_REGISTRO, NOTA_ALUMNOS)

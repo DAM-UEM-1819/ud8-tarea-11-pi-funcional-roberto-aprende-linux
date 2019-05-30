@@ -30,6 +30,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import enums.ActoresComplexion;
+import enums.ActoresEdad;
+import enums.ActoresGenero;
+import enums.ActoresIdioma;
+import enums.ListadoInformes;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 
@@ -57,6 +62,8 @@ public class GestionActores extends JFrame {
 	private JComboBox comboBoxIdioma;
 	private JComboBox comboBoxComplexion;
 	private JCheckBox chckbxActivo;
+	private JLabel lblLupa;
+	private JLabel lblInfo;
 
 	public GestionActores() {
 		setResizable(false);
@@ -64,7 +71,9 @@ public class GestionActores extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosActores();
+				deshabilitarBotones();
 			}
+
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
@@ -77,11 +86,19 @@ public class GestionActores extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 168, 800, 450);
+		scrollPane.setBounds(98, 145, 800, 450);
 		contentPane.add(scrollPane);
 
 		tablaActores = new JTable();
-		tablaActores.setRowHeight(40);
+		tablaActores.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ponerDatos();
+				habilitarBotones();
+			}
+
+		});
+		tablaActores.setRowHeight(30);
 		tablaActores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaActores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaActores);
@@ -92,14 +109,14 @@ public class GestionActores extends JFrame {
 		txtNombre.setColumns(10);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(165, 42, 42));
-		HeaderPanel.setBounds(0, 0, 984, 101);
+		HeaderPanel.setBackground(new Color(164, 44, 52));
+		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
 
 		lblTitulo = new JLabel("Actores");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setBounds(358, 11, 202, 61);
+		lblTitulo.setBounds(0, 0, 1000, 100);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		HeaderPanel.add(lblTitulo);
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
@@ -108,7 +125,26 @@ public class GestionActores extends JFrame {
 		ImageIcon ueIcon = new ImageIcon("./img/ue.png");
 		lblUemLogo = new JLabel(ueIcon);
 		lblUemLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUemLogo.setBounds(0, 0, 240, 100);
+		lblUemLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				controlador.loginToHome();
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
@@ -119,18 +155,20 @@ public class GestionActores extends JFrame {
 				setVisible(false);
 				controlador.gestionActoresToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
 		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(818, 0, 100, 100);
+		lblPerfil.setBounds(850, 0, 100, 100);
 		HeaderPanel.add(lblPerfil);
 
 		btnVolver = new JButton("Volver");
@@ -140,19 +178,34 @@ public class GestionActores extends JFrame {
 				controlador.gestionActoresToGestion();
 			}
 		});
-		btnVolver.setBounds(100, 685, 120, 40);
+		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarActor = new JButton("Modificar actor");
-		btnModificarActor.setBounds(325, 685, 120, 40);
+		btnModificarActor.setEnabled(false);
+		btnModificarActor.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActor);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
-		btnAI_actor.setBounds(575, 685, 120, 40);
+		btnAI_actor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//controlador.solicitudBorrarActor();
+			}
+		});
+		btnAI_actor.setEnabled(false);
+		btnAI_actor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_actor);
 
 		btnAddActor = new JButton(" A\u00F1adir actor");
-		btnAddActor.setBounds(782, 685, 120, 40);
+		btnAddActor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.solicitudAddActor();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					addActor();
+				}
+			}
+		});
+		btnAddActor.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActor);
 
 		txtBuscador = new JTextField();
@@ -174,33 +227,33 @@ public class GestionActores extends JFrame {
 		});
 		txtBuscador.setText("Buscador");
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuscador.setBounds(800, 114, 100, 20);
+		txtBuscador.setBounds(728, 111, 140, 22);
 		contentPane.add(txtBuscador);
 
 		lblImportarActores = new JLabel("Importar Actores");
 		lblImportarActores.setIcon(
 				new ImageIcon(GestionActores.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
-		lblImportarActores.setBounds(98, 127, 124, 20);
+		lblImportarActores.setBounds(98, 111, 124, 20);
 		contentPane.add(lblImportarActores);
 		lblImportarActores.setVisible(false);
 
 		comboBoxEdad = new JComboBox();
-		comboBoxEdad.setModel(new DefaultComboBoxModel(new String[] { "Edad" }));
+		comboBoxEdad.setModel(new DefaultComboBoxModel(ActoresEdad.values()));
 		comboBoxEdad.setBounds(334, 629, 121, 30);
 		contentPane.add(comboBoxEdad);
 
 		comboBoxGenero = new JComboBox();
-		comboBoxGenero.setModel(new DefaultComboBoxModel(new String[] { "G\u00E9nero" }));
+		comboBoxGenero.setModel(new DefaultComboBoxModel(ActoresGenero.values()));
 		comboBoxGenero.setBounds(465, 629, 103, 30);
 		contentPane.add(comboBoxGenero);
 
 		comboBoxIdioma = new JComboBox();
-		comboBoxIdioma.setModel(new DefaultComboBoxModel(new String[] { "Idioma" }));
+		comboBoxIdioma.setModel(new DefaultComboBoxModel(ActoresIdioma.values()));
 		comboBoxIdioma.setBounds(575, 629, 103, 30);
 		contentPane.add(comboBoxIdioma);
 
 		comboBoxComplexion = new JComboBox();
-		comboBoxComplexion.setModel(new DefaultComboBoxModel(new String[] { "Complexi\u00F3n" }));
+		comboBoxComplexion.setModel(new DefaultComboBoxModel(ActoresComplexion.values()));
 		comboBoxComplexion.setBounds(688, 629, 103, 30);
 		contentPane.add(comboBoxComplexion);
 
@@ -208,6 +261,61 @@ public class GestionActores extends JFrame {
 		chckbxActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxActivo.setBounds(801, 633, 97, 23);
 		contentPane.add(chckbxActivo);
+
+		ImageIcon lupa = new ImageIcon("./img/buscar.png");
+		lblLupa = new JLabel(lupa);
+		lblLupa.setBounds(878, 111, 20, 22);
+		contentPane.add(lblLupa);
+
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(0, 111, 1000, 22);
+		contentPane.add(lblInfo);
+	}
+
+	public String getNombre() {
+		return txtNombre.getText();
+	}
+
+	public String getEdad() {
+		return String.valueOf(comboBoxEdad.getSelectedItem());
+	}
+
+	public String getGenero() {
+		return String.valueOf(comboBoxGenero.getSelectedItem());
+	}
+
+	public String getIdioma() {
+		return String.valueOf(comboBoxIdioma.getSelectedItem());
+	}
+
+	public String getComplexion() {
+		return String.valueOf(comboBoxComplexion.getSelectedItem());
+	}
+
+	public String getActivo() {
+		String resultado = chckbxActivo.isSelected() == true ? "1" : "0";
+		return resultado;
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public void setComboBoxEdad(JComboBox comboBoxEdad) {
+		this.comboBoxEdad = comboBoxEdad;
+	}
+
+	public void setComboBoxGenero(JComboBox comboBoxGenero) {
+		this.comboBoxGenero = comboBoxGenero;
+	}
+
+	public void setComboBoxIdioma(JComboBox comboBoxIdioma) {
+		this.comboBoxIdioma = comboBoxIdioma;
+	}
+
+	public void setComboBoxComplexion(JComboBox comboBoxComplexion) {
+		this.comboBoxComplexion = comboBoxComplexion;
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -225,8 +333,48 @@ public class GestionActores extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaActores.getModel();
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+
+	public void actualizarInfo() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+	}
+
+	public void addActor() {
+		DefaultTableModel model = (DefaultTableModel) tablaActores.getModel();
+		model.addRow(modeloGestionDatos.getDatosfilasTabla());
+		limpiarTxt();
+	}
+
+	private void limpiarTxt() {
+		txtNombre.setText("");
+		chckbxActivo.setSelected(false);
+
+	}
+
+	private void deshabilitarBotones() {
+		btnModificarActor.setEnabled(false);
+		btnAI_actor.setEnabled(false);
+
+	}
+
+	private void habilitarBotones() {
+		btnModificarActor.setEnabled(true);
+		btnAI_actor.setEnabled(true);
+
+	}
+
+	private void ponerDatos() {
+		txtNombre.setText(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0)));
+		comboBoxEdad.setSelectedItem(
+				String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 1)).toUpperCase());
+		if(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 5)).equals("1")){
+			chckbxActivo.setSelected(true);
+		} else {
+			chckbxActivo.setSelected(false);
+		}
+
 	}
 }
