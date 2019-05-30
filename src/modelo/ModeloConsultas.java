@@ -97,13 +97,16 @@ public class ModeloConsultas {
 	private String codigoRegistro;
 	private Object[] todosInformes;
 	private ArrayList<String[][]> todosInformesConDatos;
+	private String codigoRegistroHome;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
 
 	// Sentencias Select SQL TABLAS
 	private String selectHome;
-	private String selectDatosExtraHome;
+	private String selectDatosExtraHomeAlumnos;
+	private String selectDatosExtraHomeSimuladorYDoc;
+	private String selectDatosExtraHomeActor;
 	private String selectTodosUsuarios;
 	private String selectTodosRegistros;
 	private String selectTodosAlumnos;
@@ -202,7 +205,9 @@ public class ModeloConsultas {
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
 
 		selectHome = propiedades.getProperty("selectHome");
-		selectDatosExtraHome = propiedades.getProperty("selectDatosExtraHome");
+		selectDatosExtraHomeAlumnos = propiedades.getProperty("selectDatosExtraHomeAlumnos");
+		selectDatosExtraHomeSimuladorYDoc = propiedades.getProperty("selectDatosExtraHomeSimuladorYDoc");
+		selectDatosExtraHomeActor = propiedades.getProperty("selectDatosExtraHomeActor");
 		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
 		selectTodosRegistros = propiedades.getProperty("selectTodosRegistros");
 		selectTodosAlumnos = propiedades.getProperty("selectTodosAlumnos");
@@ -419,7 +424,7 @@ public class ModeloConsultas {
 
 	public boolean tieneActor() {
 		boolean valor = false;
-		if (actor.equals("1")) {
+		if (!actor.equals("")) {
 			valor = true;
 		}
 		return valor;
@@ -579,19 +584,33 @@ public class ModeloConsultas {
 
 	// TERMINAR
 
-	public void getDatosExtraHome(Object[] datos) {
+	public void getDatosExtraHome(String cod) {
 		PreparedStatement pstmt;
+		ResultSet rs;
 		try {
-			pstmt = conexion.prepareStatement(selectDatosExtraHome);
-			// Aqui irian los setString
-			ResultSet rs = pstmt.executeQuery();
-
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeAlumnos);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				numeroAlumos = rs.getString(1);
-				simulador = rs.getString(2);
-				actor = rs.getString(3);
-				documentacion = rs.getString(4);
 			}
+			
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeSimuladorYDoc);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				documentacion = rs.getString(1);
+				simulador = rs.getString(2);
+			}
+			
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeActor);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				actor = rs.getString(1);
+			}
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1018,7 +1037,7 @@ public class ModeloConsultas {
 	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
 		this.tableModel = tableModel;
 		TableRowSorter trs = new TableRowSorter(tableModel);
-		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 0));
+		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 1));
 		this.filtro = trs;
 		home.filtro();
 	}

@@ -95,6 +95,7 @@ public class Home extends JFrame {
 	private String mes;
 	private String year;
 	private boolean estaSeleccionado;
+	private String codREgistroFila;
 
 	public Home() {
 		setResizable(false);
@@ -103,6 +104,7 @@ public class Home extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosHome();
 				btnInfoExtra.setEnabled(false);
+				esconderPrimeraColumna();
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
@@ -127,6 +129,7 @@ public class Home extends JFrame {
 				if (tablaRegistros.getSelectedRow() > -1) {
 					estaSeleccionado = true;
 					btnInfoExtra.setEnabled(true);
+					controlador.solicitudDatosExtraHome();
 				} else {
 					estaSeleccionado = false;
 					btnInfoExtra.setEnabled(false);
@@ -297,6 +300,7 @@ public class Home extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				controlador.solicitudBuscador(this);
+				esconderPrimeraColumna();
 			}
 		});
 		txtBuscador.addMouseListener(new MouseAdapter() {
@@ -328,6 +332,7 @@ public class Home extends JFrame {
 					year = datosFecha[datosFecha.length - 1];
 					actualizarFecha();
 					controlador.solicitudDatosHome();
+					esconderPrimeraColumna();
 
 				}
 			}
@@ -385,7 +390,11 @@ public class Home extends JFrame {
 
 	public void actualizarInfoExtra() {
 		lblNumeroAlumnos.setText(modeloConsultas.getNumeroAlumos());
-		lblNombreSimulador.setText(modeloConsultas.getSimulador());
+		if (modeloConsultas.getSimulador() == null) {
+			lblNombreSimulador.setText("-");
+		} else {
+			lblNombreSimulador.setText(modeloConsultas.getSimulador());
+		}
 		if (modeloConsultas.tieneActor()) {
 			chckbxActor.setSelected(true);
 		} else {
@@ -462,9 +471,22 @@ public class Home extends JFrame {
 		return txtBuscador.getText();
 	}
 	
+	public String getCodRegistroFila() {
+		return String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0));
+	}
+	
 	public void filtro(){
 		TableRowSorter trs = modeloConsultas.getFiltro();
 		tablaRegistros.setRowSorter(trs);
+	}
+	
+	private void esconderPrimeraColumna(){
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(0);
 	}
 	
 	

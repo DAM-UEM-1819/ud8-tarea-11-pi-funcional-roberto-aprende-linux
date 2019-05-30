@@ -157,6 +157,11 @@ public class Controlador implements IControlador {
 	public void homeToGestion() {
 		gestion.setVisible(true);
 	}
+	
+	public void solicitudDatosExtraHome() {
+		modeloConsultas.getDatosExtraHome(home.getCodRegistroFila());
+		
+	}
 
 	public void homeToOcupaciones() {
 		home.setVisible(false);
@@ -615,5 +620,7 @@ public class Controlador implements IControlador {
 		}
 
 	}
+
+
 
 }
