@@ -1,31 +1,33 @@
 package modelo;
 
+import java.awt.Label;
 import java.io.File;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.Properties;
-import java.util.TreeSet;
 
-import javax.swing.table.DefaultTableModel;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 
-import com.sun.mail.smtp.DigestMD5;
-
-import controlador.*;
-import vista.*;
+import jxl.Workbook;
+import jxl.write.WritableCell;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 public class Modelo {
 
@@ -237,6 +239,59 @@ public class Modelo {
 		}
 
 		return passwd;
+
+	}
+
+	public void generarExcel() {
+		// ESTABLECEMOS LA RUTA
+		final String RUTA = System.getProperty("user.home");
+
+		// RECOGEMOS LOS INFORMES CON TODOS LOS DATOS DEL MODELO CONSULTAS
+		ArrayList<String[][]> informes = modeloConsultas.getTodosInformesConDatos();
+
+		// INICIALIZAMOS UN OBJETO DE TIPO WritableWorkbook QUE NOS PERMITIRA CREAR EL
+		// EXCEL
+		WritableWorkbook excel = null;
+
+		int contador = 1;
+
+		try {
+
+			// CREAMOS EL EXCEL
+			excel = Workbook.createWorkbook(new File(RUTA));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// ITERAMOS LOS INFORMES
+		for (String[][] strings : informes) {
+
+			// CREAMOS LA HOJA DE EXCEL
+			WritableSheet hojaExcel = excel.createSheet("Hoja " + contador, contador);
+			contador++;
+
+			for (int row = 0; row < strings.length; row++) {
+				for (int col = 0; col < strings[row].length; col++) {
+
+					System.out.println(strings[row][col]);
+
+					// CREAMOS LA LABEL PARA AÑADIR EL VALOR QUE SE ENCUENTRA EN LA FILA X Y LA
+					// COLUMNA Y
+					jxl.write.Label label = new jxl.write.Label(row, col, strings[row][col]);
+
+					try {
+
+						// AÑADIMOS LA CELDA A LA HOJA EXCEL
+						hojaExcel.addCell(label);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 
 	}
 

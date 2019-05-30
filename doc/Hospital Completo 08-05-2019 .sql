@@ -312,19 +312,19 @@ ALTER TABLE Actividad
   REM *** 4Âº Actor ***
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MEDIANA EDAD', 'Hombre', 'EspaÃ±ol', 'Juan', 1, 'Obesa');
+  VALUES('MEDIANA EDAD', 'Hombre', 'Español', 'Juan', 1, 'Obesa');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÃ‘OS', 'Mujer', 'InglÃ©s', 'Pepa', 2, 'Normal');
+  VALUES('MAYOR 60 AÑOS', 'Mujer', 'Inglés', 'Pepa', 2, 'Normal');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MEDIANA EDAD', 'Hombre', 'EspaÃ±ol', 'Anastasio', 3, 'Obesa');
+  VALUES('MEDIANA EDAD', 'Hombre', 'Español', 'Anastasio', 3, 'Obesa');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÃ‘OS', 'Mujer', 'InglÃ©s', 'Gertrudis', 4, 'Delgada');
+  VALUES('MAYOR 60 AÑOS', 'Mujer', 'Inglés', 'Gertrudis', 4, 'Delgada');
 
   INSERT INTO Actor(EDAD, GENERO, IDIOMA, NOMBRE, Cod_Actor, COMPLEXION)
-  VALUES('MAYOR 60 AÃ‘OS', 'Hombre', 'EspaÃ±ol', 'Pepito', 5, 'Normal');
+  VALUES('MAYOR 60 AÑOS', 'Hombre', 'Español', 'Pepito', 5, 'Normal');
 
   REM *** 5Âº Actividad ***
 

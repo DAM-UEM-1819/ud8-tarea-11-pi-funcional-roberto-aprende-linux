@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeSet;
 
@@ -19,6 +20,7 @@ import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import controlador.Controlador;
 import vista.CrearUsuario;
@@ -91,6 +93,8 @@ public class ModeloConsultas {
 	private TableRowSorter filtro;
 	private String ultimoRegistro;
 	private String codigoRegistro;
+	private Object[] todosInformes;
+	private ArrayList<String[][]> todosInformesConDatos;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -151,18 +155,15 @@ public class ModeloConsultas {
 	private String informeListadoProfesoresPorTitulacionActivos;
 	private String infoExtraProfesores;
 	private String infoExtraAlumnos;
-	
+
 	// SENTENCIAS SELECT SQL ULTIMO REGISTRO
 	private String selectUltimoRegistroSala;
 	private String selectUltimoRegistroActor;
-	
+
 	// SENTENCIAS SELECT SQL EXTRAER CODIGO
 	private String selectExtraerCodSala;
-	
-	
-	
-	
-
+	private String selectExtraerCodActor;
+	private String codigoActor ;
 	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
 	public ModeloConsultas() {
@@ -191,7 +192,8 @@ public class ModeloConsultas {
 		selectInformes();
 		selectUltimoRegistro();
 		selectExtraerCodigo();
-		
+		addInformesToTodosInformes();
+
 	}
 
 	private void selectTablas() {
@@ -276,14 +278,35 @@ public class ModeloConsultas {
 		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
 		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
 	}
-	
+
 	private void selectUltimoRegistro() {
 		selectUltimoRegistroSala = propiedades.getProperty("selectUltimoRegistroSala");
 		selectUltimoRegistroActor = propiedades.getProperty("selectUltimoRegistroActor");
 	}
-	
+
 	private void selectExtraerCodigo() {
 		selectExtraerCodSala = propiedades.getProperty("selectExtraerCodSala");
+		selectExtraerCodActor = propiedades.getProperty("selectExtraerCodActor");
+	}
+
+	private void addInformesToTodosInformes() {
+		todosInformes = new Object[15];
+
+		todosInformes[0] = informeNumeroHorasTotalesPorActividad;
+		todosInformes[1] = informeNumeroHorasTotalesActividadPorTitulacion;
+		todosInformes[2] = informeNumeroHorasTotalesActividadPorTitulacionYCurso;
+		todosInformes[3] = informeNumeroHorasTotalesActividadPorTitulacionYAsignatura;
+		todosInformes[4] = informeNumeroHorasTotalesActividadPorProfesor;
+		todosInformes[5] = informeNumeroHorasTotalesActividadPorSala;
+		todosInformes[6] = informeNumeroHorasTotalesActividadPorActividad;
+		todosInformes[7] = informeNumeroHorasTotalesActividadPorSemestre;
+		todosInformes[8] = informeNumeroHorasTotalesActividadPorMes;
+		todosInformes[9] = informeNumeroHorasActorTotalesCursoAcademico;
+		todosInformes[10] = informeNumeroHorasActorTotalesTitulacionYMes;
+		todosInformes[11] = informeNumeroHorasActorTotalesTitulacionCursoAcademico;
+		todosInformes[12] = informeListadoAlumnosAsignaturaYGrupoActivos;
+		todosInformes[13] = informeListadoAlumnosNotasPorNombreActividad;
+		todosInformes[14] = informeListadoProfesoresPorTitulacionActivos;
 	}
 
 	// INICIO SETTERS
@@ -413,17 +436,25 @@ public class ModeloConsultas {
 	public String getDocumentacion() {
 		return documentacion;
 	}
-	
+
 	public TableRowSorter getFiltro() {
 		return filtro;
 	}
-	
+
 	public String getUltimoRegistro() {
 		return ultimoRegistro;
 	}
-	
+
 	public String getCodigoRegistro() {
 		return codigoRegistro;
+	}
+	
+	public ArrayList<String[][]> getTodosInformesConDatos() {
+		return todosInformesConDatos;
+	}
+	
+	public Object[] getTodosInformes() {
+		return todosInformes;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -822,7 +853,7 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ultimoCodActor() {
 		PreparedStatement pstmt;
 		try {
@@ -835,9 +866,9 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void extraerCodigoSala(String nombre, String numero, String capacidad) {
 		PreparedStatement pstmt;
 		try {
@@ -852,7 +883,30 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
+	}
+	
+	public String extraerCodigoActor(String nombre, String edad, String genero, String idioma, String complexion, String activo) {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectExtraerCodActor);
+			pstmt.setString(1, nombre);
+			pstmt.setString(2, edad);
+			pstmt.setString(3, genero);
+			pstmt.setString(4, idioma);
+			pstmt.setString(5, complexion);
+			pstmt.setString(6, activo);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next())
+				codigoActor = rs.getString(1);
+			else {
+				System.out.println("No entra");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return codigoActor;
+
 	}
 
 	public void comprobarInsertODelete(String profe) {
@@ -979,7 +1033,7 @@ public class ModeloConsultas {
 		getDatos(pstmt);
 
 	}
-	
+
 	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
 		this.tableModel = tableModel;
 		TableRowSorter trs = new TableRowSorter(tableModel);
@@ -1058,7 +1112,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
 	 * home
-	 * 
+	 *
 	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
 	 *                       la fila seleccionada
 	 */
@@ -1069,7 +1123,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo para mostrar el listado de alumnos y profesores del registro
 	 * seleccionado en la ventana de home
-	 * 
+	 *
 	 * @param modelProfesores La tabla de profesores
 	 * @param modelAlumnos    La tabla de alumnos
 	 */
@@ -1088,9 +1142,81 @@ public class ModeloConsultas {
 
 	}
 
+	// EN FASE DE IMPLEMENTACION
+	public void resultadoTodosInformes() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ResultSetMetaData metadatos = null;
+		todosInformesConDatos = new ArrayList<String[][]>(); // 15 por el numero de selects que hay
+		String[][] datosInforme = null;
+
+		int contador = 1;
+		int ultimoRegistro = 0;
+		int numCol = 0;
+		
+		String[] cabeceras = null;
+ 
+		for (int i = 0; i < todosInformes.length; i++) {
+
+			try {
+				// EJECUTAMOS LA CONSULTA PARA SABER EL NUMERO DE REGISTROS QUE HAY
+				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
+				rs = pstmt.executeQuery();
+				metadatos = rs.getMetaData();
+				
+				while (rs.next()) {
+					ultimoRegistro++;
+				}
+				
+				cabeceras = new String[numCol];
+				
+				for (int j = 0; j < numCol; j++) {
+					cabeceras[0] = metadatos.getColumnName(i);
+				}
+				
+				numCol = metadatos.getColumnCount();
+				datosInforme = new String[ultimoRegistro + 1][numCol];
+
+				// REPETIMOS LA SELECT PARA VOLVER A POSICIONAR EL CURSOR EN LA PRIMERA POSICION
+				// YA QUE NO SE PUEDE CON RS.FIRST
+				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+
+					for (int j = 1; j < numCol; j++) {
+						datosInforme[contador][j] = rs.getString(j + 1);
+					}
+
+					
+					contador++;
+				}
+				
+				for (int j = 0; j < cabeceras.length; j++) {
+					datosInforme[0][j] = cabeceras[j];
+				}
+				todosInformesConDatos.add(datosInforme);
+				
+				ultimoRegistro = 0;
+				contador = 1;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		for (String[][] strings : todosInformesConDatos) {
+			for (int row = 0; row < strings.length; row++) {
+				for (int col = 0; col < strings[row].length; col++) {
+					System.out.println(strings[row][col]);
+				}
+			}
+		}
+		
+		modelo.generarExcel();
+			
+		}
+		
+	}
 
 
-
-
-
-}

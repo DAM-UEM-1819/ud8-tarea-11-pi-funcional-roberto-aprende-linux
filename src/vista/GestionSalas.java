@@ -190,11 +190,13 @@ public class GestionSalas extends JFrame {
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblInfo.setText("");
-				controlador.solicitudBorrar(this);
-				if (modeloGestionDatos.getSeHaBorrado()) {
-					borrado();
+				if (confirmacionBorrar() == 0) {
+					controlador.solicitudBorrar(this);
+					if (modeloGestionDatos.getSeHaBorrado()) {
+						borrado();
+					}
+					habilitarBotones();
 				}
-				habilitarBotones();
 			}
 		});
 		btnBorrar.setBounds(545, 685, 150, 40);
@@ -413,5 +415,15 @@ public class GestionSalas extends JFrame {
 
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+	
+	public int confirmacionBorrar() {
+		int confirmacion = 1;
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea borrar el registro seleccionado?");
+		if (JOptionPane.YES_OPTION== valorRetorno) {
+			confirmacion = 0;
+		}
+		
+		return confirmacion;
 	}
 }
