@@ -446,6 +446,14 @@ public class ModeloConsultas {
 	public String getCodigoRegistro() {
 		return codigoRegistro;
 	}
+	
+	public ArrayList<String[][]> getTodosInformesConDatos() {
+		return todosInformesConDatos;
+	}
+	
+	public Object[] getTodosInformes() {
+		return todosInformes;
+	}
 
 	// INICIO METODOS BASE DATOS
 
@@ -1117,10 +1125,12 @@ public class ModeloConsultas {
 		todosInformesConDatos = new ArrayList<String[][]>(); // 15 por el numero de selects que hay
 		String[][] datosInforme = null;
 
-		int contador = 0;
+		int contador = 1;
 		int ultimoRegistro = 0;
 		int numCol = 0;
-
+		
+		String[] cabeceras = null;
+ 
 		for (int i = 0; i < todosInformes.length; i++) {
 
 			try {
@@ -1128,12 +1138,19 @@ public class ModeloConsultas {
 				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
 				rs = pstmt.executeQuery();
 				metadatos = rs.getMetaData();
+				
 				while (rs.next()) {
 					ultimoRegistro++;
 				}
 				
+				cabeceras = new String[numCol];
+				
+				for (int j = 0; j < numCol; j++) {
+					cabeceras[0] = metadatos.getColumnName(i + 1);
+				}
+				
 				numCol = metadatos.getColumnCount();
-				datosInforme = new String[ultimoRegistro][numCol];
+				datosInforme = new String[ultimoRegistro + 1][numCol];
 
 				// REPETIMOS LA SELECT PARA VOLVER A POSICIONAR EL CURSOR EN LA PRIMERA POSICION
 				// YA QUE NO SE PUEDE CON RS.FIRST
@@ -1142,17 +1159,21 @@ public class ModeloConsultas {
 
 				while (rs.next()) {
 
-					for (int j = 0; j < numCol; j++) {
+					for (int j = 1; j < numCol; j++) {
 						datosInforme[contador][j] = rs.getString(j + 1);
 					}
 
 					
 					contador++;
 				}
+				
+				for (int j = 0; j < cabeceras.length; j++) {
+					datosInforme[0][j] = cabeceras[j];
+				}
 				todosInformesConDatos.add(datosInforme);
 				
 				ultimoRegistro = 0;
-				contador = 0;
+				contador = 1;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1166,6 +1187,8 @@ public class ModeloConsultas {
 				}
 			}
 		}
+		
+		modelo.generarExcel();
 			
 		}
 		
