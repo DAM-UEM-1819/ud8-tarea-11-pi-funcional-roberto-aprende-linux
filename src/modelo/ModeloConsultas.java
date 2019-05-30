@@ -162,7 +162,8 @@ public class ModeloConsultas {
 
 	// SENTENCIAS SELECT SQL EXTRAER CODIGO
 	private String selectExtraerCodSala;
-
+	private String selectExtraerCodActor;
+	private String codigoActor ;
 	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
 	public ModeloConsultas() {
@@ -285,6 +286,7 @@ public class ModeloConsultas {
 
 	private void selectExtraerCodigo() {
 		selectExtraerCodSala = propiedades.getProperty("selectExtraerCodSala");
+		selectExtraerCodActor = propiedades.getProperty("selectExtraerCodActor");
 	}
 
 	private void addInformesToTodosInformes() {
@@ -881,6 +883,29 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+	
+	public String extraerCodigoActor(String nombre, String edad, String genero, String idioma, String complexion, String activo) {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectExtraerCodActor);
+			pstmt.setString(1, nombre);
+			pstmt.setString(2, edad);
+			pstmt.setString(3, genero);
+			pstmt.setString(4, idioma);
+			pstmt.setString(5, complexion);
+			pstmt.setString(6, activo);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next())
+				codigoActor = rs.getString(1);
+			else {
+				System.out.println("No entra");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return codigoActor;
 
 	}
 

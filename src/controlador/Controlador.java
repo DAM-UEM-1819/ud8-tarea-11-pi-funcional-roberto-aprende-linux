@@ -323,10 +323,7 @@ public class Controlador implements IControlador {
 	}
 	
 
-	/*public void solicitudBorrarActor() {
-		modeloConsultas
-		
-	}*/
+
 
 	// VENTANA GESTION ALUMNOS
 	public void gestionAlumnosToGestion() {
@@ -371,6 +368,10 @@ public class Controlador implements IControlador {
 		case "GESTIONPROFESORES":
 			modeloGestionDatos.opcionesActivoDatos(Integer.parseInt(gestionProfesores.getActivo()),
 					gestionProfesores.getPrimaryKey(), "G");
+			break;
+			case "GESTIONACTORES":
+			modeloGestionDatos.opcionesActivoDatos(gestionActores.getInactivo(),
+					modeloConsultas.extraerCodigoActor(gestionActores.getNombre(),gestionActores.getEdad(),gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo()), "H");
 			break;
 		}
 

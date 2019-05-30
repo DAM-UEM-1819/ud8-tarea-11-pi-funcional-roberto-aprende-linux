@@ -37,6 +37,7 @@ import enums.ActoresIdioma;
 import enums.ListadoInformes;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import oracle.net.aso.i;
 
 public class GestionActores extends JFrame {
 
@@ -182,6 +183,11 @@ public class GestionActores extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnModificarActor = new JButton("Modificar actor");
+		btnModificarActor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnModificarActor.setEnabled(false);
 		btnModificarActor.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActor);
@@ -189,7 +195,11 @@ public class GestionActores extends JFrame {
 		btnAI_actor = new JButton("Activo/Inactivo");
 		btnAI_actor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//controlador.solicitudBorrarActor();
+				// controlador.solicitudBorrarActor();
+
+				controlador.solicitudBorrar(this);
+				activoActor();
+
 			}
 		});
 		btnAI_actor.setEnabled(false);
@@ -199,6 +209,7 @@ public class GestionActores extends JFrame {
 		btnAddActor = new JButton(" A\u00F1adir actor");
 		btnAddActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				controlador.solicitudAddActor();
 				if (modeloGestionDatos.getSeHaCreado()) {
 					addActor();
@@ -278,7 +289,7 @@ public class GestionActores extends JFrame {
 	}
 
 	public String getEdad() {
-		return String.valueOf(comboBoxEdad.getSelectedItem());
+		return String.valueOf(comboBoxEdad.getSelectedItem()).toUpperCase();
 	}
 
 	public String getGenero() {
@@ -298,24 +309,13 @@ public class GestionActores extends JFrame {
 		return resultado;
 	}
 
+	public int getInactivo() {
+		int inac = Integer.parseInt(getActivo()) == 1 ? 0 : 1;
+		return inac;
+	}
+
 	public void setTxtNombre(JTextField txtNombre) {
 		this.txtNombre = txtNombre;
-	}
-
-	public void setComboBoxEdad(JComboBox comboBoxEdad) {
-		this.comboBoxEdad = comboBoxEdad;
-	}
-
-	public void setComboBoxGenero(JComboBox comboBoxGenero) {
-		this.comboBoxGenero = comboBoxGenero;
-	}
-
-	public void setComboBoxIdioma(JComboBox comboBoxIdioma) {
-		this.comboBoxIdioma = comboBoxIdioma;
-	}
-
-	public void setComboBoxComplexion(JComboBox comboBoxComplexion) {
-		this.comboBoxComplexion = comboBoxComplexion;
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -366,15 +366,102 @@ public class GestionActores extends JFrame {
 
 	}
 
+	public Object datosEdad() {
+		String edad = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 1)).toUpperCase();
+		Object selecion = null;
+		switch (edad) {
+		case "MAYOR 60 AÑOS":
+			selecion = ActoresEdad.Mayor_de_60_años;
+			break;
+		case "MEDIANA EDAD":
+			selecion = ActoresEdad.Mediana_edad;
+			break;
+		case "ADOLESCENTE":
+			selecion = ActoresEdad.Adolescente;
+			break;
+
+		default:
+			break;
+		}
+		return selecion;
+	}
+	
+	public Object datosGenero() {
+		String genero = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 2)).toUpperCase();
+		Object selecion = null;
+		switch (genero) {
+		case "HOMBRE":
+			selecion = ActoresGenero.Hombre;
+			break;
+		case "MUJER":
+			selecion = ActoresGenero.Mujer;
+			break;
+		default:
+			break;
+		}
+		return selecion;
+	}
+	
+	public Object datosIdioma() {
+		String idioma = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 3)).toUpperCase();
+		Object selecion = null;
+		switch (idioma) {
+		case "ESPAÑOL":
+			selecion = ActoresIdioma.Español;
+			break;
+		case "INGLÉS":
+			selecion = ActoresIdioma.Ingles;
+			break;
+		default:
+			break;
+		}
+		return selecion;
+	}
+	
+	public Object datosComplexion() {
+		String complexion = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 4)).toUpperCase();
+		Object selecion = null;
+		switch (complexion) {
+		case "NORMAL":
+			selecion = ActoresComplexion.Normal;
+			break;
+		case "DELGADA":
+			selecion = ActoresComplexion.Delgada;
+			break;
+		case "OBESA":
+			selecion = ActoresComplexion.Obesa;
+			break;
+		default:
+			break;
+		}
+		return selecion;
+	}
+
 	private void ponerDatos() {
 		txtNombre.setText(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0)));
-		comboBoxEdad.setSelectedItem(
-				String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 1)).toUpperCase());
-		if(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 5)).equals("1")){
+		comboBoxEdad.setSelectedItem(datosEdad());
+		comboBoxGenero.setSelectedItem(datosGenero());
+		comboBoxIdioma.setSelectedItem(datosIdioma());
+		comboBoxComplexion.setSelectedItem(datosComplexion());
+
+		if (String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 5)).equals("1")) {
 			chckbxActivo.setSelected(true);
 		} else {
 			chckbxActivo.setSelected(false);
 		}
 
 	}
+
+	public void activoActor() {
+		DefaultTableModel model = (DefaultTableModel) tablaActores.getModel();
+		lblInfo.setText("Se ha cambiado estado del actor");
+		if (getActivo().equals("0")) {
+			model.setValueAt("1", tablaActores.getSelectedRow(), 5);
+			chckbxActivo.setSelected(true);
+		} else {
+			model.setValueAt("0", tablaActores.getSelectedRow(), 5);
+			chckbxActivo.setSelected(false);
+		}
+	}
+
 }
