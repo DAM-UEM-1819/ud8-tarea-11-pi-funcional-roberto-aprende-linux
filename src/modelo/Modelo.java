@@ -239,5 +239,9 @@ public class Modelo {
 		return passwd;
 
 	}
+	
+	public void generarExcel( ) {
+		String ruta = System.getProperty("user.home");
+	}
 
 }

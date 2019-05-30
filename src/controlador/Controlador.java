@@ -231,6 +231,11 @@ public class Controlador implements IControlador {
 		modeloConsultas.crearInforme(informes.getModel(), informes.getInforme());
 
 	}
+	
+	public void solicitudDescargarInforme() {
+		modeloConsultas.resultadoTodosInformes();
+		
+	}
 
 	// VENTANA INFORMACION EXTRA
 	public void infoExtraToHome() {
@@ -600,6 +605,8 @@ public class Controlador implements IControlador {
 		}
 
 	}
+
+
 
 
 }

@@ -39,10 +39,11 @@ public class Informes extends JFrame {
 	private JLabel lblUemLogo;
 	private JLabel lblPerfil;
 	private JButton btnVolver;
-	private Label lblProfesores;
+	private JLabel lblDescargar;
 	private JTable TablaInfoAlumnos;
 	private JScrollPane scrollPane_2;
 	private JComboBox comboBoxInformes;
+	private JLabel lblDescargarInforme;
 
 	public Informes() {
 		setResizable(false);
@@ -141,11 +142,27 @@ public class Informes extends JFrame {
 		});
 		btnVolver.setBounds(425, 685, 150, 40);
 		contentPane.add(btnVolver);
-
-		lblProfesores = new Label("Nombre del informe: ");
-		lblProfesores.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblProfesores.setBounds(98, 129, 400, 22);
-		contentPane.add(lblProfesores);
+		
+		ImageIcon descargar = new ImageIcon("./img/descargar.png");
+		lblDescargar = new JLabel(descargar);
+		lblDescargar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				controlador.solicitudDescargarInforme();
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		lblDescargar.setFont(new Font("Dialog", Font.PLAIN, 18));
+		lblDescargar.setBounds(98, 129, 20, 22);
+		
+		contentPane.add(lblDescargar);
 		
 		comboBoxInformes = new JComboBox();
 		comboBoxInformes.addActionListener(new ActionListener() {
@@ -156,6 +173,11 @@ public class Informes extends JFrame {
 		comboBoxInformes.setModel(new DefaultComboBoxModel(ListadoInformes.values()));
 		comboBoxInformes.setBounds(504, 123, 394, 33);
 		contentPane.add(comboBoxInformes);
+		
+		lblDescargarInforme = new JLabel("Descargar Informe");
+		lblDescargarInforme.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDescargarInforme.setBounds(128, 124, 366, 33);
+		contentPane.add(lblDescargarInforme);
 	}
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
