@@ -268,7 +268,7 @@ public class Modelo {
 		// ITERAMOS LOS INFORMES
 		for (String[][] strings : informes) {
 
-			WritableSheet hojaExcel = excel.createSheet("Hoja " + contador, 0);
+			WritableSheet hojaExcel = excel.createSheet("Hoja " + contador, contador);
 			contador++;
 
 			for (int row = 0; row < strings.length; row++) {
