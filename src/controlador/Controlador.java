@@ -316,6 +316,8 @@ public class Controlador implements IControlador {
 				gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
 
 	}
+	
+
 
 	/*
 	 * public void solicitudBorrarActor() { modeloConsultas
@@ -368,7 +370,7 @@ public class Controlador implements IControlador {
 					gestionProfesores.getPrimaryKey(), "G");
 			break;
 		case "GESTIONACTORES":
-			modeloGestionDatos.opcionesActivoDatos(Integer.parseInt(gestionActores.getActivo()),
+			modeloGestionDatos.opcionesActivoDatos(gestionActores.getInactivo(),
 					modeloConsultas.extraerCodigoActor(gestionActores.getNombre(),gestionActores.getEdad(),gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo()), "H");
 			break;
 		}

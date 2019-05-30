@@ -9,11 +9,19 @@ public enum ActoresEdad {
 		this.name = name;
 	}
 
-
 	// Optionally and/or additionally, toString.
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public String getValue() {
+		return name;
+	}
+
+	// Just for testing from some SO answers, but no use
+	public void setValue(String name) {
+		this.name = name;
 	}
 
 }

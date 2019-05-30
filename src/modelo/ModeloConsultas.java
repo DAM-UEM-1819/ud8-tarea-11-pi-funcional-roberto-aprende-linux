@@ -91,6 +91,7 @@ public class ModeloConsultas {
 	private TableRowSorter filtro;
 	private String ultimoRegistro;
 	private String codigoRegistro;
+	private String codigoActor;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -422,6 +423,11 @@ public class ModeloConsultas {
 
 	public String getCodigoRegistro() {
 		return codigoRegistro;
+	}
+	
+	public String getCodActor() {
+		return codigoActor;
+		
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -865,14 +871,14 @@ public class ModeloConsultas {
 			pstmt.setString(6, activo);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
-				codigoRegistro = rs.getString(1);
+				codigoActor = rs.getString(1);
 			else {
 				System.out.println("No entra");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return codigoRegistro;
+		return codigoActor;
 
 	}
 

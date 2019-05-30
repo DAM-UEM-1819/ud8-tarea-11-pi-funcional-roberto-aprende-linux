@@ -113,6 +113,7 @@ public class ModeloGestionDatos {
 	private String updateRegistro;
 	private String updateUsuario;
 	private String updateProfesor;
+	private String updateActor;
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
 	private String activoInactivoUpdateProfesor;
@@ -299,6 +300,7 @@ public class ModeloGestionDatos {
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
 		updateProfesor = propiedadesModificacion.getProperty("updateProfesor");
+		updateActor = propiedadesModificacion.getProperty("updateActor");
 		//
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
@@ -741,6 +743,8 @@ public class ModeloGestionDatos {
 			gestionProfesoresAddMod.actualizarInfoDatos();
 		}
 	}
+	
+	
 
 	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp,
 			String titulacion, String dni, String activo, String relacion, String tlf1, String tlf2, String mail1,
@@ -874,6 +878,34 @@ public class ModeloGestionDatos {
 			respuesta = "Error, nombre vacio";
 		}
 		gestionAlumnos.actualizarInfo();
+	}
+
+	public void modificarActor(String nombre, String edad, String genero, String idioma, String complexion,
+			String activo, String codActor) {
+		if (!nombre.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateActor);
+				pstmt.setString(1, nombre);
+				pstmt.setString(2, edad);
+				pstmt.setString(3, genero);
+				pstmt.setString(4, idioma);
+				pstmt.setString(5, complexion);
+				pstmt.setString(6, activo);
+				pstmt.setString(7, codActor);
+				pstmt.executeUpdate();
+				respuesta = "Actor modificado";
+				seHaCreado = true;
+			} catch (Exception e) {
+				seHaCreado = false;
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, nombre vacio";
+		}
+		gestionAlumnos.actualizarInfo();
+		
+		
 	}
 
 }
