@@ -190,6 +190,7 @@ public class GestionActores extends JFrame {
 		btnAI_actor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controlador.solicitudBorrarActor();
+				controlador.solicitudBorrar(this);
 			}
 		});
 		btnAI_actor.setEnabled(false);

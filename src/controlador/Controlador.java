@@ -316,6 +316,7 @@ public class Controlador implements IControlador {
 		modeloGestionDatos.crearActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
 		
 	}
+
 	
 
 	/*public void solicitudBorrarActor() {
@@ -367,6 +368,7 @@ public class Controlador implements IControlador {
 			modeloGestionDatos.opcionesActivoDatos(Integer.parseInt(gestionProfesores.getActivo()),
 					gestionProfesores.getPrimaryKey(), "G");
 			break;
+	
 		}
 
 	}
@@ -600,6 +602,8 @@ public class Controlador implements IControlador {
 		}
 
 	}
+
+	
 
 
 }

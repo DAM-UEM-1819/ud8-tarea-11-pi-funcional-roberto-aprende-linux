@@ -151,17 +151,14 @@ public class ModeloConsultas {
 	private String informeListadoProfesoresPorTitulacionActivos;
 	private String infoExtraProfesores;
 	private String infoExtraAlumnos;
-	
+
 	// SENTENCIAS SELECT SQL ULTIMO REGISTRO
 	private String selectUltimoRegistroSala;
 	private String selectUltimoRegistroActor;
-	
+
 	// SENTENCIAS SELECT SQL EXTRAER CODIGO
 	private String selectExtraerCodSala;
-	
-	
-	
-	
+	private String selectExtraerCodActor;
 
 	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
@@ -191,7 +188,7 @@ public class ModeloConsultas {
 		selectInformes();
 		selectUltimoRegistro();
 		selectExtraerCodigo();
-		
+
 	}
 
 	private void selectTablas() {
@@ -276,14 +273,15 @@ public class ModeloConsultas {
 		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
 		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
 	}
-	
+
 	private void selectUltimoRegistro() {
 		selectUltimoRegistroSala = propiedades.getProperty("selectUltimoRegistroSala");
 		selectUltimoRegistroActor = propiedades.getProperty("selectUltimoRegistroActor");
 	}
-	
+
 	private void selectExtraerCodigo() {
 		selectExtraerCodSala = propiedades.getProperty("selectExtraerCodSala");
+		selectExtraerCodActor = propiedades.getProperty("selectExtraerCodActor");
 	}
 
 	// INICIO SETTERS
@@ -413,15 +411,15 @@ public class ModeloConsultas {
 	public String getDocumentacion() {
 		return documentacion;
 	}
-	
+
 	public TableRowSorter getFiltro() {
 		return filtro;
 	}
-	
+
 	public String getUltimoRegistro() {
 		return ultimoRegistro;
 	}
-	
+
 	public String getCodigoRegistro() {
 		return codigoRegistro;
 	}
@@ -822,7 +820,7 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ultimoCodActor() {
 		PreparedStatement pstmt;
 		try {
@@ -835,9 +833,9 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void extraerCodigoSala(String nombre, String numero, String capacidad) {
 		PreparedStatement pstmt;
 		try {
@@ -852,7 +850,25 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void extraerCodigoActor(String nombre, String edad, String idioma, String complexion, int activo) {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectExtraerCodActor);
+			pstmt.setString(1, nombre);
+			pstmt.setString(2, edad);
+			pstmt.setString(3, idioma);
+			pstmt.setString(3, complexion);
+			pstmt.setInt(5, activo);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next())
+				codigoRegistro = rs.getString(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void comprobarInsertODelete(String profe) {
@@ -979,7 +995,7 @@ public class ModeloConsultas {
 		getDatos(pstmt);
 
 	}
-	
+
 	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
 		this.tableModel = tableModel;
 		TableRowSorter trs = new TableRowSorter(tableModel);
@@ -1087,10 +1103,5 @@ public class ModeloConsultas {
 		}
 
 	}
-
-
-
-
-
 
 }
