@@ -279,7 +279,7 @@ public class GestionActores extends JFrame {
 	}
 
 	public String getEdad() {
-		return String.valueOf(comboBoxEdad.getSelectedItem());
+		return String.valueOf(comboBoxEdad.getSelectedItem()).toUpperCase();
 	}
 
 	public String getGenero() {
@@ -298,6 +298,10 @@ public class GestionActores extends JFrame {
 		String resultado = chckbxActivo.isSelected() == true ? "1" : "0";
 		return resultado;
 	}
+	
+//	public int getInactivo() {
+//		int inac = Integer.valueOf(getActivo());
+//	}
 
 	public void setTxtNombre(JTextField txtNombre) {
 		this.txtNombre = txtNombre;

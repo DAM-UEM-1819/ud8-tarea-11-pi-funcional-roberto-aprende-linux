@@ -853,21 +853,26 @@ public class ModeloConsultas {
 
 	}
 
-	public void extraerCodigoActor(String nombre, String edad, String idioma, String complexion, int activo) {
+	public String extraerCodigoActor(String nombre, String edad, String genero, String idioma, String complexion, String activo) {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectExtraerCodActor);
 			pstmt.setString(1, nombre);
 			pstmt.setString(2, edad);
-			pstmt.setString(3, idioma);
-			pstmt.setString(3, complexion);
-			pstmt.setInt(5, activo);
+			pstmt.setString(3, genero);
+			pstmt.setString(4, idioma);
+			pstmt.setString(5, complexion);
+			pstmt.setString(6, activo);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				codigoRegistro = rs.getString(1);
+			else {
+				System.out.println("No entra");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return codigoRegistro;
 
 	}
 

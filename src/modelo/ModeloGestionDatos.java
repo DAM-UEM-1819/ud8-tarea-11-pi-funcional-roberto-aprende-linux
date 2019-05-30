@@ -116,6 +116,7 @@ public class ModeloGestionDatos {
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
 	private String activoInactivoUpdateProfesor;
+	private String activoInactivoUpdateActor;
 
 
 	/**
@@ -301,6 +302,7 @@ public class ModeloGestionDatos {
 		//
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
+		activoInactivoUpdateActor = propiedadesModificacion.getProperty("activoInactivoUpdateActor");
 
 	}
 
@@ -561,6 +563,12 @@ public class ModeloGestionDatos {
 		case "G":
 			// sql = activoProfesor ;
 			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateProfesor);
+
+			break;
+			
+		case "H":
+			// sql = activoActor ;
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateActor);
 
 			break;
 		}
