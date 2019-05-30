@@ -275,7 +275,7 @@ public class Modelo {
 		String[][] document = new String[nRow][nCol];
 		for (int i = 0; i < nRow; i++)
 			for (int j = 0; j < nCol; j++)
-				document[i][j] = (String) tabla.getValueAt(i, j);
+				document[i][j] = String.valueOf(tabla.getValueAt(i, j));
 		
 
 		// poner negrita a la cabecera
@@ -300,7 +300,7 @@ public class Modelo {
 		}
 
 		File file;
-		file = new File(rutaArchivo);
+		file = new File(informes.getRuta());
 		try (FileOutputStream fileOuS = new FileOutputStream(file)) {
 			libro.write(fileOuS);
 			fileOuS.flush();
