@@ -1,7 +1,7 @@
 package enums;
 
 public enum ActoresEdad {
-	Adolescente("Adolescente"), Mediana_edad("Mediana edad"), Mayor_de_60_años("Mayor de 60 años");
+	Adolescente("Adolescente"), Mediana_edad("Mediana edad"), Mayor_de_60_años("Mayor 60 años");
 
 	private String name;
 

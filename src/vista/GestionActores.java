@@ -63,6 +63,7 @@ public class GestionActores extends JFrame {
 	private JComboBox comboBoxComplexion;
 	private JCheckBox chckbxActivo;
 	private JLabel lblLupa;
+	private JLabel lblInfo;
 
 	public GestionActores() {
 		setResizable(false);
@@ -70,7 +71,9 @@ public class GestionActores extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosActores();
+				deshabilitarBotones();
 			}
+
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./img/ue.png"));
 		setTitle("Hospital simulado");
@@ -87,7 +90,15 @@ public class GestionActores extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaActores = new JTable();
-		tablaActores.setRowHeight(40);
+		tablaActores.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ponerDatos();
+				habilitarBotones();
+			}
+
+		});
+		tablaActores.setRowHeight(30);
 		tablaActores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaActores.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaActores);
@@ -171,17 +182,29 @@ public class GestionActores extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnModificarActor = new JButton("Modificar actor");
+		btnModificarActor.setEnabled(false);
 		btnModificarActor.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActor);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
+		btnAI_actor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//controlador.solicitudBorrarActor();
+				controlador.solicitudBorrar(this);
+			}
+		});
+		btnAI_actor.setEnabled(false);
 		btnAI_actor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_actor);
 
 		btnAddActor = new JButton(" A\u00F1adir actor");
 		btnAddActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-	
+
+				controlador.solicitudAddActor();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					addActor();
+				}
 			}
 		});
 		btnAddActor.setBounds(748, 685, 150, 40);
@@ -245,17 +268,25 @@ public class GestionActores extends JFrame {
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(878, 111, 20, 22);
 		contentPane.add(lblLupa);
-	}
+
+	
 	
 
 	
+
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(0, 111, 1000, 22);
+		contentPane.add(lblInfo);
+	}
+
 
 	public String getNombre() {
 		return txtNombre.getText();
 	}
 
 	public String getEdad() {
-		return String.valueOf(comboBoxEdad.getSelectedItem());
+		return String.valueOf(comboBoxEdad.getSelectedItem()).toUpperCase();
 	}
 
 	public String getGenero() {
@@ -268,6 +299,20 @@ public class GestionActores extends JFrame {
 
 	public String getComplexion() {
 		return String.valueOf(comboBoxComplexion.getSelectedItem());
+	}
+
+
+	public String getActivo() {
+		String resultado = chckbxActivo.isSelected() == true ? "1" : "0";
+		return resultado;
+	}
+	
+//	public int getInactivo() {
+//		int inac = Integer.valueOf(getActivo());
+//	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
 	}
 
 
@@ -292,5 +337,45 @@ public class GestionActores extends JFrame {
 
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+
+	public void actualizarInfo() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+	}
+
+	public void addActor() {
+		DefaultTableModel model = (DefaultTableModel) tablaActores.getModel();
+		model.addRow(modeloGestionDatos.getDatosfilasTabla());
+		limpiarTxt();
+	}
+
+	private void limpiarTxt() {
+		txtNombre.setText("");
+		chckbxActivo.setSelected(false);
+
+	}
+
+	private void deshabilitarBotones() {
+		btnModificarActor.setEnabled(false);
+		btnAI_actor.setEnabled(false);
+
+	}
+
+	private void habilitarBotones() {
+		btnModificarActor.setEnabled(true);
+		btnAI_actor.setEnabled(true);
+
+	}
+
+	private void ponerDatos() {
+		txtNombre.setText(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0)));
+		comboBoxEdad.setSelectedItem(
+				String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 1)).toUpperCase());
+		if(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 5)).equals("1")){
+			chckbxActivo.setSelected(true);
+		} else {
+			chckbxActivo.setSelected(false);
+		}
+
 	}
 }
