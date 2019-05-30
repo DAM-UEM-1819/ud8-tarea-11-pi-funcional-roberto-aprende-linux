@@ -261,13 +261,13 @@ public class Modelo {
 			excel = Workbook.createWorkbook(new File(RUTA));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		// ITERAMOS LOS INFORMES
 		for (String[][] strings : informes) {
 
+			// CREAMOS LA HOJA DE EXCEL
 			WritableSheet hojaExcel = excel.createSheet("Hoja " + contador, 0);
 			contador++;
 
@@ -275,11 +275,16 @@ public class Modelo {
 				for (int col = 0; col < strings[row].length; col++) {
 
 					System.out.println(strings[row][col]);
-					
+
+					// CREAMOS LA LABEL PARA AÑADIR EL VALOR QUE SE ENCUENTRA EN LA FILA X Y LA
+					// COLUMNA Y
 					jxl.write.Label label = new jxl.write.Label(row, col, strings[row][col]);
 
 					try {
+
+						// AÑADIMOS LA CELDA A LA HOJA EXCEL
 						hojaExcel.addCell(label);
+
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

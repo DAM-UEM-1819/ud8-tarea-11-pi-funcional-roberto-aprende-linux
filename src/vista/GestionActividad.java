@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -211,6 +212,13 @@ public class GestionActividad extends JFrame {
 		contentPane.add(btnModificarActividad);
 
 		btnBorrarActividad = new JButton("Borrar actividad");
+		btnBorrarActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (confirmacionBorrar() == 0) {
+					
+				}
+			}
+		});
 		btnBorrarActividad.setBounds(532, 685, 150, 40);
 		contentPane.add(btnBorrarActividad);
 
@@ -290,5 +298,15 @@ public class GestionActividad extends JFrame {
 	
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+	
+	public int confirmacionBorrar() {
+		int confirmacion = 1;
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea borrar el registro seleccionado?");
+		if (JOptionPane.YES_OPTION== valorRetorno) {
+			confirmacion = 0;
+		}
+		
+		return confirmacion;
 	}
 }

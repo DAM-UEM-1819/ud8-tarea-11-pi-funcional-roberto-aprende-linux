@@ -252,13 +252,15 @@ public class GestionAsignatura extends JFrame {
 		btnBorrarAsignatura.setEnabled(false);
 		btnBorrarAsignatura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.solicitudBorrar(this);
-				if (modeloGestionDatos.getSeHaBorrado()) {
-					borrado();
-				} else {
-					JOptionPane.showMessageDialog(null, "Esta asignatura esta siendo utilizada por alguna actividad");
+				if (confirmacionBorrar() == 0) {
+					controlador.solicitudBorrar(this);
+					if (modeloGestionDatos.getSeHaBorrado()) {
+						borrado();
+					} else {
+						JOptionPane.showMessageDialog(null, "Esta asignatura esta siendo utilizada por alguna actividad");
+					}
+					habilitarBotones();
 				}
-				habilitarBotones();
 			}
 		});
 		btnBorrarAsignatura.setBounds(545, 685, 150, 40);
@@ -424,6 +426,16 @@ public class GestionAsignatura extends JFrame {
 
 	public void actualizarInfoDatos() {
 		lblInfo.setText(modeloGestionDatos.getRespuesta());
+	}
+	
+	public int confirmacionBorrar() {
+		int confirmacion = 1;
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea borrar el registro seleccionado?");
+		if (JOptionPane.YES_OPTION== valorRetorno) {
+			confirmacion = 0;
+		}
+		
+		return confirmacion;
 	}
 
 }
