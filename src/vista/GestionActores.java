@@ -181,7 +181,7 @@ public class GestionActores extends JFrame {
 		btnAddActor = new JButton(" A\u00F1adir actor");
 		btnAddActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+	
 			}
 		});
 		btnAddActor.setBounds(748, 685, 150, 40);
@@ -246,11 +246,9 @@ public class GestionActores extends JFrame {
 		lblLupa.setBounds(878, 111, 20, 22);
 		contentPane.add(lblLupa);
 	}
+	
 
-	public int getCodigoAct() {
-		int codAct = Integer.valueOf(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0)));
-		return codAct ++;
-	}
+	
 
 	public String getNombre() {
 		return txtNombre.getText();
@@ -272,25 +270,9 @@ public class GestionActores extends JFrame {
 		return String.valueOf(comboBoxComplexion.getSelectedItem());
 	}
 
-	public void setTxtNombre(JTextField txtNombre) {
-		this.txtNombre = txtNombre;
-	}
 
-	public void setComboBoxEdad(JComboBox comboBoxEdad) {
-		this.comboBoxEdad = comboBoxEdad;
-	}
 
-	public void setComboBoxGenero(JComboBox comboBoxGenero) {
-		this.comboBoxGenero = comboBoxGenero;
-	}
 
-	public void setComboBoxIdioma(JComboBox comboBoxIdioma) {
-		this.comboBoxIdioma = comboBoxIdioma;
-	}
-
-	public void setComboBoxComplexion(JComboBox comboBoxComplexion) {
-		this.comboBoxComplexion = comboBoxComplexion;
-	}
 
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;

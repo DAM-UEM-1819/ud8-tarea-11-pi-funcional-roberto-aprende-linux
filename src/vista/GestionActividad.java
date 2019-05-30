@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.mail.FetchProfile.Item;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,21 +31,24 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Controlador;
+import enums.ActividadSimulador;
+import enums.ActividadTipo;
+import enums.ActoresEdad;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 
 public class GestionActividad extends JFrame {
-	
+
 	private Controlador controlador;
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaActividad;
 	private JTextField txtNombre;
-	private JTextField txtDocumentacion_tecnica;
+	private JTextField txtTipo_sala;
 	private JTextField txtHorasActividad;
-	private JTextField txtCod_asignatura;
-	private JTextField txtSimulador;
+	private JTextField txtDocumentacion_tecnica;
+	private JTextField txtAcad;
 	private JPanel HeaderPanel;
 	private JScrollPane scrollPane;
 	private JLabel lblTitulo;
@@ -61,9 +65,6 @@ public class GestionActividad extends JFrame {
 	private JLabel lblImportarActividades;
 	private JLabel lblLupa;
 
-
-
-	 
 	public GestionActividad() {
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
@@ -87,50 +88,85 @@ public class GestionActividad extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaActividad = new JTable();
+		tablaActividad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtNombre.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0)));
+				comboBoxTipoActividad.setName(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 1)));
+			}
+		});
 		tablaActividad.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaActividad.setRowHeight(30);
 		tablaActividad.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaActividad);
 
 		txtNombre = new JTextField();
+		txtNombre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtNombre.setText("");
+			}
+		});
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombre.setText("Nombre");
 		txtNombre.setBounds(98, 629, 114, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
-		txtDocumentacion_tecnica = new JTextField();
-		txtDocumentacion_tecnica.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDocumentacion_tecnica.setText("Tipo de Sala");
-		txtDocumentacion_tecnica.setBounds(354, 629, 86, 30);
-		contentPane.add(txtDocumentacion_tecnica);
-		txtDocumentacion_tecnica.setColumns(10);
+		txtTipo_sala = new JTextField();
+		txtTipo_sala.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtTipo_sala.setText("");
+			}
+		});
+		txtTipo_sala.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTipo_sala.setText("Tipo de Sala");
+		txtTipo_sala.setBounds(354, 629, 86, 30);
+		contentPane.add(txtTipo_sala);
+		txtTipo_sala.setColumns(10);
 
 		txtHorasActividad = new JTextField();
+		txtHorasActividad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtHorasActividad.setText("");
+			}
+		});
 		txtHorasActividad.setText("Horas de actividad");
 		txtHorasActividad.setHorizontalAlignment(SwingConstants.CENTER);
 		txtHorasActividad.setBounds(663, 629, 114, 30);
 		contentPane.add(txtHorasActividad);
 		txtHorasActividad.setColumns(10);
 
-		txtCod_asignatura = new JTextField();
-		txtCod_asignatura.setText("Documentaci\u00F3n");
-		txtCod_asignatura.setHorizontalAlignment(SwingConstants.CENTER);
-		txtCod_asignatura.setBounds(557, 629, 86, 30);
-		contentPane.add(txtCod_asignatura);
-		txtCod_asignatura.setColumns(10);
+		txtDocumentacion_tecnica = new JTextField();
+		txtDocumentacion_tecnica.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtDocumentacion_tecnica.setText("");
+			}
+		});
+		txtDocumentacion_tecnica.setText("Documentaci\u00F3n");
+		txtDocumentacion_tecnica.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDocumentacion_tecnica.setBounds(557, 629, 86, 30);
+		contentPane.add(txtDocumentacion_tecnica);
+		txtDocumentacion_tecnica.setColumns(10);
 
-		txtSimulador = new JTextField();
-		txtSimulador.setHorizontalAlignment(SwingConstants.CENTER);
-		txtSimulador.setText("A\u00F1o");
-		txtSimulador.setColumns(10);
-		txtSimulador.setBounds(787, 629, 98, 30);
-		contentPane.add(txtSimulador);
-		
-
+		txtAcad = new JTextField();
+		txtAcad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtAcad.setText("");
+			}
+		});
+		txtAcad.setHorizontalAlignment(SwingConstants.CENTER);
+		txtAcad.setText("A\u00F1o");
+		txtAcad.setColumns(10);
+		txtAcad.setBounds(787, 629, 98, 30);
+		contentPane.add(txtAcad);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBackground(new Color(164, 44, 52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -168,7 +204,6 @@ public class GestionActividad extends JFrame {
 		lblUemLogo.setBounds(50, 0, 100, 100);
 		HeaderPanel.add(lblUemLogo);
 
-
 		ImageIcon perfilIcon = new ImageIcon("./img/usuario.png");
 		lblPerfil = new JLabel(perfilIcon);
 		lblPerfil.addMouseListener(new MouseAdapter() {
@@ -177,11 +212,13 @@ public class GestionActividad extends JFrame {
 				setVisible(false);
 				controlador.gestionActividadToPerfil();
 			}
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.DEFAULT_CURSOR);
@@ -204,7 +241,7 @@ public class GestionActividad extends JFrame {
 		btnModificarActividad = new JButton("Modificar actividad");
 		btnModificarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?" );
+				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?");
 			}
 		});
 		btnModificarActividad.setBounds(316, 685, 150, 40);
@@ -217,17 +254,18 @@ public class GestionActividad extends JFrame {
 		btnAddActividad = new JButton(" A\u00F1adir actividad");
 		btnAddActividad.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActividad);
-		
+
 		comboBoxTipoActividad = new JComboBox();
-		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(new String[] {"Tipo de actividad"}));
+		
+		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(ActividadTipo.values()));
 		comboBoxTipoActividad.setBounds(234, 629, 98, 30);
 		contentPane.add(comboBoxTipoActividad);
-		
+
 		comboBoxSimulador = new JComboBox();
-		comboBoxSimulador.setModel(new DefaultComboBoxModel(new String[] {"Simulador"}));
+		comboBoxSimulador.setModel(new DefaultComboBoxModel(ActividadSimulador.values()));
 		comboBoxSimulador.setBounds(466, 629, 71, 30);
 		contentPane.add(comboBoxSimulador);
-		
+
 		txtBuscador = new JTextField();
 		txtBuscador.addMouseListener(new MouseAdapter() {
 			@Override
@@ -250,45 +288,73 @@ public class GestionActividad extends JFrame {
 		txtBuscador.setBounds(728, 112, 140, 22);
 		contentPane.add(txtBuscador);
 		txtBuscador.setColumns(10);
-		
-		
+
 		lblImportarActividades = new JLabel("Importar Actividades");
-		lblImportarActividades.setIcon(new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		lblImportarActividades.setIcon(
+				new ImageIcon(GestionActividad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportarActividades.setBounds(98, 111, 124, 20);
 		contentPane.add(lblImportarActividades);
-		
+
 		ImageIcon lupa = new ImageIcon("./img/buscar.png");
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(878, 111, 20, 22);
 		contentPane.add(lblLupa);
 		lblImportarActividades.setVisible(false);
-	
+
 	}
-	
-	
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
-		this.modeloConsultas= modeloConsultas;
+		this.modeloConsultas = modeloConsultas;
 	}
-	
+
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
-		this.modeloGestionDatos= modeloGestionDatos;
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaActividad.getModel();
 	}
 
+	public String getNombre() {
+		return txtNombre.getText();
+	}
+
+	public String getTipo_sala() {
+		return txtTipo_sala.getText();
+	}
+
+	public String getHorasActividad() {
+		return txtHorasActividad.getText();
+	}
+
+	public String getDocumentacion_tecnica() {
+		return txtDocumentacion_tecnica.getText();
+	}
+
+	public String getTipoActividad() {
+		return String.valueOf(comboBoxTipoActividad.getSelectedItem());
+	}
+
+	public String getSimulador() {
+		return String.valueOf(comboBoxSimulador.getSelectedItem());
+	}
 
 	public String getPrimaryKey() {
 		return String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0));
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+
+	public void limpiarTxt() {
+		txtDocumentacion_tecnica.setText("");
+		txtTipo_sala.setText("");
+		txtNombre.setText("");
+		txtHorasActividad.setText("");
 	}
 }
