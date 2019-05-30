@@ -1131,6 +1131,7 @@ public class ModeloConsultas {
 				while (rs.next()) {
 					ultimoRegistro++;
 				}
+				
 				numCol = metadatos.getColumnCount();
 				datosInforme = new String[ultimoRegistro][numCol];
 
