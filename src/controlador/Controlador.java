@@ -28,6 +28,7 @@ public class Controlador implements IControlador {
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
 	private GestionProfesoresAddMod gestionProfesoresAddMod;
+	private GestionRegistrosAddMod gestionRegistrosAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -124,6 +125,10 @@ public class Controlador implements IControlador {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
 
+	public void setGestionRegistrosAddMod(GestionRegistrosAddMod gestionRegistrosAddMod) {
+		this.gestionRegistrosAddMod = gestionRegistrosAddMod;
+	}
+
 	// LINKEO DE VENTANAS
 	public void loginToHome() {
 		home.setVisible(true);
@@ -151,6 +156,11 @@ public class Controlador implements IControlador {
 
 	public void homeToGestion() {
 		gestion.setVisible(true);
+	}
+	
+	public void solicitudDatosExtraHome() {
+		modeloConsultas.getDatosExtraHome(home.getCodRegistroFila());
+		
 	}
 
 	public void homeToOcupaciones() {
@@ -232,6 +242,10 @@ public class Controlador implements IControlador {
 
 	}
 
+	public void exportar() {
+		modelo.generarExcel(informes.getModel(), informes.getRuta());
+	}
+
 	// VENTANA INFORMACION EXTRA
 	public void infoExtraToHome() {
 		home.setVisible(true);
@@ -310,6 +324,16 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaActores(gestionActores.getModel());
 	}
 
+	public void solicitudAddActor() {
+		modeloConsultas.ultimoCodActor();
+		modeloGestionDatos.crearActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(),
+				gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
+
+	}
+	
+
+
+
 	// VENTANA GESTION ALUMNOS
 	public void gestionAlumnosToGestion() {
 		gestion.setVisible(true);
@@ -354,6 +378,10 @@ public class Controlador implements IControlador {
 			modeloGestionDatos.opcionesActivoDatos(Integer.parseInt(gestionProfesores.getActivo()),
 					gestionProfesores.getPrimaryKey(), "G");
 			break;
+			case "GESTIONACTORES":
+			modeloGestionDatos.opcionesActivoDatos(gestionActores.getInactivo(),
+					modeloConsultas.extraerCodigoActor(gestionActores.getNombre(),gestionActores.getEdad(),gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo()), "H");
+			break;
 		}
 
 	}
@@ -379,6 +407,16 @@ public class Controlador implements IControlador {
 	public void solicitudModificarRegistro() {
 		modeloGestionDatos.modificarRegistro(gestionRegistros.getCod_registro(), gestionRegistros.getFecha(),
 				gestionRegistros.getHora(), gestionRegistros.getHorasProfesor(), gestionRegistros.getActividadNombre());
+	}
+
+	public void gestionRegistrosToGestionRegistrosAddMod() {
+		gestionRegistrosAddMod.setVisible(true);
+
+	}
+
+	// VENTANA GESTION REGISTROS ADD MOD
+	public void gestionRegistrosAddModToGestionRegistros() {
+		gestionRegistros.setVisible(true);
 	}
 
 	// VENTANA GESTION ASIGNATURA
@@ -587,5 +625,8 @@ public class Controlador implements IControlador {
 		}
 
 	}
+
+
+
 
 }

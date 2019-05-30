@@ -26,6 +26,7 @@ public class Main {
 		GestionAsignatura gestionAsignaturas = new GestionAsignatura();
 		GestionProfesores gestionProfesores = new GestionProfesores();
 		GestionProfesoresAddMod gestionProfesoresAddMod = new GestionProfesoresAddMod();
+		GestionRegistrosAddMod gestionRegistrosAddMod = new GestionRegistrosAddMod();
 		GestionSalas gestionSalas = new GestionSalas();
 		GestionUsuarios gestionUsuarios = new GestionUsuarios();
 		Perfil perfil = new Perfil();
@@ -45,6 +46,7 @@ public class Main {
 		controlador.setGestionRegistros(gestionRegistros);
 		controlador.setGestionAsignatura(gestionAsignaturas);
 		controlador.setGestionProfesoresAddMod(gestionProfesoresAddMod);
+		controlador.setGestionRegistrosAddMod(gestionRegistrosAddMod);
 		controlador.setGestionProfesores(gestionProfesores);
 		controlador.setGestionSalas(gestionSalas);
 		controlador.setGestionUsuarios(gestionUsuarios);
@@ -69,6 +71,7 @@ public class Main {
 		gestionAsignaturas.setControlador(controlador);
 		gestionProfesores.setControlador(controlador);
 		gestionProfesoresAddMod.setControlador(controlador);
+		gestionRegistrosAddMod.setControlador(controlador);
 		gestionSalas.setControlador(controlador);
 		gestionUsuarios.setControlador(controlador);
 		perfil.setControlador(controlador);
@@ -89,6 +92,7 @@ public class Main {
 		modeloConsultas.setGestionAsignatura(gestionAsignaturas);
 		modeloConsultas.setGestionProfesores(gestionProfesores);
 		modeloConsultas.setGestionProfesoresAddMod(gestionProfesoresAddMod);
+		modeloConsultas.setGestionRegistrosAddMod(gestionRegistrosAddMod);
 		modeloConsultas.setGestionSalas(gestionSalas);
 		modeloConsultas.setGestionUsuarios(gestionUsuarios);
 		modeloConsultas.setPerfil(perfil);
@@ -108,6 +112,7 @@ public class Main {
 		modeloGestionDatos.setGestionRegistros(gestionRegistros);
 		modeloGestionDatos.setGestionAsignatura(gestionAsignaturas);
 		modeloGestionDatos.setGestionProfesoresAddMod(gestionProfesoresAddMod);
+		modeloGestionDatos.setGestionRegistrosAddMod(gestionRegistrosAddMod);
 		modeloGestionDatos.setGestionProfesores(gestionProfesores);
 		modeloGestionDatos.setGestionSalas(gestionSalas);
 		modeloGestionDatos.setGestionUsuarios(gestionUsuarios);
@@ -130,6 +135,7 @@ public class Main {
 		gestionRegistros.setModeloConsultas(modeloConsultas);
 		gestionAsignaturas.setModeloConsultas(modeloConsultas);
 		gestionProfesoresAddMod.setModeloConsultas(modeloConsultas);
+		gestionRegistrosAddMod.setModeloConsultas(modeloConsultas);
 		gestionProfesores.setModeloConsultas(modeloConsultas);
 		gestionSalas.setModeloConsultas(modeloConsultas);
 		gestionUsuarios.setModeloConsultas(modeloConsultas);
@@ -144,10 +150,14 @@ public class Main {
 		gestionRegistros.setModeloGestionDatos(modeloGestionDatos);
 		gestionAsignaturas.setModeloGestionDatos(modeloGestionDatos);
 		gestionProfesoresAddMod.setModeloGestionDatos(modeloGestionDatos);
+		gestionRegistrosAddMod.setModeloGestionDatos(modeloGestionDatos);
 		gestionProfesores.setModeloGestionDatos(modeloGestionDatos);
 		gestionSalas.setModeloGestionDatos(modeloGestionDatos);
 		gestionUsuarios.setModeloGestionDatos(modeloGestionDatos);
 		perfil.setModeloGestionDatos(modeloGestionDatos);
+		
+		modelo.setInformes(informes);
+		informes.setModelo(modelo);
 		
 		//ASIGNAMOS LA CONEXION AL MODELO GESTION DATOS
 		modeloGestionDatos.setConexion(modelo.getConexion());

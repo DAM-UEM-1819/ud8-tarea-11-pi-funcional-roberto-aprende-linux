@@ -1,37 +1,43 @@
 package modelo;
 
+import java.awt.Font;
 import java.io.File;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Properties;
-import java.util.TreeSet;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.MessageDigestAlgorithms;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.sun.mail.smtp.DigestMD5;
-
-import controlador.*;
-import vista.*;
+import vista.Informes;
 
 public class Modelo {
 
 	// Atributos para relacionar
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
+	private Informes informes;
 
 	// Atributos Base de datos
 	private String baseDatos;
@@ -58,6 +64,9 @@ public class Modelo {
 	private String cuerpoUsuario;
 	private String cuerpoPasswd;
 	private String cuerpoDespedida;
+	
+	//Atributos internos
+	private String respuesta;
 
 	/**
 	 * Constructor que recoge los datos de la conexion a la BBDD y realiza la
@@ -77,11 +86,19 @@ public class Modelo {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
+	
+	public void setInformes(Informes informes) {
+		this.informes = informes;
+	}
 
 	// INICIO GETTERS
 
 	public Connection getConexion() {
 		return conexion;
+	}
+	
+	public String getRespuesta() {
+		return respuesta;
 	}
 
 	/**
@@ -238,6 +255,64 @@ public class Modelo {
 
 		return passwd;
 
+	}
+
+	public void generarExcel(DefaultTableModel tabla, String rutaArchivo) {
+		String hoja = "Exportar";
+
+		XSSFWorkbook libro = new XSSFWorkbook();
+		XSSFSheet hoja1 = libro.createSheet(hoja);
+		// número de filas y columnas
+		int nRow = tabla.getRowCount();
+		int nCol = tabla.getColumnCount();
+
+		// cabecera de la hoja de excel
+		String[] header = new String[nCol];
+		for (int i = 0; i < nCol; i++)
+			header[i] = tabla.getColumnName(i);
+
+		// contenido de la hoja de excel
+		String[][] document = new String[nRow][nCol];
+		for (int i = 0; i < nRow; i++)
+			for (int j = 0; j < nCol; j++)
+				document[i][j] = String.valueOf(tabla.getValueAt(i, j));
+		
+
+		// poner negrita a la cabecera
+		CellStyle style = libro.createCellStyle();
+		XSSFFont font = libro.createFont();
+		font.setBold(true);
+		style.setFont(font);
+
+		// generar los datos para el documento
+		for (int i = 0; i <= document.length; i++) {
+			XSSFRow row = hoja1.createRow(i);// se crea las filas
+			for (int j = 0; j < header.length; j++) {
+				if (i == 0) {// para la cabecera
+					XSSFCell cell = row.createCell(j);// se crea las celdas para la cabecera, junto con la posici�n
+					cell.setCellStyle(style); // se a�ade el style crea anteriormente
+					cell.setCellValue(header[j]);// se a�ade el contenido
+				} else {// para el contenido
+					XSSFCell cell = row.createCell(j);// se crea las celdas para la contenido, junto con la posici�n
+					cell.setCellValue(document[i - 1][j]); // se a�ade el contenido
+				}
+			}
+		}
+
+		File file;
+		file = new File(informes.getRuta());
+		try (FileOutputStream fileOuS = new FileOutputStream(file)) {
+			libro.write(fileOuS);
+			fileOuS.flush();
+			fileOuS.close();
+			respuesta = "Exportación Realizada";
+
+		} catch (FileNotFoundException e) {
+			respuesta = "Error de Exportación";
+		} catch (IOException e) {
+			respuesta = "Error de Exportación";
+		}
+		
 	}
 
 }

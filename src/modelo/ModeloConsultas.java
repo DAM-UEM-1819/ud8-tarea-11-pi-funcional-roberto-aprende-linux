@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeSet;
 
@@ -19,6 +20,7 @@ import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import controlador.Controlador;
 import vista.CrearUsuario;
@@ -31,6 +33,7 @@ import vista.GestionAsignatura;
 import vista.GestionProfesores;
 import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
+import vista.GestionRegistrosAddMod;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
 import vista.Home;
@@ -59,6 +62,7 @@ public class ModeloConsultas {
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
 	private GestionProfesoresAddMod gestionProfesoresAddMod;
+	private GestionRegistrosAddMod gestionRegistrosAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -91,13 +95,18 @@ public class ModeloConsultas {
 	private TableRowSorter filtro;
 	private String ultimoRegistro;
 	private String codigoRegistro;
+	private Object[] todosInformes;
+	private ArrayList<String[][]> todosInformesConDatos;
+	private String codigoRegistroHome;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
 
 	// Sentencias Select SQL TABLAS
 	private String selectHome;
-	private String selectDatosExtraHome;
+	private String selectDatosExtraHomeAlumnos;
+	private String selectDatosExtraHomeSimuladorYDoc;
+	private String selectDatosExtraHomeActor;
 	private String selectTodosUsuarios;
 	private String selectTodosRegistros;
 	private String selectTodosAlumnos;
@@ -151,16 +160,15 @@ public class ModeloConsultas {
 	private String informeListadoProfesoresPorTitulacionActivos;
 	private String infoExtraProfesores;
 	private String infoExtraAlumnos;
-	
+
 	// SENTENCIAS SELECT SQL ULTIMO REGISTRO
 	private String selectUltimoRegistroSala;
-	
+	private String selectUltimoRegistroActor;
+
 	// SENTENCIAS SELECT SQL EXTRAER CODIGO
 	private String selectExtraerCodSala;
-	
-	
-	
-
+	private String selectExtraerCodActor;
+	private String codigoActor ;
 	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
 	public ModeloConsultas() {
@@ -189,7 +197,8 @@ public class ModeloConsultas {
 		selectInformes();
 		selectUltimoRegistro();
 		selectExtraerCodigo();
-		
+		addInformesToTodosInformes();
+
 	}
 
 	private void selectTablas() {
@@ -197,7 +206,9 @@ public class ModeloConsultas {
 		selectPasswdUsuario = propiedades.getProperty("selectPasswdUsuario");
 
 		selectHome = propiedades.getProperty("selectHome");
-		selectDatosExtraHome = propiedades.getProperty("selectDatosExtraHome");
+		selectDatosExtraHomeAlumnos = propiedades.getProperty("selectDatosExtraHomeAlumnos");
+		selectDatosExtraHomeSimuladorYDoc = propiedades.getProperty("selectDatosExtraHomeSimuladorYDoc");
+		selectDatosExtraHomeActor = propiedades.getProperty("selectDatosExtraHomeActor");
 		selectTodosUsuarios = propiedades.getProperty("selectTodosUsuarios");
 		selectTodosRegistros = propiedades.getProperty("selectTodosRegistros");
 		selectTodosAlumnos = propiedades.getProperty("selectTodosAlumnos");
@@ -274,13 +285,35 @@ public class ModeloConsultas {
 		infoExtraProfesores = propiedades.getProperty("infoExtraProfesores");
 		infoExtraAlumnos = propiedades.getProperty("infoExtraAlumnos");
 	}
-	
+
 	private void selectUltimoRegistro() {
 		selectUltimoRegistroSala = propiedades.getProperty("selectUltimoRegistroSala");
+		selectUltimoRegistroActor = propiedades.getProperty("selectUltimoRegistroActor");
 	}
-	
+
 	private void selectExtraerCodigo() {
 		selectExtraerCodSala = propiedades.getProperty("selectExtraerCodSala");
+		selectExtraerCodActor = propiedades.getProperty("selectExtraerCodActor");
+	}
+
+	private void addInformesToTodosInformes() {
+		todosInformes = new Object[15];
+
+		todosInformes[0] = informeNumeroHorasTotalesPorActividad;
+		todosInformes[1] = informeNumeroHorasTotalesActividadPorTitulacion;
+		todosInformes[2] = informeNumeroHorasTotalesActividadPorTitulacionYCurso;
+		todosInformes[3] = informeNumeroHorasTotalesActividadPorTitulacionYAsignatura;
+		todosInformes[4] = informeNumeroHorasTotalesActividadPorProfesor;
+		todosInformes[5] = informeNumeroHorasTotalesActividadPorSala;
+		todosInformes[6] = informeNumeroHorasTotalesActividadPorActividad;
+		todosInformes[7] = informeNumeroHorasTotalesActividadPorSemestre;
+		todosInformes[8] = informeNumeroHorasTotalesActividadPorMes;
+		todosInformes[9] = informeNumeroHorasActorTotalesCursoAcademico;
+		todosInformes[10] = informeNumeroHorasActorTotalesTitulacionYMes;
+		todosInformes[11] = informeNumeroHorasActorTotalesTitulacionCursoAcademico;
+		todosInformes[12] = informeListadoAlumnosAsignaturaYGrupoActivos;
+		todosInformes[13] = informeListadoAlumnosNotasPorNombreActividad;
+		todosInformes[14] = informeListadoProfesoresPorTitulacionActivos;
 	}
 
 	// INICIO SETTERS
@@ -344,6 +377,10 @@ public class ModeloConsultas {
 	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
 		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
 	}
+	
+	public void setGestionRegistrosAddMod(GestionRegistrosAddMod gestionRegistrosAddMod) {
+		this.gestionRegistrosAddMod = gestionRegistrosAddMod;
+	}
 
 	public void setGestionSalas(GestionSalas gestionSalas) {
 		this.gestionSalas = gestionSalas;
@@ -389,7 +426,7 @@ public class ModeloConsultas {
 
 	public boolean tieneActor() {
 		boolean valor = false;
-		if (actor.equals("1")) {
+		if (!actor.equals("")) {
 			valor = true;
 		}
 		return valor;
@@ -410,17 +447,25 @@ public class ModeloConsultas {
 	public String getDocumentacion() {
 		return documentacion;
 	}
-	
+
 	public TableRowSorter getFiltro() {
 		return filtro;
 	}
-	
+
 	public String getUltimoRegistro() {
 		return ultimoRegistro;
 	}
-	
+
 	public String getCodigoRegistro() {
 		return codigoRegistro;
+	}
+
+	public ArrayList<String[][]> getTodosInformesConDatos() {
+		return todosInformesConDatos;
+	}
+
+	public Object[] getTodosInformes() {
+		return todosInformes;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -541,19 +586,33 @@ public class ModeloConsultas {
 
 	// TERMINAR
 
-	public void getDatosExtraHome(Object[] datos) {
+	public void getDatosExtraHome(String cod) {
 		PreparedStatement pstmt;
+		ResultSet rs;
 		try {
-			pstmt = conexion.prepareStatement(selectDatosExtraHome);
-			// Aqui irian los setString
-			ResultSet rs = pstmt.executeQuery();
-
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeAlumnos);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				numeroAlumos = rs.getString(1);
-				simulador = rs.getString(2);
-				actor = rs.getString(3);
-				documentacion = rs.getString(4);
 			}
+			
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeSimuladorYDoc);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				documentacion = rs.getString(1);
+				simulador = rs.getString(2);
+			}
+			
+			pstmt = conexion.prepareStatement(selectDatosExtraHomeActor);
+			pstmt.setString(1, cod);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				actor = rs.getString(1);
+			}
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -807,7 +866,6 @@ public class ModeloConsultas {
 	 * @param sala La sala a comprobar
 	 */
 	public void ultimoRegistroSala() {
-		existe = false;
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectUltimoRegistroSala);
@@ -820,7 +878,22 @@ public class ModeloConsultas {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void ultimoCodActor() {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectUltimoRegistroActor);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				ultimoRegistro = rs.getString(1);
+				ultimoRegistro = String.valueOf(Integer.parseInt(ultimoRegistro) + 1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public void extraerCodigoSala(String nombre, String numero, String capacidad) {
 		PreparedStatement pstmt;
 		try {
@@ -835,7 +908,30 @@ public class ModeloConsultas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
+	}
+	
+	public String extraerCodigoActor(String nombre, String edad, String genero, String idioma, String complexion, String activo) {
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectExtraerCodActor);
+			pstmt.setString(1, nombre);
+			pstmt.setString(2, edad);
+			pstmt.setString(3, genero);
+			pstmt.setString(4, idioma);
+			pstmt.setString(5, complexion);
+			pstmt.setString(6, activo);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next())
+				codigoActor = rs.getString(1);
+			else {
+				System.out.println("No entra");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return codigoActor;
+
 	}
 
 	public void comprobarInsertODelete(String profe) {
@@ -962,11 +1058,11 @@ public class ModeloConsultas {
 		getDatos(pstmt);
 
 	}
-	
+
 	public void buscadorHome(DefaultTableModel tableModel, String palabraBuscador) {
 		this.tableModel = tableModel;
 		TableRowSorter trs = new TableRowSorter(tableModel);
-		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 0));
+		trs.setRowFilter(RowFilter.regexFilter("(?i)" + palabraBuscador, 1));
 		this.filtro = trs;
 		home.filtro();
 	}
@@ -1041,7 +1137,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
 	 * home
-	 * 
+	 *
 	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
 	 *                       la fila seleccionada
 	 */
@@ -1052,7 +1148,7 @@ public class ModeloConsultas {
 	/**
 	 * Metodo para mostrar el listado de alumnos y profesores del registro
 	 * seleccionado en la ventana de home
-	 * 
+	 *
 	 * @param modelProfesores La tabla de profesores
 	 * @param modelAlumnos    La tabla de alumnos
 	 */
@@ -1070,8 +1166,5 @@ public class ModeloConsultas {
 		}
 
 	}
-
-
-
 
 }

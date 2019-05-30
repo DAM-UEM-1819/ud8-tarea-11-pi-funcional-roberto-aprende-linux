@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -204,10 +205,12 @@ public class GestionRegistros extends JFrame {
 		btnBorrarRegistro = new JButton("Borrar Registro");
 		btnBorrarRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controlador.solicitudBorrar(this);
+				if (confirmacionBorrar() == 0) {
+					controlador.solicitudBorrar(this);
 
-				if (modeloGestionDatos.getSeHaBorrado()) {
-					borrado();
+					if (modeloGestionDatos.getSeHaBorrado()) {
+						borrado();
+					}
 				}
 			}
 		});
@@ -215,6 +218,12 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(btnBorrarRegistro);
 
 		btnAddRegistro = new JButton("A\u00F1adir Registro");
+		btnAddRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				controlador.gestionRegistrosToGestionRegistrosAddMod();
+			}
+		});
 
 		btnAddRegistro.setBounds(750, 690, 150, 40);
 		contentPane.add(btnAddRegistro);
@@ -359,5 +368,15 @@ public class GestionRegistros extends JFrame {
 	
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
+	}
+	
+	public int confirmacionBorrar() {
+		int confirmacion = 1;
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea borrar el registro seleccionado?");
+		if (JOptionPane.YES_OPTION== valorRetorno) {
+			confirmacion = 0;
+		}
+		
+		return confirmacion;
 	}
 }

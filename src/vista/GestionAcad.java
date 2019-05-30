@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -161,6 +162,11 @@ public class GestionAcad extends JFrame {
 		contentPane.add(btnModificarAcad);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
+		btnAI_actor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+
+		});
 		btnAI_actor.setBounds(532, 685, 150, 40);
 		contentPane.add(btnAI_actor);
 
@@ -232,4 +238,5 @@ public class GestionAcad extends JFrame {
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
+	
 }

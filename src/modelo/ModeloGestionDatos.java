@@ -24,6 +24,7 @@ import vista.GestionAsignatura;
 import vista.GestionProfesores;
 import vista.GestionProfesoresAddMod;
 import vista.GestionRegistros;
+import vista.GestionRegistrosAddMod;
 import vista.GestionSalas;
 import vista.GestionUsuarios;
 import vista.Home;
@@ -52,6 +53,7 @@ public class ModeloGestionDatos {
 	private GestionAsignatura gestionAsignatura;
 	private GestionProfesores gestionProfesores;
 	private GestionProfesoresAddMod gestionProfesoresAddMod;
+	private GestionRegistrosAddMod gestionRegistrosAddMod;
 	private GestionSalas gestionSalas;
 	private VerGrupos verGrupos;
 	private Perfil perfil;
@@ -113,10 +115,12 @@ public class ModeloGestionDatos {
 	private String updateRegistro;
 	private String updateUsuario;
 	private String updateProfesor;
+	private String updateActor;
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
 	private String activoInactivoUpdateProfesor;
-	
+	private String activoInactivoUpdateActor;
+
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -203,6 +207,10 @@ public class ModeloGestionDatos {
 
 	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
 		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
+	}
+	
+	public void setGestionRegistrosAddMod(GestionRegistrosAddMod gestionRegistrosAddMod) {
+		this.gestionRegistrosAddMod = gestionRegistrosAddMod;
 	}
 
 	public void setGestionProfesores(GestionProfesores gestionProfesores) {
@@ -298,9 +306,11 @@ public class ModeloGestionDatos {
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
 		updateProfesor = propiedadesModificacion.getProperty("updateProfesor");
+		updateActor = propiedadesModificacion.getProperty("updateActor");
 		//
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
+		activoInactivoUpdateActor = propiedadesModificacion.getProperty("activoInactivoUpdateActor");
 
 	}
 
@@ -445,7 +455,7 @@ public class ModeloGestionDatos {
 		}
 
 	}
-	
+
 	public void crearAsignatura(String codigoAsignatura, String nombre, String titulacion, String curso) {
 		if (!codigoAsignatura.isEmpty() && !nombre.isEmpty() && !titulacion.isEmpty() && !curso.isEmpty()) {
 			try {
@@ -514,7 +524,7 @@ public class ModeloGestionDatos {
 		case "D":
 			// sql = deleteAsignatura;
 			seHaBorrado = borrarDatos(deleteAsignatura);
-			
+
 			break;
 		case "E":
 			seHaBorrado = borrarDatos(deleteOcupa);
@@ -563,6 +573,12 @@ public class ModeloGestionDatos {
 			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateProfesor);
 
 			break;
+			
+		case "H":
+			// sql = activoActor ;
+			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateActor);
+
+			break;
 		}
 
 		return seHaBorrado;
@@ -591,9 +607,9 @@ public class ModeloGestionDatos {
 	}
 
 	/**
-	 * 
+	 *
 	 * Metodo que se utiliza para poner un dato activo o inactivo
-	 * 
+	 *
 	 * @param sql
 	 *            sentencia del update activo/inactivo
 	 * @return booleano que indica si la sentnecia se realiza con exito
@@ -705,7 +721,7 @@ public class ModeloGestionDatos {
 	public void modificarProfesor(String numero, String nombre, String Apellido1, String Apellido2, String titulacion,
 			String dni, String AI_profesores, String relacion_laboral, String telefono1, String telefono2,
 			String email1, String email2) {
-		
+
 		if (!numero.isEmpty() && !nombre.isEmpty() && !Apellido1.isEmpty() && !Apellido2.isEmpty()
 				&& !titulacion.isEmpty() && !dni.isEmpty() && !AI_profesores.isEmpty() && !relacion_laboral.isEmpty()
 				&& !telefono1.isEmpty() && !telefono2.isEmpty() && !email1.isEmpty() && !email2.isEmpty()) {
@@ -733,6 +749,8 @@ public class ModeloGestionDatos {
 			gestionProfesoresAddMod.actualizarInfoDatos();
 		}
 	}
+	
+	
 
 	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp,
 			String titulacion, String dni, String activo, String relacion, String tlf1, String tlf2, String mail1,
@@ -829,6 +847,70 @@ public class ModeloGestionDatos {
 			respuesta = "Error, no puedes modificar el codifgo de la asignatura ya creada";
 			gestionAsignatura.actualizarInfoDatos();
 		}
+
+	}
+
+	public void crearActor(String nombre, String edad, String genero, String idioma, String complexion,
+			String activo2) {
+		if (!nombre.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertActor);
+				pstmt.setString(1, modeloConsultas.getUltimoRegistro());
+				pstmt.setString(2, nombre);
+				pstmt.setString(3, edad);
+				pstmt.setString(4, genero);
+				pstmt.setString(5, idioma);
+				pstmt.setString(6, complexion);
+				pstmt.setString(7, activo2);
+
+				addDatos(pstmt);
+
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(nombre);
+				datosFilastabla.add(edad);
+				datosFilastabla.add(genero);
+				datosFilastabla.add(idioma);
+				datosFilastabla.add(complexion);
+				datosFilastabla.add(activo2);
+				
+				respuesta = "Actor creado";
+				seHaCreado = true;
+			} catch (Exception e) {
+				seHaCreado = false;
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, nombre vacio";
+		}
+		gestionAlumnos.actualizarInfo();
+	}
+
+	public void modificarActor(String nombre, String edad, String genero, String idioma, String complexion,
+			String activo, String codActor) {
+		if (!nombre.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateActor);
+				pstmt.setString(1, nombre);
+				pstmt.setString(2, edad);
+				pstmt.setString(3, genero);
+				pstmt.setString(4, idioma);
+				pstmt.setString(5, complexion);
+				pstmt.setString(6, activo);
+				pstmt.setString(7, codActor);
+				pstmt.executeUpdate();
+				respuesta = "Actor modificado";
+				seHaCreado = true;
+			} catch (Exception e) {
+				seHaCreado = false;
+				e.printStackTrace();
+			}
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, nombre vacio";
+		}
+		gestionAlumnos.actualizarInfo();
+		
 		
 	}
 
