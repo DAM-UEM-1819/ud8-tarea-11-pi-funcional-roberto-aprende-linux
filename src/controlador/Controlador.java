@@ -232,9 +232,8 @@ public class Controlador implements IControlador {
 
 	}
 	
-	public void solicitudDescargarInforme() {
-		modeloConsultas.resultadoTodosInformes();
-		
+	public void exportar() {
+		modelo.generarExcel(informes.getModel(), informes.getRuta());
 	}
 
 	// VENTANA INFORMACION EXTRA

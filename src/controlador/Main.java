@@ -149,6 +149,9 @@ public class Main {
 		gestionUsuarios.setModeloGestionDatos(modeloGestionDatos);
 		perfil.setModeloGestionDatos(modeloGestionDatos);
 		
+		modelo.setInformes(informes);
+		informes.setModelo(modelo);
+		
 		//ASIGNAMOS LA CONEXION AL MODELO GESTION DATOS
 		modeloGestionDatos.setConexion(modelo.getConexion());
 		login.setVisible(true);

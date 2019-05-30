@@ -446,11 +446,11 @@ public class ModeloConsultas {
 	public String getCodigoRegistro() {
 		return codigoRegistro;
 	}
-	
+
 	public ArrayList<String[][]> getTodosInformesConDatos() {
 		return todosInformesConDatos;
 	}
-	
+
 	public Object[] getTodosInformes() {
 		return todosInformes;
 	}
@@ -1117,81 +1117,4 @@ public class ModeloConsultas {
 
 	}
 
-	// EN FASE DE IMPLEMENTACION
-	public void resultadoTodosInformes() {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ResultSetMetaData metadatos = null;
-		todosInformesConDatos = new ArrayList<String[][]>(); // 15 por el numero de selects que hay
-		String[][] datosInforme = null;
-
-		int contador = 1;
-		int ultimoRegistro = 0;
-		int numCol = 0;
-		
-		String[] cabeceras = null;
- 
-		for (int i = 0; i < todosInformes.length; i++) {
-
-			try {
-				// EJECUTAMOS LA CONSULTA PARA SABER EL NUMERO DE REGISTROS QUE HAY
-				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
-				rs = pstmt.executeQuery();
-				metadatos = rs.getMetaData();
-				
-				while (rs.next()) {
-					ultimoRegistro++;
-				}
-				
-				cabeceras = new String[numCol];
-				
-				for (int j = 0; j < numCol; j++) {
-					cabeceras[0] = metadatos.getColumnName(i);
-				}
-				
-				numCol = metadatos.getColumnCount();
-				datosInforme = new String[ultimoRegistro + 1][numCol];
-
-				// REPETIMOS LA SELECT PARA VOLVER A POSICIONAR EL CURSOR EN LA PRIMERA POSICION
-				// YA QUE NO SE PUEDE CON RS.FIRST
-				pstmt = conexion.prepareStatement(String.valueOf(todosInformes[i]));
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-
-					for (int j = 1; j < numCol; j++) {
-						datosInforme[contador][j] = rs.getString(j + 1);
-					}
-
-					
-					contador++;
-				}
-				
-				for (int j = 0; j < cabeceras.length; j++) {
-					datosInforme[0][j] = cabeceras[j];
-				}
-				todosInformesConDatos.add(datosInforme);
-				
-				ultimoRegistro = 0;
-				contador = 1;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}
-		
-		for (String[][] strings : todosInformesConDatos) {
-			for (int row = 0; row < strings.length; row++) {
-				for (int col = 0; col < strings[row].length; col++) {
-					System.out.println(strings[row][col]);
-				}
-			}
-		}
-		
-		modelo.generarExcel();
-			
-		}
-		
-	}
-
-
+}
