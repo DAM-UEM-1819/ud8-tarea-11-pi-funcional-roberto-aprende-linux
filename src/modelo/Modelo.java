@@ -1,8 +1,10 @@
 package modelo;
 
-import java.awt.Label;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,7 +12,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -18,22 +19,25 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.MessageDigestAlgorithms;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import jxl.Workbook;
-import jxl.write.WritableCell;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
+import vista.Informes;
 
 public class Modelo {
 
 	// Atributos para relacionar
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
+	private Informes informes;
 
 	// Atributos Base de datos
 	private String baseDatos;
@@ -60,6 +64,9 @@ public class Modelo {
 	private String cuerpoUsuario;
 	private String cuerpoPasswd;
 	private String cuerpoDespedida;
+	
+	//Atributos internos
+	private String respuesta;
 
 	/**
 	 * Constructor que recoge los datos de la conexion a la BBDD y realiza la
@@ -79,11 +86,19 @@ public class Modelo {
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
+	
+	public void setInformes(Informes informes) {
+		this.informes = informes;
+	}
 
 	// INICIO GETTERS
 
 	public Connection getConexion() {
 		return conexion;
+	}
+	
+	public String getRespuesta() {
+		return respuesta;
 	}
 
 	/**
@@ -242,57 +257,62 @@ public class Modelo {
 
 	}
 
-	public void generarExcel() {
-		// ESTABLECEMOS LA RUTA
-		final String RUTA = System.getProperty("user.home");
+	public void generarExcel(DefaultTableModel tabla, String rutaArchivo) {
+		String hoja = "Exportar";
 
-		// RECOGEMOS LOS INFORMES CON TODOS LOS DATOS DEL MODELO CONSULTAS
-		ArrayList<String[][]> informes = modeloConsultas.getTodosInformesConDatos();
+		XSSFWorkbook libro = new XSSFWorkbook();
+		XSSFSheet hoja1 = libro.createSheet(hoja);
+		// número de filas y columnas
+		int nRow = tabla.getRowCount();
+		int nCol = tabla.getColumnCount();
 
-		// INICIALIZAMOS UN OBJETO DE TIPO WritableWorkbook QUE NOS PERMITIRA CREAR EL
-		// EXCEL
-		WritableWorkbook excel = null;
+		// cabecera de la hoja de excel
+		String[] header = new String[nCol];
+		for (int i = 0; i < nCol; i++)
+			header[i] = tabla.getColumnName(i);
 
-		int contador = 1;
+		// contenido de la hoja de excel
+		String[][] document = new String[nRow][nCol];
+		for (int i = 0; i < nRow; i++)
+			for (int j = 0; j < nCol; j++)
+				document[i][j] = String.valueOf(tabla.getValueAt(i, j));
+		
 
-		try {
+		// poner negrita a la cabecera
+		CellStyle style = libro.createCellStyle();
+		XSSFFont font = libro.createFont();
+		font.setBold(true);
+		style.setFont(font);
 
-			// CREAMOS EL EXCEL
-			excel = Workbook.createWorkbook(new File(RUTA));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// ITERAMOS LOS INFORMES
-		for (String[][] strings : informes) {
-
-			// CREAMOS LA HOJA DE EXCEL
-			WritableSheet hojaExcel = excel.createSheet("Hoja " + contador, contador);
-			contador++;
-
-			for (int row = 0; row < strings.length; row++) {
-				for (int col = 0; col < strings[row].length; col++) {
-
-					System.out.println(strings[row][col]);
-
-					// CREAMOS LA LABEL PARA AÑADIR EL VALOR QUE SE ENCUENTRA EN LA FILA X Y LA
-					// COLUMNA Y
-					jxl.write.Label label = new jxl.write.Label(row, col, strings[row][col]);
-
-					try {
-
-						// AÑADIMOS LA CELDA A LA HOJA EXCEL
-						hojaExcel.addCell(label);
-
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+		// generar los datos para el documento
+		for (int i = 0; i <= document.length; i++) {
+			XSSFRow row = hoja1.createRow(i);// se crea las filas
+			for (int j = 0; j < header.length; j++) {
+				if (i == 0) {// para la cabecera
+					XSSFCell cell = row.createCell(j);// se crea las celdas para la cabecera, junto con la posici�n
+					cell.setCellStyle(style); // se a�ade el style crea anteriormente
+					cell.setCellValue(header[j]);// se a�ade el contenido
+				} else {// para el contenido
+					XSSFCell cell = row.createCell(j);// se crea las celdas para la contenido, junto con la posici�n
+					cell.setCellValue(document[i - 1][j]); // se a�ade el contenido
 				}
 			}
 		}
 
+		File file;
+		file = new File(informes.getRuta());
+		try (FileOutputStream fileOuS = new FileOutputStream(file)) {
+			libro.write(fileOuS);
+			fileOuS.flush();
+			fileOuS.close();
+			respuesta = "Exportación Realizada";
+
+		} catch (FileNotFoundException e) {
+			respuesta = "Error de Exportación";
+		} catch (IOException e) {
+			respuesta = "Error de Exportación";
+		}
+		
 	}
 
 }
