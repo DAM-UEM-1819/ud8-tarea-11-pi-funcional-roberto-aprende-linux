@@ -866,6 +866,7 @@ public class ModeloGestionDatos {
 				addDatos(pstmt);
 
 				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(modeloConsultas.getUltimoRegistro());
 				datosFilastabla.add(nombre);
 				datosFilastabla.add(edad);
 				datosFilastabla.add(genero);
@@ -883,7 +884,7 @@ public class ModeloGestionDatos {
 			seHaCreado = false;
 			respuesta = "Error, nombre vacio";
 		}
-		gestionAlumnos.actualizarInfo();
+		gestionActores.actualizarInfo();
 	}
 
 	public void modificarActor(String nombre, String edad, String genero, String idioma, String complexion,

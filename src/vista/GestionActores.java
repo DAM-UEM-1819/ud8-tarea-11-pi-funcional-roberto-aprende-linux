@@ -73,6 +73,7 @@ public class GestionActores extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosActores();
 				deshabilitarBotones();
+				esconderPrimeraColumna();
 			}
 
 		});
@@ -234,6 +235,7 @@ public class GestionActores extends JFrame {
 				} else {
 					controlador.solicitudDatosActores();
 				}
+				esconderPrimeraColumna();
 			}
 		});
 		txtBuscador.setText("Buscador");
@@ -367,7 +369,7 @@ public class GestionActores extends JFrame {
 	}
 
 	public Object datosEdad() {
-		String edad = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 1)).toUpperCase();
+		String edad = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 2)).toUpperCase();
 		Object selecion = null;
 		switch (edad) {
 		case "MAYOR 60 AÑOS":
@@ -387,7 +389,7 @@ public class GestionActores extends JFrame {
 	}
 	
 	public Object datosGenero() {
-		String genero = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 2)).toUpperCase();
+		String genero = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 3)).toUpperCase();
 		Object selecion = null;
 		switch (genero) {
 		case "HOMBRE":
@@ -403,7 +405,7 @@ public class GestionActores extends JFrame {
 	}
 	
 	public Object datosIdioma() {
-		String idioma = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 3)).toUpperCase();
+		String idioma = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 4)).toUpperCase();
 		Object selecion = null;
 		switch (idioma) {
 		case "ESPAÑOL":
@@ -419,7 +421,7 @@ public class GestionActores extends JFrame {
 	}
 	
 	public Object datosComplexion() {
-		String complexion = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 4)).toUpperCase();
+		String complexion = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 5)).toUpperCase();
 		Object selecion = null;
 		switch (complexion) {
 		case "NORMAL":
@@ -438,13 +440,13 @@ public class GestionActores extends JFrame {
 	}
 
 	private void ponerDatos() {
-		txtNombre.setText(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0)));
+		txtNombre.setText(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 1)));
 		comboBoxEdad.setSelectedItem(datosEdad());
 		comboBoxGenero.setSelectedItem(datosGenero());
 		comboBoxIdioma.setSelectedItem(datosIdioma());
 		comboBoxComplexion.setSelectedItem(datosComplexion());
 
-		if (String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 5)).equals("1")) {
+		if (String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 6)).equals("1")) {
 			chckbxActivo.setSelected(true);
 		} else {
 			chckbxActivo.setSelected(false);
@@ -456,12 +458,21 @@ public class GestionActores extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tablaActores.getModel();
 		lblInfo.setText("Se ha cambiado estado del actor");
 		if (getActivo().equals("0")) {
-			model.setValueAt("1", tablaActores.getSelectedRow(), 5);
+			model.setValueAt("1", tablaActores.getSelectedRow(), 6);
 			chckbxActivo.setSelected(true);
 		} else {
-			model.setValueAt("0", tablaActores.getSelectedRow(), 5);
+			model.setValueAt("0", tablaActores.getSelectedRow(), 6);
 			chckbxActivo.setSelected(false);
 		}
+	}
+	
+	private void esconderPrimeraColumna(){
+		tablaActores.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaActores.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+		tablaActores.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(0);
+		tablaActores.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaActores.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaActores.getColumnModel().getColumn(0).setPreferredWidth(0);
 	}
 
 }
