@@ -200,7 +200,10 @@ public class GestionActores extends JFrame {
 		btnModificarActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.solicitudModificarActor();
-				modActor();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					modActor();
+				}
+				deselecionarFilayBotones();
 			}
 		});
 		btnModificarActor.setEnabled(false);
@@ -213,7 +216,10 @@ public class GestionActores extends JFrame {
 				// controlador.solicitudBorrarActor();
 
 				controlador.solicitudBorrar(this);
-				activoActor();
+				if (modeloGestionDatos.getSeHaCambiadoEstado()) {
+					activoActor();
+				}
+				deselecionarFilayBotones();
 
 			}
 		});

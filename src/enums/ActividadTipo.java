@@ -9,12 +9,15 @@ public enum ActividadTipo {
 		this.name = name;
 	}
 
-
 	// Optionally and/or additionally, toString.
 	@Override
 	public String toString() {
 		return name;
 	}
 	
+	public Object seleccion() {
+		return name;
+		
+	}
 
 }
