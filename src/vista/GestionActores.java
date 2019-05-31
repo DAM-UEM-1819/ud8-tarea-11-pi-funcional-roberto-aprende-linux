@@ -109,12 +109,11 @@ public class GestionActores extends JFrame {
 		txtNombre = new JTextField();
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {
+			public void keyTyped(KeyEvent e) {
 				habilitarAdd();
 			}
-			
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyReleased(KeyEvent e) {
 				habilitarAdd();
 			}
 		});
@@ -188,6 +187,8 @@ public class GestionActores extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				limpiarTxt();
+				deselecionarFilayBotones();
 				setVisible(false);
 				controlador.gestionActoresToGestion();
 			}
@@ -198,7 +199,11 @@ public class GestionActores extends JFrame {
 		btnModificarActor = new JButton("Modificar actor");
 		btnModificarActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				controlador.solicitudModificarActor();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					modActor();
+				}
+				deselecionarFilayBotones();
 			}
 		});
 		btnModificarActor.setEnabled(false);
@@ -211,7 +216,10 @@ public class GestionActores extends JFrame {
 				// controlador.solicitudBorrarActor();
 
 				controlador.solicitudBorrar(this);
-				activoActor();
+				if (modeloGestionDatos.getSeHaCambiadoEstado()) {
+					activoActor();
+				}
+				deselecionarFilayBotones();
 
 			}
 		});
@@ -223,7 +231,7 @@ public class GestionActores extends JFrame {
 		btnAddActor.setEnabled(false);
 		btnAddActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				habilitarAdd();
 				controlador.solicitudAddActor();
 				if (modeloGestionDatos.getSeHaCreado()) {
 					addActor();
@@ -297,6 +305,10 @@ public class GestionActores extends JFrame {
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(0, 111, 1000, 22);
 		contentPane.add(lblInfo);
+	}
+	
+	public String getCodigo_actor() {
+		return String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0));
 	}
 
 	public String getNombre() {
@@ -425,7 +437,7 @@ public class GestionActores extends JFrame {
 			selecion = ActoresIdioma.Español;
 			break;
 		case "INGLÉS":
-			selecion = ActoresIdioma.Ingles;
+			selecion = ActoresIdioma.Inglés;
 			break;
 		default:
 			break;
@@ -458,12 +470,35 @@ public class GestionActores extends JFrame {
 		comboBoxGenero.setSelectedItem(datosGenero());
 		comboBoxIdioma.setSelectedItem(datosIdioma());
 		comboBoxComplexion.setSelectedItem(datosComplexion());
-
 		if (String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 6)).equals("1")) {
 			chckbxActivo.setSelected(true);
 		} else {
 			chckbxActivo.setSelected(false);
 		}
+		habilitarAdd();
+
+	}
+	
+	public void modActor() {
+		DefaultTableModel model = (DefaultTableModel) tablaActores.getModel();
+		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
+			lblInfo.setText("Actor modificado");
+			model.setValueAt(getNombre(), tablaActores.getSelectedRow(), 1);
+			model.setValueAt(getEdad(), tablaActores.getSelectedRow(), 2);
+			model.setValueAt(getGenero(), tablaActores.getSelectedRow(), 3);
+			model.setValueAt(getIdioma(), tablaActores.getSelectedRow(), 4);
+			model.setValueAt(getComplexion(), tablaActores.getSelectedRow(), 5);
+			if (getActivo().equals("1")) {
+				model.setValueAt("1", tablaActores.getSelectedRow(), 6);
+				chckbxActivo.setSelected(true);
+			} else {
+				model.setValueAt("0", tablaActores.getSelectedRow(), 6);
+				chckbxActivo.setSelected(false);
+			}
+			
+			
+			limpiarTxt();
+
 
 	}
 
@@ -489,13 +524,21 @@ public class GestionActores extends JFrame {
 	}
 	
 	private void habilitarAdd() {
-		if (txtNombre.getText().equals("")) {
-			btnAddActor.setEnabled(false);
-		} else {
+		if (!txtNombre.getText().equals("")) {
 			btnAddActor.setEnabled(true);
+		} else {
+			btnAddActor.setEnabled(false);
 
 		}
 		
+	}
+	
+	public void deselecionarFilayBotones() {
+		tablaActores.isRowSelected(tablaActores.getSelectedRowCount() - 1);
+		btnAddActor.setEnabled(false);
+		btnModificarActor.setEnabled(false);
+		btnAI_actor.setEnabled(false);
+		lblInfo.setText("");
 	}
 
 }

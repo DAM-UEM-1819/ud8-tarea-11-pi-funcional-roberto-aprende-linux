@@ -335,6 +335,12 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 
 	}
 	
+	public void solicitudModificarActor() {
+		// TODO Auto-generated method stub
+		modeloGestionDatos.modificarActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(),
+				gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo(),gestionActores.getCodigo_actor());
+	}
+	
 
 
 
