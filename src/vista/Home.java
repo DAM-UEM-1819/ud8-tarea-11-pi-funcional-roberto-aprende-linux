@@ -155,7 +155,6 @@ public class Home extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				controlador.homeToInfoExtra();
-				controlador.solicitudGuardarDatos();
 			}
 		});
 		btnInfoExtra.setBounds(284, 685, 170, 40);

@@ -467,6 +467,10 @@ public class ModeloConsultas {
 	public Object[] getTodosInformes() {
 		return todosInformes;
 	}
+	
+	public String getCodigoRegistroHome() {
+		return codigoRegistroHome;
+	}
 
 	// INICIO METODOS BASE DATOS
 
@@ -587,6 +591,7 @@ public class ModeloConsultas {
 	// TERMINAR
 
 	public void getDatosExtraHome(String cod) {
+		codigoRegistroHome = cod;
 		PreparedStatement pstmt;
 		ResultSet rs;
 		try {
@@ -1135,17 +1140,6 @@ public class ModeloConsultas {
 	}
 
 	/**
-	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
-	 * home
-	 *
-	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
-	 *                       la fila seleccionada
-	 */
-	public void guardarDatosFilaHome(Object[] datosFilaTabla) {
-		this.datosFilasTabla = datosFilaTabla;
-	}
-
-	/**
 	 * Metodo para mostrar el listado de alumnos y profesores del registro
 	 * seleccionado en la ventana de home
 	 *
@@ -1153,13 +1147,16 @@ public class ModeloConsultas {
 	 * @param modelAlumnos    La tabla de alumnos
 	 */
 	public void datosInfoExtra(DefaultTableModel modelProfesores, DefaultTableModel modelAlumnos) {
-		this.tableModel = tableModel;
+		this.tableModel = modelProfesores;
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conexion.prepareStatement(infoExtraProfesores);
+			pstmt.setString(1, codigoRegistroHome);
 			getDatos(pstmt);
-
+			
+			this.tableModel = modelAlumnos;
 			pstmt = conexion.prepareStatement(infoExtraAlumnos);
+			pstmt.setString(1, codigoRegistroHome);
 			getDatos(pstmt);
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -116,6 +116,8 @@ public class ModeloGestionDatos {
 	private String updateUsuario;
 	private String updateProfesor;
 	private String updateActor;
+	private String updateNotaAlumno;
+	
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
 	private String activoInactivoUpdateProfesor;
@@ -228,6 +230,10 @@ public class ModeloGestionDatos {
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
+	
+	public void setInfoExtra(InformacionExtra infoExtra) {
+		this.infoExtra = infoExtra;
+	}
 
 	// INICIO GETTERS
 	public boolean getSeHaBorrado() {
@@ -311,6 +317,8 @@ public class ModeloGestionDatos {
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
 		activoInactivoUpdateActor = propiedadesModificacion.getProperty("activoInactivoUpdateActor");
+		
+		updateNotaAlumno = propiedadesModificacion.getProperty("updateNotaAlumno");
 
 	}
 
@@ -912,6 +920,34 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 		
+		
+	}
+
+	public void actualizarNotas(DefaultTableModel tabla) {
+		int numFilas = tabla.getRowCount();
+		String exp = null;
+		String nota = null;
+		PreparedStatement pstmt;
+		
+		for (int i = 0; i < numFilas; i++) {
+			exp = String.valueOf(tabla.getValueAt(i, 0));
+			nota = String.valueOf(tabla.getValueAt(i, 2));
+			try {
+				pstmt = conexion.prepareStatement(updateNotaAlumno);
+				pstmt.setString(1, nota);
+				pstmt.setString(2, exp);
+				pstmt.setString(3, modeloConsultas.getCodigoRegistroHome());
+				pstmt.executeUpdate();
+				
+				respuesta = "Notas guardadas correctamente";
+			} catch (SQLException e) {
+				respuesta = "Error, las notas no han sido guardadas correctamente";
+				e.printStackTrace();
+			}
+			
+		}
+		
+		infoExtra.actualizarInfo();
 		
 	}
 
