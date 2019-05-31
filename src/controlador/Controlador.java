@@ -331,6 +331,12 @@ public class Controlador implements IControlador {
 
 	}
 	
+	public void solicitudModificarActor() {
+		// TODO Auto-generated method stub
+		modeloGestionDatos.modificarActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(),
+				gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo(),gestionActores.getCodigo_actor());
+	}
+	
 
 
 
@@ -625,6 +631,8 @@ public class Controlador implements IControlador {
 		}
 
 	}
+
+
 
 
 
