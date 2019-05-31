@@ -952,6 +952,7 @@ public class ModeloGestionDatos {
 	}
 
 	public void actualizarRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala, String prof1, String prof2, String actor1, String actor2) {
+		String cod = modeloConsultas.getCodigoRegistroAddMod();
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
 		} catch (SQLException e) {
@@ -963,13 +964,61 @@ public class ModeloGestionDatos {
 
 	public void crearRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala, String prof1, String prof2, String actor1, String actor2) {
 		String ultimoRegistro = modeloConsultas.ultimoCodRegistro();
-		try {
-			PreparedStatement pstmt = conexion.prepareStatement(insertRegistro);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		if (!fecha.isEmpty() && !hora.isEmpty() && !horasProf.isEmpty() && !actividad.isEmpty() && !grupo.isEmpty() && !sala.isEmpty() && prof1.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertRegistro);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, fecha);
+				pstmt.setString(3, hora);
+				pstmt.setString(4, horasProf);
+				pstmt.setString(5, actividad);
+				pstmt.setString(6, grupo);
+				ResultSet rs = pstmt.executeQuery();
+				
+				pstmt = conexion.prepareStatement(insertOcupa);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, sala);
+				rs = pstmt.executeQuery();
+				
+				pstmt = conexion.prepareStatement(insertRealiza);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, prof1);
+				rs = pstmt.executeQuery();
+				
+				if (!prof2.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertRealiza);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, prof2);
+					rs = pstmt.executeQuery();
+				}
+				
+				if (!actor1.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertActua);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, actor1);
+					pstmt.setString(3, horasProf);
+					rs = pstmt.executeQuery();
+				}
+				
+				if (!actor2.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertActua);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, actor2);
+					pstmt.setString(3, horasProf);
+					rs = pstmt.executeQuery();
+				}
+				
+				respuesta = "Registro creado";
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				respuesta = "Error, fallo al crear el registro";
+				e.printStackTrace();
+			}		
+		} else {
+			respuesta = "Error, por favor rellene los capos obligatorios";
+		}
+		
+		gestionRegistrosAddMod.actualizarInfoDatos();
 	}
 
 }

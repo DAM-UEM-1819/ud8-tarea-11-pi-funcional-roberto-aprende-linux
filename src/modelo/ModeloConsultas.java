@@ -98,6 +98,7 @@ public class ModeloConsultas {
 	private Object[] todosInformes;
 	private ArrayList<String[][]> todosInformesConDatos;
 	private String codigoRegistroHome;
+	private String codigoRegistroAddMod;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -474,6 +475,10 @@ public class ModeloConsultas {
 
 	public String getCodigoRegistroHome() {
 		return codigoRegistroHome;
+	}
+
+	public String getCodigoRegistroAddMod() {
+		return codigoRegistroAddMod;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -910,7 +915,8 @@ public class ModeloConsultas {
 			pstmt = conexion.prepareStatement(selectUltimoCodRegistro);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				resultado = rs.getString(1);
+				ultimoRegistro = rs.getString(1);
+				resultado = String.valueOf(Integer.parseInt(ultimoRegistro) + 1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1187,26 +1193,16 @@ public class ModeloConsultas {
 	}
 
 	public void guardarCodRegistro(String codRegistro) {
-		this.codigoRegistro = codRegistro;
+		this.codigoRegistroAddMod = codRegistro;
 	}
 
 	public void comprobarInsertOUpdateRegistro() {
 
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = conexion.prepareStatement(selectExisteRegistro);
-			pstmt.setString(1, codigoRegistro);
-			ResultSet rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				controlador.actualizarRegistro();
-			} else {
-				controlador.crearRegistro();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (codigoRegistroAddMod != null) {
+			controlador.actualizarRegistro();
+		} else {
+			controlador.crearRegistro();
 		}
-
 	}
 
 }

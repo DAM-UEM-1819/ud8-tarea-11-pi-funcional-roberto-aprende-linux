@@ -34,6 +34,15 @@ import javax.swing.table.DefaultTableModel;
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import com.toedter.calendar.JDayChooser;
+import com.toedter.components.JSpinField;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GestionRegistrosAddMod extends JFrame {
 
@@ -41,7 +50,6 @@ public class GestionRegistrosAddMod extends JFrame {
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
-	private JTextField txtFecha;
 	private JTextField txtHorasProfesor;
 	private JTextField txtCodSala;
 	private JTextField txtHora;
@@ -70,6 +78,8 @@ public class GestionRegistrosAddMod extends JFrame {
 	private JLabel lblGrupo;
 	private String activo;
 	private JLabel lblInfo;
+	private JDateChooser txtFecha;
+	private JLabel lblNewLabel;
 
 	public GestionRegistrosAddMod() {
 		setResizable(false);
@@ -93,13 +103,16 @@ public class GestionRegistrosAddMod extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		txtFecha = new JTextField();
-
-		txtFecha.setBounds(150, 201, 247, 30);
-		contentPane.add(txtFecha);
-		txtFecha.setColumns(10);
-
 		txtHora = new JTextField();
+		txtHora.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (txtHora.getText().length() == 2 && e.getKeyCode()!=KeyEvent.VK_BACK_SPACE) {
+					String horaAct = txtHora.getText();
+					txtHora.setText(horaAct + ":");
+				}
+			}
+		});
 		txtHora.setBounds(575, 201, 250, 30);
 		contentPane.add(txtHora);
 		txtHora.setColumns(10);
@@ -225,7 +238,7 @@ public class GestionRegistrosAddMod extends JFrame {
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarInfo();
-				controlador.solicitudAddOMod();
+				controlador.solicitudAddOModRegistros();
 				limpiarTxt();
 			}
 
@@ -233,39 +246,39 @@ public class GestionRegistrosAddMod extends JFrame {
 		btnGuardarCambios.setBounds(636, 685, 137, 40);
 		contentPane.add(btnGuardarCambios);
 
-		lblFecha = new JLabel("Fecha");
+		lblFecha = new JLabel("Fecha *");
 		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFecha.setBounds(150, 177, 250, 20);
 		contentPane.add(lblFecha);
 
-		lblHora = new JLabel("Hora");
+		lblHora = new JLabel("Hora *");
 		lblHora.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHora.setBounds(575, 177, 250, 20);
 		contentPane.add(lblHora);
 
-		lblHorasProfesor = new JLabel("Horas de profesor");
+		lblHorasProfesor = new JLabel("Horas de profesor *");
 		lblHorasProfesor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHorasProfesor.setBounds(150, 273, 250, 20);
 		contentPane.add(lblHorasProfesor);
 
-		lblActividad = new JLabel("Actividad");
+		lblActividad = new JLabel("Actividad *");
 		lblActividad.setHorizontalAlignment(SwingConstants.CENTER);
 		lblActividad.setBounds(575, 273, 250, 20);
 		contentPane.add(lblActividad);
 
-		lblGrupo = new JLabel("Código de grupo");
+		lblGrupo = new JLabel("Código de grupo *");
 		lblGrupo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrupo.setBounds(150, 364, 250, 20);
 		contentPane.add(lblGrupo);
 
-		lblCodSala = new JLabel("Código de sala");
+		lblCodSala = new JLabel("Código de sala *");
 		lblCodSala.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodSala.setBounds(575, 364, 250, 20);
 		contentPane.add(lblCodSala);
 
-		lblProfesor = new JLabel("Código de profesor");
+		lblProfesor = new JLabel("Código de profesor *");
 		lblProfesor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProfesor.setBounds(150, 452, 250, 20);
+		lblProfesor.setBounds(150, 452, 247, 20);
 		contentPane.add(lblProfesor);
 
 		lblCodProfesor2 = new JLabel("Código de profesor 2");
@@ -287,6 +300,16 @@ public class GestionRegistrosAddMod extends JFrame {
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(0, 110, 1000, 30);
 		contentPane.add(lblInfo);
+		
+		txtFecha = new JDateChooser();
+		txtFecha.setBounds(150, 201, 247, 30);
+		contentPane.add(txtFecha);
+		
+		lblNewLabel = new JLabel("* Campos obligatorios");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblNewLabel.setBounds(40, 746, 900, 14);
+		contentPane.add(lblNewLabel);
 
 	}
 	// Setters
@@ -309,7 +332,7 @@ public class GestionRegistrosAddMod extends JFrame {
 	}
 
 	public String getTxtFecha() {
-		return txtFecha.getText();
+		return String.valueOf(txtFecha.getDate());
 	}
 
 	public String getTxtHorasProfesor() {
@@ -370,7 +393,7 @@ public class GestionRegistrosAddMod extends JFrame {
 	}
 
 	public void limpiarTxt() {
-		txtFecha.setText("");
+		txtFecha.cleanup();
 		txtHorasProfesor.setText("");
 		txtActividad.setText("");
 		txtCodGrupo.setText("");
