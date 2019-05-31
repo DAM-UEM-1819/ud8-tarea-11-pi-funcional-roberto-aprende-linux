@@ -68,6 +68,7 @@ public class GestionRegistros extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosRegistros();
+				esconderPrimeraColumna();
 
 			}
 		});
@@ -300,6 +301,8 @@ public class GestionRegistros extends JFrame {
 				} else {
 					controlador.solicitudDatosRegistros();
 				}
+				
+				esconderPrimeraColumna();
 			}
 		});
 		txtBuscador.setText("Buscador");
@@ -461,5 +464,14 @@ public class GestionRegistros extends JFrame {
 		}
 		
 		return confirmacion;
+	}
+	
+	private void esconderPrimeraColumna(){
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(0);
 	}
 }
