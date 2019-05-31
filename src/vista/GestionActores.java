@@ -65,6 +65,7 @@ public class GestionActores extends JFrame {
 	private JCheckBox chckbxActivo;
 	private JLabel lblLupa;
 	private JLabel lblInfo;
+	private boolean estaActivo;
 
 	public GestionActores() {
 		setResizable(false);
@@ -106,6 +107,17 @@ public class GestionActores extends JFrame {
 		scrollPane.setViewportView(tablaActores);
 
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				habilitarAdd();
+			}
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarAdd();
+			}
+		});
 		txtNombre.setBounds(98, 629, 226, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
@@ -208,6 +220,7 @@ public class GestionActores extends JFrame {
 		contentPane.add(btnAI_actor);
 
 		btnAddActor = new JButton(" A\u00F1adir actor");
+		btnAddActor.setEnabled(false);
 		btnAddActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -473,6 +486,16 @@ public class GestionActores extends JFrame {
 		tablaActores.getColumnModel().getColumn(0).setMaxWidth(0);
 		tablaActores.getColumnModel().getColumn(0).setMaxWidth(0);
 		tablaActores.getColumnModel().getColumn(0).setPreferredWidth(0);
+	}
+	
+	private void habilitarAdd() {
+		if (txtNombre.getText().equals("")) {
+			btnAddActor.setEnabled(false);
+		} else {
+			btnAddActor.setEnabled(true);
+
+		}
+		
 	}
 
 }
