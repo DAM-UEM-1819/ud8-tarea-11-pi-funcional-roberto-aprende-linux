@@ -1,7 +1,7 @@
 package enums;
 
 public enum ActividadSimulador {
-	Vacio("-"),ISTAN("ISTAN");
+	Vacio("-"),ISTAN("ISTAN"),OTRO("OTRO"),SV("SV"),IOT("IOT");
 
 	private String name;
 
