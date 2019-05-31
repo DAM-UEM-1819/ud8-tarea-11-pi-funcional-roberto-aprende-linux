@@ -117,6 +117,7 @@ public class Main {
 		modeloGestionDatos.setGestionSalas(gestionSalas);
 		modeloGestionDatos.setGestionUsuarios(gestionUsuarios);
 		modeloGestionDatos.setPerfil(perfil);
+		modeloGestionDatos.setInfoExtra(infoExtra);
 
 		// Asignariamos el modelo al controlador
 		modeloConsultas.setControlador(controlador);
@@ -155,6 +156,7 @@ public class Main {
 		gestionSalas.setModeloGestionDatos(modeloGestionDatos);
 		gestionUsuarios.setModeloGestionDatos(modeloGestionDatos);
 		perfil.setModeloGestionDatos(modeloGestionDatos);
+		infoExtra.setModeloGestionDatos(modeloGestionDatos);
 		
 		modelo.setInformes(informes);
 		informes.setModelo(modelo);

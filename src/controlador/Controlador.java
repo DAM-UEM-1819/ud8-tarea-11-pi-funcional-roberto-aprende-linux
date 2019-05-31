@@ -258,6 +258,10 @@ public class Controlador implements IControlador {
 	public void solicitudDatosInfoExtra() {
 		modeloConsultas.datosInfoExtra(infoExtra.getModelProfesores(), infoExtra.getModelAlumnos());
 	}
+	
+	public void solicitudActualizarNotas() {
+modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());		
+	}
 
 	// VENTANA CREAR USUARIO
 	public void crearUsuarioToPerfil() {
@@ -575,10 +579,6 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaHome(home.getModel());
 	}
 
-	public void solicitudGuardarDatos() {
-		modeloConsultas.guardarDatosFilaHome(home.getDatosFilaTabla());
-
-	}
 
 	// VENTANA CREAR USUARIOS
 	public void solicitudCrearUsuario() {
@@ -625,6 +625,8 @@ public class Controlador implements IControlador {
 		}
 
 	}
+
+
 
 
 
