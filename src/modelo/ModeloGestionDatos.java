@@ -951,4 +951,25 @@ public class ModeloGestionDatos {
 		
 	}
 
+	public void actualizarRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala, String prof1, String prof2, String actor1, String actor2) {
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void crearRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala, String prof1, String prof2, String actor1, String actor2) {
+		String ultimoRegistro = modeloConsultas.ultimoCodRegistro();
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(insertRegistro);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+
 }
