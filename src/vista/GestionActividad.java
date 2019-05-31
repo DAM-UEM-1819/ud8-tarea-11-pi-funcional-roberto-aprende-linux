@@ -250,6 +250,10 @@ public class GestionActividad extends JFrame {
 		contentPane.add(btnModificarActividad);
 
 		btnBorrarActividad = new JButton("Borrar actividad");
+		btnBorrarActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnBorrarActividad.setBounds(532, 685, 150, 40);
 		contentPane.add(btnBorrarActividad);
 

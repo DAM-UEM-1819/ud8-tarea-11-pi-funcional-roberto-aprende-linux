@@ -95,6 +95,7 @@ public class GestionRegistros extends JFrame {
 				txtHorasProfesor
 						.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 3)));
 				txtActividadNombre.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 4)));
+				habilitarBotones();
 
 			}
 		});
@@ -104,26 +105,79 @@ public class GestionRegistros extends JFrame {
 		scrollPane.setViewportView(tablaRegistros);
 
 		txtCod_registro = new JTextField();
+		txtCod_registro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
 		txtCod_registro.setBounds(100, 629, 150, 30);
 		contentPane.add(txtCod_registro);
 		txtCod_registro.setColumns(10);
 
 		txtFecha = new JTextField();
+		txtFecha.addKeyListener(new KeyAdapter() {
+			@Override
+			
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
 		txtFecha.setBounds(262, 629, 150, 30);
 		contentPane.add(txtFecha);
 		txtFecha.setColumns(10);
 
 		txtHora = new JTextField();
+		txtHora.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
 		txtHora.setBounds(424, 629, 150, 30);
 		contentPane.add(txtHora);
 		txtHora.setColumns(10);
 
 		txtHorasProfesor = new JTextField();
+		txtHorasProfesor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
 		txtHorasProfesor.setBounds(586, 629, 150, 30);
 		contentPane.add(txtHorasProfesor);
 		txtHorasProfesor.setColumns(10);
 
 		txtActividadNombre = new JTextField();
+		txtActividadNombre.addKeyListener(new KeyAdapter() {
+		
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
+		txtActividadNombre.setEditable(false);
 		txtActividadNombre.setBounds(750, 629, 150, 30);
 		contentPane.add(txtActividadNombre);
 		txtActividadNombre.setColumns(10);
@@ -203,8 +257,10 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnBorrarRegistro = new JButton("Borrar Registro");
+		btnBorrarRegistro.setEnabled(false);
 		btnBorrarRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				habilitarBotones();
 				if (confirmacionBorrar() == 0) {
 					controlador.solicitudBorrar(this);
 
@@ -220,6 +276,7 @@ public class GestionRegistros extends JFrame {
 		btnAddRegistro = new JButton("A\u00F1adir Registro");
 		btnAddRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				setVisible(false);
 				controlador.gestionRegistrosToGestionRegistrosAddMod();
 			}
@@ -259,8 +316,10 @@ public class GestionRegistros extends JFrame {
 		lblImportarActividades.setVisible(false);
 
 		btnModificar = new JButton("Modificar");
+		btnModificar.setEnabled(false);
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				habilitarBotones();
 				controlador.solicitudModificarRegistro();
 				if (modeloGestionDatos.getSeHaCreado()) {
 					modificadoRegsitro();
@@ -331,6 +390,30 @@ public class GestionRegistros extends JFrame {
 //			btnBorrarRegistro.setEnabled(false);
 //		}
 //	}
+	
+	public void habilitarBotones() {
+		// btnAlta
+		if (!txtCod_registro.getText().equals("") && !txtFecha.getText().equals("")&& !txtHora.getText().equals("")&& !txtHorasProfesor.getText().equals("")&& !txtActividadNombre.getText().equals("")) {
+			btnAddRegistro.setEnabled(true);
+		} else {
+			btnAddRegistro.setEnabled(false);
+		}
+
+		// btnmodificar
+		if (tablaRegistros.getSelectedRowCount() == 1 && !txtFecha.getText().equals("")&& !txtHora.getText().equals("")&& !txtHorasProfesor.getText().equals("")) {
+			btnModificar.setEnabled(true);
+		} else {
+			btnModificar.setEnabled(false);
+		}
+
+		// btnBorrar
+		if (tablaRegistros.getSelectedRowCount() == 1 && !txtFecha.getText().equals("")&& !txtHora.getText().equals("")&& !txtHorasProfesor.getText().equals("") ) {
+			btnBorrarRegistro.setEnabled(true);
+		} else {
+			btnBorrarRegistro.setEnabled(false);
+		}
+
+	}
 
 	public void limpiarTxt() {
 		txtCod_registro.setText("");
