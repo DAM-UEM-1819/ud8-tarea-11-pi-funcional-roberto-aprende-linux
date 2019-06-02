@@ -302,6 +302,14 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 		modeloConsultas.getTablaAcad(gestionAcad.getModel());
 	}
 
+	public void crearAcad() {
+		modeloGestionDatos.crearAcad(gestionAcad.getAcad(), gestionAcad.getSEM1(), gestionAcad.getSEM2());
+	}
+	
+	public void modificarAcad() {
+		modeloGestionDatos.modificarAcad(gestionAcad.getAcad(), gestionAcad.getSEM1(), gestionAcad.getSEM2());
+	}
+
 	// VENTANA GESTION ACTIVIDAD
 	public void gestionActividadToGestion() {
 		gestion.setVisible(true);
@@ -313,6 +321,22 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 
 	public void solicitudDatosActividad() {
 		modeloConsultas.getTablaActividad(gestionActividad.getModel());
+	}
+
+	public void solicutudAddActividad() {
+		modeloGestionDatos.crearActividad(gestionActividad.getNombre(), gestionActividad.getCod_asignatura(),
+				gestionActividad.getTipoActividad(), gestionActividad.getTipo_sala(),
+				gestionActividad.getDocumentacion_tecnica(), gestionActividad.getHorasActividad(),
+				gestionActividad.getSimulador(), gestionActividad.getAcad());
+
+	}
+
+	public void solicitudModificarActividad() {
+		modeloGestionDatos.modificarActividad(gestionActividad.getNombre(), gestionActividad.getCod_asignatura(),
+				gestionActividad.getTipoActividad(), gestionActividad.getTipo_sala(),
+				gestionActividad.getDocumentacion_tecnica(), gestionActividad.getHorasActividad(),
+				gestionActividad.getSimulador(), gestionActividad.getAcad());
+
 	}
 
 	// VENTANA GESTION ACTORES
@@ -337,8 +361,9 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 	
 	public void solicitudModificarActor() {
 		// TODO Auto-generated method stub
-		modeloGestionDatos.modificarActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(),
-				gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo(),gestionActores.getCodigo_actor());
+		modeloGestionDatos.modificarActor(gestionActores.getNombre(), gestionActores.getEdad(),
+				gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(),
+				gestionActores.getActivo(), gestionActores.getCodigo_actor());
 	}
 	
 
@@ -390,7 +415,10 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 			break;
 			case "GESTIONACTORES":
 			modeloGestionDatos.opcionesActivoDatos(gestionActores.getInactivo(),
-					modeloConsultas.extraerCodigoActor(gestionActores.getNombre(),gestionActores.getEdad(),gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo()), "H");
+					modeloConsultas.extraerCodigoActor(gestionActores.getNombre(), gestionActores.getEdad(),
+							gestionActores.getGenero(), gestionActores.getIdioma(), gestionActores.getComplexion(),
+							gestionActores.getActivo()),
+					"H");
 			break;
 		}
 
@@ -523,12 +551,12 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 	public void solicitudProfeAdd() {
 
 		modeloGestionDatos.crearProfesor(gestionProfesoresAddMod.getNumero(), gestionProfesoresAddMod.getNombre(),
-		gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
-		gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
-		gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
-		gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
-		gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
-}
+				gestionProfesoresAddMod.getApellido1(), gestionProfesoresAddMod.getApellido2(),
+				gestionProfesoresAddMod.getTitulacion(), gestionProfesoresAddMod.getDni(),
+				gestionProfesoresAddMod.getAI_profesores(), gestionProfesoresAddMod.getRelacion_laboral(),
+				gestionProfesoresAddMod.getTelefono1(), gestionProfesoresAddMod.getTelefono2(),
+				gestionProfesoresAddMod.getEmail1(), gestionProfesoresAddMod.getEmail2());
+	}
 
 
 	// public void solicitusCrearPorfesor() {
@@ -550,8 +578,7 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 
 	public void solicitudCrearSala() {
 		modeloConsultas.ultimoRegistroSala();
-		modeloGestionDatos.crearSala(gestionSalas.getTipoSala(), gestionSalas.getNumero(),
-				gestionSalas.getCapacidad());
+		modeloGestionDatos.crearSala(gestionSalas.getTipoSala(), gestionSalas.getNumero(), gestionSalas.getCapacidad());
 	}
 
 	public void solicutudModificarSala() {
@@ -650,6 +677,5 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 		}
 
 	}
-
-
+	
 }

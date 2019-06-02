@@ -257,7 +257,7 @@ public class GestionAsignatura extends JFrame {
 					if (modeloGestionDatos.getSeHaBorrado()) {
 						borrado();
 					} else {
-						JOptionPane.showMessageDialog(null, "Esta asignatura esta siendo utilizada por alguna actividad");
+						JOptionPane.showMessageDialog(rootPane, "Esta asignatura esta siendo utilizada por una actividad", "Error", 0);
 					}
 					habilitarBotones();
 				}

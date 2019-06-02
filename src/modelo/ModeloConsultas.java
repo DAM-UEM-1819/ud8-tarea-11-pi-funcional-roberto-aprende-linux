@@ -1058,6 +1058,7 @@ public class ModeloConsultas {
 				pstmt.setString(5, palabra + "%");
 				pstmt.setString(6, palabra + "%");
 				pstmt.setString(7, palabra + "%");
+				pstmt.setString(8, palabra + "%");
 				break;
 			case "D":
 				pstmt = conexion.prepareStatement(selectBuscadorAsignatura);
