@@ -116,6 +116,8 @@ public class ModeloGestionDatos {
 	private String updateUsuario;
 	private String updateProfesor;
 	private String updateActor;
+	private String updateNotaAlumno;
+	
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
 	private String activoInactivoUpdateProfesor;
@@ -228,6 +230,10 @@ public class ModeloGestionDatos {
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
+	
+	public void setInfoExtra(InformacionExtra infoExtra) {
+		this.infoExtra = infoExtra;
+	}
 
 	// INICIO GETTERS
 	public boolean getSeHaBorrado() {
@@ -311,6 +317,8 @@ public class ModeloGestionDatos {
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
 		activoInactivoUpdateActor = propiedadesModificacion.getProperty("activoInactivoUpdateActor");
+		
+		updateNotaAlumno = propiedadesModificacion.getProperty("updateNotaAlumno");
 
 	}
 
@@ -866,6 +874,7 @@ public class ModeloGestionDatos {
 				addDatos(pstmt);
 
 				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(modeloConsultas.getUltimoRegistro());
 				datosFilastabla.add(nombre);
 				datosFilastabla.add(edad);
 				datosFilastabla.add(genero);
@@ -883,7 +892,7 @@ public class ModeloGestionDatos {
 			seHaCreado = false;
 			respuesta = "Error, nombre vacio";
 		}
-		gestionAlumnos.actualizarInfo();
+		gestionActores.actualizarInfo();
 	}
 
 	public void modificarActor(String nombre, String edad, String genero, String idioma, String complexion,
@@ -912,6 +921,104 @@ public class ModeloGestionDatos {
 		gestionAlumnos.actualizarInfo();
 		
 		
+	}
+
+	public void actualizarNotas(DefaultTableModel tabla) {
+		int numFilas = tabla.getRowCount();
+		String exp = null;
+		String nota = null;
+		PreparedStatement pstmt;
+		
+		for (int i = 0; i < numFilas; i++) {
+			exp = String.valueOf(tabla.getValueAt(i, 0));
+			nota = String.valueOf(tabla.getValueAt(i, 2));
+			try {
+				pstmt = conexion.prepareStatement(updateNotaAlumno);
+				pstmt.setString(1, nota);
+				pstmt.setString(2, exp);
+				pstmt.setString(3, modeloConsultas.getCodigoRegistroHome());
+				pstmt.executeUpdate();
+				
+				respuesta = "Notas guardadas correctamente";
+			} catch (SQLException e) {
+				respuesta = "Error, las notas no han sido guardadas correctamente";
+				e.printStackTrace();
+			}
+			
+		}
+		
+		infoExtra.actualizarInfo();
+		
+	}
+
+	public void actualizarRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala, String prof1, String prof2, String actor1, String actor2) {
+		String cod = modeloConsultas.getCodigoRegistroAddMod();
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void crearRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala, String prof1, String prof2, String actor1, String actor2) {
+		String ultimoRegistro = modeloConsultas.ultimoCodRegistro();
+		if (!fecha.isEmpty() && !hora.isEmpty() && !horasProf.isEmpty() && !actividad.isEmpty() && !grupo.isEmpty() && !sala.isEmpty() && prof1.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertRegistro);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, fecha);
+				pstmt.setString(3, hora);
+				pstmt.setString(4, horasProf);
+				pstmt.setString(5, actividad);
+				pstmt.setString(6, grupo);
+				ResultSet rs = pstmt.executeQuery();
+				
+				pstmt = conexion.prepareStatement(insertOcupa);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, sala);
+				rs = pstmt.executeQuery();
+				
+				pstmt = conexion.prepareStatement(insertRealiza);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, prof1);
+				rs = pstmt.executeQuery();
+				
+				if (!prof2.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertRealiza);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, prof2);
+					rs = pstmt.executeQuery();
+				}
+				
+				if (!actor1.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertActua);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, actor1);
+					pstmt.setString(3, horasProf);
+					rs = pstmt.executeQuery();
+				}
+				
+				if (!actor2.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertActua);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, actor2);
+					pstmt.setString(3, horasProf);
+					rs = pstmt.executeQuery();
+				}
+				
+				respuesta = "Registro creado";
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				respuesta = "Error, fallo al crear el registro";
+				e.printStackTrace();
+			}		
+		} else {
+			respuesta = "Error, por favor rellene los capos obligatorios";
+		}
+		
+		gestionRegistrosAddMod.actualizarInfoDatos();
 	}
 
 }

@@ -65,6 +65,7 @@ public class GestionActores extends JFrame {
 	private JCheckBox chckbxActivo;
 	private JLabel lblLupa;
 	private JLabel lblInfo;
+	private boolean estaActivo;
 
 	public GestionActores() {
 		setResizable(false);
@@ -73,6 +74,7 @@ public class GestionActores extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosActores();
 				deshabilitarBotones();
+				esconderPrimeraColumna();
 			}
 
 		});
@@ -105,6 +107,16 @@ public class GestionActores extends JFrame {
 		scrollPane.setViewportView(tablaActores);
 
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarAdd();
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				habilitarAdd();
+			}
+		});
 		txtNombre.setBounds(98, 629, 226, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
@@ -175,6 +187,8 @@ public class GestionActores extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				limpiarTxt();
+				deselecionarFilayBotones();
 				setVisible(false);
 				controlador.gestionActoresToGestion();
 			}
@@ -185,7 +199,11 @@ public class GestionActores extends JFrame {
 		btnModificarActor = new JButton("Modificar actor");
 		btnModificarActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				controlador.solicitudModificarActor();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					modActor();
+				}
+				deselecionarFilayBotones();
 			}
 		});
 		btnModificarActor.setEnabled(false);
@@ -198,7 +216,10 @@ public class GestionActores extends JFrame {
 				// controlador.solicitudBorrarActor();
 
 				controlador.solicitudBorrar(this);
-				activoActor();
+				if (modeloGestionDatos.getSeHaCambiadoEstado()) {
+					activoActor();
+				}
+				deselecionarFilayBotones();
 
 			}
 		});
@@ -207,9 +228,10 @@ public class GestionActores extends JFrame {
 		contentPane.add(btnAI_actor);
 
 		btnAddActor = new JButton(" A\u00F1adir actor");
+		btnAddActor.setEnabled(false);
 		btnAddActor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				habilitarAdd();
 				controlador.solicitudAddActor();
 				if (modeloGestionDatos.getSeHaCreado()) {
 					addActor();
@@ -234,6 +256,7 @@ public class GestionActores extends JFrame {
 				} else {
 					controlador.solicitudDatosActores();
 				}
+				esconderPrimeraColumna();
 			}
 		});
 		txtBuscador.setText("Buscador");
@@ -282,6 +305,10 @@ public class GestionActores extends JFrame {
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(0, 111, 1000, 22);
 		contentPane.add(lblInfo);
+	}
+	
+	public String getCodigo_actor() {
+		return String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0));
 	}
 
 	public String getNombre() {
@@ -367,7 +394,7 @@ public class GestionActores extends JFrame {
 	}
 
 	public Object datosEdad() {
-		String edad = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 1)).toUpperCase();
+		String edad = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 2)).toUpperCase();
 		Object selecion = null;
 		switch (edad) {
 		case "MAYOR 60 AÑOS":
@@ -387,7 +414,7 @@ public class GestionActores extends JFrame {
 	}
 	
 	public Object datosGenero() {
-		String genero = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 2)).toUpperCase();
+		String genero = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 3)).toUpperCase();
 		Object selecion = null;
 		switch (genero) {
 		case "HOMBRE":
@@ -403,14 +430,14 @@ public class GestionActores extends JFrame {
 	}
 	
 	public Object datosIdioma() {
-		String idioma = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 3)).toUpperCase();
+		String idioma = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 4)).toUpperCase();
 		Object selecion = null;
 		switch (idioma) {
 		case "ESPAÑOL":
 			selecion = ActoresIdioma.Español;
 			break;
 		case "INGLÉS":
-			selecion = ActoresIdioma.Ingles;
+			selecion = ActoresIdioma.Inglés;
 			break;
 		default:
 			break;
@@ -419,7 +446,7 @@ public class GestionActores extends JFrame {
 	}
 	
 	public Object datosComplexion() {
-		String complexion = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 4)).toUpperCase();
+		String complexion = String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 5)).toUpperCase();
 		Object selecion = null;
 		switch (complexion) {
 		case "NORMAL":
@@ -438,17 +465,40 @@ public class GestionActores extends JFrame {
 	}
 
 	private void ponerDatos() {
-		txtNombre.setText(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 0)));
+		txtNombre.setText(String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 1)));
 		comboBoxEdad.setSelectedItem(datosEdad());
 		comboBoxGenero.setSelectedItem(datosGenero());
 		comboBoxIdioma.setSelectedItem(datosIdioma());
 		comboBoxComplexion.setSelectedItem(datosComplexion());
-
-		if (String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 5)).equals("1")) {
+		if (String.valueOf(tablaActores.getValueAt(tablaActores.getSelectedRow(), 6)).equals("1")) {
 			chckbxActivo.setSelected(true);
 		} else {
 			chckbxActivo.setSelected(false);
 		}
+		habilitarAdd();
+
+	}
+	
+	public void modActor() {
+		DefaultTableModel model = (DefaultTableModel) tablaActores.getModel();
+		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
+			lblInfo.setText("Actor modificado");
+			model.setValueAt(getNombre(), tablaActores.getSelectedRow(), 1);
+			model.setValueAt(getEdad(), tablaActores.getSelectedRow(), 2);
+			model.setValueAt(getGenero(), tablaActores.getSelectedRow(), 3);
+			model.setValueAt(getIdioma(), tablaActores.getSelectedRow(), 4);
+			model.setValueAt(getComplexion(), tablaActores.getSelectedRow(), 5);
+			if (getActivo().equals("1")) {
+				model.setValueAt("1", tablaActores.getSelectedRow(), 6);
+				chckbxActivo.setSelected(true);
+			} else {
+				model.setValueAt("0", tablaActores.getSelectedRow(), 6);
+				chckbxActivo.setSelected(false);
+			}
+			
+			
+			limpiarTxt();
+
 
 	}
 
@@ -456,12 +506,39 @@ public class GestionActores extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tablaActores.getModel();
 		lblInfo.setText("Se ha cambiado estado del actor");
 		if (getActivo().equals("0")) {
-			model.setValueAt("1", tablaActores.getSelectedRow(), 5);
+			model.setValueAt("1", tablaActores.getSelectedRow(), 6);
 			chckbxActivo.setSelected(true);
 		} else {
-			model.setValueAt("0", tablaActores.getSelectedRow(), 5);
+			model.setValueAt("0", tablaActores.getSelectedRow(), 6);
 			chckbxActivo.setSelected(false);
 		}
+	}
+	
+	private void esconderPrimeraColumna(){
+		tablaActores.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaActores.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+		tablaActores.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(0);
+		tablaActores.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaActores.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaActores.getColumnModel().getColumn(0).setPreferredWidth(0);
+	}
+	
+	private void habilitarAdd() {
+		if (!txtNombre.getText().equals("")) {
+			btnAddActor.setEnabled(true);
+		} else {
+			btnAddActor.setEnabled(false);
+
+		}
+		
+	}
+	
+	public void deselecionarFilayBotones() {
+		tablaActores.isRowSelected(tablaActores.getSelectedRowCount() - 1);
+		btnAddActor.setEnabled(false);
+		btnModificarActor.setEnabled(false);
+		btnAI_actor.setEnabled(false);
+		lblInfo.setText("");
 	}
 
 }

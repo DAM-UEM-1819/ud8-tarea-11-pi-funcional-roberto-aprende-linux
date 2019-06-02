@@ -98,6 +98,7 @@ public class ModeloConsultas {
 	private Object[] todosInformes;
 	private ArrayList<String[][]> todosInformesConDatos;
 	private String codigoRegistroHome;
+	private String codigoRegistroAddMod;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -141,6 +142,7 @@ public class ModeloConsultas {
 	// SENTENCIAS SELECT SQL COMPROBACION
 	private String selectExisteSala;
 	private String selectExisteProfesor;
+	private String selectExisteRegistro;
 
 	// SENTENCIAS SELECT SQL INFORMES
 	private String informeNumeroHorasTotalesPorActividad;
@@ -164,11 +166,12 @@ public class ModeloConsultas {
 	// SENTENCIAS SELECT SQL ULTIMO REGISTRO
 	private String selectUltimoRegistroSala;
 	private String selectUltimoRegistroActor;
+	private String selectUltimoCodRegistro;
 
 	// SENTENCIAS SELECT SQL EXTRAER CODIGO
 	private String selectExtraerCodSala;
 	private String selectExtraerCodActor;
-	private String codigoActor ;
+	private String codigoActor;
 	// SENTENCIAS SELECT SQL INFORMACION EXTRA
 
 	public ModeloConsultas() {
@@ -278,6 +281,7 @@ public class ModeloConsultas {
 	private void selectComprobacionExiste() {
 		selectExisteSala = propiedades.getProperty("selectExisteSala");
 		selectExisteProfesor = propiedades.getProperty("selectExisteProfesor");
+		selectExisteRegistro = propiedades.getProperty("selectExisteRegistro");
 	}
 
 	private void selectDatosExtra() {
@@ -289,6 +293,7 @@ public class ModeloConsultas {
 	private void selectUltimoRegistro() {
 		selectUltimoRegistroSala = propiedades.getProperty("selectUltimoRegistroSala");
 		selectUltimoRegistroActor = propiedades.getProperty("selectUltimoRegistroActor");
+		selectUltimoCodRegistro = propiedades.getProperty("selectUltimoCodRegistro");
 	}
 
 	private void selectExtraerCodigo() {
@@ -377,7 +382,7 @@ public class ModeloConsultas {
 	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
 		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
 	}
-	
+
 	public void setGestionRegistrosAddMod(GestionRegistrosAddMod gestionRegistrosAddMod) {
 		this.gestionRegistrosAddMod = gestionRegistrosAddMod;
 	}
@@ -466,6 +471,14 @@ public class ModeloConsultas {
 
 	public Object[] getTodosInformes() {
 		return todosInformes;
+	}
+
+	public String getCodigoRegistroHome() {
+		return codigoRegistroHome;
+	}
+
+	public String getCodigoRegistroAddMod() {
+		return codigoRegistroAddMod;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -587,6 +600,7 @@ public class ModeloConsultas {
 	// TERMINAR
 
 	public void getDatosExtraHome(String cod) {
+		codigoRegistroHome = cod;
 		PreparedStatement pstmt;
 		ResultSet rs;
 		try {
@@ -596,7 +610,7 @@ public class ModeloConsultas {
 			if (rs.next()) {
 				numeroAlumos = rs.getString(1);
 			}
-			
+
 			pstmt = conexion.prepareStatement(selectDatosExtraHomeSimuladorYDoc);
 			pstmt.setString(1, cod);
 			rs = pstmt.executeQuery();
@@ -604,15 +618,14 @@ public class ModeloConsultas {
 				documentacion = rs.getString(1);
 				simulador = rs.getString(2);
 			}
-			
+
 			pstmt = conexion.prepareStatement(selectDatosExtraHomeActor);
 			pstmt.setString(1, cod);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				actor = rs.getString(1);
 			}
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -894,6 +907,24 @@ public class ModeloConsultas {
 
 	}
 
+	public String ultimoCodRegistro() {
+		String resultado = "";
+
+		PreparedStatement pstmt;
+		try {
+			pstmt = conexion.prepareStatement(selectUltimoCodRegistro);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				ultimoRegistro = rs.getString(1);
+				resultado = String.valueOf(Integer.parseInt(ultimoRegistro) + 1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultado;
+	}
+
 	public void extraerCodigoSala(String nombre, String numero, String capacidad) {
 		PreparedStatement pstmt;
 		try {
@@ -910,8 +941,9 @@ public class ModeloConsultas {
 		}
 
 	}
-	
-	public String extraerCodigoActor(String nombre, String edad, String genero, String idioma, String complexion, String activo) {
+
+	public String extraerCodigoActor(String nombre, String edad, String genero, String idioma, String complexion,
+			String activo) {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conexion.prepareStatement(selectExtraerCodActor);
@@ -1045,6 +1077,7 @@ public class ModeloConsultas {
 				pstmt.setString(3, palabra + "%");
 				pstmt.setString(4, palabra + "%");
 				pstmt.setString(5, palabra + "%");
+				pstmt.setString(6, palabra + "%");
 				break;
 			case "J":
 				pstmt = conexion.prepareStatement(selectListadoAlumnosPorGrupo); // Cambiar
@@ -1135,17 +1168,6 @@ public class ModeloConsultas {
 	}
 
 	/**
-	 * Metodo que sirve para guardar los datos de la fila selecionada ne la ventana
-	 * home
-	 *
-	 * @param datosFilaTabla El array de datos que contiene toda la informacion de
-	 *                       la fila seleccionada
-	 */
-	public void guardarDatosFilaHome(Object[] datosFilaTabla) {
-		this.datosFilasTabla = datosFilaTabla;
-	}
-
-	/**
 	 * Metodo para mostrar el listado de alumnos y profesores del registro
 	 * seleccionado en la ventana de home
 	 *
@@ -1153,18 +1175,34 @@ public class ModeloConsultas {
 	 * @param modelAlumnos    La tabla de alumnos
 	 */
 	public void datosInfoExtra(DefaultTableModel modelProfesores, DefaultTableModel modelAlumnos) {
-		this.tableModel = tableModel;
+		this.tableModel = modelProfesores;
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conexion.prepareStatement(infoExtraProfesores);
+			pstmt.setString(1, codigoRegistroHome);
 			getDatos(pstmt);
 
+			this.tableModel = modelAlumnos;
 			pstmt = conexion.prepareStatement(infoExtraAlumnos);
+			pstmt.setString(1, codigoRegistroHome);
 			getDatos(pstmt);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void guardarCodRegistro(String codRegistro) {
+		this.codigoRegistroAddMod = codRegistro;
+	}
+
+	public void comprobarInsertOUpdateRegistro() {
+
+		if (codigoRegistroAddMod != null) {
+			controlador.actualizarRegistro();
+		} else {
+			controlador.crearRegistro();
+		}
 	}
 
 }

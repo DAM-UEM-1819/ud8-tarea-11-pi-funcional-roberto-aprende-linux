@@ -33,11 +33,12 @@ import javax.swing.table.DefaultTableModel;
 import controlador.Controlador;
 import enums.ActividadSimulador;
 import enums.ActividadTipo;
+import enums.ActoresComplexion;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
 
 public class GestionActividad extends JFrame {
-	
+
 	private Controlador controlador;
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
@@ -64,9 +65,6 @@ public class GestionActividad extends JFrame {
 	private JLabel lblImportarActividades;
 	private JLabel lblLupa;
 
-
-
-	 
 	public GestionActividad() {
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
@@ -90,11 +88,10 @@ public class GestionActividad extends JFrame {
 		contentPane.add(scrollPane);
 
 		tablaActividad = new JTable();
-			tablaActividad.addMouseListener(new MouseAdapter() {
+		tablaActividad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				txtNombre.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0)));
-				comboBoxTipoActividad.setName(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 1)));
+				ponerDatos();
 			}
 		});
 		tablaActividad.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -103,7 +100,7 @@ public class GestionActividad extends JFrame {
 		scrollPane.setViewportView(tablaActividad);
 
 		txtNombre = new JTextField();
-				txtNombre.addMouseListener(new MouseAdapter() {
+		txtNombre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				txtNombre.setText("");
@@ -250,6 +247,10 @@ public class GestionActividad extends JFrame {
 		contentPane.add(btnModificarActividad);
 
 		btnBorrarActividad = new JButton("Borrar actividad");
+		btnBorrarActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnBorrarActividad.setBounds(532, 685, 150, 40);
 		contentPane.add(btnBorrarActividad);
 
@@ -258,7 +259,7 @@ public class GestionActividad extends JFrame {
 		contentPane.add(btnAddActividad);
 
 		comboBoxTipoActividad = new JComboBox();
-		
+
 		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(ActividadTipo.values()));
 		comboBoxTipoActividad.setBounds(234, 629, 98, 30);
 		contentPane.add(comboBoxTipoActividad);
@@ -304,45 +305,87 @@ public class GestionActividad extends JFrame {
 		lblImportarActividades.setVisible(false);
 
 	}
-	
-	
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	
-	
+
 	public void setModeloConsultas(ModeloConsultas modeloConsultas) {
-		this.modeloConsultas= modeloConsultas;
+		this.modeloConsultas = modeloConsultas;
 	}
-	
+
 	public void setModeloGestionDatos(ModeloGestionDatos modeloGestionDatos) {
-		this.modeloGestionDatos= modeloGestionDatos;
+		this.modeloGestionDatos = modeloGestionDatos;
 	}
-	
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaActividad.getModel();
 	}
 
-
 	public String getPrimaryKey() {
 		return String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0));
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
-	
+
+	public Object datosTipo() {
+		String tipo = String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 1)).toUpperCase();
+		Object selecion = null;
+		switch (tipo) {
+		case "ESCENARIO COMPLEJO":
+			selecion = ActividadTipo.Escenario_complejo;
+			break;
+		case "TALLER DE HABILIDADES":
+			selecion = ActividadTipo.Taller_habilidades;
+			break;
+
+		default:
+			break;
+		}
+		return selecion;
+	}
+
+	public Object datosSimulador() {
+		String simulador = String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 3)).toUpperCase();
+		Object selecion = null;
+		switch (simulador) {
+		case " ":
+			selecion = ActividadSimulador.Vacio;
+			break;
+		case "ISTAN":
+			selecion = ActividadSimulador.ISTAN;
+			break;
+
+		default:
+			break;
+		}
+		return selecion;
+	}
+
+	private void ponerDatos() {
+		txtNombre.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0)));
+		comboBoxTipoActividad.setSelectedItem(datosTipo());
+		txtTipo_sala.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 2)));
+		comboBoxSimulador.setSelectedItem(datosSimulador());
+		txtDocumentacion_tecnica.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 4)));
+		txtHorasActividad.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 5)));
+		txtAcad.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 6)));
+	}
+
 	public int confirmacionBorrar() {
 		int confirmacion = 1;
-		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea borrar el registro seleccionado?");
-		if (JOptionPane.YES_OPTION== valorRetorno) {
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane,
+				"¿Está seguro/a de que desea borrar el registro seleccionado?");
+		if (JOptionPane.YES_OPTION == valorRetorno) {
 			confirmacion = 0;
 		}
-		
+
 		return confirmacion;
 	}
-	
-		public void limpiarTxt() {
+
+	public void limpiarTxt() {
 		txtDocumentacion_tecnica.setText("");
 		txtTipo_sala.setText("");
 		txtNombre.setText("");

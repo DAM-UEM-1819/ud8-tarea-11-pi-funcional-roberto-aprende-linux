@@ -258,6 +258,10 @@ public class Controlador implements IControlador {
 	public void solicitudDatosInfoExtra() {
 		modeloConsultas.datosInfoExtra(infoExtra.getModelProfesores(), infoExtra.getModelAlumnos());
 	}
+	
+	public void solicitudActualizarNotas() {
+modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());		
+	}
 
 	// VENTANA CREAR USUARIO
 	public void crearUsuarioToPerfil() {
@@ -329,6 +333,12 @@ public class Controlador implements IControlador {
 		modeloGestionDatos.crearActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(),
 				gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo());
 
+	}
+	
+	public void solicitudModificarActor() {
+		// TODO Auto-generated method stub
+		modeloGestionDatos.modificarActor(gestionActores.getNombre(), gestionActores.getEdad(), gestionActores.getGenero(),
+				gestionActores.getIdioma(), gestionActores.getComplexion(), gestionActores.getActivo(),gestionActores.getCodigo_actor());
 	}
 	
 
@@ -405,18 +415,37 @@ public class Controlador implements IControlador {
 	}
 
 	public void solicitudModificarRegistro() {
-		modeloGestionDatos.modificarRegistro(gestionRegistros.getCod_registro(), gestionRegistros.getFecha(),
-				gestionRegistros.getHora(), gestionRegistros.getHorasProfesor(), gestionRegistros.getActividadNombre());
+		/*modeloGestionDatos.modificarRegistro(gestionRegistros.getCod_registro(), gestionRegistros.getFecha(),
+				gestionRegistros.getHora(), gestionRegistros.getHorasProfesor(), gestionRegistros.getActividadNombre());*/
+	}
+	
+	public void guardarCodRegistro() {
+		modeloConsultas.guardarCodRegistro(gestionRegistros.getCodRegistro());
+		
 	}
 
 	public void gestionRegistrosToGestionRegistrosAddMod() {
 		gestionRegistrosAddMod.setVisible(true);
 
 	}
+	
+	public void actualizarRegistro() {
+		modeloGestionDatos.actualizarRegistro(gestionRegistrosAddMod.getTxtFecha(), gestionRegistrosAddMod.getTxtHora(), gestionRegistrosAddMod.getTxtHorasProfesor(), gestionRegistrosAddMod.getTxtActividad(), gestionRegistrosAddMod.getTxtCodSala(),gestionRegistrosAddMod.getTxtCodSala(), gestionRegistrosAddMod.getTxtProfesor(),gestionRegistrosAddMod.getTxtProfesor2(), gestionRegistrosAddMod.getTxtActor1(), gestionRegistrosAddMod.getTxtActor2() );
+		
+	}
+
+	public void crearRegistro() {
+		modeloGestionDatos.crearRegistro(gestionRegistrosAddMod.getTxtFecha(), gestionRegistrosAddMod.getTxtHora(), gestionRegistrosAddMod.getTxtHorasProfesor(), gestionRegistrosAddMod.getTxtActividad(), gestionRegistrosAddMod.getTxtCodSala(),gestionRegistrosAddMod.getTxtCodSala(), gestionRegistrosAddMod.getTxtProfesor(),gestionRegistrosAddMod.getTxtProfesor2(), gestionRegistrosAddMod.getTxtActor1(), gestionRegistrosAddMod.getTxtActor2() );
+		
+	}
 
 	// VENTANA GESTION REGISTROS ADD MOD
 	public void gestionRegistrosAddModToGestionRegistros() {
 		gestionRegistros.setVisible(true);
+	}
+	
+	public void solicitudAddOModRegistros() {
+		modeloConsultas.comprobarInsertOUpdateRegistro();
 	}
 
 	// VENTANA GESTION ASIGNATURA
@@ -575,10 +604,6 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaHome(home.getModel());
 	}
 
-	public void solicitudGuardarDatos() {
-		modeloConsultas.guardarDatosFilaHome(home.getDatosFilaTabla());
-
-	}
 
 	// VENTANA CREAR USUARIOS
 	public void solicitudCrearUsuario() {
@@ -625,8 +650,6 @@ public class Controlador implements IControlador {
 		}
 
 	}
-
-
 
 
 }

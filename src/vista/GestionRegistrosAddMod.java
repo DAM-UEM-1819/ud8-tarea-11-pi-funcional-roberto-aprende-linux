@@ -34,6 +34,15 @@ import javax.swing.table.DefaultTableModel;
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import com.toedter.calendar.JDayChooser;
+import com.toedter.components.JSpinField;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GestionRegistrosAddMod extends JFrame {
 
@@ -41,38 +50,36 @@ public class GestionRegistrosAddMod extends JFrame {
 	private ModeloConsultas modeloConsultas;
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
-	private JTextField txtFecha;
 	private JTextField txtHorasProfesor;
-	private JTextField txtCodActor;
+	private JTextField txtCodSala;
 	private JTextField txtHora;
-	private JTextField txtRelacion_laboral;
-	private JTextField txtTelefono1;
+	private JTextField txtActor1;
 	private JPanel HeaderPanel;
 	private JLabel lblTitulo;
 	private JLabel lblUemLogo;
 	private JLabel lblPerfil;
 	private JButton btnVolver;
 	private JButton btnGuardarCambios;
-	private JTextField txtTelefono2;
+	private JTextField txtActor2;
 	private JTextField txtProfesor;
-	private JTextField txtCodSala;
-	private JCheckBox chckbxAI_profesores;
+	private JTextField txtProfesor2;
 	private JComboBox comboBoxColumna;
 	private JLabel lblHorasProfesor;
 	private JTextField txtActividad;
-	private JLabel lblRelacionLaboral;
-	private JLabel lblTlfn1;
-	private JLabel lblTlfn2;
+	private JLabel lblCodActor;
+	private JLabel lblCodActor2;
 	private JLabel lblProfesor;
-	private JLabel lblCodSala;
+	private JLabel lblCodProfesor2;
 	private JLabel lblHora;
 	private JLabel lblFecha;
 	private JLabel lblActividad;
-	private JLabel lblTitulacion;
+	private JLabel lblCodSala;
 	private JTextField txtCodGrupo;
 	private JLabel lblGrupo;
 	private String activo;
 	private JLabel lblInfo;
+	private JDateChooser txtFecha;
+	private JLabel lblNewLabel;
 
 	public GestionRegistrosAddMod() {
 		setResizable(false);
@@ -96,61 +103,59 @@ public class GestionRegistrosAddMod extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		txtFecha = new JTextField();
-
-		txtFecha.setBounds(150, 201, 247, 30);
-		contentPane.add(txtFecha);
-		txtFecha.setColumns(10);
-
 		txtHora = new JTextField();
+		txtHora.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (txtHora.getText().length() == 2 && e.getKeyCode()!=KeyEvent.VK_BACK_SPACE) {
+					String horaAct = txtHora.getText();
+					txtHora.setText(horaAct + ":");
+				}
+			}
+		});
 		txtHora.setBounds(575, 201, 250, 30);
 		contentPane.add(txtHora);
 		txtHora.setColumns(10);
 
 		txtHorasProfesor = new JTextField();
-		txtHorasProfesor.setBounds(150, 281, 250, 30);
+		txtHorasProfesor.setBounds(150, 297, 250, 30);
 		contentPane.add(txtHorasProfesor);
 		txtHorasProfesor.setColumns(10);
 
 		txtActividad = new JTextField();
-		txtActividad.setBounds(575, 281, 250, 30);
+		txtActividad.setBounds(575, 297, 250, 30);
 		contentPane.add(txtActividad);
 		txtActividad.setColumns(10);
 
 		txtCodGrupo = new JTextField();
 		txtCodGrupo.setColumns(10);
-		txtCodGrupo.setBounds(150, 361, 250, 30);
+		txtCodGrupo.setBounds(150, 389, 250, 30);
 		contentPane.add(txtCodGrupo);
 
-		txtCodActor = new JTextField();
-		txtCodActor.setBounds(575, 361, 247, 30);
-		contentPane.add(txtCodActor);
-		txtCodActor.setColumns(10);
+		txtCodSala = new JTextField();
+		txtCodSala.setBounds(575, 389, 247, 30);
+		contentPane.add(txtCodSala);
+		txtCodSala.setColumns(10);
 
 		txtProfesor = new JTextField();
 		txtProfesor.setColumns(10);
-		txtProfesor.setBounds(150, 440, 247, 30);
+		txtProfesor.setBounds(150, 476, 247, 30);
 		contentPane.add(txtProfesor);
 
-		txtCodSala = new JTextField();
-		txtCodSala.setColumns(10);
-		txtCodSala.setBounds(575, 440, 247, 30);
-		contentPane.add(txtCodSala);
+		txtProfesor2 = new JTextField();
+		txtProfesor2.setColumns(10);
+		txtProfesor2.setBounds(575, 476, 247, 30);
+		contentPane.add(txtProfesor2);
 
-		txtTelefono1 = new JTextField();
-		txtTelefono1.setColumns(10);
-		txtTelefono1.setBounds(150, 519, 247, 30);
-		contentPane.add(txtTelefono1);
+		txtActor1 = new JTextField();
+		txtActor1.setColumns(10);
+		txtActor1.setBounds(150, 559, 247, 30);
+		contentPane.add(txtActor1);
 
-		txtTelefono2 = new JTextField();
-		txtTelefono2.setBounds(575, 519, 247, 30);
-		contentPane.add(txtTelefono2);
-		txtTelefono2.setColumns(10);
-
-		txtRelacion_laboral = new JTextField();
-		txtRelacion_laboral.setBounds(150, 597, 247, 30);
-		contentPane.add(txtRelacion_laboral);
-		txtRelacion_laboral.setColumns(10);
+		txtActor2 = new JTextField();
+		txtActor2.setBounds(575, 559, 247, 30);
+		contentPane.add(txtActor2);
+		txtActor2.setColumns(10);
 
 		HeaderPanel = new JPanel();
 		HeaderPanel.setBackground(new Color(164, 44, 52));
@@ -233,7 +238,7 @@ public class GestionRegistrosAddMod extends JFrame {
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarInfo();
-				controlador.solicitudAddOMod();
+				controlador.solicitudAddOModRegistros();
 				limpiarTxt();
 			}
 
@@ -241,70 +246,70 @@ public class GestionRegistrosAddMod extends JFrame {
 		btnGuardarCambios.setBounds(636, 685, 137, 40);
 		contentPane.add(btnGuardarCambios);
 
-		lblFecha = new JLabel("Fecha");
+		lblFecha = new JLabel("Fecha *");
 		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFecha.setBounds(150, 177, 250, 20);
 		contentPane.add(lblFecha);
 
-		lblHora = new JLabel("Hora");
+		lblHora = new JLabel("Hora *");
 		lblHora.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHora.setBounds(575, 177, 250, 20);
 		contentPane.add(lblHora);
 
-		lblHorasProfesor = new JLabel("Horas de profesor");
+		lblHorasProfesor = new JLabel("Horas de profesor *");
 		lblHorasProfesor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHorasProfesor.setBounds(150, 257, 250, 20);
+		lblHorasProfesor.setBounds(150, 273, 250, 20);
 		contentPane.add(lblHorasProfesor);
 
-		lblActividad = new JLabel("Actividad");
+		lblActividad = new JLabel("Actividad *");
 		lblActividad.setHorizontalAlignment(SwingConstants.CENTER);
-		lblActividad.setBounds(575, 257, 250, 20);
+		lblActividad.setBounds(575, 273, 250, 20);
 		contentPane.add(lblActividad);
 
-		lblGrupo = new JLabel("Código de grupo");
+		lblGrupo = new JLabel("Código de grupo *");
 		lblGrupo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGrupo.setBounds(150, 336, 250, 20);
+		lblGrupo.setBounds(150, 364, 250, 20);
 		contentPane.add(lblGrupo);
 
-		lblTitulacion = new JLabel("Código de actor");
-		lblTitulacion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulacion.setBounds(575, 336, 250, 20);
-		contentPane.add(lblTitulacion);
-
-		lblProfesor = new JLabel("Código de profesor");
-		lblProfesor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProfesor.setBounds(150, 416, 250, 20);
-		contentPane.add(lblProfesor);
-
-		lblCodSala = new JLabel("Código de sala");
+		lblCodSala = new JLabel("Código de sala *");
 		lblCodSala.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodSala.setBounds(575, 416, 250, 20);
+		lblCodSala.setBounds(575, 364, 250, 20);
 		contentPane.add(lblCodSala);
 
-		lblTlfn1 = new JLabel("Telefono 1");
-		lblTlfn1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTlfn1.setBounds(150, 495, 250, 20);
-		contentPane.add(lblTlfn1);
+		lblProfesor = new JLabel("Código de profesor *");
+		lblProfesor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProfesor.setBounds(150, 452, 247, 20);
+		contentPane.add(lblProfesor);
 
-		lblTlfn2 = new JLabel("Telefono 2");
-		lblTlfn2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTlfn2.setBounds(575, 495, 250, 20);
-		contentPane.add(lblTlfn2);
+		lblCodProfesor2 = new JLabel("Código de profesor 2");
+		lblCodProfesor2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodProfesor2.setBounds(575, 452, 250, 20);
+		contentPane.add(lblCodProfesor2);
 
-		lblRelacionLaboral = new JLabel("Relacion laboral");
-		lblRelacionLaboral.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRelacionLaboral.setBounds(150, 572, 250, 20);
-		contentPane.add(lblRelacionLaboral);
+		lblCodActor = new JLabel("Código de actor 1");
+		lblCodActor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodActor.setBounds(150, 535, 250, 20);
+		contentPane.add(lblCodActor);
+
+		lblCodActor2 = new JLabel("Código de actor 2");
+		lblCodActor2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodActor2.setBounds(575, 535, 250, 20);
+		contentPane.add(lblCodActor2);
 
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(0, 110, 1000, 30);
 		contentPane.add(lblInfo);
-
-		chckbxAI_profesores = new JCheckBox("Activo / Inactivo");
-		chckbxAI_profesores.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxAI_profesores.setBounds(575, 601, 250, 23);
-		contentPane.add(chckbxAI_profesores);
+		
+		txtFecha = new JDateChooser();
+		txtFecha.setBounds(150, 201, 247, 30);
+		contentPane.add(txtFecha);
+		
+		lblNewLabel = new JLabel("* Campos obligatorios");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblNewLabel.setBounds(40, 746, 900, 14);
+		contentPane.add(lblNewLabel);
 
 	}
 	// Setters
@@ -322,53 +327,40 @@ public class GestionRegistrosAddMod extends JFrame {
 	}
 	// Getters
 
-	public String getNumero() {
-		return txtFecha.getText();
-	}
-
-	public String getNombre() {
-		return txtHorasProfesor.getText();
-	}
-
-	public String getApellido1() {
-		return txtActividad.getText();
-	}
-
-	public String getApellido2() {
-		return txtCodGrupo.getText();
-	}
-
-	public String getTitulacion() {
-		return txtCodActor.getText();
-	}
-
-	public String getDni() {
-		return txtHora.getText();
-	}
-
-	public String getRelacion_laboral() {
-		return txtRelacion_laboral.getText();
-	}
-
-	public String getTelefono1() {
-		return txtTelefono1.getText();
-	}
-
-	public String getTelefono2() {
-		return txtTelefono2.getText();
-	}
-
-	public String getEmail1() {
-		return txtProfesor.getText();
-	}
-
-	public String getEmail2() {
+	public String getTxtCodSala() {
 		return txtCodSala.getText();
 	}
 
-	public String getAI_profesores() {
-		activo = String.valueOf(estadoCheckBox());
-		return activo;
+	public String getTxtFecha() {
+		return String.valueOf(txtFecha.getDate());
+	}
+
+	public String getTxtHorasProfesor() {
+		return txtHorasProfesor.getText();
+	}
+
+	public String getTxtHora() {
+		return txtHora.getText();
+	}
+
+	public String getTxtActor1() {
+		return txtActor1.getText();
+	}
+
+	public String getTxtActor2() {
+		return txtActor2.getText();
+	}
+
+	public String getTxtProfesor() {
+		return txtProfesor.getText();
+	}
+
+	public String getTxtProfesor2() {
+		return txtProfesor2.getText();
+	}
+
+	public String getTxtActividad() {
+		return txtActividad.getText();
 	}
 
 	public void actualizarInfoConsulta() {
@@ -377,51 +369,49 @@ public class GestionRegistrosAddMod extends JFrame {
 
 	//
 	public void rellenar() {
-		if (modeloGestionDatos.getRellenarDatos().length != 0) {
+		/*if (modeloGestionDatos.getRellenarDatos().length != 0) {
 			txtFecha.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[0]));
 			txtHora.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[1]));
 			txtHorasProfesor.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[2]));
 			txtActividad.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[3]));
 			txtCodGrupo.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[4]));
-			txtCodActor.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
+			txtCodSala.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[5]));
 			txtProfesor.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[6]));
-			txtCodSala.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
-			txtTelefono1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
-			txtTelefono2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
+			txtProfesor2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[7]));
+			txtActor1.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[8]));
+			txtActor2.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[9]));
 			txtRelacion_laboral.setText(String.valueOf(modeloGestionDatos.getRellenarDatos()[10]));
 			activo = (String.valueOf(modeloGestionDatos.getRellenarDatos()[11]));
 			if (Integer.parseInt(activo) == 1) {
 				chckbxAI_profesores.setSelected(true);
 			}
-		}
+		}*/
 	}
 	public int estadoCheckBox() {
-		int resultado = chckbxAI_profesores.isSelected() == true ? 1 : 0;
-		return resultado;
+		/*int resultado = chckbxAI_profesores.isSelected() == true ? 1 : 0;*/
+		return 0;
 	}
 
 	public void limpiarTxt() {
-		txtFecha.setText("");
+		txtFecha.cleanup();
 		txtHorasProfesor.setText("");
 		txtActividad.setText("");
 		txtCodGrupo.setText("");
-		txtCodActor.setText("");
-		txtHora.setText("");
-		txtRelacion_laboral.setText("");
-		txtTelefono1.setText("");
-		txtTelefono2.setText("");
-		txtProfesor.setText("");
 		txtCodSala.setText("");
-		chckbxAI_profesores.setSelected(false);
+		txtHora.setText("");
+		txtActor1.setText("");
+		txtActor2.setText("");
+		txtProfesor.setText("");
+		txtProfesor2.setText("");
 	}
 
 	public void actualizarInfoDatos() {
 		lblInfo.setText(modeloGestionDatos.getRespuesta());
 
 	}
-	
+
 	private void limpiarInfo() {
 		lblInfo.setText("");
-		
+
 	}
 }

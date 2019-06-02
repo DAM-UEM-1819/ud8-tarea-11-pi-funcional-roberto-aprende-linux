@@ -40,11 +40,6 @@ public class GestionRegistros extends JFrame {
 	private ModeloGestionDatos modeloGestionDatos;
 	private JPanel contentPane;
 	private JTable tablaRegistros;
-	private JTextField txtCod_registro;
-	private JTextField txtFecha;
-	private JTextField txtHora;
-	private JTextField txtHorasProfesor;
-	private JTextField txtActividadNombre;
 	private JPanel HeaderPanel;
 	private JScrollPane scrollPane;
 	private JLabel lblTitulo;
@@ -68,6 +63,8 @@ public class GestionRegistros extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controlador.solicitudDatosRegistros();
+				esconderPrimeraColumna();
+				desHabilitarBotones();
 
 			}
 		});
@@ -82,19 +79,15 @@ public class GestionRegistros extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(100, 145, 800, 450);
+		scrollPane.setBounds(100, 145, 800, 500);
 		contentPane.add(scrollPane);
 
 		tablaRegistros = new JTable();
 		tablaRegistros.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				txtCod_registro.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0)));
-				txtFecha.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 1)));
-				txtHora.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 2)));
-				txtHorasProfesor
-						.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 3)));
-				txtActividadNombre.setText(String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 4)));
+
+				habilitarBotones();
 
 			}
 		});
@@ -103,33 +96,8 @@ public class GestionRegistros extends JFrame {
 		tablaRegistros.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaRegistros);
 
-		txtCod_registro = new JTextField();
-		txtCod_registro.setBounds(100, 629, 150, 30);
-		contentPane.add(txtCod_registro);
-		txtCod_registro.setColumns(10);
-
-		txtFecha = new JTextField();
-		txtFecha.setBounds(262, 629, 150, 30);
-		contentPane.add(txtFecha);
-		txtFecha.setColumns(10);
-
-		txtHora = new JTextField();
-		txtHora.setBounds(424, 629, 150, 30);
-		contentPane.add(txtHora);
-		txtHora.setColumns(10);
-
-		txtHorasProfesor = new JTextField();
-		txtHorasProfesor.setBounds(586, 629, 150, 30);
-		contentPane.add(txtHorasProfesor);
-		txtHorasProfesor.setColumns(10);
-
-		txtActividadNombre = new JTextField();
-		txtActividadNombre.setBounds(750, 629, 150, 30);
-		contentPane.add(txtActividadNombre);
-		txtActividadNombre.setColumns(10);
-
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBackground(new Color(164, 44, 52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -203,8 +171,10 @@ public class GestionRegistros extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnBorrarRegistro = new JButton("Borrar Registro");
+		btnBorrarRegistro.setEnabled(false);
 		btnBorrarRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				habilitarBotones();
 				if (confirmacionBorrar() == 0) {
 					controlador.solicitudBorrar(this);
 
@@ -243,6 +213,8 @@ public class GestionRegistros extends JFrame {
 				} else {
 					controlador.solicitudDatosRegistros();
 				}
+
+				esconderPrimeraColumna();
 			}
 		});
 		txtBuscador.setText("Buscador");
@@ -259,22 +231,22 @@ public class GestionRegistros extends JFrame {
 		lblImportarActividades.setVisible(false);
 
 		btnModificar = new JButton("Modificar");
+		btnModificar.setEnabled(false);
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controlador.solicitudModificarRegistro();
-				if (modeloGestionDatos.getSeHaCreado()) {
-					modificadoRegsitro();
-				}
+				controlador.guardarCodRegistro();
+				habilitarBotones();
+				setVisible(false);
+				controlador.gestionRegistrosToGestionRegistrosAddMod();
 			}
 		});
 		btnModificar.setBounds(316, 690, 150, 40);
 		contentPane.add(btnModificar);
-		
+
 		lblInfo = new JLabel("");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setBounds(234, 111, 429, 23);
 		contentPane.add(lblInfo);
-		
 
 		ImageIcon lupa = new ImageIcon("./img/buscar.png");
 		lblLupa = new JLabel(lupa);
@@ -304,26 +276,6 @@ public class GestionRegistros extends JFrame {
 		return String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0));
 	}
 
-	public String getCod_registro() {
-		return txtCod_registro.getText();
-	}
-
-	public String  getFecha() {
-		return txtFecha.getText();
-	}
-
-	public String  getHora() {
-		return txtHora.getText();
-	}
-
-	public String  getHorasProfesor() {
-		return txtHorasProfesor.getText();
-	}
-
-	public String  getActividadNombre() {
-		return txtActividadNombre.getText();
-	}
-
 //	public void utilidadBotones() {
 //		if(!txtCod_registro.getText().isEmpty()) {
 //			btnBorrarRegistro.setEnabled(true);
@@ -332,51 +284,47 @@ public class GestionRegistros extends JFrame {
 //		}
 //	}
 
-	public void limpiarTxt() {
-		txtCod_registro.setText("");
-		txtFecha.setText("");
-		txtHorasProfesor.setText("");
-		txtHora.setText("");
-		txtActividadNombre.setText("");
+	public void habilitarBotones() {
+		btnModificar.setEnabled(true);
+		btnBorrarRegistro.setEnabled(true);
 	}
-	
-	public void modificadoRegsitro () {
-		DefaultTableModel model = (DefaultTableModel) tablaRegistros.getModel();
-		// model.setValueAt(getExp(),tablaAlumnos.getSelectedRow(), 0);
 
-		if (getCod_registro().equals(String.valueOf(model.getValueAt(tablaRegistros.getSelectedRow(), 0)))) {
-				lblInfo.setText("Regsitro modificado");
-				model.setValueAt(getCod_registro(), tablaRegistros.getSelectedRow(), 0);
-				model.setValueAt(getFecha(), tablaRegistros.getSelectedRow(), 1);
-				model.setValueAt(getHora(), tablaRegistros.getSelectedRow(), 2);
-				model.setValueAt(getHorasProfesor(), tablaRegistros.getSelectedRow(), 3);
-				model.setValueAt(getActividadNombre(), tablaRegistros.getSelectedRow(), 4);
-				limpiarTxt();
-			
-		} else {
-			lblInfo.setText("Error , no puedes modificar el codigo del registro");
-		}
-		
+	public void desHabilitarBotones() {
+		btnModificar.setEnabled(false);
+		btnBorrarRegistro.setEnabled(false);
 	}
 
 	public void borrado() {
 		DefaultTableModel model = (DefaultTableModel) tablaRegistros.getModel();
 		model.removeRow(tablaRegistros.getSelectedRow());
-		limpiarTxt();
 
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
-	
+
+	public String getCodRegistro() {
+		return String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 0));
+	}
+
 	public int confirmacionBorrar() {
 		int confirmacion = 1;
-		int valorRetorno = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro/a de que desea borrar el registro seleccionado?");
-		if (JOptionPane.YES_OPTION== valorRetorno) {
+		int valorRetorno = JOptionPane.showConfirmDialog(rootPane,
+				"¿Está seguro/a de que desea borrar el registro seleccionado?");
+		if (JOptionPane.YES_OPTION == valorRetorno) {
 			confirmacion = 0;
 		}
-		
+
 		return confirmacion;
+	}
+
+	private void esconderPrimeraColumna() {
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+		tablaRegistros.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
+		tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(0);
 	}
 }
