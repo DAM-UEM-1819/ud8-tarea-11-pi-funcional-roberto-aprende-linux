@@ -29,9 +29,19 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import java.beans.PropertyChangeListener;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.beans.PropertyChangeEvent;
 
 public class GestionAcad extends JFrame {
 
@@ -50,10 +60,15 @@ public class GestionAcad extends JFrame {
 	private JButton btnAddAcad;
 	private JButton btnModificarAcad;
 	private JTextField txtBuscador;
-	private JComboBox comboBoxSem2;
-	private JComboBox comboBoxSem1;
 	private JLabel lblImportaionesActividades;
 	private JLabel lblLupa;
+	private JDateChooser dateChooserSEM1;
+	private JDateChooser dateChooserSEM2;
+	private String dia;
+	private String mes;
+	private String year;
+	private JLabel lblInfo;
+	private ArrayList<String> test;
 
 	public GestionAcad() {
 		setResizable(false);
@@ -73,18 +88,30 @@ public class GestionAcad extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		dateChooserSEM1 = new JDateChooser();
+		dateChooserSEM1.setDateFormatString("dd-MM-yyyy");
+		dateChooserSEM1.setBounds(376, 617, 164, 31);
+		contentPane.add(dateChooserSEM1);
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(98, 145, 800, 446);
 		contentPane.add(scrollPane);
 
 		tablaAcad = new JTable();
+		tablaAcad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				actualizarDatos();
+
+			}
+		});
 		tablaAcad.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaAcad.setRowHeight(30);
 		tablaAcad.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tablaAcad);
 
 		HeaderPanel = new JPanel();
-		HeaderPanel.setBackground(new Color(164,44,52));
+		HeaderPanel.setBackground(new Color(164, 44, 52));
 		HeaderPanel.setBounds(0, 0, 1000, 100);
 		contentPane.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
@@ -158,12 +185,19 @@ public class GestionAcad extends JFrame {
 		contentPane.add(btnVolver);
 
 		btnModificarAcad = new JButton("Modificar a\u00F1o");
+		btnModificarAcad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.modificarAcad();
+
+			}
+		});
 		btnModificarAcad.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarAcad);
 
 		btnAI_actor = new JButton("Activo/Inactivo");
 		btnAI_actor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(dateChooserSEM1.getDate());
 			}
 
 		});
@@ -171,22 +205,19 @@ public class GestionAcad extends JFrame {
 		contentPane.add(btnAI_actor);
 
 		btnAddAcad = new JButton(" A\u00F1adir a\u00F1o");
+		btnAddAcad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.crearAcad();
+				addAcad();
+			}
+		});
 		btnAddAcad.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddAcad);
 
-		comboBoxSem1 = new JComboBox();
-		comboBoxSem1.setModel(new DefaultComboBoxModel(new String[] { "09/01/2018" }));
-		comboBoxSem1.setBounds(380, 610, 255, 40);
-		contentPane.add(comboBoxSem1);
-
-		comboBoxSem2 = new JComboBox();
-		comboBoxSem2.setModel(new DefaultComboBoxModel(new String[] { "02/01/2019" }));
-		comboBoxSem2.setBounds(657, 610, 241, 40);
-		contentPane.add(comboBoxSem2);
-
 		lblImportaionesActividades = new JLabel("Importar Actividades");
 		lblImportaionesActividades.setEnabled(false);
-		lblImportaionesActividades.setIcon(new ImageIcon(GestionAcad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
+		lblImportaionesActividades
+				.setIcon(new ImageIcon(GestionAcad.class.getResource("/javax/swing/plaf/basic/icons/JavaCup16.png")));
 		lblImportaionesActividades.setBounds(96, 111, 124, 20);
 		contentPane.add(lblImportaionesActividades);
 		lblImportaionesActividades.setVisible(false);
@@ -212,11 +243,21 @@ public class GestionAcad extends JFrame {
 		txtBuscador.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBuscador.setBounds(728, 112, 140, 22);
 		contentPane.add(txtBuscador);
-		
+
 		ImageIcon lupa = new ImageIcon("./img/buscar.png");
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(878, 112, 20, 22);
 		contentPane.add(lblLupa);
+
+		dateChooserSEM2 = new JDateChooser();
+		dateChooserSEM2.setDateFormatString("dd-MM-yyyy");
+		dateChooserSEM2.setBounds(646, 617, 164, 31);
+		contentPane.add(dateChooserSEM2);
+
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(234, 111, 429, 23);
+		contentPane.add(lblInfo);
 	}
 
 	public void setControlador(Controlador controlador) {
@@ -234,9 +275,68 @@ public class GestionAcad extends JFrame {
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaAcad.getModel();
 	}
-	
+
 	public String getPalabraBuscador() {
 		return txtBuscador.getText();
 	}
+
+	private void actualizarDatos() {
+		int diaSem1 = Integer
+				.parseInt(String.valueOf(tablaAcad.getValueAt(tablaAcad.getSelectedRow(), 1)).substring(8, 10));
+		int mesSem1 = Integer
+				.parseInt(String.valueOf(tablaAcad.getValueAt(tablaAcad.getSelectedRow(), 1)).substring(5, 7));
+		int anioSem1 = Integer
+				.parseInt(String.valueOf(tablaAcad.getValueAt(tablaAcad.getSelectedRow(), 1)).substring(0, 4));
+		Calendar caSem1 = new GregorianCalendar(anioSem1, mesSem1 - 1, diaSem1);
+		java.util.Date sem1 = caSem1.getTime();
+		int diaSem2 = Integer
+				.parseInt(String.valueOf(tablaAcad.getValueAt(tablaAcad.getSelectedRow(), 2)).substring(8, 10));
+		int mesSem2 = Integer
+				.parseInt(String.valueOf(tablaAcad.getValueAt(tablaAcad.getSelectedRow(), 2)).substring(5, 7));
+		int anioSem2 = Integer
+				.parseInt(String.valueOf(tablaAcad.getValueAt(tablaAcad.getSelectedRow(), 2)).substring(0, 4));
+		Calendar caSem2 = new GregorianCalendar(anioSem2, mesSem2 - 1, diaSem2);
+		java.util.Date sem2 = caSem2.getTime();
+		dateChooserSEM1.setDate(sem1);
+		dateChooserSEM2.setDate(sem2);
+	}
+
+	public String getSEM1() {
+		String mesSem1 = String.valueOf(dateChooserSEM1.getDate().getMonth() + 1);
+		String diaSem1 = String.valueOf(dateChooserSEM1.getDate().getDate());
+		String anioSem1 = String.valueOf(dateChooserSEM1.getDate().getYear() + 1900);
+		return diaSem1 + "/" + mesSem1 + "/" + anioSem1;
+	}
+
+	public String getSEM2() {
+		String mesSem2 = String.valueOf(dateChooserSEM2.getDate().getMonth() + 1);
+		String diaSem2 = String.valueOf(dateChooserSEM2.getDate().getDate());
+		String anioSem2 = String.valueOf(dateChooserSEM2.getDate().getYear() + 1900);
+		return diaSem2 + "/" + mesSem2 + "/" + anioSem2;
+	}
+
+	public String getAcad() {
+		int anio = Integer.parseInt(getSEM1().substring(getSEM1().length() - 2, getSEM1().length()));
+		String acad = anio + "/" + (anio + 1);
+		return acad;
+
+	}
+
+	public void addAcad() {
+		DefaultTableModel model = (DefaultTableModel) tablaAcad.getModel();
+		Object sem21[] = modeloGestionDatos.getDatosfilasTabla();
 	
+		model.addRow(sem21);
+		limpiarDateChooser();
+	}
+
+	public void actualizarInfo() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
+	}
+
+	public void limpiarDateChooser() {
+		dateChooserSEM1.setDate(null);
+		dateChooserSEM2.setDate(null);
+	}
+
 }

@@ -263,7 +263,6 @@ public class GestionActividad extends JFrame {
 
 				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?");
 				controlador.solicitudModificarActividad();
-
 				confirmarBotones();
 				limpiarTxt();
 

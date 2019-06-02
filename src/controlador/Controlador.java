@@ -302,6 +302,14 @@ public class Controlador implements IControlador {
 		modeloConsultas.getTablaAcad(gestionAcad.getModel());
 	}
 
+	public void crearAcad() {
+		modeloGestionDatos.crearAcad(gestionAcad.getAcad(), gestionAcad.getSEM1(), gestionAcad.getSEM2());
+	}
+	
+	public void modificarAcad() {
+		modeloGestionDatos.modificarAcad(gestionAcad.getAcad(), gestionAcad.getSEM1(), gestionAcad.getSEM2());
+	}
+
 	// VENTANA GESTION ACTIVIDAD
 	public void gestionActividadToGestion() {
 		gestion.setVisible(true);
@@ -322,14 +330,13 @@ public class Controlador implements IControlador {
 				gestionActividad.getSimulador(), gestionActividad.getAcad());
 
 	}
-	
+
 	public void solicitudModificarActividad() {
 		modeloGestionDatos.modificarActividad(gestionActividad.getNombre(), gestionActividad.getCod_asignatura(),
 				gestionActividad.getTipoActividad(), gestionActividad.getTipo_sala(),
 				gestionActividad.getDocumentacion_tecnica(), gestionActividad.getHorasActividad(),
 				gestionActividad.getSimulador(), gestionActividad.getAcad());
-		
-		
+
 	}
 
 	// VENTANA GESTION ACTORES
@@ -644,7 +651,5 @@ public class Controlador implements IControlador {
 		}
 
 	}
-
-
 
 }

@@ -119,6 +119,7 @@ public class ModeloGestionDatos {
 	private String updateUsuario;
 	private String updateProfesor;
 	private String updateActor;
+	private String updateAcad;
 	private String updateNotaAlumno;
 
 	// activo-inactivo
@@ -319,6 +320,7 @@ public class ModeloGestionDatos {
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
 		updateProfesor = propiedadesModificacion.getProperty("updateProfesor");
 		updateActor = propiedadesModificacion.getProperty("updateActor");
+		updateAcad = propiedadesModificacion.getProperty("updateAcad");
 		//
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
@@ -444,6 +446,7 @@ public class ModeloGestionDatos {
 	 * @param capacidad
 	 *            Capacidad de la sala
 	 */
+	
 	public void crearSala(String tipo, String numero, String capacidad) {
 		if (!tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
 			try {
@@ -469,6 +472,54 @@ public class ModeloGestionDatos {
 		}
 
 	}
+
+	/**
+	 * 
+	 * @param acad
+	 * @param sem1
+	 * @param sem2
+	 */
+
+	public void crearAcad(String acad, String sem1, String sem2) {
+		if (!acad.isEmpty() && !sem1.isEmpty() && !sem2.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertAcad);
+				pstmt.setString(1, acad);
+				pstmt.setString(2, sem1);
+				pstmt.setString(3, sem2);
+				addDatos(pstmt);
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(acad);
+				datosFilastabla.add(sem1);
+				datosFilastabla.add(sem2);
+				seHaCreado = true;
+				respuesta = "Año académico creado";
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, año académico ya creado";
+		}
+		gestionAcad.actualizarInfo();
+
+	}
+	
+
+	/**
+	 * Metodo que ulizamos para crear una nueva actividad en nuestra base de datos
+	 * 
+	 * 
+	 * @param nombre
+	 * @param cod_asignatura
+	 * @param tipoActividad
+	 * @param tipo_sala
+	 * @param documentacion_tecnica
+	 * @param horasActividad
+	 * @param simulador
+	 * @param acad
+	 */
 
 	public void crearActividad(String nombre, String cod_asignatura, String tipoActividad, String tipo_sala,
 			String documentacion_tecnica, String horasActividad, String simulador, String acad) {
@@ -1000,6 +1051,27 @@ public class ModeloGestionDatos {
 		gestionAlumnos.actualizarInfo();
 
 	}
+	
+	public void modificarAcad(String acad, String sem1, String sem2) {
+		if (!acad.isEmpty() && !sem1.isEmpty() && !sem2.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateAcad);
+				pstmt.setString(1, sem1);
+				pstmt.setString(2, sem2);
+				pstmt.setString(3, acad);
+				pstmt.executeUpdate();
+				seHaCreado = true;
+				respuesta = "Año académico modificado";
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, año académico ya creado";
+		}
+		gestionAcad.actualizarInfo();
+	}
 
 	public void actualizarNotas(DefaultTableModel tabla) {
 		int numFilas = tabla.getRowCount();
@@ -1028,5 +1100,7 @@ public class ModeloGestionDatos {
 		infoExtra.actualizarInfo();
 
 	}
+
+
 
 }
