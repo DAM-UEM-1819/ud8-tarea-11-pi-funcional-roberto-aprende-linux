@@ -597,7 +597,12 @@ public class ModeloConsultas {
 
 	}
 
-	// TERMINAR
+	/**
+	 * Metodo que saca los datos extras de un registro seleccionado en la ventana
+	 * principal
+	 * 
+	 * @param cod El código del registro seleccionado
+	 */
 
 	public void getDatosExtraHome(String cod) {
 		codigoRegistroHome = cod;
@@ -633,6 +638,10 @@ public class ModeloConsultas {
 
 		home.actualizarInfoExtra();
 	}
+
+	/**
+	 * Metodo que sirve para obtener los datos del usuario logeado en la aplicación
+	 */
 
 	public void getDatosUsuarioPerfil() {
 		PreparedStatement pstmt;
@@ -892,6 +901,9 @@ public class ModeloConsultas {
 		}
 	}
 
+	/**
+	 * Medo que sirve para sacar el ultimo código del actor
+	 */
 	public void ultimoCodActor() {
 		PreparedStatement pstmt;
 		try {
@@ -907,6 +919,9 @@ public class ModeloConsultas {
 
 	}
 
+	/**
+	 * Medo que sirve para sacar el ultimo código del actor
+	 */
 	public String ultimoCodRegistro() {
 		String resultado = "";
 
@@ -925,6 +940,14 @@ public class ModeloConsultas {
 		return resultado;
 	}
 
+	/**
+	 * Metodo que sirve para obtener el código de sala
+	 * 
+	 * @param nombre    El nombre de la sala
+	 * @param numero    El numero de la sala
+	 * @param capacidad La capacidad de la sala
+	 */
+
 	public void extraerCodigoSala(String nombre, String numero, String capacidad) {
 		PreparedStatement pstmt;
 		try {
@@ -941,6 +964,17 @@ public class ModeloConsultas {
 		}
 
 	}
+
+	/**
+	 * Metodo que sirve para obtener el código de un actor
+	 * @param nombre     El nombre del actor
+	 * @param edad       La edad del actor
+	 * @param genero     El genero del actor
+	 * @param idioma     El idioma del actor
+	 * @param complexion La complexión del actor
+	 * @param activo     El estado del profesor
+	 * @return
+	 */
 
 	public String extraerCodigoActor(String nombre, String edad, String genero, String idioma, String complexion,
 			String activo) {
@@ -1192,10 +1226,18 @@ public class ModeloConsultas {
 
 	}
 
+	/**
+	 * Metodo que sirve para guardar el código de registro
+	 * 
+	 * @param codRegistro El código del registro
+	 */
 	public void guardarCodRegistro(String codRegistro) {
 		this.codigoRegistroAddMod = codRegistro;
 	}
 
+	/**
+	 * Metodo que sirve para saber si existe o no un registro en la BBDD
+	 */
 	public void comprobarInsertOUpdateRegistro() {
 
 		if (codigoRegistroAddMod != null) {
