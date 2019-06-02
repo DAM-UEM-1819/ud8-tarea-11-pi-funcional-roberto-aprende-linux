@@ -27,6 +27,8 @@ import modelo.ModeloGestionDatos;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class InformacionExtra extends JFrame {
 
@@ -83,6 +85,12 @@ public class InformacionExtra extends JFrame {
 		contentPane.add(scrollPane_2);
 
 		tablaInfoAlumnos = new JTable();
+		tablaInfoAlumnos.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tablaInfoAlumnos.isRowSelected(tablaInfoAlumnos.getSelectedRowCount() - 1);
+			}
+		});
 		tablaInfoAlumnos.getTableHeader().setReorderingAllowed(false);
 		scrollPane_2.setViewportView(tablaInfoAlumnos);
 		tablaInfoAlumnos.setRowHeight(40);

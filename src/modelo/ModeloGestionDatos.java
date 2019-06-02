@@ -89,6 +89,7 @@ public class ModeloGestionDatos {
 	private String insertProfesor;
 	private String insertActor;
 	private String insertAcad;
+	private String insertActividad;
 	private String insertAsignatura;
 	private String insertRealiza;
 	private String insertActua;
@@ -107,15 +108,18 @@ public class ModeloGestionDatos {
 	private String deleteRealizaRegistro;
 	private String deleteOcupaRegistro;
 	private String deleteRegistro;
+	private String deleteActividad;
 
 	// Sentincias Update SQL
 	private String updateAlumno;
 	private String updateAsignatura;
+	private String updateActividad;
 	private String updateSala;
 	private String updateRegistro;
 	private String updateUsuario;
 	private String updateProfesor;
 	private String updateActor;
+	private String updateAcad;
 	private String updateNotaAlumno;
 
 	// activo-inactivo
@@ -276,6 +280,7 @@ public class ModeloGestionDatos {
 		insertActor = propiedadesInsertado.getProperty("insertActor");
 		insertAcad = propiedadesInsertado.getProperty("insertAcad");
 		insertAsignatura = propiedadesInsertado.getProperty("insertAsignatura");
+		insertActividad = propiedadesInsertado.getProperty("insertActividad");
 		insertRealiza = propiedadesInsertado.getProperty("insertRealiza");
 		insertActua = propiedadesInsertado.getProperty("insertActua");
 		insertParticipa = propiedadesInsertado.getProperty("insertParticipa");
@@ -299,6 +304,8 @@ public class ModeloGestionDatos {
 		deleteRegistro = propiedadesBorrado.getProperty("deleteRegistro");
 		//
 		deleteAsignatura = propiedadesBorrado.getProperty("deleteAsignatura");
+		//
+		deleteActividad = propiedadesBorrado.getProperty("deleteActividad");
 	}
 
 	/**
@@ -307,11 +314,13 @@ public class ModeloGestionDatos {
 	private void asignacionModificacion() {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
 		updateAsignatura = propiedadesModificacion.getProperty("updateAsignatura");
+		updateActividad = propiedadesModificacion.getProperty("updateActividad");
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
 		updateProfesor = propiedadesModificacion.getProperty("updateProfesor");
 		updateActor = propiedadesModificacion.getProperty("updateActor");
+		updateAcad = propiedadesModificacion.getProperty("updateAcad");
 		//
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
@@ -471,6 +480,99 @@ public class ModeloGestionDatos {
 	 * @param curso	El curso de la asignatura
 	 */
 
+	/**
+	 * 
+	 * @param acad
+	 * @param sem1
+	 * @param sem2
+	 */
+
+	public void crearAcad(String acad, String sem1, String sem2) {
+		if (!acad.isEmpty() && !sem1.isEmpty() && !sem2.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertAcad);
+				pstmt.setString(1, acad);
+				pstmt.setString(2, sem1);
+				pstmt.setString(3, sem2);
+				addDatos(pstmt);
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(acad);
+				datosFilastabla.add(sem1);
+				datosFilastabla.add(sem2);
+				seHaCreado = true;
+				respuesta = "Año académico creado";
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, año académico ya creado";
+		}
+		gestionAcad.actualizarInfo();
+
+	}
+	
+
+	/**
+	 * Metodo que ulizamos para crear una nueva actividad en nuestra base de datos
+	 * 
+	 * 
+	 * @param nombre
+	 * @param cod_asignatura
+	 * @param tipoActividad
+	 * @param tipo_sala
+	 * @param documentacion_tecnica
+	 * @param horasActividad
+	 * @param simulador
+	 * @param acad
+	 */
+
+	public void crearActividad(String nombre, String cod_asignatura, String tipoActividad, String tipo_sala,
+			String documentacion_tecnica, String horasActividad, String simulador, String acad) {
+
+		if (!nombre.isEmpty() && !cod_asignatura.isEmpty() && !tipoActividad.isEmpty() && !tipo_sala.isEmpty()
+				&& !documentacion_tecnica.isEmpty() && !horasActividad.isEmpty() && !simulador.isEmpty()
+				&& !acad.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertActividad);
+				pstmt.setString(1, nombre);
+				pstmt.setString(2, cod_asignatura);
+				pstmt.setString(3, tipoActividad);
+				pstmt.setString(4, documentacion_tecnica);
+				pstmt.setString(5, tipo_sala);
+				pstmt.setString(6, horasActividad);
+				pstmt.setString(7, simulador);
+				pstmt.setString(8, acad);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					datosFilastabla.removeAll(datosFilastabla);
+					datosFilastabla.add(nombre);
+					datosFilastabla.add(cod_asignatura);
+					datosFilastabla.add(tipoActividad);
+					datosFilastabla.add(tipo_sala);
+					datosFilastabla.add(documentacion_tecnica);
+					datosFilastabla.add(horasActividad);
+					datosFilastabla.add(simulador);
+					datosFilastabla.add(acad);
+					seHaCreado = true;
+					respuesta = "Actividad creada";
+					gestionActividad.actualizarInfoDatos();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, actividad ya creada";
+			gestionActividad.actualizarInfoDatos();
+
+		}
+
+	}
+
 	public void crearAsignatura(String codigoAsignatura, String nombre, String titulacion, String curso) {
 		if (!codigoAsignatura.isEmpty() && !nombre.isEmpty() && !titulacion.isEmpty() && !curso.isEmpty()) {
 			try {
@@ -532,6 +634,7 @@ public class ModeloGestionDatos {
 			break;
 		case "C":
 			// sql = deleteActividad;
+			seHaBorrado = borrarDatos(deleteActividad);
 			break;
 		case "D":
 			// sql = deleteAsignatura;
@@ -845,6 +948,38 @@ public class ModeloGestionDatos {
 		}
 	}
 
+	public void modificarActividad(String nombre, String cod_asignatura, String tipoActividad, String tipo_sala,
+			String documentacion_tecnica, String horasActividad, String simulador, String acad) {
+		if (!nombre.isEmpty() && !cod_asignatura.isEmpty() && !tipoActividad.isEmpty() && !tipo_sala.isEmpty()
+				&& !documentacion_tecnica.isEmpty() && !horasActividad.isEmpty() && !simulador.isEmpty()
+				&& !acad.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateActividad);
+				pstmt.setString(1, tipoActividad);
+				pstmt.setString(2, tipo_sala);
+				pstmt.setString(3, documentacion_tecnica);
+				pstmt.setString(4, horasActividad);
+				pstmt.setString(5, simulador);
+				pstmt.setString(6, nombre);
+				pstmt.executeUpdate();
+				seHaCreado = true;
+				respuesta = "Actividad modificada";
+				gestionActividad.actualizarInfoDatos();
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, actividad ya creada";
+			gestionActividad.actualizarInfoDatos();
+
+		}
+
+	}
+
 	public void modificarAsignatura(String codigoAsignatura, String nombre, String titulacion, String curso) {
 		if (!codigoAsignatura.isEmpty() && !nombre.isEmpty() && !titulacion.isEmpty() && !curso.isEmpty()) {
 			try {
@@ -934,6 +1069,28 @@ public class ModeloGestionDatos {
 		}
 		gestionAlumnos.actualizarInfo();
 
+
+	}
+	
+	public void modificarAcad(String acad, String sem1, String sem2) {
+		if (!acad.isEmpty() && !sem1.isEmpty() && !sem2.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateAcad);
+				pstmt.setString(1, sem1);
+				pstmt.setString(2, sem2);
+				pstmt.setString(3, acad);
+				pstmt.executeUpdate();
+				seHaCreado = true;
+				respuesta = "Año académico modificado";
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, año académico ya creado";
+		}
+		gestionAcad.actualizarInfo();
 	}
 
 	public void actualizarNotas(DefaultTableModel tabla) {

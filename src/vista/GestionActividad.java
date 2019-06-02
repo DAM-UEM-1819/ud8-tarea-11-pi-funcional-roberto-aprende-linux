@@ -64,6 +64,8 @@ public class GestionActividad extends JFrame {
 	private JComboBox comboBoxColumna;
 	private JLabel lblImportarActividades;
 	private JLabel lblLupa;
+	private JTextField txtCod_asignatura;
+	private JLabel lblInfo;
 
 	public GestionActividad() {
 		setResizable(false);
@@ -100,66 +102,81 @@ public class GestionActividad extends JFrame {
 		scrollPane.setViewportView(tablaActividad);
 
 		txtNombre = new JTextField();
-		txtNombre.addMouseListener(new MouseAdapter() {
+		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				txtNombre.setText("");
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
 			}
 		});
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombre.setText("Nombre");
-		txtNombre.setBounds(98, 629, 114, 30);
+		txtNombre.setBounds(98, 629, 86, 30);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtTipo_sala = new JTextField();
-		txtTipo_sala.addMouseListener(new MouseAdapter() {
+		txtTipo_sala.addKeyListener(new KeyAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtTipo_sala.setText("");
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
 			}
 		});
 		txtTipo_sala.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTipo_sala.setText("Tipo de Sala");
-		txtTipo_sala.setBounds(354, 629, 86, 30);
+		txtTipo_sala.setBounds(393, 629, 86, 30);
 		contentPane.add(txtTipo_sala);
 		txtTipo_sala.setColumns(10);
 
 		txtHorasActividad = new JTextField();
-		txtHorasActividad.addMouseListener(new MouseAdapter() {
+		txtHorasActividad.addKeyListener(new KeyAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtHorasActividad.setText("");
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
 			}
 		});
-		txtHorasActividad.setText("Horas de actividad");
 		txtHorasActividad.setHorizontalAlignment(SwingConstants.CENTER);
-		txtHorasActividad.setBounds(663, 629, 114, 30);
+		txtHorasActividad.setBounds(689, 629, 71, 30);
 		contentPane.add(txtHorasActividad);
 		txtHorasActividad.setColumns(10);
 
 		txtDocumentacion_tecnica = new JTextField();
-		txtDocumentacion_tecnica.addMouseListener(new MouseAdapter() {
+		txtDocumentacion_tecnica.addKeyListener(new KeyAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtDocumentacion_tecnica.setText("");
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
 			}
 		});
-		txtDocumentacion_tecnica.setText("Documentaci\u00F3n");
 		txtDocumentacion_tecnica.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDocumentacion_tecnica.setBounds(557, 629, 86, 30);
+		txtDocumentacion_tecnica.setBounds(593, 629, 86, 30);
 		contentPane.add(txtDocumentacion_tecnica);
 		txtDocumentacion_tecnica.setColumns(10);
 
 		txtAcad = new JTextField();
-		txtAcad.addMouseListener(new MouseAdapter() {
+		txtAcad.addKeyListener(new KeyAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtAcad.setText("");
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
 			}
 		});
 		txtAcad.setHorizontalAlignment(SwingConstants.CENTER);
-		txtAcad.setText("A\u00F1o");
 		txtAcad.setColumns(10);
 		txtAcad.setBounds(787, 629, 98, 30);
 		contentPane.add(txtAcad);
@@ -232,41 +249,76 @@ public class GestionActividad extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				controlador.gestionActividadToGestion();
+				limpiarTxt();
+				deselecionarFilayBotones();
 			}
 		});
 		btnVolver.setBounds(100, 685, 150, 40);
 		contentPane.add(btnVolver);
 
 		btnModificarActividad = new JButton("Modificar actividad");
+		btnModificarActividad.setEnabled(false);
 		btnModificarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				JOptionPane.showConfirmDialog(rootPane, "�Desea modificar el profesor seleccionado?");
+				controlador.solicitudModificarActividad();
+				confirmarBotones();
+				limpiarTxt();
+
 			}
 		});
 		btnModificarActividad.setBounds(316, 685, 150, 40);
 		contentPane.add(btnModificarActividad);
 
 		btnBorrarActividad = new JButton("Borrar actividad");
+		btnBorrarActividad.setEnabled(false);
 		btnBorrarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				if (confirmacionBorrar() == 0) {
+					controlador.solicitudBorrar(this);
+					if (modeloGestionDatos.getSeHaBorrado()) {
+						borrarActividad();
+					} else {
+						JOptionPane.showMessageDialog(rootPane, "Esta actividad esta siendo utilizada por un registro",
+								"Error", 0);
+					}
+
+				}
+				limpiarTxt();
 			}
 		});
 		btnBorrarActividad.setBounds(532, 685, 150, 40);
 		contentPane.add(btnBorrarActividad);
 
 		btnAddActividad = new JButton(" A\u00F1adir actividad");
+		btnAddActividad.setEnabled(false);
+		btnAddActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				habilitarBotones();
+				controlador.solicutudAddActividad();
+				if (modeloGestionDatos.getSeHaCreado()) {
+					addActividad();
+				} else {
+					JOptionPane.showMessageDialog(rootPane, "No se ha creado esa asignatura o ese año academico",
+							"Error", 0);
+				}
+				limpiarTxt();
+			}
+		});
 		btnAddActividad.setBounds(748, 685, 150, 40);
 		contentPane.add(btnAddActividad);
 
 		comboBoxTipoActividad = new JComboBox();
 
 		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(ActividadTipo.values()));
-		comboBoxTipoActividad.setBounds(234, 629, 98, 30);
+		comboBoxTipoActividad.setBounds(297, 629, 86, 30);
 		contentPane.add(comboBoxTipoActividad);
 
 		comboBoxSimulador = new JComboBox();
 		comboBoxSimulador.setModel(new DefaultComboBoxModel(ActividadSimulador.values()));
-		comboBoxSimulador.setBounds(466, 629, 71, 30);
+		comboBoxSimulador.setBounds(498, 629, 71, 30);
 		contentPane.add(comboBoxSimulador);
 
 		txtBuscador = new JTextField();
@@ -302,7 +354,28 @@ public class GestionActividad extends JFrame {
 		lblLupa = new JLabel(lupa);
 		lblLupa.setBounds(878, 111, 20, 22);
 		contentPane.add(lblLupa);
+
+		txtCod_asignatura = new JTextField();
+		txtCod_asignatura.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				habilitarBotones();
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				habilitarBotones();
+			}
+		});
+		txtCod_asignatura.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCod_asignatura.setColumns(10);
+		txtCod_asignatura.setBounds(200, 629, 87, 30);
+		contentPane.add(txtCod_asignatura);
 		lblImportarActividades.setVisible(false);
+
+		lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(234, 111, 429, 23);
+		contentPane.add(lblInfo);
 
 	}
 
@@ -318,6 +391,38 @@ public class GestionActividad extends JFrame {
 		this.modeloGestionDatos = modeloGestionDatos;
 	}
 
+	public String getNombre() {
+		return txtNombre.getText();
+	}
+
+	public String getCod_asignatura() {
+		return txtCod_asignatura.getText();
+	}
+
+	public String getTipo_sala() {
+		return txtTipo_sala.getText();
+	}
+
+	public String getHorasActividad() {
+		return txtHorasActividad.getText();
+	}
+
+	public String getDocumentacion_tecnica() {
+		return txtDocumentacion_tecnica.getText();
+	}
+
+	public String getAcad() {
+		return txtAcad.getText();
+	}
+
+	public String getTipoActividad() {
+		return String.valueOf(comboBoxTipoActividad.getSelectedItem());
+	}
+
+	public String getSimulador() {
+		return String.valueOf(comboBoxSimulador.getSelectedItem());
+	}
+
 	public DefaultTableModel getModel() {
 		return (DefaultTableModel) tablaActividad.getModel();
 	}
@@ -331,7 +436,7 @@ public class GestionActividad extends JFrame {
 	}
 
 	public Object datosTipo() {
-		String tipo = String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 1)).toUpperCase();
+		String tipo = String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 2)).toUpperCase().trim();
 		Object selecion = null;
 		switch (tipo) {
 		case "ESCENARIO COMPLEJO":
@@ -339,6 +444,12 @@ public class GestionActividad extends JFrame {
 			break;
 		case "TALLER DE HABILIDADES":
 			selecion = ActividadTipo.Taller_habilidades;
+			break;
+		case "DIARREA/PANCREATITIS":
+			selecion = ActividadTipo.Diarrea_Pancreatitis;
+			break;
+		case "HDA/CIRROSIS":
+			selecion = ActividadTipo.HDA_Cirrosis;
 			break;
 
 		default:
@@ -348,14 +459,21 @@ public class GestionActividad extends JFrame {
 	}
 
 	public Object datosSimulador() {
-		String simulador = String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 3)).toUpperCase();
-		Object selecion = null;
+		String simulador = String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 4)).toUpperCase();
+		Object selecion =ActividadSimulador.Vacio; 
+		
 		switch (simulador) {
-		case " ":
-			selecion = ActividadSimulador.Vacio;
-			break;
 		case "ISTAN":
 			selecion = ActividadSimulador.ISTAN;
+			break;
+		case "OTRO":
+			selecion = ActividadSimulador.OTRO;
+			break;
+		case "SV":
+			selecion = ActividadSimulador.SV;
+			break;
+		case "IOT":
+			selecion = ActividadSimulador.IOT;
 			break;
 
 		default:
@@ -366,12 +484,48 @@ public class GestionActividad extends JFrame {
 
 	private void ponerDatos() {
 		txtNombre.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0)));
+		txtCod_asignatura.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 1)));
 		comboBoxTipoActividad.setSelectedItem(datosTipo());
-		txtTipo_sala.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 2)));
+		txtTipo_sala.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 3)));
 		comboBoxSimulador.setSelectedItem(datosSimulador());
-		txtDocumentacion_tecnica.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 4)));
-		txtHorasActividad.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 5)));
-		txtAcad.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 6)));
+		txtDocumentacion_tecnica.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 5)));
+		txtHorasActividad.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 6)));
+		txtAcad.setText(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 7)));
+		habilitarBotones();
+	}
+
+	public void addActividad() {
+		DefaultTableModel model = (DefaultTableModel) tablaActividad.getModel();
+		model.addRow(modeloGestionDatos.getDatosfilasTabla());
+		limpiarTxt();
+	}
+
+	public void borrarActividad() {
+		DefaultTableModel model = (DefaultTableModel) tablaActividad.getModel();
+		if (modeloGestionDatos.getSeHaBorrado()) {
+			model.removeRow(tablaActividad.getSelectedRow());
+			lblInfo.setText("Activiad borrada");
+			limpiarTxt();
+		}
+
+	}
+
+	public boolean confirmarBotones() {
+		boolean modAlert = true;
+		if (!getNombre().equals(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 0)))
+				|| !getCod_asignatura()
+						.equals(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 1)))
+				|| !getAcad().equals(String.valueOf(tablaActividad.getValueAt(tablaActividad.getSelectedRow(), 7)))) {
+			lblInfo.setText("");
+			JOptionPane.showMessageDialog(rootPane,
+					"No puedes modificar estos campos\n Nombre\n Asignatura codigo\n Año académico", "Error", 0);
+			tablaActividad.isRowSelected(tablaActividad.getSelectedRowCount() - 1);
+
+		} else {
+			modAlert = false;
+		}
+		return modAlert;
+
 	}
 
 	public int confirmacionBorrar() {
@@ -385,10 +539,53 @@ public class GestionActividad extends JFrame {
 		return confirmacion;
 	}
 
+	public void habilitarBotones() {
+		// btnAlta
+		if (!txtNombre.getText().equals("") && !txtCod_asignatura.getText().equals("")
+				&& !txtDocumentacion_tecnica.getText().equals("") && !txtHorasActividad.getText().equals("")
+				&& !txtTipo_sala.getText().equals("")) {
+			btnAddActividad.setEnabled(true);
+		} else {
+			btnAddActividad.setEnabled(false);
+		}
+
+		// btnmodificar
+		if (tablaActividad.getSelectedRowCount() == 1 && !txtNombre.getText().equals("")
+				&& !txtCod_asignatura.getText().equals("") && !txtDocumentacion_tecnica.getText().equals("")
+				&& !txtHorasActividad.getText().equals("") && !txtTipo_sala.getText().equals("")) {
+			btnModificarActividad.setEnabled(true);
+		} else {
+			btnModificarActividad.setEnabled(false);
+		}
+
+		// btnBorrar
+		if (tablaActividad.getSelectedRowCount() == 1 && !txtNombre.getText().equals("")
+				&& !txtCod_asignatura.getText().equals("") && !txtDocumentacion_tecnica.getText().equals("")
+				&& !txtHorasActividad.getText().equals("") && !txtTipo_sala.getText().equals("")) {
+			btnBorrarActividad.setEnabled(true);
+		} else {
+			btnBorrarActividad.setEnabled(false);
+		}
+
+	}
+	
+	public void deselecionarFilayBotones() {
+		tablaActividad.isRowSelected(tablaActividad.getSelectedRowCount() - 1);
+		btnBorrarActividad.setEnabled(false);
+		btnModificarActividad.setEnabled(false);
+		lblInfo.setText("");
+	}
+
 	public void limpiarTxt() {
 		txtDocumentacion_tecnica.setText("");
 		txtTipo_sala.setText("");
+		txtAcad.setText("");
 		txtNombre.setText("");
+		txtCod_asignatura.setText("");
 		txtHorasActividad.setText("");
+	}
+
+	public void actualizarInfoDatos() {
+		lblInfo.setText(modeloGestionDatos.getRespuesta());
 	}
 }
