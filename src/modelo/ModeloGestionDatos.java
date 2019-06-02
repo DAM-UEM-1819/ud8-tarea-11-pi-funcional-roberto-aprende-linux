@@ -1132,12 +1132,25 @@ public class ModeloGestionDatos {
 		}
 
 	}
-
+	
+	/**
+	 * Metodo que sirve para crear un registro
+	 * @param fecha
+	 * @param hora
+	 * @param horasProf
+	 * @param actividad
+	 * @param grupo
+	 * @param sala
+	 * @param prof1
+	 * @param prof2
+	 * @param actor1
+	 * @param actor2
+	 */
 	public void crearRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala,
 			String prof1, String prof2, String actor1, String actor2) {
 		String ultimoRegistro = modeloConsultas.ultimoCodRegistro();
 		if (!fecha.isEmpty() && !hora.isEmpty() && !horasProf.isEmpty() && !actividad.isEmpty() && !grupo.isEmpty()
-				&& !sala.isEmpty() && prof1.isEmpty()) {
+				&& !sala.isEmpty() && !prof1.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(insertRegistro);
 				pstmt.setString(1, ultimoRegistro);
