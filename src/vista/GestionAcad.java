@@ -198,6 +198,11 @@ public class GestionAcad extends JFrame {
 		btnAI_actor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(dateChooserSEM1.getDate());
+				String[] fecha = dateChooserSEM1.getDate().toString().split(" ");
+				for (int i = 0; i < fecha.length; i++) {
+					System.out.println(fecha[i] + " " + i);
+
+				}
 			}
 
 		});
@@ -325,7 +330,16 @@ public class GestionAcad extends JFrame {
 	public void addAcad() {
 		DefaultTableModel model = (DefaultTableModel) tablaAcad.getModel();
 		Object sem21[] = modeloGestionDatos.getDatosfilasTabla();
-	
+		 String[] fecha1 = dateChooserSEM1.getDate().toString().split(" ");
+		 // Año test.add(fecha[5]);
+		 // Mes test.add(fecha[1]);
+		 // Dia test.add(fecha[2]);
+		 // cer test.add(fecha[3]);
+		 String[] sem1 = sem21[1].toString().split("/");
+		 fecha1[5] = sem1[2];
+		 fecha1[2] = sem1[0];
+		 fecha1[1] = sem1[0];
+		 
 		model.addRow(sem21);
 		limpiarDateChooser();
 	}
@@ -337,6 +351,52 @@ public class GestionAcad extends JFrame {
 	public void limpiarDateChooser() {
 		dateChooserSEM1.setDate(null);
 		dateChooserSEM2.setDate(null);
+	}
+
+	public String numeroMes(String mes) {
+		String numero = "";
+
+		switch (mes.toUpperCase()) {
+		case "JAN":
+			numero = "01";
+			break;
+		case "FEB":
+			numero = "02";
+			break;
+		case "MAR":
+			numero = "03";
+			break;
+		case "APR":
+			numero = "04";
+			break;
+		case "MAY":
+			numero = "05";
+			break;
+		case "JUN":
+			numero = "06";
+			break;
+		case "JUL":
+			numero = "07";
+			break;
+		case "AUG":
+			numero = "08";
+			break;
+		case "SEP":
+			numero = "09";
+			break;
+		case "OCT":
+			numero = "10";
+			break;
+		case "NOV":
+			numero = "11";
+			break;
+		case "DEC":
+			numero = "12";
+			break;
+
+		}
+
+		return numero;
 	}
 
 }
