@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
@@ -22,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
@@ -29,6 +31,7 @@ import com.toedter.calendar.JDateChooser;
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
+import oracle.sql.DATE;
 
 public class GestionRegistrosAddMod extends JFrame {
 
@@ -318,8 +321,7 @@ public class GestionRegistrosAddMod extends JFrame {
 	}
 
 	public String getTxtFecha() {
-		return String.valueOf(new SimpleDateFormat("MM-dd-yyyy").format(txtFecha.getDate())
-);
+		return String.valueOf(new SimpleDateFormat("MM-dd-yyyy").format(txtFecha.getDate()));
 	}
 
 	public String getTxtHorasProfesor() {
@@ -400,6 +402,21 @@ public class GestionRegistrosAddMod extends JFrame {
 	private void limpiarInfo() {
 		lblInfo.setText("");
 
+	}
+
+	public void addDatosModificar() {
+		String [] array = modeloConsultas.getDatosFilasRegistro();
+		SimpleDateFormat formato = new SimpleDateFormat("DD/MM/YYYY");
+		try {
+			txtFecha.setDate(formato.parse(array[0]));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		txtHora.setText(array[1]);
+		txtHorasProfesor.setText(array[2]);
+		txtActividad.setText(array[3]);
+		txtCodGrupo.setText(array[4]);
 	}
 	
 }

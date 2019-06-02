@@ -99,6 +99,7 @@ public class ModeloConsultas {
 	private ArrayList<String[][]> todosInformesConDatos;
 	private String codigoRegistroHome;
 	private String codigoRegistroAddMod;
+	private String[] datosFilasRegistro;
 
 	// Sentencia Select SQL LOGIN
 	private String selectPasswdUsuario;
@@ -479,6 +480,10 @@ public class ModeloConsultas {
 
 	public String getCodigoRegistroAddMod() {
 		return codigoRegistroAddMod;
+	}
+	
+	public String[] getDatosFilasRegistro() {
+		return datosFilasRegistro;
 	}
 
 	// INICIO METODOS BASE DATOS
@@ -1246,6 +1251,16 @@ public class ModeloConsultas {
 		} else {
 			controlador.crearRegistro();
 		}
+	}
+	
+	/**
+	 * Metodo que sirve para guardar los datos de una fila del registro
+	 * @param datosFila
+	 */
+	public void guardarDatosRegistro(String[] datosFila) {
+		datosFilasRegistro = datosFila;
+		gestionRegistrosAddMod.addDatosModificar();
+		
 	}
 
 }

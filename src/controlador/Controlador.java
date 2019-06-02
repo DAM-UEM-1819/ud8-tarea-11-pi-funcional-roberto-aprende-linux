@@ -466,6 +466,10 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 		modeloGestionDatos.crearRegistro(gestionRegistrosAddMod.getTxtFecha(), gestionRegistrosAddMod.getTxtHora(), gestionRegistrosAddMod.getTxtHorasProfesor(), gestionRegistrosAddMod.getTxtActividad(), gestionRegistrosAddMod.getTxtCodSala(),gestionRegistrosAddMod.getTxtCodSala(), gestionRegistrosAddMod.getTxtProfesor(),gestionRegistrosAddMod.getTxtProfesor2(), gestionRegistrosAddMod.getTxtActor1(), gestionRegistrosAddMod.getTxtActor2() );
 		
 	}
+	
+	public void guardarDatosRegistro() {
+		modeloConsultas.guardarDatosRegistro(gestionRegistros.datosFila());
+	}
 
 	// VENTANA GESTION REGISTROS ADD MOD
 	public void gestionRegistrosAddModToGestionRegistros() {
@@ -677,5 +681,7 @@ modeloGestionDatos.actualizarNotas(infoExtra.getModelAlumnos());
 		}
 
 	}
+
+
 	
 }
