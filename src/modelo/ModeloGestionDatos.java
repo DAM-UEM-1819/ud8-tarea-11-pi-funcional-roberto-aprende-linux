@@ -89,6 +89,7 @@ public class ModeloGestionDatos {
 	private String insertProfesor;
 	private String insertActor;
 	private String insertAcad;
+	private String insertActividad;
 	private String insertAsignatura;
 	private String insertRealiza;
 	private String insertActua;
@@ -107,22 +108,24 @@ public class ModeloGestionDatos {
 	private String deleteRealizaRegistro;
 	private String deleteOcupaRegistro;
 	private String deleteRegistro;
+	private String deleteActividad;
 
 	// Sentincias Update SQL
 	private String updateAlumno;
 	private String updateAsignatura;
+	private String updateActividad;
 	private String updateSala;
 	private String updateRegistro;
 	private String updateUsuario;
 	private String updateProfesor;
 	private String updateActor;
+	private String updateAcad;
 	private String updateNotaAlumno;
-	
+
 	// activo-inactivo
 	private String activoInactivoUpdateAlumno;
 	private String activoInactivoUpdateProfesor;
 	private String activoInactivoUpdateActor;
-
 
 	/**
 	 * Constructor que recoge los datos de las sentencias de insertado, borrado y
@@ -210,7 +213,7 @@ public class ModeloGestionDatos {
 	public void setGestionProfesoresAddMod(GestionProfesoresAddMod gestionProfesoresAddMod) {
 		this.gestionProfesoresAddMod = gestionProfesoresAddMod;
 	}
-	
+
 	public void setGestionRegistrosAddMod(GestionRegistrosAddMod gestionRegistrosAddMod) {
 		this.gestionRegistrosAddMod = gestionRegistrosAddMod;
 	}
@@ -230,7 +233,7 @@ public class ModeloGestionDatos {
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
-	
+
 	public void setInfoExtra(InformacionExtra infoExtra) {
 		this.infoExtra = infoExtra;
 	}
@@ -277,6 +280,7 @@ public class ModeloGestionDatos {
 		insertActor = propiedadesInsertado.getProperty("insertActor");
 		insertAcad = propiedadesInsertado.getProperty("insertAcad");
 		insertAsignatura = propiedadesInsertado.getProperty("insertAsignatura");
+		insertActividad = propiedadesInsertado.getProperty("insertActividad");
 		insertRealiza = propiedadesInsertado.getProperty("insertRealiza");
 		insertActua = propiedadesInsertado.getProperty("insertActua");
 		insertParticipa = propiedadesInsertado.getProperty("insertParticipa");
@@ -300,6 +304,8 @@ public class ModeloGestionDatos {
 		deleteRegistro = propiedadesBorrado.getProperty("deleteRegistro");
 		//
 		deleteAsignatura = propiedadesBorrado.getProperty("deleteAsignatura");
+		//
+		deleteActividad = propiedadesBorrado.getProperty("deleteActividad");
 	}
 
 	/**
@@ -308,16 +314,18 @@ public class ModeloGestionDatos {
 	private void asignacionModificacion() {
 		updateAlumno = propiedadesModificacion.getProperty("updateAlumno");
 		updateAsignatura = propiedadesModificacion.getProperty("updateAsignatura");
+		updateActividad = propiedadesModificacion.getProperty("updateActividad");
 		updateSala = propiedadesModificacion.getProperty("updateSala");
 		updateRegistro = propiedadesModificacion.getProperty("updateRegistro");
 		updateUsuario = propiedadesModificacion.getProperty("updateUsuario");
 		updateProfesor = propiedadesModificacion.getProperty("updateProfesor");
 		updateActor = propiedadesModificacion.getProperty("updateActor");
+		updateAcad = propiedadesModificacion.getProperty("updateAcad");
 		//
 		activoInactivoUpdateAlumno = propiedadesModificacion.getProperty("activoInactivoUpdateAlumno");
 		activoInactivoUpdateProfesor = propiedadesModificacion.getProperty("activoInactivoUpdateProfesor");
 		activoInactivoUpdateActor = propiedadesModificacion.getProperty("activoInactivoUpdateActor");
-		
+
 		updateNotaAlumno = propiedadesModificacion.getProperty("updateNotaAlumno");
 
 	}
@@ -325,12 +333,9 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear un usuario en la BBDD
 	 *
-	 * @param user
-	 *            El usuario a crear
-	 * @param passwd
-	 *            La contraseña del usuario
-	 * @param rol
-	 *            El rol del usuario
+	 * @param user   El usuario a crear
+	 * @param passwd La contraseña del usuario
+	 * @param rol    El rol del usuario
 	 * @return Un String con el estado del metodo (si se ha creado o no)
 	 */
 	public String crearUsuario(String user, String rol, String correo) {
@@ -345,7 +350,7 @@ public class ModeloGestionDatos {
 			ResultSet rs = pstmt.executeQuery();
 			modelo.enviarCorreoGmail(correo, user, passwd);
 			respuesta = "Usuario creado";
-		}catch (SQLIntegrityConstraintViolationException e) {
+		} catch (SQLIntegrityConstraintViolationException e) {
 			respuesta = "Error, el usuario ya existe";
 			crearUsuario.actualizarInfo();
 			e.printStackTrace();
@@ -357,6 +362,15 @@ public class ModeloGestionDatos {
 
 	}
 
+	/**
+	 * Método qe sirve para actualizar los datos de un usuario
+	 * 
+	 * @param user               El usuario
+	 * @param correo             El correo del usuario
+	 * @param passwdActual       La contraseña actual
+	 * @param passwdNueva        La nueva contraseña
+	 * @param passwdComprobacion La contraseña repetida
+	 */
 	public void actualizarUsuario(String user, String correo, String passwdActual, String passwdNueva,
 			String passwdComprobacion) {
 		passwdActual = modelo.generarMD5(passwdActual);
@@ -399,10 +413,8 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear un alumno en la BBDD
 	 *
-	 * @param exp
-	 *            El expediente del alumno
-	 * @param nombre
-	 *            El nombre del alumno
+	 * @param exp    El expediente del alumno
+	 * @param nombre El nombre del alumno
 	 */
 	public void crearAlumno(String exp, String nombre) {
 		if (!exp.isEmpty() && !nombre.isEmpty()) {
@@ -429,14 +441,10 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para crear una sala en la BBDD
 	 *
-	 * @param cod
-	 *            Codigo de la sala
-	 * @param tipo
-	 *            Tipo de sala
-	 * @param numero
-	 *            Numero de la sala
-	 * @param capacidad
-	 *            Capacidad de la sala
+	 * @param cod       Codigo de la sala
+	 * @param tipo      Tipo de sala
+	 * @param numero    Numero de la sala
+	 * @param capacidad Capacidad de la sala
 	 */
 	public void crearSala(String tipo, String numero, String capacidad) {
 		if (!tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
@@ -460,6 +468,107 @@ public class ModeloGestionDatos {
 			seHaCreado = false;
 			respuesta = "Error, sala ya creada";
 			gestionSalas.actualizarInfoDatos();
+		}
+
+	}
+	
+	/**
+	 * Método que sirve para crear una asignatura
+	 * @param codigoAsignatura	El código de la asignatura
+	 * @param nombre	El nombre de la asignatura
+	 * @param titulacion	La titulación de la asignatura
+	 * @param curso	El curso de la asignatura
+	 */
+
+	/**
+	 * 
+	 * @param acad
+	 * @param sem1
+	 * @param sem2
+	 */
+
+	public void crearAcad(String acad, String sem1, String sem2) {
+		if (!acad.isEmpty() && !sem1.isEmpty() && !sem2.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertAcad);
+				pstmt.setString(1, acad);
+				pstmt.setString(2, sem1);
+				pstmt.setString(3, sem2);
+				addDatos(pstmt);
+				datosFilastabla.removeAll(datosFilastabla);
+				datosFilastabla.add(acad);
+				datosFilastabla.add(sem1);
+				datosFilastabla.add(sem2);
+				seHaCreado = true;
+				respuesta = "Año académico creado";
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, año académico ya creado";
+		}
+		gestionAcad.actualizarInfo();
+
+	}
+	
+
+	/**
+	 * Metodo que ulizamos para crear una nueva actividad en nuestra base de datos
+	 * 
+	 * 
+	 * @param nombre
+	 * @param cod_asignatura
+	 * @param tipoActividad
+	 * @param tipo_sala
+	 * @param documentacion_tecnica
+	 * @param horasActividad
+	 * @param simulador
+	 * @param acad
+	 */
+
+	public void crearActividad(String nombre, String cod_asignatura, String tipoActividad, String tipo_sala,
+			String documentacion_tecnica, String horasActividad, String simulador, String acad) {
+
+		if (!nombre.isEmpty() && !cod_asignatura.isEmpty() && !tipoActividad.isEmpty() && !tipo_sala.isEmpty()
+				&& !documentacion_tecnica.isEmpty() && !horasActividad.isEmpty() && !simulador.isEmpty()
+				&& !acad.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertActividad);
+				pstmt.setString(1, nombre);
+				pstmt.setString(2, cod_asignatura);
+				pstmt.setString(3, tipoActividad);
+				pstmt.setString(4, documentacion_tecnica);
+				pstmt.setString(5, tipo_sala);
+				pstmt.setString(6, horasActividad);
+				pstmt.setString(7, simulador);
+				pstmt.setString(8, acad);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					datosFilastabla.removeAll(datosFilastabla);
+					datosFilastabla.add(nombre);
+					datosFilastabla.add(cod_asignatura);
+					datosFilastabla.add(tipoActividad);
+					datosFilastabla.add(tipo_sala);
+					datosFilastabla.add(documentacion_tecnica);
+					datosFilastabla.add(horasActividad);
+					datosFilastabla.add(simulador);
+					datosFilastabla.add(acad);
+					seHaCreado = true;
+					respuesta = "Actividad creada";
+					gestionActividad.actualizarInfoDatos();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, actividad ya creada";
+			gestionActividad.actualizarInfoDatos();
+
 		}
 
 	}
@@ -495,8 +604,7 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para ejecutar las sentencias
 	 *
-	 * @param pstmt
-	 *            La sentencia con los interrogantes puestos
+	 * @param pstmt La sentencia con los interrogantes puestos
 	 */
 	private void addDatos(PreparedStatement pstmt) {
 		try {
@@ -510,10 +618,8 @@ public class ModeloGestionDatos {
 	 * Metodo para borrar datos de una tabla en funcion de la tabla a la que se haga
 	 * referencia
 	 *
-	 * @param clave
-	 *            La clave de la fila a borrar
-	 * @param opcion
-	 *            El tipo de tabla al que se hace referencia
+	 * @param clave  La clave de la fila a borrar
+	 * @param opcion El tipo de tabla al que se hace referencia
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
 	public boolean opcionesBorrarDatos(String clave, String opcion) {
@@ -528,6 +634,7 @@ public class ModeloGestionDatos {
 			break;
 		case "C":
 			// sql = deleteActividad;
+			seHaBorrado = borrarDatos(deleteActividad);
 			break;
 		case "D":
 			// sql = deleteAsignatura;
@@ -581,7 +688,7 @@ public class ModeloGestionDatos {
 			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateProfesor);
 
 			break;
-			
+
 		case "H":
 			// sql = activoActor ;
 			seHaCambiadoEstado = ActivoDatos(activoInactivoUpdateActor);
@@ -596,8 +703,7 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para borrar los datos
 	 *
-	 * @param sql
-	 *            La sentencia de borrado
+	 * @param sql La sentencia de borrado
 	 * @return booleano indicando si la sentencia se ha realizado con exito
 	 */
 	private boolean borrarDatos(String sql) {
@@ -618,8 +724,7 @@ public class ModeloGestionDatos {
 	 *
 	 * Metodo que se utiliza para poner un dato activo o inactivo
 	 *
-	 * @param sql
-	 *            sentencia del update activo/inactivo
+	 * @param sql sentencia del update activo/inactivo
 	 * @return booleano que indica si la sentnecia se realiza con exito
 	 */
 
@@ -640,12 +745,9 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para modificar los datos de un alumno
 	 *
-	 * @param exp
-	 *            El expediente del alumno
-	 * @param nombre
-	 *            El nombre del alumno
-	 * @param activo
-	 *            El estado del alumno
+	 * @param exp    El expediente del alumno
+	 * @param nombre El nombre del alumno
+	 * @param activo El estado del alumno
 	 */
 	public void modificarAlumno(String exp, String nombre, int activo) {
 		String sql = updateAlumno;
@@ -670,14 +772,10 @@ public class ModeloGestionDatos {
 	/**
 	 * Metodo para modificar los datos de una sala
 	 *
-	 * @param cod
-	 *            Codigo de la sala
-	 * @param tipo
-	 *            El tipo de sala
-	 * @param numero
-	 *            El numero de la sala
-	 * @param capacidad
-	 *            La capacidad de la sala
+	 * @param cod       Codigo de la sala
+	 * @param tipo      El tipo de sala
+	 * @param numero    El numero de la sala
+	 * @param capacidad La capacidad de la sala
 	 */
 	public void modificarSala(String tipo, String numero, String capacidad) {
 		if (!tipo.isEmpty() && !numero.isEmpty() && !capacidad.isEmpty()) {
@@ -700,6 +798,14 @@ public class ModeloGestionDatos {
 		}
 	}
 
+	/**
+	 * Método que sirve para modificar un registro
+	 * @param cod_registro	El código del registro
+	 * @param fecha	La fehca del registro
+	 * @param hora	La hora del registro
+	 * @param horasProfesor	Las horas del profesor
+	 * @param actividadNombre	El nombre de la actividad
+	 */
 	public void modificarRegistro(String cod_registro, String fecha, String hora, String horasProfesor,
 			String actividadNombre) {
 		if (!cod_registro.isEmpty() && !fecha.isEmpty() && !hora.isEmpty() && !horasProfesor.isEmpty()
@@ -725,7 +831,22 @@ public class ModeloGestionDatos {
 		}
 
 	}
-
+	
+	/**
+	 * Metodo que sirve para modificar un profesor
+	 * @param numero	
+	 * @param nombre
+	 * @param Apellido1
+	 * @param Apellido2
+	 * @param titulacion
+	 * @param dni
+	 * @param AI_profesores
+	 * @param relacion_laboral
+	 * @param telefono1
+	 * @param telefono2
+	 * @param email1
+	 * @param email2
+	 */
 	public void modificarProfesor(String numero, String nombre, String Apellido1, String Apellido2, String titulacion,
 			String dni, String AI_profesores, String relacion_laboral, String telefono1, String telefono2,
 			String email1, String email2) {
@@ -757,8 +878,6 @@ public class ModeloGestionDatos {
 			gestionProfesoresAddMod.actualizarInfoDatos();
 		}
 	}
-	
-	
 
 	public ArrayList<String> rellenarCamposProfe(String numGP, String nombreProfeGP, String ape1gp, String ape2gp,
 			String titulacion, String dni, String activo, String relacion, String tlf1, String tlf2, String mail1,
@@ -829,7 +948,37 @@ public class ModeloGestionDatos {
 		}
 	}
 
+	public void modificarActividad(String nombre, String cod_asignatura, String tipoActividad, String tipo_sala,
+			String documentacion_tecnica, String horasActividad, String simulador, String acad) {
+		if (!nombre.isEmpty() && !cod_asignatura.isEmpty() && !tipoActividad.isEmpty() && !tipo_sala.isEmpty()
+				&& !documentacion_tecnica.isEmpty() && !horasActividad.isEmpty() && !simulador.isEmpty()
+				&& !acad.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateActividad);
+				pstmt.setString(1, tipoActividad);
+				pstmt.setString(2, tipo_sala);
+				pstmt.setString(3, documentacion_tecnica);
+				pstmt.setString(4, horasActividad);
+				pstmt.setString(5, simulador);
+				pstmt.setString(6, nombre);
+				pstmt.executeUpdate();
+				seHaCreado = true;
+				respuesta = "Actividad modificada";
+				gestionActividad.actualizarInfoDatos();
 
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, actividad ya creada";
+			gestionActividad.actualizarInfoDatos();
+
+		}
+
+	}
 
 	public void modificarAsignatura(String codigoAsignatura, String nombre, String titulacion, String curso) {
 		if (!codigoAsignatura.isEmpty() && !nombre.isEmpty() && !titulacion.isEmpty() && !curso.isEmpty()) {
@@ -881,7 +1030,7 @@ public class ModeloGestionDatos {
 				datosFilastabla.add(idioma);
 				datosFilastabla.add(complexion);
 				datosFilastabla.add(activo2);
-				
+
 				respuesta = "Actor creado";
 				seHaCreado = true;
 			} catch (Exception e) {
@@ -919,8 +1068,29 @@ public class ModeloGestionDatos {
 			respuesta = "Error, nombre vacio";
 		}
 		gestionAlumnos.actualizarInfo();
-		
-		
+
+
+	}
+	
+	public void modificarAcad(String acad, String sem1, String sem2) {
+		if (!acad.isEmpty() && !sem1.isEmpty() && !sem2.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(updateAcad);
+				pstmt.setString(1, sem1);
+				pstmt.setString(2, sem2);
+				pstmt.setString(3, acad);
+				pstmt.executeUpdate();
+				seHaCreado = true;
+				respuesta = "Año académico modificado";
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			seHaCreado = false;
+			respuesta = "Error, año académico ya creado";
+		}
+		gestionAcad.actualizarInfo();
 	}
 
 	public void actualizarNotas(DefaultTableModel tabla) {
@@ -928,7 +1098,7 @@ public class ModeloGestionDatos {
 		String exp = null;
 		String nota = null;
 		PreparedStatement pstmt;
-		
+
 		for (int i = 0; i < numFilas; i++) {
 			exp = String.valueOf(tabla.getValueAt(i, 0));
 			nota = String.valueOf(tabla.getValueAt(i, 2));
@@ -938,33 +1108,24 @@ public class ModeloGestionDatos {
 				pstmt.setString(2, exp);
 				pstmt.setString(3, modeloConsultas.getCodigoRegistroHome());
 				pstmt.executeUpdate();
-				
+
 				respuesta = "Notas guardadas correctamente";
 			} catch (SQLException e) {
 				respuesta = "Error, las notas no han sido guardadas correctamente";
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 		infoExtra.actualizarInfo();
-		
+
 	}
 
-	public void actualizarRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala, String prof1, String prof2, String actor1, String actor2) {
+	public void actualizarRegistro(String fecha, String hora, String horasProf, String actividad, String grupo,
+			String sala, String prof1, String prof2, String actor1, String actor2) {
 		String cod = modeloConsultas.getCodigoRegistroAddMod();
-		try {
-			PreparedStatement pstmt = conexion.prepareStatement(updateRegistro);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
-	public void crearRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala, String prof1, String prof2, String actor1, String actor2) {
-		String ultimoRegistro = modeloConsultas.ultimoCodRegistro();
-		if (!fecha.isEmpty() && !hora.isEmpty() && !horasProf.isEmpty() && !actividad.isEmpty() && !grupo.isEmpty() && !sala.isEmpty() && prof1.isEmpty()) {
+		if (!fecha.isEmpty() && !hora.isEmpty() && !horasProf.isEmpty() && !actividad.isEmpty() && !grupo.isEmpty()
+				&& !sala.isEmpty() && !prof1.isEmpty()) {
 			try {
 				PreparedStatement pstmt = conexion.prepareStatement(insertRegistro);
 				pstmt.setString(1, ultimoRegistro);
@@ -974,24 +1135,24 @@ public class ModeloGestionDatos {
 				pstmt.setString(5, actividad);
 				pstmt.setString(6, grupo);
 				ResultSet rs = pstmt.executeQuery();
-				
+
 				pstmt = conexion.prepareStatement(insertOcupa);
 				pstmt.setString(1, ultimoRegistro);
 				pstmt.setString(2, sala);
 				rs = pstmt.executeQuery();
-				
+
 				pstmt = conexion.prepareStatement(insertRealiza);
 				pstmt.setString(1, ultimoRegistro);
 				pstmt.setString(2, prof1);
 				rs = pstmt.executeQuery();
-				
+
 				if (!prof2.isEmpty()) {
 					pstmt = conexion.prepareStatement(insertRealiza);
 					pstmt.setString(1, ultimoRegistro);
 					pstmt.setString(2, prof2);
 					rs = pstmt.executeQuery();
 				}
-				
+
 				if (!actor1.isEmpty()) {
 					pstmt = conexion.prepareStatement(insertActua);
 					pstmt.setString(1, ultimoRegistro);
@@ -999,7 +1160,7 @@ public class ModeloGestionDatos {
 					pstmt.setString(3, horasProf);
 					rs = pstmt.executeQuery();
 				}
-				
+
 				if (!actor2.isEmpty()) {
 					pstmt = conexion.prepareStatement(insertActua);
 					pstmt.setString(1, ultimoRegistro);
@@ -1007,17 +1168,92 @@ public class ModeloGestionDatos {
 					pstmt.setString(3, horasProf);
 					rs = pstmt.executeQuery();
 				}
-				
+
+				respuesta = "Registro modificado";
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				respuesta = "Error, fallo al modificar el registro";
+				e.printStackTrace();
+			}
+		} else {
+			respuesta = "Error, por favor rellene los capos obligatorios";
+		}
+
+		gestionRegistrosAddMod.actualizarInfoDatos();
+
+	}
+	
+	/**
+	 * Metodo que sirve para crear un registro
+	 * @param fecha
+	 * @param hora
+	 * @param horasProf
+	 * @param actividad
+	 * @param grupo
+	 * @param sala
+	 * @param prof1
+	 * @param prof2
+	 * @param actor1
+	 * @param actor2
+	 */
+	public void crearRegistro(String fecha, String hora, String horasProf, String actividad, String grupo, String sala,
+			String prof1, String prof2, String actor1, String actor2) {
+		String ultimoRegistro = modeloConsultas.ultimoCodRegistro();
+		if (!fecha.isEmpty() && !hora.isEmpty() && !horasProf.isEmpty() && !actividad.isEmpty() && !grupo.isEmpty()
+				&& !sala.isEmpty() && !prof1.isEmpty()) {
+			try {
+				PreparedStatement pstmt = conexion.prepareStatement(insertRegistro);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, fecha);
+				pstmt.setString(3, hora);
+				pstmt.setString(4, horasProf);
+				pstmt.setString(5, actividad);
+				pstmt.setString(6, grupo);
+				ResultSet rs = pstmt.executeQuery();
+
+				pstmt = conexion.prepareStatement(insertOcupa);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, sala);
+				rs = pstmt.executeQuery();
+
+				pstmt = conexion.prepareStatement(insertRealiza);
+				pstmt.setString(1, ultimoRegistro);
+				pstmt.setString(2, prof1);
+				rs = pstmt.executeQuery();
+
+				if (!prof2.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertRealiza);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, prof2);
+					rs = pstmt.executeQuery();
+				}
+
+				if (!actor1.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertActua);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, actor1);
+					pstmt.setString(3, horasProf);
+					rs = pstmt.executeQuery();
+				}
+
+				if (!actor2.isEmpty()) {
+					pstmt = conexion.prepareStatement(insertActua);
+					pstmt.setString(1, ultimoRegistro);
+					pstmt.setString(2, actor2);
+					pstmt.setString(3, horasProf);
+					rs = pstmt.executeQuery();
+				}
+
 				respuesta = "Registro creado";
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				respuesta = "Error, fallo al crear el registro";
 				e.printStackTrace();
-			}		
+			}
 		} else {
 			respuesta = "Error, por favor rellene los capos obligatorios";
 		}
-		
+
 		gestionRegistrosAddMod.actualizarInfoDatos();
 	}
 

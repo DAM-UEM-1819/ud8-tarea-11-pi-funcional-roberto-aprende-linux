@@ -237,6 +237,7 @@ public class GestionRegistros extends JFrame {
 				controlador.guardarCodRegistro();
 				habilitarBotones();
 				setVisible(false);
+				controlador.guardarDatosRegistro();
 				controlador.gestionRegistrosToGestionRegistrosAddMod();
 			}
 		});
@@ -326,5 +327,16 @@ public class GestionRegistros extends JFrame {
 		tablaRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
 		tablaRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
 		tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(0);
+	}
+	
+	public String[] datosFila() {
+		String[] array = new String[5];
+		array[0] = String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 1));
+		array[1] = String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 2));
+		array[2] = String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 3));
+		array[3] = String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 4));
+		array[4] = String.valueOf(tablaRegistros.getValueAt(tablaRegistros.getSelectedRow(), 5));
+		return array;
+		
 	}
 }

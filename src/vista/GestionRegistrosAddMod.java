@@ -1,48 +1,37 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
 
 import controlador.Controlador;
 import modelo.ModeloConsultas;
 import modelo.ModeloGestionDatos;
-import com.toedter.calendar.JDayChooser;
-import com.toedter.components.JSpinField;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import java.util.Date;
-import java.util.Calendar;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import oracle.sql.DATE;
 
 public class GestionRegistrosAddMod extends JFrame {
 
@@ -332,7 +321,7 @@ public class GestionRegistrosAddMod extends JFrame {
 	}
 
 	public String getTxtFecha() {
-		return String.valueOf(txtFecha.getDate());
+		return String.valueOf(new SimpleDateFormat("MM-dd-yyyy").format(txtFecha.getDate()));
 	}
 
 	public String getTxtHorasProfesor() {
@@ -414,4 +403,20 @@ public class GestionRegistrosAddMod extends JFrame {
 		lblInfo.setText("");
 
 	}
+
+	public void addDatosModificar() {
+		String [] array = modeloConsultas.getDatosFilasRegistro();
+		SimpleDateFormat formato = new SimpleDateFormat("DD/MM/YYYY");
+		try {
+			txtFecha.setDate(formato.parse(array[0]));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		txtHora.setText(array[1]);
+		txtHorasProfesor.setText(array[2]);
+		txtActividad.setText(array[3]);
+		txtCodGrupo.setText(array[4]);
+	}
+	
 }
