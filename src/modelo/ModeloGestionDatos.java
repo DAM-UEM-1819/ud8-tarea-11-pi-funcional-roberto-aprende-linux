@@ -1121,7 +1121,7 @@ public class ModeloGestionDatos {
 
 	}
 
-	public void actualizarRegistro(String fecha, String hora, String horasProf, String actividad, String grupo,
+	/*public void actualizarRegistro(String fecha, String hora, String horasProf, String actividad, String grupo,
 			String sala, String prof1, String prof2, String actor1, String actor2) {
 		String cod = modeloConsultas.getCodigoRegistroAddMod();
 		if (!fecha.isEmpty() && !hora.isEmpty() && !horasProf.isEmpty() && !actividad.isEmpty() && !grupo.isEmpty()
@@ -1181,7 +1181,7 @@ public class ModeloGestionDatos {
 
 		gestionRegistrosAddMod.actualizarInfoDatos();
 
-	}
+	}*/
 	
 	/**
 	 * Metodo que sirve para crear un registro
